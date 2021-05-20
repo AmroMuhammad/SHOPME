@@ -1,0 +1,6 @@
+framework module Pods_Shopify_e_commerce_Shopify_e_commerceUITests {
+  umbrella header "Pods-Shopify e-commerce-Shopify e-commerceUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
