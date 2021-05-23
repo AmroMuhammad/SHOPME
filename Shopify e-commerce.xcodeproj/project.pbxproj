@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		2233A5199A5D5E90DBA5D3F0 /* Pods_Shopify_e_commerceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 241DCD4517229F4D795A6565 /* Pods_Shopify_e_commerceTests.framework */; };
 		34B6F34AD82B2CBC720E8731 /* Pods_Shopify_e_commerce.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2D64D5343D0B47711A1179C /* Pods_Shopify_e_commerce.framework */; };
+		C27423DB265AEA67002D304B /* shop.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27423DA265AEA67002D304B /* shop.storyboard */; };
+		C27423DD265AEA96002D304B /* category.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27423DC265AEA96002D304B /* category.storyboard */; };
+		C27423DF265AEAB5002D304B /* productDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27423DE265AEAB5002D304B /* productDetails.storyboard */; };
+		C27423E1265AED36002D304B /* meScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27423E0265AED36002D304B /* meScreen.storyboard */; };
 		C2A61CEA265633200047C648 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A61CE9265633200047C648 /* AppDelegate.swift */; };
 		C2A61CEC265633200047C648 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A61CEB265633200047C648 /* SceneDelegate.swift */; };
 		C2A61CEE265633200047C648 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A61CED265633200047C648 /* ViewController.swift */; };
@@ -51,6 +55,10 @@
 		75F3E3DF8890876E25237F1B /* Pods-Shopify e-commerce.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shopify e-commerce.debug.xcconfig"; path = "Target Support Files/Pods-Shopify e-commerce/Pods-Shopify e-commerce.debug.xcconfig"; sourceTree = "<group>"; };
 		A8112662291EF598DB424409 /* Pods-Shopify e-commerceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shopify e-commerceTests.release.xcconfig"; path = "Target Support Files/Pods-Shopify e-commerceTests/Pods-Shopify e-commerceTests.release.xcconfig"; sourceTree = "<group>"; };
 		B2D64D5343D0B47711A1179C /* Pods_Shopify_e_commerce.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shopify_e_commerce.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C27423DA265AEA67002D304B /* shop.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = shop.storyboard; sourceTree = "<group>"; };
+		C27423DC265AEA96002D304B /* category.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = category.storyboard; sourceTree = "<group>"; };
+		C27423DE265AEAB5002D304B /* productDetails.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = productDetails.storyboard; sourceTree = "<group>"; };
+		C27423E0265AED36002D304B /* meScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = meScreen.storyboard; sourceTree = "<group>"; };
 		C2A61CE6265633200047C648 /* Shopify e-commerce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shopify e-commerce.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2A61CE9265633200047C648 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2A61CEB265633200047C648 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -156,7 +164,6 @@
 				C2A61CE9265633200047C648 /* AppDelegate.swift */,
 				C2A61CEB265633200047C648 /* SceneDelegate.swift */,
 				C2A61CED265633200047C648 /* ViewController.swift */,
-				C2A61CEF265633200047C648 /* Main.storyboard */,
 				C2A61CF5265633220047C648 /* Assets.xcassets */,
 				C2A61CF7265633220047C648 /* LaunchScreen.storyboard */,
 				C2A61CFA265633220047C648 /* Info.plist */,
@@ -221,6 +228,11 @@
 		C2A61D28265638C90047C648 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				C2A61CEF265633200047C648 /* Main.storyboard */,
+				C27423DA265AEA67002D304B /* shop.storyboard */,
+				C27423DC265AEA96002D304B /* category.storyboard */,
+				C27423DE265AEAB5002D304B /* productDetails.storyboard */,
+				C27423E0265AED36002D304B /* meScreen.storyboard */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -348,6 +360,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C27423DD265AEA96002D304B /* category.storyboard in Resources */,
+				C27423DF265AEAB5002D304B /* productDetails.storyboard in Resources */,
+				C27423DB265AEA67002D304B /* shop.storyboard in Resources */,
+				C27423E1265AED36002D304B /* meScreen.storyboard in Resources */,
 				C2A61CF9265633220047C648 /* LaunchScreen.storyboard in Resources */,
 				C2A61CF6265633220047C648 /* Assets.xcassets in Resources */,
 				C2A61CF1265633200047C648 /* Main.storyboard in Resources */,
