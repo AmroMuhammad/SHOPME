@@ -12,9 +12,9 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        definesPresentationContext = true
         // Do any additional setup after loading the view.
+        present( UIStoryboard(name: "meScreen", bundle: nil).instantiateViewController(withIdentifier: "MeViewController") as UIViewController, animated: true, completion: nil)
     }
-
-
 }
 
