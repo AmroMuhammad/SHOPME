@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="k9c-XD-9RC">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="k9c-XD-9RC">
                                 <rect key="frame" x="0.0" y="88" width="414" height="40"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
@@ -39,18 +39,44 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Men" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NV2-Oe-0vL">
-                                <rect key="frame" x="186" y="469" width="34" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MenMen" textAlignment="natural" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NV2-Oe-0vL">
+                                <rect key="frame" x="186" y="469" width="67" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9jT-P1-IKo">
+                                <rect key="frame" x="0.0" y="128" width="130" height="734"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="130" id="XcW-3L-Tpw"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="XCx-UJ-blg">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="FZD-0d-N3U">
+                                        <rect key="frame" x="1" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ZQn-KW-eyh">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="Idk-Lh-PQM" firstAttribute="bottom" secondItem="9jT-P1-IKo" secondAttribute="bottom" id="AC0-Ne-SLr"/>
+                            <constraint firstItem="9jT-P1-IKo" firstAttribute="leading" secondItem="Idk-Lh-PQM" secondAttribute="leading" id="Ot9-Xs-Kd0"/>
                             <constraint firstItem="k9c-XD-9RC" firstAttribute="leading" secondItem="Idk-Lh-PQM" secondAttribute="leading" id="RhH-fo-AdJ"/>
                             <constraint firstItem="k9c-XD-9RC" firstAttribute="top" secondItem="Idk-Lh-PQM" secondAttribute="top" id="Wkc-PI-oJn"/>
+                            <constraint firstItem="9jT-P1-IKo" firstAttribute="top" secondItem="k9c-XD-9RC" secondAttribute="bottom" id="uou-ma-922"/>
                             <constraint firstItem="Idk-Lh-PQM" firstAttribute="trailing" secondItem="k9c-XD-9RC" secondAttribute="trailing" id="xPi-pf-Zqz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Idk-Lh-PQM"/>
@@ -58,6 +84,7 @@
                     <navigationItem key="navigationItem" title="Category" id="7dx-Tw-fWP"/>
                     <connections>
                         <outlet property="mainCategoryCollectionView" destination="k9c-XD-9RC" id="VUp-5R-DDv"/>
+                        <outlet property="subCategoryCollectionView" destination="9jT-P1-IKo" id="v6O-rM-Vr7"/>
                         <outlet property="testTExt" destination="NV2-Oe-0vL" id="PQW-Um-Uz7"/>
                     </connections>
                 </viewController>

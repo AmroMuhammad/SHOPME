@@ -10,5 +10,7 @@ import Foundation
 import RxSwift
 
 protocol CategoryViewModelContract:ViewModelType{
-    var dataObservable:Observable<[String]> {get}
+    var mainCatDataObservable:Observable<[String]> {get}
+    var subCatDataObservable:Observable<[String]> {get}
+
 }

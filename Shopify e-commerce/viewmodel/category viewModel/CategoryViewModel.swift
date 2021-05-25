@@ -10,25 +10,33 @@ import Foundation
 import RxSwift
 
 class CategoryViewModel : CategoryViewModelContract{
-    var dataObservable: Observable<[String]>
+    var mainCatDataObservable: Observable<[String]>
+    var subCatDataObservable: Observable<[String]>
+
     var errorObservable: Observable<Bool>
     var LoadingObservable: Observable<Bool>
     
 //    private var shopifyAPI:ShopifyAPI!
     private var data:[String]?
-    private var datasubject = PublishSubject<[String]>()
+    private var mainCatDatasubject = PublishSubject<[String]>()
+    private var subCatDatasubject = PublishSubject<[String]>()
+
     private var errorsubject = PublishSubject<Bool>()
     private var Loadingsubject = PublishSubject<Bool>()
     let mainCategories = ["Men","Women","Kids"]
+    let subCategories = ["Tshirt","Shoes","Accessories"]
+
     
     init() {
-        dataObservable = datasubject.asObservable()
+        mainCatDataObservable = mainCatDatasubject.asObservable()
+        subCatDataObservable = subCatDatasubject.asObservable()
         errorObservable = errorsubject.asObservable()
         LoadingObservable = Loadingsubject.asObservable()
     }
     
     func fetchData() {
-        datasubject.onNext(mainCategories)
+        mainCatDatasubject.onNext(mainCategories)
+        subCatDatasubject.onNext(subCategories)
     }
     
    
