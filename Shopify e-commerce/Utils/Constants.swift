@@ -26,7 +26,7 @@ struct Constants {
     
     
     // MARK: Marwa Section
-    
+      static let allWomenProduct = "collections/268359631046/products.json"
     //end
     
 }
