@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2233A5199A5D5E90DBA5D3F0 /* Pods_Shopify_e_commerceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 241DCD4517229F4D795A6565 /* Pods_Shopify_e_commerceTests.framework */; };
 		34B6F34AD82B2CBC720E8731 /* Pods_Shopify_e_commerce.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2D64D5343D0B47711A1179C /* Pods_Shopify_e_commerce.framework */; };
+		438DED8C265CCCCA002717CD /* shopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DED8B265CCCCA002717CD /* shopViewController.swift */; };
+		438DED8F265CCD26002717CD /* shopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DED8E265CCD26002717CD /* shopViewModel.swift */; };
 		C27423DB265AEA67002D304B /* shop.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27423DA265AEA67002D304B /* shop.storyboard */; };
 		C27423DD265AEA96002D304B /* category.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27423DC265AEA96002D304B /* category.storyboard */; };
 		C27423DF265AEAB5002D304B /* productDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27423DE265AEAB5002D304B /* productDetails.storyboard */; };
@@ -51,6 +53,8 @@
 /* Begin PBXFileReference section */
 		241DCD4517229F4D795A6565 /* Pods_Shopify_e_commerceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shopify_e_commerceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3457CB85F7732A62091C709A /* Pods-Shopify e-commerce.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shopify e-commerce.release.xcconfig"; path = "Target Support Files/Pods-Shopify e-commerce/Pods-Shopify e-commerce.release.xcconfig"; sourceTree = "<group>"; };
+		438DED8B265CCCCA002717CD /* shopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shopViewController.swift; sourceTree = "<group>"; };
+		438DED8E265CCD26002717CD /* shopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shopViewModel.swift; sourceTree = "<group>"; };
 		5C1C9C721B44EBE92F25D14D /* Pods-Shopify e-commerce-Shopify e-commerceUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shopify e-commerce-Shopify e-commerceUITests.debug.xcconfig"; path = "Target Support Files/Pods-Shopify e-commerce-Shopify e-commerceUITests/Pods-Shopify e-commerce-Shopify e-commerceUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		623902944C6B8846FCC3A3AB /* Pods-Shopify e-commerce-Shopify e-commerceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shopify e-commerce-Shopify e-commerceUITests.release.xcconfig"; path = "Target Support Files/Pods-Shopify e-commerce-Shopify e-commerceUITests/Pods-Shopify e-commerce-Shopify e-commerceUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6DFB7EEB377C4904666E17FA /* Pods_Shopify_e_commerce_Shopify_e_commerceUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shopify_e_commerce_Shopify_e_commerceUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,6 +117,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		438DED8D265CCCEE002717CD /* shop */ = {
+			isa = PBXGroup;
+			children = (
+				438DED8E265CCD26002717CD /* shopViewModel.swift */,
+			);
+			path = shop;
+			sourceTree = "<group>";
+		};
+		438DED90265CCDD5002717CD /* shop */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = shop;
+			sourceTree = "<group>";
+		};
 		A0282DE4DD4DECFA356EFE79 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				C27423DA265AEA67002D304B /* shop.storyboard */,
+				438DED8B265CCCCA002717CD /* shopViewController.swift */,
 			);
 			path = "shop screen";
 			sourceTree = "<group>";
@@ -259,6 +279,7 @@
 		C2A61D27265638C20047C648 /* viewmodel */ = {
 			isa = PBXGroup;
 			children = (
+				438DED8D265CCCEE002717CD /* shop */,
 			);
 			path = viewmodel;
 			sourceTree = "<group>";
@@ -285,6 +306,7 @@
 		C2A61D2A265638DF0047C648 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				438DED90265CCDD5002717CD /* shop */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -535,6 +557,8 @@
 				C2A61D20265637530047C648 /* TargetType.swift in Sources */,
 				C27423E7265AF11A002D304B /* ApplicationNetworking.swift in Sources */,
 				C2A61CEE265633200047C648 /* ViewController.swift in Sources */,
+				438DED8C265CCCCA002717CD /* shopViewController.swift in Sources */,
+				438DED8F265CCD26002717CD /* shopViewModel.swift in Sources */,
 				C2A61CEA265633200047C648 /* AppDelegate.swift in Sources */,
 				C2A61D252656378A0047C648 /* Utils.swift in Sources */,
 				C2A61D21265637530047C648 /* BaseAPI.swift in Sources */,
