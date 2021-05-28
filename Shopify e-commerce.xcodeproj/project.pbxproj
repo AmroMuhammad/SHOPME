@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2233A5199A5D5E90DBA5D3F0 /* Pods_Shopify_e_commerceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 241DCD4517229F4D795A6565 /* Pods_Shopify_e_commerceTests.framework */; };
 		34B6F34AD82B2CBC720E8731 /* Pods_Shopify_e_commerce.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2D64D5343D0B47711A1179C /* Pods_Shopify_e_commerce.framework */; };
+		436274B3265F959C00587488 /* collects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436274B2265F959C00587488 /* collects.swift */; };
 		438DED8C265CCCCA002717CD /* shopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DED8B265CCCCA002717CD /* shopViewController.swift */; };
 		438DED8F265CCD26002717CD /* shopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DED8E265CCD26002717CD /* shopViewModel.swift */; };
 		439BB315265E6990001F1A1D /* AllProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439BB314265E6990001F1A1D /* AllProduct.swift */; };
@@ -55,6 +56,7 @@
 /* Begin PBXFileReference section */
 		241DCD4517229F4D795A6565 /* Pods_Shopify_e_commerceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shopify_e_commerceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3457CB85F7732A62091C709A /* Pods-Shopify e-commerce.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shopify e-commerce.release.xcconfig"; path = "Target Support Files/Pods-Shopify e-commerce/Pods-Shopify e-commerce.release.xcconfig"; sourceTree = "<group>"; };
+		436274B2265F959C00587488 /* collects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = collects.swift; sourceTree = "<group>"; };
 		438DED8B265CCCCA002717CD /* shopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shopViewController.swift; sourceTree = "<group>"; };
 		438DED8E265CCD26002717CD /* shopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shopViewModel.swift; sourceTree = "<group>"; };
 		439BB314265E6990001F1A1D /* AllProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProduct.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				439BB314265E6990001F1A1D /* AllProduct.swift */,
+				436274B2265F959C00587488 /* collects.swift */,
 			);
 			path = shop;
 			sourceTree = "<group>";
@@ -565,6 +568,7 @@
 				C27423E7265AF11A002D304B /* ApplicationNetworking.swift in Sources */,
 				C2A61CEE265633200047C648 /* ViewController.swift in Sources */,
 				438DED8C265CCCCA002717CD /* shopViewController.swift in Sources */,
+				436274B3265F959C00587488 /* collects.swift in Sources */,
 				438DED8F265CCD26002717CD /* shopViewModel.swift in Sources */,
 				C2A61CEA265633200047C648 /* AppDelegate.swift in Sources */,
 				C2A61D252656378A0047C648 /* Utils.swift in Sources */,

@@ -10,7 +10,7 @@ import Foundation
 import RxCocoa
 import RxSwift
 protocol allProductProtocol {
-    func getAllWomanProductData(completion : @escaping (Result< AllProduct?, NSError > ) -> Void)
+    func getAllWomanProductData(completion : @escaping (Result<AllProduct?, NSError > ) -> Void)
 }
 protocol viewModelType {
     var dataDrive : Driver<[Product]> {get}

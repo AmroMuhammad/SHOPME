@@ -18,10 +18,23 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item123" id="a6A-ib-lXB"/>
+                    <connections>
+                        <segue destination="jfE-GV-rIB" kind="show" id="y7U-c8-r2o"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="23" y="-311"/>
+        </scene>
+        <!--shop-->
+        <scene sceneID="Vj4-KH-81J">
+            <objects>
+                <viewControllerPlaceholder storyboardName="shop" id="jfE-GV-rIB" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="pak-r6-6qR"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NXQ-3k-nLf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="669" y="-403"/>
         </scene>
     </scenes>
 </document>
