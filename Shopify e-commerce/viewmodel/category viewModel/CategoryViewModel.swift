@@ -12,16 +12,17 @@ import RxSwift
 class CategoryViewModel : CategoryViewModelContract{
     var mainCatDataObservable: Observable<[String]>
     var subCatDataObservable: Observable<[String]>
-    var productDataObservable: Observable<[String]>
+    var productDataObservable: Observable<[CategoryProduct]>
 
     var errorObservable: Observable<Bool>
     var LoadingObservable: Observable<Bool>
     
-//    private var shopifyAPI:ShopifyAPI!
-    private var data:[String]?
+    private var shopifyAPI:CategoryAPIContract!
+    private var data:[CategoryProduct]?
     private var mainCatDatasubject = PublishSubject<[String]>()
     private var subCatDatasubject = PublishSubject<[String]>()
-    private var productDatasubject = PublishSubject<[String]>()
+    private var productDatasubject = PublishSubject<[CategoryProduct]>()
+    
 
     
     private var errorsubject = PublishSubject<Bool>()
@@ -45,6 +46,8 @@ class CategoryViewModel : CategoryViewModelContract{
 
         errorObservable = errorsubject.asObservable()
         LoadingObservable = Loadingsubject.asObservable()
+        
+        shopifyAPI = ShopifyAPI.shared
     }
     
     func fetchData() {
@@ -52,31 +55,21 @@ class CategoryViewModel : CategoryViewModelContract{
         subCatDatasubject.onNext(Constants.subCategories)
     }
     
-    func fetchCetainData(mainCat:String,subCat:String){
+    func fetchCatProducts(mainCat:String,subCat:String){
+        Loadingsubject.onNext(true)
         print(mainCat + " " + subCat)
-        if(mainCat == Constants.mainCategories[0]){
-            if(subCat == Constants.subCategories[0]){
-                productDatasubject.onNext(menTshirt)
-            }else if(subCat == Constants.subCategories[1]){
-                productDatasubject.onNext(menShoes)
-            }else{
-                productDatasubject.onNext(menAcc)
-            }
-        }else if(mainCat == Constants.mainCategories[1]){
-            if(subCat == Constants.subCategories[0]){
-                productDatasubject.onNext(womenTshirt)
-            }else if(subCat == Constants.subCategories[1]){
-                productDatasubject.onNext(womenShoes)
-            }else{
-                productDatasubject.onNext(womenAcc)
-            }
-        }else{
-            if(subCat == Constants.subCategories[0]){
-                productDatasubject.onNext(kidTshirt)
-            }else if(subCat == Constants.subCategories[1]){
-                productDatasubject.onNext(kidShoes)
-            }else{
-                productDatasubject.onNext(kidAcc)
+        shopifyAPI.getCategoryProducts(catType: mainCat) {[weak self] (result) in
+            switch result{
+            case .success(let cat):
+                self?.data = cat?.products
+                let filteredData = self?.data?.filter({(catItem) -> Bool in
+                    catItem.productType.capitalized == subCat.capitalized
+                })
+                self?.productDatasubject.onNext(filteredData ?? [])
+                self?.Loadingsubject.onNext(false)
+            case .failure(let error):
+                self?.Loadingsubject.onNext(false)
+                self?.errorsubject.onError(error)
             }
         }
     }
