@@ -62,8 +62,8 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="3" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8Mc-DP-z8u">
-                                <rect key="frame" x="133" y="131" width="281" height="731"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="3" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8Mc-DP-z8u">
+                                <rect key="frame" x="133" y="131" width="276" height="731"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BPr-wa-bnw">
                                     <size key="itemSize" width="128" height="128"/>
@@ -91,7 +91,7 @@
                             <constraint firstItem="Idk-Lh-PQM" firstAttribute="bottom" secondItem="8Mc-DP-z8u" secondAttribute="bottom" id="OxX-d5-hcc"/>
                             <constraint firstItem="k9c-XD-9RC" firstAttribute="leading" secondItem="Idk-Lh-PQM" secondAttribute="leading" id="RhH-fo-AdJ"/>
                             <constraint firstItem="k9c-XD-9RC" firstAttribute="top" secondItem="Idk-Lh-PQM" secondAttribute="top" id="Wkc-PI-oJn"/>
-                            <constraint firstItem="8Mc-DP-z8u" firstAttribute="trailing" secondItem="Idk-Lh-PQM" secondAttribute="trailing" id="ZRY-J9-f0A"/>
+                            <constraint firstItem="8Mc-DP-z8u" firstAttribute="trailing" secondItem="Idk-Lh-PQM" secondAttribute="trailing" constant="-5" id="ZRY-J9-f0A"/>
                             <constraint firstItem="8Mc-DP-z8u" firstAttribute="leading" secondItem="9jT-P1-IKo" secondAttribute="trailing" constant="3" id="n0S-dz-Uiq"/>
                             <constraint firstItem="9jT-P1-IKo" firstAttribute="top" secondItem="k9c-XD-9RC" secondAttribute="bottom" id="uou-ma-922"/>
                             <constraint firstItem="Idk-Lh-PQM" firstAttribute="trailing" secondItem="k9c-XD-9RC" secondAttribute="trailing" id="xPi-pf-Zqz"/>
