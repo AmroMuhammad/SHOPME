@@ -39,3 +39,21 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
 //        completion(result)
 //    }
 //}
+
+extension ShopifyAPI : CategoryAPIContract{
+    func getCategoryProducts(catType: String, completion: @escaping (Result<ProductModel?, NSError>) -> Void) {
+        var targetType:ApplicationNetworking = .getMenCategoryProducts
+        if(catType == Constants.mainCategories[0]){  //men
+            targetType = .getMenCategoryProducts
+        }else if(catType == Constants.mainCategories[1]){
+            targetType = .getWomenCategoryProducts
+        }else{
+            targetType = .getKidsCategoryProducts
+        }
+        
+        self.fetchData(target: targetType, responseClass: ProductModel.self) { (result) in
+            completion(result)
+        }
+        
+    }
+}

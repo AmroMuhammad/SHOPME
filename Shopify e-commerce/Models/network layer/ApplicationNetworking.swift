@@ -15,7 +15,10 @@ enum ApplicationNetworking{
     //end
     
     // MARK: Amr Section
-    
+    case getMenCategoryProducts
+    case getWomenCategoryProducts
+    case getKidsCategoryProducts
+
     //end
     
     
@@ -44,7 +47,12 @@ extension ApplicationNetworking : TargetType{
             //end
             
             // MARK: Amr Section
-            
+            case .getMenCategoryProducts:
+                return Constants.menCatPath
+            case .getWomenCategoryProducts:
+                return Constants.womenCatPath
+            case .getKidsCategoryProducts:
+                return Constants.kidCatPath
             //end
             
             
@@ -67,8 +75,12 @@ extension ApplicationNetworking : TargetType{
             //end
             
             // MARK: Amr Section
-            
-            
+            case .getMenCategoryProducts:
+                return .get
+            case .getWomenCategoryProducts:
+                return .get
+            case .getKidsCategoryProducts:
+                return .get
             //end
             
             
@@ -80,6 +92,7 @@ extension ApplicationNetworking : TargetType{
             // MARK: Marwa Section
             
             //end
+        
         }
     }
     
@@ -90,7 +103,12 @@ extension ApplicationNetworking : TargetType{
             //end
             
             // MARK: Amr Section
-            
+            case .getMenCategoryProducts:
+                return .requestPlain
+            case .getWomenCategoryProducts:
+                return .requestPlain
+            case .getKidsCategoryProducts:
+                return .requestPlain
             
             //end
             
@@ -109,7 +127,7 @@ extension ApplicationNetworking : TargetType{
     var headers: [String : String]? {
         switch self{
         default:
-            return [:]
+            return ["X-Shopify-Access-Token":"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"]
         }
     }
 }

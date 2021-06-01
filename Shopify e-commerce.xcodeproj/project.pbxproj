@@ -11,6 +11,8 @@
 		34B6F34AD82B2CBC720E8731 /* Pods_Shopify_e_commerce.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2D64D5343D0B47711A1179C /* Pods_Shopify_e_commerce.framework */; };
 		C20420EB265DB20600F4A70B /* ProductsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20420E9265DB20600F4A70B /* ProductsCollectionViewCell.swift */; };
 		C20420EC265DB20600F4A70B /* ProductsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20420EA265DB20600F4A70B /* ProductsCollectionViewCell.xib */; };
+		C26E7C29266625EE000CB417 /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26E7C28266625EE000CB417 /* ProductModel.swift */; };
+		C26E7C2B26662FB2000CB417 /* CategoryAPIContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26E7C2A26662FB2000CB417 /* CategoryAPIContract.swift */; };
 		C27423DB265AEA67002D304B /* shop.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27423DA265AEA67002D304B /* shop.storyboard */; };
 		C27423DD265AEA96002D304B /* category.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27423DC265AEA96002D304B /* category.storyboard */; };
 		C27423DF265AEAB5002D304B /* productDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27423DE265AEAB5002D304B /* productDetails.storyboard */; };
@@ -69,6 +71,8 @@
 		B2D64D5343D0B47711A1179C /* Pods_Shopify_e_commerce.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shopify_e_commerce.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C20420E9265DB20600F4A70B /* ProductsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsCollectionViewCell.swift; sourceTree = "<group>"; };
 		C20420EA265DB20600F4A70B /* ProductsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductsCollectionViewCell.xib; sourceTree = "<group>"; };
+		C26E7C28266625EE000CB417 /* ProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductModel.swift; path = "Shopify e-commerce/views/category screen/ProductModel.swift"; sourceTree = SOURCE_ROOT; };
+		C26E7C2A26662FB2000CB417 /* CategoryAPIContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAPIContract.swift; sourceTree = "<group>"; };
 		C27423DA265AEA67002D304B /* shop.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = shop.storyboard; sourceTree = "<group>"; };
 		C27423DC265AEA96002D304B /* category.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = category.storyboard; sourceTree = "<group>"; };
 		C27423DE265AEAB5002D304B /* productDetails.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = productDetails.storyboard; sourceTree = "<group>"; };
@@ -338,6 +342,7 @@
 		C2A61D2A265638DF0047C648 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				C26E7C28266625EE000CB417 /* ProductModel.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -355,6 +360,7 @@
 			children = (
 				C2E83A53265CE24500A2CD95 /* BaseViewModel.swift */,
 				C2E83A55265CE28900A2CD95 /* categoryViewModelContract.swift */,
+				C26E7C2A26662FB2000CB417 /* CategoryAPIContract.swift */,
 			);
 			path = Contracts;
 			sourceTree = "<group>";
@@ -618,8 +624,10 @@
 				C2A61CEC265633200047C648 /* SceneDelegate.swift in Sources */,
 				C27423E9265AF4FE002D304B /* ShopifyAPI.swift in Sources */,
 				C2E83A51265CE1A000A2CD95 /* CategoryViewModel.swift in Sources */,
+				C26E7C29266625EE000CB417 /* ProductModel.swift in Sources */,
 				C20420EB265DB20600F4A70B /* ProductsCollectionViewCell.swift in Sources */,
 				C2A61CF4265633200047C648 /* Shopify_e_commerce.xcdatamodeld in Sources */,
+				C26E7C2B26662FB2000CB417 /* CategoryAPIContract.swift in Sources */,
 				C2E83A48265C37E900A2CD95 /* CategoryViewController.swift in Sources */,
 				C2A61D262656378A0047C648 /* Constants.swift in Sources */,
 			);
