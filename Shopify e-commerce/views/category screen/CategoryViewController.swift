@@ -11,15 +11,14 @@ import RxSwift
 import RxCocoa
 
 class CategoryViewController: UIViewController {
-    let mainCategories = ["Men","Women","Kids"]
     @IBOutlet private weak var mainCategoryCollectionView: UICollectionView!
     @IBOutlet weak var subCategoryCollectionView: UICollectionView!
     @IBOutlet weak var productsCollectionView: UICollectionView!
     
     private var categoryViewModel:CategoryViewModel!
     private var disposeBag:DisposeBag!
-    private var mainCat:String = "Men"
-    private var subCat:String = "tshirt"
+    private var mainCat:String = Constants.mainCategories[0]
+    private var subCat:String = Constants.subCategories[0]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +59,7 @@ class CategoryViewController: UIViewController {
             self?.subCategoryCollectionView.selectItem(at: selectedIndexPath, animated: true, scrollPosition: .top)
         }.disposed(by: disposeBag)
         
-        categoryViewModel.productDataObservable.bind(to: productsCollectionView.rx.items(cellIdentifier: Constants.productNibCell)){ [weak self] row,item,cell in
+        categoryViewModel.productDataObservable.bind(to: productsCollectionView.rx.items(cellIdentifier: Constants.productNibCell)){row,item,cell in
            let castedCell = cell as! ProductsCollectionViewCell
             castedCell.productNameLabel.text = item
         }.disposed(by: disposeBag)
@@ -69,7 +68,7 @@ class CategoryViewController: UIViewController {
         mainCategoryCollectionView.rx.modelSelected(String.self).subscribe(onNext: {[weak self] (value) in
             self?.subCategoryCollectionView.selectItem(at: selectedIndexPath, animated: true, scrollPosition: .top)
             self?.mainCat = value
-            self?.subCat = "Tshirt"
+            self?.subCat = Constants.subCategories[0]
             self?.categoryViewModel.fetchCetainData(mainCat: self!.mainCat, subCat: self!.subCat)
         }).disposed(by: disposeBag)
         
@@ -79,11 +78,11 @@ class CategoryViewController: UIViewController {
             self?.categoryViewModel.fetchCetainData(mainCat: self!.mainCat, subCat: self!.subCat)
         }).disposed(by: disposeBag)
 
-        productsCollectionView.rx.itemSelected.subscribe(onNext: {[weak self] (indexpath) in
+        productsCollectionView.rx.itemSelected.subscribe(onNext: {(indexpath) in
         }).disposed(by: disposeBag)
 
         categoryViewModel.fetchData()
-        categoryViewModel.fetchCetainData(mainCat: "Men", subCat: "Tshirt")
+        categoryViewModel.fetchCetainData(mainCat: mainCat, subCat: subCat)
     }
     
 }

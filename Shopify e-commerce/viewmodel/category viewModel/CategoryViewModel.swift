@@ -26,8 +26,6 @@ class CategoryViewModel : CategoryViewModelContract{
     
     private var errorsubject = PublishSubject<Bool>()
     private var Loadingsubject = PublishSubject<Bool>()
-    let mainCategories = ["Men","Women","Kids"]
-    let subCategories = ["Tshirt","Shoes","Accessories"]
     let menTshirt = ["1","2","3"]
     let menShoes = ["4","5","6"]
     let menAcc = ["7","8","9"]
@@ -50,32 +48,32 @@ class CategoryViewModel : CategoryViewModelContract{
     }
     
     func fetchData() {
-        mainCatDatasubject.onNext(mainCategories)
-        subCatDatasubject.onNext(subCategories)
+        mainCatDatasubject.onNext(Constants.mainCategories)
+        subCatDatasubject.onNext(Constants.subCategories)
     }
     
     func fetchCetainData(mainCat:String,subCat:String){
         print(mainCat + " " + subCat)
-        if(mainCat == "Men"){
-            if(subCat == "Tshirt"){
+        if(mainCat == Constants.mainCategories[0]){
+            if(subCat == Constants.subCategories[0]){
                 productDatasubject.onNext(menTshirt)
-            }else if(subCat == "Shoes"){
+            }else if(subCat == Constants.subCategories[1]){
                 productDatasubject.onNext(menShoes)
             }else{
                 productDatasubject.onNext(menAcc)
             }
-        }else if(mainCat == "Women"){
-            if(subCat == "Tshirt"){
+        }else if(mainCat == Constants.mainCategories[1]){
+            if(subCat == Constants.subCategories[0]){
                 productDatasubject.onNext(womenTshirt)
-            }else if(subCat == "Shoes"){
+            }else if(subCat == Constants.subCategories[1]){
                 productDatasubject.onNext(womenShoes)
             }else{
                 productDatasubject.onNext(womenAcc)
             }
         }else{
-            if(subCat == "Tshirt"){
+            if(subCat == Constants.subCategories[0]){
                 productDatasubject.onNext(kidTshirt)
-            }else if(subCat == "Shoes"){
+            }else if(subCat == Constants.subCategories[1]){
                 productDatasubject.onNext(kidShoes)
             }else{
                 productDatasubject.onNext(kidAcc)

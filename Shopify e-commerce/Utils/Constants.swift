@@ -19,6 +19,8 @@ struct Constants {
         static let mainCatNibCelln = "MainCategoryCollectionViewCell"
     static let subCatNibCell = "SubCategoryCollectionViewCell"
     static let productNibCell = "ProductsCollectionViewCell"
+    static let mainCategories = ["Men","Women","Kids"]
+    static let subCategories = ["Tshirt","Shoes","Accessories"]
 
     //end
     
