@@ -18,13 +18,26 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
     //end
     
     // MARK: Amr Section
-        
-
+    
+    
     //end
     
     
     // MARK: Ayman Section
-    
+    func getCustomers(completion: @escaping (Result<Customer?,NSError>) -> Void) {
+            self.fetchData(target: .customers, responseClass: Customer.self) { (results) in
+                
+                completion(results)
+            }
+            
+        }
+//    func getCustomers(completion: @escaping (Result<Customer?,NSError>) -> Void) {
+//        self.fetchData(target: .customers, responseClass: Customer.self) { (results) in
+//
+//            completion(results)
+//        }
+//
+//    }
     //end
     
     

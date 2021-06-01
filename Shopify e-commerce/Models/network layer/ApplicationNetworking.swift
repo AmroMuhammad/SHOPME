@@ -20,6 +20,8 @@ enum ApplicationNetworking{
     
     
     // MARK: Ayman Section
+    case customers
+    case newCustomer
     
     //end
     
@@ -49,6 +51,11 @@ extension ApplicationNetworking : TargetType{
             
             
             // MARK: Ayman Section
+        case .customers:
+            return Constants.customersURL
+            
+        case .newCustomer:
+            return Constants.newCustomer
             
             //end
             
@@ -57,6 +64,7 @@ extension ApplicationNetworking : TargetType{
             
             //end
             
+
         }
     }
     
@@ -73,13 +81,21 @@ extension ApplicationNetworking : TargetType{
             
             
             // MARK: Ayman Section
+        case .customers:
+            return .get
             
+        case .newCustomer:
+            return .put
+            
+        
             //end
             
             
             // MARK: Marwa Section
             
             //end
+
+
         }
     }
     
@@ -96,7 +112,12 @@ extension ApplicationNetworking : TargetType{
             
             
             // MARK: Ayman Section
+        case .customers:
+            return .requestPlain
             
+            
+        case .newCustomer:
+            return .requestPlain
             //end
             
             
@@ -107,11 +128,12 @@ extension ApplicationNetworking : TargetType{
     }
     
     var headers: [String : String]? {
-        switch self{
-        default:
-            return [:]
+            switch self{
+            default:
+                return ["X-Shopify-Access-Token":"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"]
+            }
         }
-    }
 }
+
 
 
