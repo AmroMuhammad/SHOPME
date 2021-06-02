@@ -98,7 +98,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Idk-Lh-PQM"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Category" id="7dx-Tw-fWP"/>
+                    <navigationItem key="navigationItem" title="Category" id="7dx-Tw-fWP">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="txa-1z-q1Y">
+                            <connections>
+                                <action selector="searchButtonClicked:" destination="90V-fO-bYd" id="Gom-Cy-4jD"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="mainCategoryCollectionView" destination="k9c-XD-9RC" id="VUp-5R-DDv"/>
                         <outlet property="productsCollectionView" destination="8Mc-DP-z8u" id="NrZ-Be-H13"/>
@@ -108,6 +114,64 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Nt-RK-XF6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1044.9275362318842" y="85.714285714285708"/>
+        </scene>
+        <!--Search Product View Controller-->
+        <scene sceneID="Wp2-QA-SeT">
+            <objects>
+                <viewController storyboardIdentifier="SearchProductViewController" id="VjQ-ZP-W0S" customClass="SearchProductViewController" customModule="Shopify_e_commerce" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Omq-0E-lS7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sKx-MK-g1U">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <items>
+                                    <barButtonItem title="Item" id="zqr-UQ-BF0"/>
+                                </items>
+                            </toolbar>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="u7p-0K-dIo">
+                                <rect key="frame" x="5" y="44" width="404" height="681"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ELm-hu-Fym">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="dNV-V2-hXe">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="0Qh-Xw-khi">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="u7p-0K-dIo" firstAttribute="leading" secondItem="vgM-KA-amL" secondAttribute="leading" constant="5" id="EHe-GV-dE2"/>
+                            <constraint firstItem="vgM-KA-amL" firstAttribute="bottom" secondItem="u7p-0K-dIo" secondAttribute="bottom" id="Gu9-hN-6th"/>
+                            <constraint firstItem="sKx-MK-g1U" firstAttribute="trailing" secondItem="vgM-KA-amL" secondAttribute="trailing" id="KB9-v6-YA8"/>
+                            <constraint firstItem="sKx-MK-g1U" firstAttribute="leading" secondItem="vgM-KA-amL" secondAttribute="leading" id="RTs-PZ-H5C"/>
+                            <constraint firstItem="u7p-0K-dIo" firstAttribute="top" secondItem="sKx-MK-g1U" secondAttribute="bottom" id="TOD-gI-W2C"/>
+                            <constraint firstItem="sKx-MK-g1U" firstAttribute="top" secondItem="vgM-KA-amL" secondAttribute="top" id="hew-k5-pXM"/>
+                            <constraint firstItem="vgM-KA-amL" firstAttribute="trailing" secondItem="u7p-0K-dIo" secondAttribute="trailing" constant="5" id="tXs-Zw-tC2"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="vgM-KA-amL"/>
+                    </view>
+                    <toolbarItems/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="searchCollectionVIew" destination="u7p-0K-dIo" id="QH2-eT-OrR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WHy-YG-dAt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1930" y="86"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5gG-Ly-P4S">

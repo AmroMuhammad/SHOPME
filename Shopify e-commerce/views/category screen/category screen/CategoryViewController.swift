@@ -77,7 +77,6 @@ class CategoryViewController: UIViewController {
         
         subCategoryCollectionView.rx.modelSelected(String.self).subscribe(onNext: {[weak self] (value) in
             self?.subCat = value
-            print(self?.subCat)
             self?.categoryViewModel.fetchCatProducts(mainCat: self!.mainCat, subCat: self!.subCat)
         }).disposed(by: disposeBag)
 
@@ -103,6 +102,15 @@ class CategoryViewController: UIViewController {
         categoryViewModel.fetchCatProducts(mainCat: mainCat, subCat: subCat)
     }
     
+    @IBAction func searchButtonClicked(_ sender: Any) {
+        let searchViewController = storyboard?.instantiateViewController(identifier: Constants.searchViewController) as! SearchProductViewController
+        searchViewController.productList = categoryViewModel.data
+        navigationController?.pushViewController(searchViewController, animated: true)
+    }
+    
+    func navigateToSearchViewModel(productList:[CategoryProduct]){
+        
+    }
 }
 
 

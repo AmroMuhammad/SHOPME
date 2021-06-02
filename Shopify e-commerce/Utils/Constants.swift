@@ -24,6 +24,7 @@ struct Constants {
     static let menCatPath = "collections/268359598278/products.json"
     static let womenCatPath = "collections/268359631046/products.json"
     static let kidCatPath = "collections/268359663814/products.json"
+    static let searchViewController = "SearchProductViewController"
 
 
     //end
