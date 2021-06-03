@@ -12,6 +12,7 @@ struct Constants {
     // MARK: Ahmed Section
     
     static let prductDetails = "products/"
+    static let endPath = ".json"
     
     //end
     

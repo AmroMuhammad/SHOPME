@@ -10,6 +10,18 @@ import UIKit
 
 class ProductDetailsTableViewController: UITableViewController {
 
+    var proDetObs: Product? {
+        didSet{
+            print("\n\nprpObs START\n\n")
+            print((oldValue?.id ?? 70707) as Int)
+            print("VC => id => \(proDetObs?.id ?? 707)")
+            print("\n\nprpObs END\n\n")
+        }
+    }
+    
+    var viewModel: ProductDetailsViewModel!
+    
+    var productId: String!
     
     @IBOutlet weak var sliderCollectionView: UICollectionView!
     
@@ -37,6 +49,10 @@ class ProductDetailsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        productId = "6687367364806"
+        viewModel = ProductDetailsViewModel(cont: self)
+        viewModel.getProductDetails(id: productId)
+        
         
 //        navigationController?.title = "Bean Bag"
         
