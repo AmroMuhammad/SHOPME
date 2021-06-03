@@ -11,6 +11,8 @@ import Foundation
 struct Constants {
     // MARK: Ahmed Section
     
+    static let prductDetails = "products/"
+    
     //end
     
     // MARK: Amr Section
