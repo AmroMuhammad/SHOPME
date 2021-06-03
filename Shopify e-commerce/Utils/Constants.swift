@@ -26,6 +26,8 @@ struct Constants {
     static let kidCatPath = "collections/268359663814/products.json"
     static let searchViewController = "SearchProductViewController"
     static let allProductsPath = "products.json"
+    static let sortList = ["Price: High to low","Price: Low to High"]
+    static let filterList = ["T-Shirts","Shoes","Accessories"]
 
 
     //end

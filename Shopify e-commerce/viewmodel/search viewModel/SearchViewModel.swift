@@ -23,6 +23,7 @@ class SearchViewModel : SearchViewModelContract{
     private var errorsubject = PublishSubject<Bool>()
     private var Loadingsubject = PublishSubject<Bool>()
     private var data:[Product]!
+    private var filteredData:[Product]!
 
  
     init() {
@@ -30,15 +31,20 @@ class SearchViewModel : SearchViewModelContract{
         dataObservable = datasubject.asObservable()
         errorObservable = errorsubject.asObservable()
         LoadingObservable = Loadingsubject.asObservable()
+        filteredData = data
         
         searchValueObservable.subscribe(onNext: {[weak self] (value) in
         print("value is \(value)")
-        let filteredData = self?.data?.filter({ (product) -> Bool in
+            self?.filteredData = self?.data?.filter({ (product) -> Bool in
 //          product.title.lowercased().prefix(value.count) == value.lowercased()
             product.title.lowercased().contains(value.lowercased())
         })
-            
-        self?.datasubject.onNext(filteredData ?? [])
+        if(self?.filteredData != nil){
+            if(self!.filteredData!.isEmpty){
+                self?.filteredData = self?.data
+            }
+        }
+        self?.datasubject.onNext(self?.filteredData ?? [])
         }).disposed(by: disposeBag)
     }
     
@@ -48,6 +54,7 @@ class SearchViewModel : SearchViewModelContract{
             switch result{
             case .success(let products):
                 self?.data = products?.products
+                self?.filteredData = self?.data
                 self?.datasubject.onNext(products?.products ?? [])
                 self?.Loadingsubject.onNext(false)
             case .failure(let error):
@@ -57,4 +64,24 @@ class SearchViewModel : SearchViewModelContract{
         }
     }
     
+    func sortData(index:Int){
+        switch index {
+        case 0:
+            filteredData = data.sorted { (product1, product2) -> Bool in
+                Double(product1.variants[0].price)! > Double(product2.variants[0].price)!
+            }
+        default:
+            filteredData = data.sorted { (product1, product2) -> Bool in
+                Double(product1.variants[0].price)! < Double(product2.variants[0].price)!
+            }
+        }
+        datasubject.onNext(filteredData ?? data)
+    }
+    
+    func filterData(word:String){
+        filteredData = data.filter({ (product) -> Bool in
+            product.productType.rawValue.lowercased() == word.lowercased()
+            })
+        datasubject.onNext(filteredData)
+    }
 }

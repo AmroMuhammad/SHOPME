@@ -9,6 +9,7 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import DropDown
 
 class SearchProductViewController: UIViewController {
     
@@ -17,7 +18,13 @@ class SearchProductViewController: UIViewController {
     
     private var searchBar:UISearchBar!
     @IBOutlet private weak var searchCollectionVIew: UICollectionView!
+    @IBOutlet private weak var sortButton: UIBarButtonItem!
+    @IBOutlet private weak var filterButton: UIBarButtonItem!
+    @IBOutlet weak var toolbar: UIToolbar!
     private var disposeBag:DisposeBag!
+    private var sortDropDown:DropDown!
+    private var filterDropDown:DropDown!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +32,19 @@ class SearchProductViewController: UIViewController {
         //register cell nib file
         let productNibCell = UINib(nibName: Constants.productNibCell, bundle: nil)
         searchCollectionVIew.register(productNibCell, forCellWithReuseIdentifier: Constants.productNibCell)
+        
+        //initialize dropList
+        sortDropDown = DropDown()
+        filterDropDown = DropDown()
+        sortDropDown.anchorView = sortButton
+        filterDropDown.anchorView = filterButton
+        sortDropDown.dataSource = Constants.sortList
+        filterDropDown.dataSource = Constants.filterList
+        sortDropDown.direction = .bottom
+        filterDropDown.direction = .bottom
+        sortDropDown.bottomOffset = CGPoint(x: 0, y:toolbar.frame.height)
+        filterDropDown.bottomOffset = CGPoint(x: 0, y:toolbar.frame.height)
+
         
         //add search bar to navigation bar
         searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 20))
@@ -46,6 +66,26 @@ class SearchProductViewController: UIViewController {
         }.disposed(by: disposeBag)
         
         searchViewModel.fetchData()
+        
+        //dropList actions
+        sortDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+          print("Selected item: \(item) at index: \(index)")
+            self.searchViewModel.sortData(index: index)
+        }
+        
+        filterDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+          print("Selected item: \(item) at index: \(index)")
+            self.searchViewModel.filterData(word: item)
+
+        }
+    }
+    
+    @IBAction func sortButtonClicked(_ sender: Any) {
+        sortDropDown.show()
+    }
+    
+    @IBAction func filterButtonClicked(_ sender: Any) {
+        filterDropDown.show()
     }
 }
 

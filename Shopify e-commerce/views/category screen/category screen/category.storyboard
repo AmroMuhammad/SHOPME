@@ -126,7 +126,16 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sKx-MK-g1U">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <items>
-                                    <barButtonItem title="Item" id="zqr-UQ-BF0"/>
+                                    <barButtonItem title="Sort" id="zqr-UQ-BF0">
+                                        <connections>
+                                            <action selector="sortButtonClicked:" destination="VjQ-ZP-W0S" id="Luv-z4-1Bt"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Filter" id="jK4-QM-etS">
+                                        <connections>
+                                            <action selector="filterButtonClicked:" destination="VjQ-ZP-W0S" id="XeS-4D-9mt"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="u7p-0K-dIo">
@@ -166,7 +175,10 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="filterButton" destination="jK4-QM-etS" id="az4-03-b65"/>
                         <outlet property="searchCollectionVIew" destination="u7p-0K-dIo" id="QH2-eT-OrR"/>
+                        <outlet property="sortButton" destination="zqr-UQ-BF0" id="nzY-yz-gBU"/>
+                        <outlet property="toolbar" destination="sKx-MK-g1U" id="EC2-FB-rtQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WHy-YG-dAt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

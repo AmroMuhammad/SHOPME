@@ -108,9 +108,6 @@ class CategoryViewController: UIViewController {
         navigationController?.pushViewController(searchViewController, animated: true)
     }
     
-    func navigateToSearchViewModel(productList:[CategoryProduct]){
-        
-    }
 }
 
 

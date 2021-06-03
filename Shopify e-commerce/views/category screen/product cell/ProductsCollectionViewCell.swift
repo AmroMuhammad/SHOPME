@@ -23,7 +23,7 @@ class ProductsCollectionViewCell: UICollectionViewCell {
     
     var allProductObject:Product!{
         didSet{
-            productNameLabel.text = allProductObject.title
+            productNameLabel.text = allProductObject.variants[0].price
             productImage.sd_setImage(with: URL(string: allProductObject.image.src), placeholderImage: UIImage(named: "placeholder"))
         }
     }
