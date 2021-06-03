@@ -18,6 +18,7 @@ enum ApplicationNetworking{
     case getMenCategoryProducts
     case getWomenCategoryProducts
     case getKidsCategoryProducts
+    case getAllProducts
 
     //end
     
@@ -47,12 +48,14 @@ extension ApplicationNetworking : TargetType{
             //end
             
             // MARK: Amr Section
-            case .getMenCategoryProducts:
-                return Constants.menCatPath
-            case .getWomenCategoryProducts:
-                return Constants.womenCatPath
-            case .getKidsCategoryProducts:
-                return Constants.kidCatPath
+        case .getMenCategoryProducts:
+            return Constants.menCatPath
+        case .getWomenCategoryProducts:
+            return Constants.womenCatPath
+        case .getKidsCategoryProducts:
+            return Constants.kidCatPath
+        case .getAllProducts:
+            return Constants.allProductsPath
             //end
             
             
@@ -81,6 +84,8 @@ extension ApplicationNetworking : TargetType{
                 return .get
             case .getKidsCategoryProducts:
                 return .get
+            case .getAllProducts:
+                return .get
             //end
             
             
@@ -108,6 +113,8 @@ extension ApplicationNetworking : TargetType{
             case .getWomenCategoryProducts:
                 return .requestPlain
             case .getKidsCategoryProducts:
+                return .requestPlain
+            case .getAllProducts:
                 return .requestPlain
             
             //end

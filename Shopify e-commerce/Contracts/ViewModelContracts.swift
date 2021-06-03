@@ -14,6 +14,10 @@ protocol CategoryViewModelContract:ViewModelType{
     var subCatDataObservable:Observable<[String]> {get}
     var productDataObservable: Observable<[CategoryProduct]> {get}
     var data:[CategoryProduct]? {get}
-    func fetchData()
     func fetchCatProducts(mainCat:String,subCat:String)
+}
+
+protocol SearchViewModelContract:ViewModelType{
+    var dataObservable: Observable<[Product]>{get}
+    
 }

@@ -32,7 +32,7 @@ class SearchProductViewController: UIViewController {
         let rightNavBarButton = UIBarButtonItem(customView:searchBar)
         self.navigationItem.rightBarButtonItem = rightNavBarButton
         
-        searchViewModel = SearchViewModel(data: productList)
+        searchViewModel = SearchViewModel()
         disposeBag = DisposeBag()
 
         searchCollectionVIew.rx.setDelegate(self).disposed(by: disposeBag)
@@ -42,7 +42,7 @@ class SearchProductViewController: UIViewController {
         
         searchViewModel.dataObservable.bind(to: searchCollectionVIew.rx.items(cellIdentifier: Constants.productNibCell)){row,item,cell in
            let castedCell = cell as! ProductsCollectionViewCell
-            castedCell.productObject = item
+            castedCell.allProductObject = item
         }.disposed(by: disposeBag)
         
         searchViewModel.fetchData()

@@ -20,6 +20,13 @@ class ProductsCollectionViewCell: UICollectionViewCell {
             productImage.sd_setImage(with: URL(string: productObject.image.src), placeholderImage: UIImage(named: "placeholder"))
         }
     }
+    
+    var allProductObject:Product!{
+        didSet{
+            productNameLabel.text = allProductObject.title
+            productImage.sd_setImage(with: URL(string: allProductObject.image.src), placeholderImage: UIImage(named: "placeholder"))
+        }
+    }
 
 
     override func awakeFromNib() {

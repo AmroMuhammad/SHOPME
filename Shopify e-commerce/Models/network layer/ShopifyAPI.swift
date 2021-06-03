@@ -57,3 +57,11 @@ extension ShopifyAPI : CategoryAPIContract{
         
     }
 }
+
+extension ShopifyAPI : AllProductsAPIContract{
+    func getAllProducts(completion: @escaping (Result<AllProductsModel?, NSError>) -> Void) {
+        self.fetchData(target: .getAllProducts, responseClass: AllProductsModel.self) { (result) in
+            completion(result)
+        }
+    }
+}
