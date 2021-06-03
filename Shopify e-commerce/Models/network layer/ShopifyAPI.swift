@@ -36,6 +36,18 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
 
 // MARK: Marwa Section
 extension ShopifyAPI : allProductProtocol{
+    func getAllMenProductData(completion: @escaping (Result<AllProduct?, NSError>) -> Void) {
+        self.fetchData(target:.allMenProduct , responseClass:AllProduct.self) { (result) in
+                   completion(result)
+               }
+    }
+    
+    func getAllKidsProductData(completion: @escaping (Result<AllProduct?, NSError>) -> Void) {
+        self.fetchData(target:.allKidsProduct, responseClass:AllProduct.self) { (result) in
+                   completion(result)
+               }
+    }
+    
     
     func getAllWomanProductData(completion: @escaping (Result<AllProduct?, NSError>) -> Void) {
         self.fetchData(target:.allWomenProduct , responseClass:AllProduct.self) { (result) in

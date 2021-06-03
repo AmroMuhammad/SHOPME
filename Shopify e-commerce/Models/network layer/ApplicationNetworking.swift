@@ -26,6 +26,8 @@ enum ApplicationNetworking{
     
     // MARK: Marwa Section
     case allWomenProduct
+    case allMenProduct
+    case allKidsProduct
     //end
 }
 
@@ -56,9 +58,15 @@ extension ApplicationNetworking : TargetType{
             // MARK: Marwa Section
             case .allWomenProduct :
                 return Constants.allWomenProduct
+            case .allMenProduct:
+                return Constants.allMenProduct
+            case .allKidsProduct:
+                return Constants.allKidsProduct
             //end
             
         
+        
+       
         }
     }
     
@@ -81,9 +89,14 @@ extension ApplicationNetworking : TargetType{
             
             // MARK: Marwa Section
             case .allWomenProduct:
-                       return .get
+                 return .get
+            case .allMenProduct:
+                return .get
+            case .allKidsProduct:
+                return .get
             //end
        
+        
         }
     }
     
@@ -107,7 +120,11 @@ extension ApplicationNetworking : TargetType{
             // MARK: Marwa Section
             case .allWomenProduct:
                 return.requestPlain
-            }
+            case .allMenProduct:
+                return .requestPlain
+            case .allKidsProduct:
+                return .requestPlain
+        }
             //end
         
     }

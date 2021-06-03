@@ -11,10 +11,20 @@ import RxCocoa
 import RxSwift
 protocol allProductProtocol {
     func getAllWomanProductData(completion : @escaping (Result<AllProduct?, NSError > ) -> Void)
+    func getAllMenProductData(completion : @escaping (Result<AllProduct?, NSError > ) -> Void)
+    func getAllKidsProductData(completion : @escaping (Result<AllProduct?, NSError > ) -> Void)
 }
 protocol viewModelType {
-    var dataDrive : Driver<[Product]> {get}
+   
     var loadingDriver : Driver<Bool>{get}
     var errorDriver : Driver<String>{get}
-    func fetchData()
+    
+}
+
+protocol shopViewModelType : viewModelType {
+    var dataDrive : Driver<[Product]> {get}
+    var searchValue : BehaviorRelay<String> {get}
+    func fetchWomenData()
+    func fetchMenData()
+    func fetchKidsData()
 }
