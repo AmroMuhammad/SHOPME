@@ -13,6 +13,7 @@ protocol allProductProtocol {
     func getAllWomanProductData(completion : @escaping (Result<AllProduct?, NSError > ) -> Void)
     func getAllMenProductData(completion : @escaping (Result<AllProduct?, NSError > ) -> Void)
     func getAllKidsProductData(completion : @escaping (Result<AllProduct?, NSError > ) -> Void)
+    func getDiscountCodeData(completion : @escaping (Result<DiscountCode?, NSError > ) -> Void)
 }
 protocol viewModelType {
    
@@ -23,8 +24,10 @@ protocol viewModelType {
 
 protocol shopViewModelType : viewModelType {
     var dataDrive : Driver<[Product]> {get}
-    var searchValue : BehaviorRelay<String> {get}
+    var  discountCodeDrive : Driver<[String]> {get}
+    var  searchValue : BehaviorRelay<String> {get}
     func fetchWomenData()
     func fetchMenData()
     func fetchKidsData()
+    func fetchDiscountCodeData()
 }

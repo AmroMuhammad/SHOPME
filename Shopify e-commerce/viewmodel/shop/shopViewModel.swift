@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 class shopViewModel  : shopViewModelType{
+    var discountCodeDrive: Driver<[String]>
     var disposeBag = DisposeBag()
     var dataDrive: Driver<[Product]>
     var loadingDriver: Driver<Bool>
@@ -18,11 +19,13 @@ class shopViewModel  : shopViewModelType{
     var searchData : [Product] = []
     lazy var searchValueObservable:Observable<String> = searchValue.asObservable()
     var dataSubject = PublishSubject<[Product]>()
+    var discountCodeSubject = PublishSubject<[String]>()
     var loadingSubject = PublishSubject<Bool>()
     var errorSubject = PublishSubject<String>()
     var getDataobj = ShopifyAPI.shared
     init() {
         dataDrive = dataSubject.asDriver(onErrorJustReturn: [] )
+        discountCodeDrive = discountCodeSubject.asDriver(onErrorJustReturn: [])
         loadingDriver =  loadingSubject.asDriver(onErrorJustReturn: true)
         errorDriver = errorSubject.asDriver(onErrorJustReturn: "")
         
@@ -85,6 +88,18 @@ class shopViewModel  : shopViewModelType{
 
            )
        }
+    func fetchDiscountCodeData() {
+        getDataobj.getDiscountCodeData {[weak self] (result) in
+            switch result{
+            
+            case .success(let data):
+                self!.discountCodeSubject.onNext(data?.discountCodes ?? [] )
+            case .failure(_):
+                self?.errorSubject.onNext(Constants.genericError)
+            }
+        }
+    }
+    
        
        
 }

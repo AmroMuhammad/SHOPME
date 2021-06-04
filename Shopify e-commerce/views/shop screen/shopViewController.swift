@@ -10,27 +10,44 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SDWebImage
+import ImageIO
 class shopViewController: UIViewController {
     var shopProductViewModel : shopViewModelType!
     private let disposeBag = DisposeBag()
     var indecator : UIActivityIndicatorView?
+    @IBOutlet weak var gifBtnOutlet: UIButton!
     @IBOutlet weak var shopCollectionView: UICollectionView!
+    @IBOutlet weak var ads: UILabel!
+    
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var gifimage: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
     var categories = ["Women" , "Men" , "Kids"]
+    var selectedIndex = 0
+    var selectedIndexPath = IndexPath(item: 0, section: 0)
+    var indicatorView = UIView()
+    let indicatorHeight : CGFloat = 5
     override func viewDidLoad() {
         super.viewDidLoad()
        
                
-        let gifURL : String = "https://media.giphy.com/media/3o6EhTpmOMApdn87cI/giphy.gif"
-        gifimage.sd_imageIndicator = SDWebImageActivityIndicator.gray
-        gifimage.sd_setImage(with: URL(string: gifURL), placeholderImage: UIImage(named: "1"))
+//        let gifURL : String = "https://media.giphy.com/media/3o6EhTpmOMApdn87cI/giphy.gif"
+//        gifimage.sd_imageIndicator = SDWebImageActivityIndicator.gray
+//        gifimage.sd_setImage(with: URL(string: gifURL), placeholderImage: UIImage(named: "1"))
+        
+    
         shopProductViewModel = shopViewModel()
         searchBar.rx.text.orEmpty.debug().distinctUntilChanged().bind(to: shopProductViewModel.searchValue).disposed(by: disposeBag)
+        
+        shopProductViewModel.discountCodeDrive.drive(onNext: { (discountCodeVal) in
+            self.ads.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+            self.ads.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+            self.ads.text = "USE CODE: \(discountCodeVal)"
+            }).disposed(by: disposeBag)
+
+        // MARK: - Load function
         shopProductViewModel.loadingDriver.drive(onNext: { [weak self](loadVal) in
              print("\(loadVal)")
-            
             if(loadVal == true){
                 self!.shopCollectionView.isHidden = true
                 self!.indecator = UIActivityIndicatorView(style: .large)
@@ -44,112 +61,142 @@ class shopViewController: UIViewController {
                 self!.indecator!.isHidden = true
             }
             }).disposed(by: disposeBag)
+        // END
+        
+        // MARK: - Display data
+        
          shopProductViewModel.dataDrive.drive(onNext: {[weak self] (val) in
             self!.indecator!.stopAnimating()
             self!.indecator!.isHidden = true
             self!.shopCollectionView.delegate = nil
             self!.shopCollectionView.dataSource = nil
             Observable.just(val).bind(to: self!.shopCollectionView.rx.items(cellIdentifier: "shopCollectionViewCell")){row,item,cell in
-                (cell as? shopCollectionViewCell)?.shopImg.sd_imageIndicator = SDWebImageActivityIndicator.gray
-                (cell as? shopCollectionViewCell)?.shopImg.sd_setImage(with: URL(string:item.image.src) , placeholderImage: UIImage(named: "1"))
-                (cell as? shopCollectionViewCell)?.vendor.text = item.vendor
-                (cell as? shopCollectionViewCell)?.layer.cornerRadius = 50
+                (cell as? shopCollectionViewCell)?.cellProduct = item
+                cell.layer.cornerRadius = 30
                 cell.layer.borderWidth = 0.0
-                (cell as? shopCollectionViewCell)?.layer.shadowColor = UIColor.gray.cgColor
+                cell.layer.shadowColor = UIColor.gray.cgColor
                 cell.layer.shadowOffset = CGSize(width: 0, height: 0)
                 cell.layer.shadowRadius = 5.0
                 cell.layer.shadowOpacity = 1
                 cell.layer.masksToBounds = true
             }.disposed(by: self!.disposeBag)
          }).disposed(by: disposeBag)
-       
-
+       //end
+        
+       // MARK: - Error
+        
          shopProductViewModel.errorDriver.drive(onNext: { (errorVal) in
              print("\(errorVal)")
          }).disposed(by: disposeBag)
+        // end
         
         shopProductViewModel.fetchWomenData()
-        // Do any additional setup after loading the view.
-        let observable = Observable<[String]>.just(["Women","Men","Kids"]);
-          
-          observable.bind(to: collectionView.rx.items(cellIdentifier: "CollectionViewCell")){[weak self]
-            row , item , cell in (cell as? allProductCollectionViewCell)?.categoryName.text = item
-           
-                if let cell = self!.collectionView.cellForItem(at: [0,0]) as? allProductCollectionViewCell {
-                    cell.categoryCellImage.backgroundColor =  UIColor.black
-                }
-            
-          }.disposed(by: disposeBag)
-          
-          collectionView.rx.itemSelected.subscribe{[weak self](IndexPath) in
-            var cell1Color = UIColor.white
-            var cell2Color = UIColor.white
-            var cell3Color = UIColor.white
-            if IndexPath.element![1] == 0{
-                cell1Color = UIColor.black
-                self!.shopProductViewModel.fetchWomenData()
-               
-            }
-           else if IndexPath.element![1] == 1{
-                cell2Color = UIColor.black
-                self!.shopProductViewModel.fetchMenData()
-                
-            }
-           else if IndexPath.element![1] == 2{
-                cell3Color = UIColor.black
-                self!.shopProductViewModel.fetchKidsData()
-               
-            }
-            if let cell = self!.collectionView.cellForItem(at: [0,0]) as? allProductCollectionViewCell {
-                cell.categoryCellImage.backgroundColor = cell1Color
-            }
-            if let cell = self!.collectionView.cellForItem(at: [0,1]) as? allProductCollectionViewCell {
-                cell.categoryCellImage.backgroundColor = cell2Color
-            }
-            if let cell = self!.collectionView.cellForItem(at: [0,2]) as? allProductCollectionViewCell {
-               cell.categoryCellImage.backgroundColor = cell3Color
-            }
-            
-            print("\(IndexPath.element!)")
-          }.disposed(by: disposeBag)
         
-//        collectionView.rx.modelSelected(String.self).subscribe{(val) in
-//                   print("\(val.element!)")
+       //MARK: - menu bar
+       collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .centeredVertically)
 //
-//        //    self.cellView.backgroundColor = .red
-//               }.disposed(by: disposeBag)
+//               let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction))
+//               leftSwipe.direction = .left
+//               self.view.addGestureRecognizer(leftSwipe)
 //
+//               let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction))
+//               rightSwipe.direction = .right
+//               self.view.addGestureRecognizer(rightSwipe)
+               
+               indicatorView.backgroundColor = .black
+               indicatorView.frame = CGRect(x: collectionView.bounds.minX, y: collectionView.bounds.maxY - indicatorHeight, width: collectionView.bounds.width / CGFloat(categories.count), height: indicatorHeight)
+               collectionView.addSubview(indicatorView)
+        
+        //end
+      
    }
-
-
-}
-extension shopViewController : UICollectionViewDelegateFlowLayout {
-   
+    @IBAction func gifBtn(_ sender: Any) {
+        gifBtnOutlet.isHidden = true
+        var gifURL = ""
+        
+        if(selectedIndex == 0){
+            gifURL = "https://media.giphy.com/media/3o6EhTpmOMApdn87cI/giphy.gif"
+        }
+        else if(selectedIndex == 1){
+             gifURL  = "https://media.giphy.com/media/26vUCw2Wsa4N3ezsc/giphy.gif"
+        }else{
+              gifURL = "https://media.giphy.com/media/l3q2rCBSrr6D7XKLK/giphy.gif"
+        }
+        
+        gifimage.sd_imageIndicator = SDWebImageActivityIndicator.gray
+        gifimage.sd_setImage(with: URL(string: gifURL), placeholderImage: UIImage(named: "1"))
+        shopProductViewModel.fetchDiscountCodeData()
+        
+    }
     
-    
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
-//    {
-//
-//            return CGSize(width: (self.view.frame.width)/3, height: 30)
-//
+//    @objc func swipeAction(_ sender: UISwipeGestureRecognizer) {
+//        if sender.direction == .left {
+//            if selectedIndex < categories.count - 1 {
+//                selectedIndex += 1
+//            }
+//        } else {
+//            if selectedIndex > 0 {
+//                selectedIndex -= 1
+//            }
+//        }
+//        
+//        selectedIndexPath = IndexPath(item: selectedIndex, section: 0)
+//        collectionView.selectItem(at: selectedIndexPath, animated: true, scrollPosition: .centeredVertically)
+//        changeIndecatorViewPosition()
 //    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        return 0
-//    }
-    func collectionView(collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-
-            let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
-            let totalSpace = flowLayout.sectionInset.left
-                + flowLayout.sectionInset.right
-                + (flowLayout.minimumInteritemSpacing * CGFloat(3 - 1))
-            let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(3))
-            return CGSize(width: size, height: size)
+    
+    func changeIndecatorViewPosition(){
+           let desiredX = (collectionView.bounds.width / CGFloat(categories.count)) * CGFloat(selectedIndex)
+           
+           UIView.animate(withDuration: 0.3) {
+                self.indicatorView.frame = CGRect(x: desiredX, y: self.collectionView.bounds.maxY - self.indicatorHeight, width: self.collectionView.bounds.width / CGFloat(self.categories.count), height: self.indicatorHeight)
+           }
+       }
+    func tapIsSelected(imgName : String) {
+         gifimage.image = UIImage(named: imgName)!
+         gifBtnOutlet.isHidden = false
+         self.ads.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+         self.ads.textColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+         self.ads.text = "Ads"
     }
 
+}
+
+extension shopViewController :  UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+
+   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+          return categories.count
+      }
+
+
+      func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+          let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! allProductCollectionViewCell
+        cell.setupCell(text: categories[indexPath.row])
+          return cell
+      }
+
+      
+      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+          return CGSize(width: self.view.frame.width / CGFloat(categories.count), height: collectionView.bounds.height)
+      }
+      
+      
+      func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if(indexPath.row == 0){
+            self.shopProductViewModel.fetchWomenData()
+            tapIsSelected(imgName: "giphy")
+        }else if(indexPath.row == 1){
+            tapIsSelected(imgName: "giphy-4")
+            self.shopProductViewModel.fetchMenData()
+        }else {
+           tapIsSelected(imgName: "giphy-6")
+           self.shopProductViewModel.fetchKidsData()
+        }
+        selectedIndex = indexPath.item
+        changeIndecatorViewPosition()
+      }
+    
 }
 
 

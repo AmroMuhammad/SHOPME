@@ -7,9 +7,20 @@
 //
 
 import UIKit
+import SDWebImage
 
 class shopCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var shopImg: UIImageView!
     @IBOutlet weak var vendor: UILabel!
+     
+
+    var cellProduct : Product! {
+        didSet{
+         vendor.text = cellProduct.vendor
+         shopImg.sd_imageIndicator = SDWebImageActivityIndicator.gray
+         shopImg.sd_setImage(with: URL(string:cellProduct.image.src) , placeholderImage: UIImage(named: "1"))
+            
+        }
+    }
 }

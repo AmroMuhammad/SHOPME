@@ -29,6 +29,7 @@ struct Constants {
       static let allWomenProduct = "collections/268359631046/products.json"
       static let allMenProduct = "collections/268359598278/products.json"
       static let allKidsProduct = "collections/268359663814/products.json"
+      static let discountCode = "price_rules/950267576518/discount_codes.json"
     //end
     
 }
