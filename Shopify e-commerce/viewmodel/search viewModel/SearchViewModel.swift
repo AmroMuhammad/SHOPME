@@ -23,7 +23,11 @@ class SearchViewModel : SearchViewModelContract{
     private var errorsubject = PublishSubject<Bool>()
     private var Loadingsubject = PublishSubject<Bool>()
     private var data:[Product]!
+    private var searchedData:[Product]!
+    private var sortedData:[Product]!
     private var filteredData:[Product]!
+    private var isSorted:Bool = false
+    private var isfiltered:Bool = false
 
  
     init() {
@@ -31,20 +35,25 @@ class SearchViewModel : SearchViewModelContract{
         dataObservable = datasubject.asObservable()
         errorObservable = errorsubject.asObservable()
         LoadingObservable = Loadingsubject.asObservable()
-        filteredData = data
+        searchedData = data
         
         searchValueObservable.subscribe(onNext: {[weak self] (value) in
         print("value is \(value)")
-            self?.filteredData = self?.data?.filter({ (product) -> Bool in
+            self?.searchedData = self?.data?.filter({ (product) -> Bool in
 //          product.title.lowercased().prefix(value.count) == value.lowercased()
             product.title.lowercased().contains(value.lowercased())
         })
-        if(self?.filteredData != nil){
-            if(self!.filteredData!.isEmpty){
-                self?.filteredData = self?.data
+//        if(self?.searchedData != nil){
+//            if(self!.searchedData!.isEmpty){
+//                self?.searchedData = self?.data
+//            }
+//        }
+            if(value.isEmpty){
+                self?.isfiltered = false
+                self?.isSorted = false
+                self?.searchedData = self?.data
             }
-        }
-        self?.datasubject.onNext(self?.filteredData ?? [])
+        self?.datasubject.onNext(self?.searchedData ?? [])
         }).disposed(by: disposeBag)
     }
     
@@ -54,7 +63,10 @@ class SearchViewModel : SearchViewModelContract{
             switch result{
             case .success(let products):
                 self?.data = products?.products
+                self?.searchedData = self?.data
+                self?.sortedData = self?.data
                 self?.filteredData = self?.data
+
                 self?.datasubject.onNext(products?.products ?? [])
                 self?.Loadingsubject.onNext(false)
             case .failure(let error):
@@ -65,23 +77,52 @@ class SearchViewModel : SearchViewModelContract{
     }
     
     func sortData(index:Int){
-        switch index {
-        case 0:
-            filteredData = data.sorted { (product1, product2) -> Bool in
-                Double(product1.variants[0].price)! > Double(product2.variants[0].price)!
+        isSorted = true
+        if(isfiltered){
+            switch index {
+            case 0:
+                sortedData = filteredData.sorted { (product1, product2) -> Bool in
+                    Double(product1.variants[0].price)! > Double(product2.variants[0].price)!
+                }
+            default:
+                sortedData = filteredData.sorted { (product1, product2) -> Bool in
+                    Double(product1.variants[0].price)! < Double(product2.variants[0].price)!
+                }
             }
-        default:
-            filteredData = data.sorted { (product1, product2) -> Bool in
-                Double(product1.variants[0].price)! < Double(product2.variants[0].price)!
+        }else{
+            switch index {
+            case 0:
+                sortedData = searchedData.sorted { (product1, product2) -> Bool in
+                    Double(product1.variants[0].price)! > Double(product2.variants[0].price)!
+                }
+            default:
+                sortedData = searchedData.sorted { (product1, product2) -> Bool in
+                    Double(product1.variants[0].price)! < Double(product2.variants[0].price)!
+                }
             }
         }
-        datasubject.onNext(filteredData ?? data)
+        datasubject.onNext(sortedData)
     }
     
     func filterData(word:String){
-        filteredData = data.filter({ (product) -> Bool in
+        isfiltered = true
+        if(isSorted){
+            filteredData = sortedData.filter({ (product) -> Bool in
             product.productType.rawValue.lowercased() == word.lowercased()
             })
+        }else{
+            filteredData = searchedData.filter({ (product) -> Bool in
+            product.productType.rawValue.lowercased() == word.lowercased()
+            })
+        }
         datasubject.onNext(filteredData)
+    }
+    
+    func clearData(){
+        datasubject.onNext(data)
+        self.searchedData = self.data
+        self.sortedData = self.data
+        self.filteredData = self.data
+        
     }
 }

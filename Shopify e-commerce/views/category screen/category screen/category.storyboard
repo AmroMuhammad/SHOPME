@@ -100,6 +100,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Category" id="7dx-Tw-fWP">
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="txa-1z-q1Y">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="searchButtonClicked:" destination="90V-fO-bYd" id="Gom-Cy-4jD"/>
                             </connections>
@@ -127,13 +128,22 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <items>
                                     <barButtonItem title="Sort" id="zqr-UQ-BF0">
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <action selector="sortButtonClicked:" destination="VjQ-ZP-W0S" id="Luv-z4-1Bt"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="Filter" id="jK4-QM-etS">
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <action selector="filterButtonClicked:" destination="VjQ-ZP-W0S" id="XeS-4D-9mt"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="FNu-gW-leJ"/>
+                                    <barButtonItem title="Clear" id="Cej-WB-Qh2">
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="clearButtonClicked:" destination="VjQ-ZP-W0S" id="hf3-cL-zJi"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>

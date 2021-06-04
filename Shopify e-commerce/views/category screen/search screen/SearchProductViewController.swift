@@ -80,6 +80,11 @@ class SearchProductViewController: UIViewController {
         }
     }
     
+    @IBAction func clearButtonClicked(_ sender: Any) {
+        searchViewModel.clearData()
+        searchBar.text = ""
+    }
+    
     @IBAction func sortButtonClicked(_ sender: Any) {
         sortDropDown.show()
     }
