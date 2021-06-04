@@ -75,11 +75,11 @@ struct Option: Codable {
     }
 }
 
-// MARK: - Discount Code
-struct DiscountCode: Codable {
-    let discountCodes: [String]
-
-    enum CodingKeys: String, CodingKey {
-        case discountCodes = "discount_codes"
-    }
-}
+//// MARK: - Discount Code
+//struct DiscountCode: Codable {
+//    let discountCodes: [String]
+//
+//    enum CodingKeys: String, CodingKey {
+//        case discountCodes = "discount_codes"
+//    }
+//}
