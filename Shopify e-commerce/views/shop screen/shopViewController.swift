@@ -22,7 +22,7 @@ class shopViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var gifimage: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
-    var categories = ["Women" , "Men" , "Kids"]
+    var categories = ["Women" , "Men" , "Kids"] // edit this after merge
     var selectedIndex = 0
     var selectedIndexPath = IndexPath(item: 0, section: 0)
     var indicatorView = UIView()
@@ -64,7 +64,7 @@ class shopViewController: UIViewController {
             self!.indecator!.isHidden = true
             self!.shopCollectionView.delegate = nil
             self!.shopCollectionView.dataSource = nil
-            Observable.just(val).bind(to: self!.shopCollectionView.rx.items(cellIdentifier: "shopCollectionViewCell")){row,item,cell in
+            Observable.just(val).bind(to: self!.shopCollectionView.rx.items(cellIdentifier: Constants.shopCell)){row,item,cell in
                 (cell as? shopCollectionViewCell)?.cellProduct = item
                 cell.layer.cornerRadius = 30
                 cell.layer.borderWidth = 0.0
@@ -125,12 +125,12 @@ class shopViewController: UIViewController {
         var gifURL = ""
         
         if(selectedIndex == 0){
-            gifURL = "https://media.giphy.com/media/3o6EhTpmOMApdn87cI/giphy.gif"
+            gifURL = Constants.womenGif
         }
         else if(selectedIndex == 1){
-             gifURL  = "https://media.giphy.com/media/26vUCw2Wsa4N3ezsc/giphy.gif"
+            gifURL  = Constants.menGif
         }else{
-              gifURL = "https://media.giphy.com/media/l3q2rCBSrr6D7XKLK/giphy.gif"
+            gifURL = Constants.kidsGif
         }
         
         gifimage.sd_imageIndicator = SDWebImageActivityIndicator.gray
@@ -204,7 +204,7 @@ extension shopViewController :  UICollectionViewDelegate, UICollectionViewDataSo
 
 
       func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-          let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! allProductCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.menuCell , for: indexPath) as! allProductCollectionViewCell
         cell.setupCell(text: categories[indexPath.row])
           return cell
       }
