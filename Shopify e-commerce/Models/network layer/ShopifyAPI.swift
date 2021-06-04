@@ -36,8 +36,8 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
 
 // MARK: Marwa Section
 extension ShopifyAPI : allProductProtocol{
-    func getDiscountCodeData(completion: @escaping (Result<DiscountCode?, NSError>) -> Void) {
-        self.fetchData(target:.discountCode, responseClass: DiscountCode.self) { (result) in
+    func getDiscountCodeData(completion: @escaping (Result<discountCode?, NSError>) -> Void) {
+        self.fetchData(target:.discountCode, responseClass: discountCode.self) { (result) in
             completion(result)
         }
     }
