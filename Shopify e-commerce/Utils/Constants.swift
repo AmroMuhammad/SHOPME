@@ -22,7 +22,18 @@ struct Constants {
     
     // MARK: Ayman Section
     static let customersURL = "customers.json"
-    static let newCustomer = "customers.json"
+    //static let newCustomer = "customers.json"
+    static let u_p_notfound_t = "user name or password not found"
+    static let u_p_required_t = "user name and password are required"
+    static let loginSuccess = "login success"
+    static let registerdSuccess = "registerd Successfully"
+    static let empty = ""
+    static let accountExisted = "You already have an account"
+    static let faild = "faild"
+    static let faildBody = "Please try again later"
+    static let allfeildReq = "all feilds are required"
+    static let pass_conf = "password and confirmation password should be identical"
+    static let wrongEmail_Pass = "Worng email or password"
     //end
     
     

@@ -10,16 +10,36 @@ import UIKit
 
 class MeViewController: UIViewController {
     
-  let currencyArray = ["USD","LE"];
-  
+    @IBOutlet weak var signOut: UIButton!
+    let currencyArray = ["USD","LE"];
+    var userData = UserData.getInstance()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        var tuble = userData.userStatus()
+        if(tuble.1){
+            
+        }else{
+            signOut.alpha = 0
+        }
+        
+        let signOutGesture = UITapGestureRecognizer(target: self, action: #selector(signoutAction))
+        
+        signOutGesture.numberOfTapsRequired = 1
+        signOut.addGestureRecognizer(signOutGesture)
         
         pickerView.dataSource = self
         pickerView.delegate = self
         self.navigationController?.title = "ME";
         
     }
+    @objc func signoutAction(){
+        userData.deleteUserDefaults()
+    }
+    
+    
+    
     @IBAction func aboutUS(_ sender: Any) {
         let settingsVC = self.storyboard?.instantiateViewController(identifier: "SettingsViewController") as! SettingsViewController
         self.present(settingsVC, animated: true, completion: nil )

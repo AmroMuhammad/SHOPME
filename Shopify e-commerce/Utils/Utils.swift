@@ -28,6 +28,8 @@ extension UIImageView{
 }
 
 
+
+
 // MARK: Ahmed Section
 
 //end
@@ -38,7 +40,14 @@ extension UIImageView{
 
 
 // MARK: Ayman Section
-
+class Support {
+    func notifyUser(title:String,body:String,context:UIViewController)->Void{
+        let alert = UIAlertController(title: title, message: body, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil))
+        context.self.present(alert, animated: true, completion: nil)
+        
+    }
+}
 //end
 
 

@@ -10,11 +10,10 @@ import Foundation
 struct RegisterCustomer:Encodable {
     var customer:CustomerRegister
 }
-
-
-
 struct CustomerRegister:Encodable {
-    
     var email:String
-    var first_name, last_name: String
+    var first_name, last_name, tags, phone: String
+    var id:Int
+    var note:String
+    
 }

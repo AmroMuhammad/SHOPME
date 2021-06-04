@@ -15,21 +15,24 @@ class UserData {
         return defaults;
     }
     
-    func saveUserDefaults(userID:String) -> Void {
+    func saveUserDefaults(email:String,id:Int) -> Void {
         userDefaults.set(true, forKey: "isLogedIn")
-        userDefaults.set(userID, forKey: "email")
+        userDefaults.set(email, forKey: "email")
+        userDefaults.set(id, forKey: "id")
     }
-    func userStatus() -> (String,Bool) {
+    func userStatus() -> (String,Bool,Int) {
         var isLogedIn = userDefaults.bool(forKey: "isLogedIn")
         var email = userDefaults.value(forKey: "email") as! String
+        var id = userDefaults.integer(forKey: "id");
         print("========================================")
         print(email)
-        return (email,isLogedIn)
+        return (email,isLogedIn,id)
         
     }
     func deleteUserDefaults() -> Void {
         userDefaults.set(false, forKey: "isLogedIn")
         userDefaults.set("", forKey: "email")
+        userDefaults.set(0, forKey: "id")
     }
     
     private init(){}

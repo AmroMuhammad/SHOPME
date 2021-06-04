@@ -55,7 +55,7 @@ extension ApplicationNetworking : TargetType{
             return Constants.customersURL
             
         case .newCustomer:
-            return Constants.newCustomer
+            return Constants.customersURL
             
             //end
             
