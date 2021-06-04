@@ -19,6 +19,7 @@ class shopViewController: UIViewController {
     @IBOutlet weak var shopCollectionView: UICollectionView!
     @IBOutlet weak var ads: UILabel!
     
+    @IBOutlet weak var connectionImg: UIImageView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var gifimage: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -85,31 +86,47 @@ class shopViewController: UIViewController {
         
        // MARK: - Error
         
-         shopProductViewModel.errorDriver.drive(onNext: { (errorVal) in
+         shopProductViewModel.errorDriver.drive(onNext: { [weak self](errorVal) in
              print("\(errorVal)")
+            self!.showAlert(msg: errorVal)
+            
          }).disposed(by: disposeBag)
         // end
         
-        shopProductViewModel.fetchWomenData()
+        //MARK: - internet connection
+        
+        shopProductViewModel.connectivityDriver.drive(onNext: { [weak self](result) in
+            if(result){
+                self!.connectionImg.isHidden = false
+                print("no internet connection")
+                self!.showAlert(msg: "No Internet Connection")
+            }
+            else{
+                 self!.connectionImg.isHidden = true
+            }
+            }).disposed(by: disposeBag)
+        
+        //end
         
        //MARK: - menu bar
        collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .centeredVertically)
-//
-//               let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction))
-//               leftSwipe.direction = .left
-//               self.view.addGestureRecognizer(leftSwipe)
-//
-//               let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction))
-//               rightSwipe.direction = .right
-//               self.view.addGestureRecognizer(rightSwipe)
-               
-               indicatorView.backgroundColor = .black
-               indicatorView.frame = CGRect(x: collectionView.bounds.minX, y: collectionView.bounds.maxY - indicatorHeight, width: collectionView.bounds.width / CGFloat(categories.count), height: indicatorHeight)
-               collectionView.addSubview(indicatorView)
+       indicatorView.backgroundColor = .black
+       indicatorView.frame = CGRect(x: collectionView.bounds.minX, y: collectionView.bounds.maxY - indicatorHeight, width: collectionView.bounds.width / CGFloat(categories.count), height: indicatorHeight)
+       collectionView.addSubview(indicatorView)
+        
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction))
+        leftSwipe.direction = .left
+        self.view.addGestureRecognizer(leftSwipe)
+        
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction))
+        rightSwipe.direction = .right
+        self.view.addGestureRecognizer(rightSwipe)
         
         //end
-      
+       shopProductViewModel.fetchWomenData()
    }
+    
+    
     @IBAction func gifBtn(_ sender: Any) {
         gifBtnOutlet.isHidden = true
         var gifURL = ""
@@ -129,21 +146,21 @@ class shopViewController: UIViewController {
         
     }
     
-//    @objc func swipeAction(_ sender: UISwipeGestureRecognizer) {
-//        if sender.direction == .left {
-//            if selectedIndex < categories.count - 1 {
-//                selectedIndex += 1
-//            }
-//        } else {
-//            if selectedIndex > 0 {
-//                selectedIndex -= 1
-//            }
-//        }
-//        
-//        selectedIndexPath = IndexPath(item: selectedIndex, section: 0)
-//        collectionView.selectItem(at: selectedIndexPath, animated: true, scrollPosition: .centeredVertically)
-//        changeIndecatorViewPosition()
-//    }
+    @objc func swipeAction(_ sender: UISwipeGestureRecognizer) {
+        if sender.direction == .left {
+            if selectedIndex < categories.count - 1 {
+                selectedIndex += 1
+            }
+        } else {
+            if selectedIndex > 0 {
+                selectedIndex -= 1
+            }
+        }
+        
+        selectedIndexPath = IndexPath(item: selectedIndex, section: 0)
+        collectionView.selectItem(at: selectedIndexPath, animated: true, scrollPosition: .centeredVertically)
+        applyChanges(index: selectedIndex)
+    }
     
     func changeIndecatorViewPosition(){
            let desiredX = (collectionView.bounds.width / CGFloat(categories.count)) * CGFloat(selectedIndex)
@@ -152,12 +169,35 @@ class shopViewController: UIViewController {
                 self.indicatorView.frame = CGRect(x: desiredX, y: self.collectionView.bounds.maxY - self.indicatorHeight, width: self.collectionView.bounds.width / CGFloat(self.categories.count), height: self.indicatorHeight)
            }
        }
+    
     func tapIsSelected(imgName : String) {
          gifimage.image = UIImage(named: imgName)!
          gifBtnOutlet.isHidden = false
          self.ads.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
          self.ads.textColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
          self.ads.text = "Ads"
+    }
+    
+    func showAlert(msg : String){
+        let alertController = UIAlertController(title: "Error", message: msg , preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .cancel)
+        { action -> Void in })
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func applyChanges(index : Int){
+        if(index == 0){
+            self.shopProductViewModel.fetchWomenData()
+            tapIsSelected(imgName: "giphy")
+        }else if(index == 1){
+            tapIsSelected(imgName: "giphy-4")
+            self.shopProductViewModel.fetchMenData()
+        }else {
+           tapIsSelected(imgName: "giphy-6")
+           self.shopProductViewModel.fetchKidsData()
+        }
+        selectedIndex = index
+        changeIndecatorViewPosition()
     }
 
 }
@@ -183,20 +223,7 @@ extension shopViewController :  UICollectionViewDelegate, UICollectionViewDataSo
       
       
       func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if(indexPath.row == 0){
-            self.shopProductViewModel.fetchWomenData()
-            tapIsSelected(imgName: "giphy")
-        }else if(indexPath.row == 1){
-            tapIsSelected(imgName: "giphy-4")
-            self.shopProductViewModel.fetchMenData()
-        }else {
-           tapIsSelected(imgName: "giphy-6")
-           self.shopProductViewModel.fetchKidsData()
-        }
-        selectedIndex = indexPath.item
-        changeIndecatorViewPosition()
+        applyChanges(index: indexPath.row)
       }
-    
 }
-
 

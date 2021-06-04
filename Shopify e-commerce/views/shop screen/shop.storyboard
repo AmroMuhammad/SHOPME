@@ -104,9 +104,9 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ads" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m9m-oQ-dch">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="42"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="42" id="VAz-lA-lpT"/>
+                                                            <constraint firstAttribute="height" constant="51" id="VAz-lA-lpT"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                         <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -121,6 +121,9 @@
                                                         <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nointernet_2x" translatesAutoresizingMaskIntoConstraints="NO" id="UKl-rF-niu">
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="912"/>
+                                                    </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
@@ -128,7 +131,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="gjp-4F-Ojd" secondAttribute="trailing" id="2rG-Gf-4ji"/>
                                                     <constraint firstItem="rDG-SV-69K" firstAttribute="top" secondItem="gjp-4F-Ojd" secondAttribute="bottom" constant="8" id="4Kd-nG-A1R"/>
                                                     <constraint firstAttribute="trailing" secondItem="DKB-4b-eap" secondAttribute="trailing" id="6hr-3g-jlV"/>
-                                                    <constraint firstItem="DKB-4b-eap" firstAttribute="top" secondItem="m9m-oQ-dch" secondAttribute="bottom" constant="8" id="9qG-tf-i0p"/>
+                                                    <constraint firstItem="DKB-4b-eap" firstAttribute="top" secondItem="m9m-oQ-dch" secondAttribute="bottom" constant="-1" id="9qG-tf-i0p"/>
                                                     <constraint firstItem="m9m-oQ-dch" firstAttribute="top" secondItem="RA6-fv-YIu" secondAttribute="top" id="EHe-km-Dxu"/>
                                                     <constraint firstItem="Zo3-cL-DRL" firstAttribute="centerY" secondItem="DKB-4b-eap" secondAttribute="centerY" constant="-4.5" id="M2n-Qp-0bS"/>
                                                     <constraint firstItem="rDG-SV-69K" firstAttribute="leading" secondItem="RA6-fv-YIu" secondAttribute="leading" id="Pcp-ya-v08"/>
@@ -154,7 +157,11 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="UKl-rF-niu" secondAttribute="bottom" id="BxY-NB-aww"/>
                                     <constraint firstAttribute="bottom" secondItem="vwT-3v-vWD" secondAttribute="bottom" id="Qos-EZ-Hr9"/>
+                                    <constraint firstAttribute="trailing" secondItem="UKl-rF-niu" secondAttribute="trailing" id="aV7-xz-oX2"/>
+                                    <constraint firstItem="UKl-rF-niu" firstAttribute="top" secondItem="gHQ-vI-IfY" secondAttribute="top" constant="-8" id="p25-Mz-gWn"/>
+                                    <constraint firstItem="UKl-rF-niu" firstAttribute="leading" secondItem="gHQ-vI-IfY" secondAttribute="leading" id="xwm-UW-ghg"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Me8-Gc-FjH">
@@ -230,6 +237,7 @@
                     <connections>
                         <outlet property="ads" destination="m9m-oQ-dch" id="ihe-Mh-s1w"/>
                         <outlet property="collectionView" destination="Me8-Gc-FjH" id="5EM-sK-m9b"/>
+                        <outlet property="connectionImg" destination="UKl-rF-niu" id="ZA7-VS-X1a"/>
                         <outlet property="gifBtnOutlet" destination="Zo3-cL-DRL" id="qyG-Is-7Wl"/>
                         <outlet property="gifimage" destination="DKB-4b-eap" id="9SH-bv-XDa"/>
                         <outlet property="searchBar" destination="A5u-pK-ujC" id="uV7-DW-brH"/>
@@ -246,5 +254,6 @@
         <image name="giphy" width="480" height="320"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="images-2" width="225" height="225"/>
+        <image name="nointernet_2x" width="266.5" height="200"/>
     </resources>
 </document>

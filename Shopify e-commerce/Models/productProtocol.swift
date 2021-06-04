@@ -23,6 +23,7 @@ protocol viewModelType {
 }
 
 protocol shopViewModelType : viewModelType {
+    var connectivityDriver: Driver<Bool> {get}
     var dataDrive : Driver<[Product]> {get}
     var  discountCodeDrive : Driver<[String]> {get}
     var  searchValue : BehaviorRelay<String> {get}

@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 class shopViewModel  : shopViewModelType{
+    var connectivityDriver: Driver<Bool>
     var discountCodeDrive: Driver<[String]>
     var disposeBag = DisposeBag()
     var dataDrive: Driver<[Product]>
@@ -22,24 +23,29 @@ class shopViewModel  : shopViewModelType{
     var discountCodeSubject = PublishSubject<[String]>()
     var loadingSubject = PublishSubject<Bool>()
     var errorSubject = PublishSubject<String>()
+    var connectivitySubject = PublishSubject<Bool>()
     var getDataobj = ShopifyAPI.shared
     init() {
         dataDrive = dataSubject.asDriver(onErrorJustReturn: [] )
         discountCodeDrive = discountCodeSubject.asDriver(onErrorJustReturn: [])
-        loadingDriver =  loadingSubject.asDriver(onErrorJustReturn: true)
+        loadingDriver =  loadingSubject.asDriver(onErrorJustReturn: false)
         errorDriver = errorSubject.asDriver(onErrorJustReturn: "")
-        
+        connectivityDriver = connectivitySubject.asDriver(onErrorJustReturn: false)
         searchValueObservable.subscribe(onNext: {[weak self] (value) in
-        print("value is \(value)")
             let filteredData = self?.searchData.filter({ (product) -> Bool in
                 product
                 .productType.lowercased().prefix(value.count) == value.lowercased()
         })
-      self?.dataSubject.onNext(filteredData ?? [])
+        self?.dataSubject.onNext(filteredData ?? [])
         }).disposed(by: disposeBag)
 
     }
     func fetchWomenData() {
+        if(!Connectivity.isConnectedToInternet){
+            connectivitySubject.onNext(true)
+                return
+        }
+        connectivitySubject.onNext(false)
         loadingSubject.onNext(true)
         getDataobj.getAllWomanProductData(completion: { [weak self](result) in
             switch result{
@@ -56,6 +62,11 @@ class shopViewModel  : shopViewModelType{
    )}
     
     func fetchMenData() {
+        if(!Connectivity.isConnectedToInternet){
+            connectivitySubject.onNext(true)
+                return
+        }
+        connectivitySubject.onNext(false)
            loadingSubject.onNext(true)
                 getDataobj.getAllMenProductData(completion: { [weak self](result) in
                     switch result{
@@ -73,6 +84,11 @@ class shopViewModel  : shopViewModelType{
        }
        
    func fetchKidsData() {
+    if(!Connectivity.isConnectedToInternet){
+        connectivitySubject.onNext(true)
+            return
+    }
+    connectivitySubject.onNext(false)
            loadingSubject.onNext(true)
                 getDataobj.getAllKidsProductData(completion: { [weak self](result) in
                     switch result{
@@ -89,6 +105,11 @@ class shopViewModel  : shopViewModelType{
            )
        }
     func fetchDiscountCodeData() {
+        if(!Connectivity.isConnectedToInternet){
+            connectivitySubject.onNext(true)
+                return
+        }
+        connectivitySubject.onNext(false)
         getDataobj.getDiscountCodeData {[weak self] (result) in
             switch result{
             
