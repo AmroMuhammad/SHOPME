@@ -22,6 +22,8 @@ class UserData {
     func userStatus() -> (String,Bool) {
         var isLogedIn = userDefaults.bool(forKey: "isLogedIn")
         var email = userDefaults.value(forKey: "email") as! String
+        print("========================================")
+        print(email)
         return (email,isLogedIn)
         
     }

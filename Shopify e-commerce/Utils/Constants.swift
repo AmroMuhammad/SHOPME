@@ -22,7 +22,7 @@ struct Constants {
     
     // MARK: Ayman Section
     static let customersURL = "customers.json"
-    static let newCustomer = ""
+    static let newCustomer = "customers.json"
     //end
     
     

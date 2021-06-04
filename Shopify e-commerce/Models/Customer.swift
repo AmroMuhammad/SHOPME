@@ -10,19 +10,21 @@
 //
 //// MARK: - Customer
 struct Customer: Codable {
-    let customers: [CustomerElement]
+    var customers: [CustomerElement]
 }
-//
+
 //// MARK: - CustomerElement
 struct CustomerElement: Codable {
-    let id: Int
-    let email:String?
-    let lastOrderID: Int?
-    let first_name, last_name, total_spent: String?
-    //let note: String?
-    //let verified_email, tax_exempt: Bool?
-    //let phone: Int?
-    //let tags, last_order_name, currency: String?
+    var id: Int?
+    var email:String?
+    var lastOrderID: Int?
+    var first_name, last_name, total_spent: String?
+    var note: String?
+    var verified_email, tax_exempt: Bool?
+    var phone: String?
+    var tags, last_order_name, currency: String?
+    var password,password_confirmation:String?
+    
     
 //}
 //    enum CodingKeys: String, CodingKey {

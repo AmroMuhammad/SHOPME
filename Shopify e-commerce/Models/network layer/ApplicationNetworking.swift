@@ -85,7 +85,7 @@ extension ApplicationNetworking : TargetType{
             return .get
             
         case .newCustomer:
-            return .put
+            return .post
             
         
             //end
