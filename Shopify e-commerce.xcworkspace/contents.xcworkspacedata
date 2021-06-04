@@ -5,6 +5,9 @@
       location = "group:Shopify e-commerce.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:Shopify e-commerce">
+   </FileRef>
+   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>
