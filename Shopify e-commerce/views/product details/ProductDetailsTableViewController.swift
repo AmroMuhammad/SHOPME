@@ -19,54 +19,6 @@ class ProductDetailsTableViewController: UITableViewController {
     private var disposeBag: DisposeBag!
     
     
-    var proDetObs: Product? {
-        didSet{
-            print("\n\nprpObs didSet START\n\n")
-            print("VC => id => \(proDetObs?.id ?? 707)")
-            print("\n\nprpObs END\n\n")
-            if let imgsArr = proDetObs?.images {
-                imagesSubject.onNext(imgsArr)
-                pageController.numberOfPages = imgsArr.count
-            }
-            if let productName = proDetObs?.title {
-                productNameLabel.text = productName
-            }
-            if let productPrice = proDetObs?.variants?[0].price {
-                priceLabel.text = productPrice
-            }
-            if let optionsArr = proDetObs?.options {
-                for option in optionsArr {
-                    if option.name == "Color" {
-                        if let clrsArr = option.values{
-                            print("COLOR DIDSET")
-                            colorsSubject.onNext(mapToColors(colorsNames: clrsArr))
-                            print("COLOR \(clrsArr)")
-                        }
-                        break
-                    }
-                }
-            }
-            if let sizeArr = proDetObs?.options {
-                for option in sizeArr {
-                    if option.name == "Size" {
-                        if let sizesArr = option.values{
-                            print("SIZE DIDSET")
-                            sizesSubject.onNext(sizesArr)
-                            print("SIZE \(sizesArr)")
-                        }
-                        break
-                    }
-                }
-            }
-            
-        }
-        willSet{
-            print("\n\nprpObs willSet START\n\n")
-            print("VC => title => \(newValue?.title ?? "nilTitle")")
-            print("\n\nprpObs END\n\n")
-        }
-    }
-    
     var productId: String!
     
     @IBOutlet weak var sliderCollectionView: UICollectionView!
@@ -115,10 +67,12 @@ class ProductDetailsTableViewController: UITableViewController {
         colorsCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
         sizeCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
         
-        let colorNibCell = UINib(nibName: String(describing: ColorViewCollectionViewCell.self), bundle: nil)
-        colorsCollectionView.register(colorNibCell, forCellWithReuseIdentifier: "ColorViewCollectionViewCell")
         
-        imagesSubject.bind(to: sliderCollectionView.rx.items(cellIdentifier: "imageCell")){row, item, cell in
+        let colorNibCell = UINib(nibName: String(describing: ColorViewCollectionViewCell.self), bundle: nil)
+        colorsCollectionView.register(colorNibCell, forCellWithReuseIdentifier: Constants.colorCell)
+        
+        
+        imagesSubject.bind(to: sliderCollectionView.rx.items(cellIdentifier: Constants.imageCell)){row, item, cell in
               if let vc = cell.viewWithTag(1) as? UIImageView {
                 if let srcImg = item.src{
                     vc.sd_setImage(with: URL(string: srcImg), placeholderImage: UIImage(named: "1"))
@@ -126,25 +80,43 @@ class ProductDetailsTableViewController: UITableViewController {
             }
         }.disposed(by: disposeBag)
         
-        colorsSubject.bind(to: colorsCollectionView.rx.items(cellIdentifier: "ColorViewCollectionViewCell")){row, item, cell in
+        colorsSubject.bind(to: colorsCollectionView.rx.items(cellIdentifier: Constants.colorCell)){row, item, cell in
             print("COLOR BINDDDDDDD")
             let clrCell = cell as! ColorViewCollectionViewCell
             clrCell.lbl.backgroundColor = item
         }.disposed(by: disposeBag)
         
-        sizesSubject.bind(to: sizeCollectionView.rx.items(cellIdentifier: "sizeCell")){row, item, cell in
+        sizesSubject.bind(to: sizeCollectionView.rx.items(cellIdentifier: Constants.sizeCell)){row, item, cell in
             if let vc = cell.viewWithTag(1) as? UILabel {
                 vc.text = item
             }
         }.disposed(by: disposeBag)
         
-
-        productDetailsViewModel.productDetailsDataObservable.bind { (prod) in
+        
+        productDetailsViewModel.sizesObservable.bind { (sizes) in
             print("\n\nObs BIND\n\n")
-            self.proDetObs = prod
+            self.sizesSubject.onNext(sizes)
+        }.disposed(by: disposeBag)
+        productDetailsViewModel.colorsObservable.bind { (colors) in
+            print("\n\nObs BIND\n\n")
+            self.colorsSubject.onNext(colors)
+        }.disposed(by: disposeBag)
+        productDetailsViewModel.imagesObservable.bind { (images) in
+            print("\n\nObs BIND\n\n")
+            self.imagesSubject.onNext(images)
+            self.pageController.numberOfPages = images.count
+        }.disposed(by: disposeBag)
+
+        productDetailsViewModel.productPriceObservable.bind { (price) in
+            print("\n\nObs BIND\n\n")
+            self.priceLabel.text = price
+        }.disposed(by: disposeBag)
+        productDetailsViewModel.productTitleObservable.bind { (name) in
+            print("\n\nObs BIND\n\n")
+            self.productNameLabel.text = name
         }.disposed(by: disposeBag)
         
-
+        
         ratingViewInit()
         
         
@@ -153,34 +125,6 @@ class ProductDetailsTableViewController: UITableViewController {
         
         currencyLabel.text = "EGP"      // productDetailsViewModel.getCurrency()
         cityNameLabel.text = "Balteem"  // productDetailsViewModel.getDeliverCity()
-    }
-
-    func mapToColors(colorsNames: [String]) -> [UIColor] {
-        var arrClr: [UIColor] = []
-        print("COLOR MAPPINGGGGGGG")
-        for clr in colorsNames {
-            switch clr {
-            case "black":
-                arrClr.append(UIColor.black)
-            case "blue":
-                arrClr.append(UIColor.blue)
-            case "white":
-                arrClr.append(UIColor.white)
-            case "yellow":
-                arrClr.append(UIColor.yellow)
-            case "red":
-                arrClr.append(UIColor.red)
-            case "beige":
-                arrClr.append(#colorLiteral(red: 0.9607843137, green: 0.9607843137, blue: 0.862745098, alpha: 1))
-            case "light_brown":
-                arrClr.append(#colorLiteral(red: 0.7098039216, green: 0.3960784314, blue: 0.1137254902, alpha: 1))
-            case "burgandy":
-                arrClr.append(#colorLiteral(red: 0.5019607843, green: 0, blue: 0.1254901961, alpha: 1))
-            default:
-                arrClr.append(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
-            }
-        }
-        return arrClr
     }
     
     func ratingViewInit(){

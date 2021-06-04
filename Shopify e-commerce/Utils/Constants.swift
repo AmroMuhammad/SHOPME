@@ -13,7 +13,10 @@ struct Constants {
     
     static let prductDetails = "products/"
     static let endPath = ".json"
+    static let imageCell = "imageCell"
     static let colorCell = "ColorViewCollectionViewCell"
+    static let sizeCell = "sizeCell"
+    
     
     //end
     

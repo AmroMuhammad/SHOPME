@@ -10,8 +10,7 @@ target 'Shopify e-commerce' do
 #ahmed
   # Rating
   pod 'Cosmos', '~> 23.0'
-
-##
+  
 
 #Amr
   # Alamofire
