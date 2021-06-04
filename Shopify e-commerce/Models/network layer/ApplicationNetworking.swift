@@ -12,6 +12,8 @@ import Alamofire
 enum ApplicationNetworking{
     // MARK: Ahmed Section
     
+    case getProductDetails(id:String)
+    
     //end
     
     // MARK: Amr Section
@@ -43,7 +45,8 @@ extension ApplicationNetworking : TargetType{
     var path: String {
         switch self{
             // MARK: Ahmed Section
-            
+            case .getProductDetails(let id):
+                return Constants.prductDetails + id + Constants.endPath
             //end
             
             // MARK: Amr Section
@@ -78,6 +81,8 @@ extension ApplicationNetworking : TargetType{
         switch self{
             // MARK: Ahmed Section
             
+            case .getProductDetails:
+                return .get
             //end
             
             // MARK: Amr Section
@@ -110,7 +115,8 @@ extension ApplicationNetworking : TargetType{
     var task: Task {
         switch self{
             // MARK: Ahmed Section
-            
+            case .getProductDetails:
+                return .requestPlain
             //end
             
             // MARK: Amr Section
