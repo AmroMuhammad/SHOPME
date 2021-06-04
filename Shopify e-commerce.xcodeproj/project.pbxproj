@@ -150,6 +150,7 @@
 		0D090F22266615F800E74B52 /* delete */ = {
 			isa = PBXGroup;
 			children = (
+				0D090F232666189400E74B52 /* headerView */,
 				0D573B30265DC0C6006787B1 /* ColorCollectionViewCell.xib */,
 				0D573B2F265DC0C6006787B1 /* ColorCollectionViewCell.swift */,
 				0DF4D77B265C62490019219D /* ProductDetailsViewController.swift */,
@@ -231,7 +232,6 @@
 				0D0308D82669226200E56724 /* model */,
 				0D77D2F72667DB2E00FFA908 /* ViewModel */,
 				0D090F22266615F800E74B52 /* delete */,
-				0D090F232666189400E74B52 /* headerView */,
 				0D77D2F62667DB0100FFA908 /* ColorCell */,
 				C27423DE265AEAB5002D304B /* productDetails.storyboard */,
 				0D864DA5266565F5008474FE /* ProductDetailsTableViewController.swift */,

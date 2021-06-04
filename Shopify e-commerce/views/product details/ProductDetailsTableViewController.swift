@@ -7,19 +7,65 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import SDWebImage
+import Cosmos
 
 class ProductDetailsTableViewController: UITableViewController {
 
+    
+    private var productDetailsViewModel: ProductDetailsViewModel!
+    private var disposeBag: DisposeBag!
+    
+    
     var proDetObs: Product? {
         didSet{
-            print("\n\nprpObs START\n\n")
-            print((oldValue?.id ?? 70707) as Int)
+            print("\n\nprpObs didSet START\n\n")
             print("VC => id => \(proDetObs?.id ?? 707)")
+            print("\n\nprpObs END\n\n")
+            if let imgsArr = proDetObs?.images {
+                imagesSubject.onNext(imgsArr)
+                pageController.numberOfPages = imgsArr.count
+            }
+            if let productName = proDetObs?.title {
+                productNameLabel.text = productName
+            }
+            if let productPrice = proDetObs?.variants?[0].price {
+                priceLabel.text = productPrice
+            }
+            if let optionsArr = proDetObs?.options {
+                for option in optionsArr {
+                    if option.name == "Color" {
+                        if let clrsArr = option.values{
+                            print("COLOR DIDSET")
+                            colorsSubject.onNext(mapToColors(colorsNames: clrsArr))
+                            print("COLOR \(clrsArr)")
+                        }
+                        break
+                    }
+                }
+            }
+            if let sizeArr = proDetObs?.options {
+                for option in sizeArr {
+                    if option.name == "Size" {
+                        if let sizesArr = option.values{
+                            print("SIZE DIDSET")
+                            sizesSubject.onNext(sizesArr)
+                            print("SIZE \(sizesArr)")
+                        }
+                        break
+                    }
+                }
+            }
+            
+        }
+        willSet{
+            print("\n\nprpObs willSet START\n\n")
+            print("VC => title => \(newValue?.title ?? "nilTitle")")
             print("\n\nprpObs END\n\n")
         }
     }
-    
-    var viewModel: ProductDetailsViewModel!
     
     var productId: String!
     
@@ -27,116 +73,161 @@ class ProductDetailsTableViewController: UITableViewController {
     
     @IBOutlet weak var pageController: UIPageControl!
     
-     let arr = ["1", "2", "3", "1", "2", "3", "1", "2", "3", "1", "2", "3"]
-    
+    private var imagesSubject = PublishSubject<[ProductImage]>()
     
     @IBOutlet weak var productNameLabel: UILabel!
     
     
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var currencyLabel: UILabel!
+    
+    
+    @IBOutlet weak var ratingViewContainer: CosmosView!
+    
+    
     @IBOutlet weak var colorsCollectionView: UICollectionView!
     
-    let arrClr = [UIColor.red, UIColor.green, UIColor.black, UIColor.blue, UIColor.purple]
-    let arrClrNames = ["red", "green", "black", "blue", "purple"]
-      
+    private var colorsSubject = PublishSubject<[UIColor]>()
     
+     
     @IBOutlet weak var sizeCollectionView: UICollectionView!
+
     
-    let arrSizes = ["S", "M", "L", "XL", "XXL"]
+    private var sizesSubject = PublishSubject<[String]>()
     
     @IBOutlet weak var cityNameLabel: UILabel!
     
     
+    @IBOutlet weak var favoriteButtonOutlet: UIButton!
+    
+    @IBOutlet weak var addToCartButtonOutlet: UIButton! // change text clr to green if added??
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        productId = "6687367364806"
-        viewModel = ProductDetailsViewModel(cont: self)
-        viewModel.getProductDetails(id: productId)
+        //        navigationController?.title = "Bean Bag"
+        
+        productDetailsViewModel = ProductDetailsViewModel()
+        disposeBag = DisposeBag()
         
         
-//        navigationController?.title = "Bean Bag"
+        sliderCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        colorsCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        sizeCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        
+        let colorNibCell = UINib(nibName: String(describing: ColorViewCollectionViewCell.self), bundle: nil)
+        colorsCollectionView.register(colorNibCell, forCellWithReuseIdentifier: "ColorViewCollectionViewCell")
+        
+        imagesSubject.bind(to: sliderCollectionView.rx.items(cellIdentifier: "imageCell")){row, item, cell in
+              if let vc = cell.viewWithTag(1) as? UIImageView {
+                if let srcImg = item.src{
+                    vc.sd_setImage(with: URL(string: srcImg), placeholderImage: UIImage(named: "1"))
+                }
+            }
+        }.disposed(by: disposeBag)
+        
+        colorsSubject.bind(to: colorsCollectionView.rx.items(cellIdentifier: "ColorViewCollectionViewCell")){row, item, cell in
+            print("COLOR BINDDDDDDD")
+            let clrCell = cell as! ColorViewCollectionViewCell
+            clrCell.lbl.backgroundColor = item
+        }.disposed(by: disposeBag)
+        
+        sizesSubject.bind(to: sizeCollectionView.rx.items(cellIdentifier: "sizeCell")){row, item, cell in
+            if let vc = cell.viewWithTag(1) as? UILabel {
+                vc.text = item
+            }
+        }.disposed(by: disposeBag)
+        
+
+        productDetailsViewModel.productDetailsDataObservable.bind { (prod) in
+            print("\n\nObs BIND\n\n")
+            self.proDetObs = prod
+        }.disposed(by: disposeBag)
+        
+
+        ratingViewInit()
         
         
-        sliderCollectionView.delegate = self
-        sliderCollectionView.dataSource = self
+        productId = "6687366316230"
+        productDetailsViewModel.getProductDetails(id: productId)
         
-        pageController.numberOfPages = arr.count
-        
-        
-        
-        //                              Product Label
-        productNameLabel.text = "Bin Baggy - product Label"
-        productNameLabel.sizeToFit()
-        
-        
-        colorsCollectionView.delegate = self
-        colorsCollectionView.dataSource = self
-        
-        let nibCell = UINib(nibName: String(describing: ColorViewCollectionViewCell.self), bundle: nil)
-        colorsCollectionView.register(nibCell, forCellWithReuseIdentifier: "ColorViewCollectionViewCell")
-        
-        sizeCollectionView.delegate = self
-        sizeCollectionView.dataSource = self
-        
-        cityNameLabel.text = "Sina"
+        currencyLabel.text = "EGP"      // productDetailsViewModel.getCurrency()
+        cityNameLabel.text = "Balteem"  // productDetailsViewModel.getDeliverCity()
     }
 
-    // MARK: - Table view data source
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 20)) // width: 20, height: 20  are useless
-        
-        if (section == 1) {
-            headerView.backgroundColor = UIColor.clear
-            let headerVi = HeaderView.init(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 75))
-            headerVi.priceLabel.text = "777.77"
-            headerVi.priceLabel.sizeToFit()
-            headerVi.currencyLabel.text = "EG"
-            headerVi.currencyLabel.sizeToFit()
-            headerVi.ratingView.settings.fillMode = .half
-            headerVi.ratingView.rating = 3.5
-            headerVi.ratingView.settings.starSize = Double(tableView.frame.width) / 12.5
-            headerVi.ratingView.settings.updateOnTouch = false
-            headerVi.reviewsLabel.text = "\(5) reviews"
-            headerVi.reviewsLabel.sizeToFit()
-            headerView.addSubview(headerVi)
-            
-        } else {
-            headerView.backgroundColor = UIColor.green
-        }
-        return headerView
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-            switch section {
-            case 0:
-                return CGFloat.leastNonzeroMagnitude
-    //        case 1:
-    //            return 25.0
+    func mapToColors(colorsNames: [String]) -> [UIColor] {
+        var arrClr: [UIColor] = []
+        print("COLOR MAPPINGGGGGGG")
+        for clr in colorsNames {
+            switch clr {
+            case "black":
+                arrClr.append(UIColor.black)
+            case "blue":
+                arrClr.append(UIColor.blue)
+            case "white":
+                arrClr.append(UIColor.white)
+            case "yellow":
+                arrClr.append(UIColor.yellow)
+            case "red":
+                arrClr.append(UIColor.red)
+            case "beige":
+                arrClr.append(#colorLiteral(red: 0.9607843137, green: 0.9607843137, blue: 0.862745098, alpha: 1))
+            case "light_brown":
+                arrClr.append(#colorLiteral(red: 0.7098039216, green: 0.3960784314, blue: 0.1137254902, alpha: 1))
+            case "burgandy":
+                arrClr.append(#colorLiteral(red: 0.5019607843, green: 0, blue: 0.1254901961, alpha: 1))
             default:
-                return 65.0
+                arrClr.append(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
             }
         }
+        return arrClr
+    }
     
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        switch section {
-//        case 0:
-//            return nil
-//        case 1:
-//            return "Bean Bag"
-//        default:
-//            return "Shipping to cairo"
-//        }
-//    }
+    func ratingViewInit(){
+        ratingViewContainer.settings.fillMode = .half
+        ratingViewContainer.rating = 3.5
+        ratingViewContainer.settings.starSize = Double(tableView.frame.width) / 10
+        ratingViewContainer.settings.updateOnTouch = false
+        ratingViewContainer.text = "(\(7))"
+        ratingViewContainer.settings.textMargin = 10.0
+    }
     
+    @IBAction func favoriteButtonPressed(_ sender: UIButton) {
+        print("\n\n\nHEEEEY\n")
+        if sender.tag == 0 {
+            print("Fav Pressed tag = 0")
+            sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        
+//            productDetailsViewModel.addToCart()
+            
+            sender.tag = 1
+            
+        } else {
+            print("Fav Pressed tag = 1")
+            sender.setImage(UIImage(systemName: "heart"), for: .normal)
+            
+//            productDetailsViewModel.removeFromCart()
+            
+            sender.tag = 0
+        }
+        print("\n\n\nBYEEEE\n")
+    }
     
+    @IBAction func addToCartButtonPressed(_ sender: UIButton) {
+    }
+    
+    // MARK: - Table view data source
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         switch indexPath.section {
         case 0:
             if indexPath.row == 0 {
-                return view.frame.height * 0.2
+                return view.frame.height * 0.5
             } else {
                 return productNameLabel.bounds.height + 25
             }
@@ -161,99 +252,23 @@ class ProductDetailsTableViewController: UITableViewController {
 
 }
 
-
-extension ProductDetailsTableViewController: UICollectionViewDelegate, UICollectionViewDataSource{
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var size = 1 // change it ZERO. later
-        switch collectionView.tag {
-        case 1:
-            size = arr.count
-        case 2:
-            size = arrClr.count
-        case 3:
-            size = arrSizes.count
-        default:
-            size = 3 //// change it ZERO. later
-        }
-
-        return size
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        var cell: UICollectionViewCell!
-        
-        switch collectionView.tag {
-        case 1:
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath)
-            
-            if let vc = cell.viewWithTag(1) as? UIImageView {
-                vc.image = UIImage(named: arr[indexPath.row])
-            }
-//            if let ab = cell.viewWithTag(2) as? UIPageControl {
-//                ab.currentPage = indexPath.row
-//            }
-//            print(indexPath.row)
-            pageController.currentPage = indexPath.row
-        case 2:
-            let clrCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ColorViewCollectionViewCell", for: indexPath) as! ColorViewCollectionViewCell
-//            clrCell.lbl.text = arrClrNames[indexPath.row]
-            clrCell.lbl.backgroundColor = arrClr[indexPath.row]
-
-            /*   when select color -- in didSelectRowAt
-            clrCell.lbl.layer.borderWidth = 3.0
-            clrCell.lbl.layer.borderColor = UIColor.blue.cgColor
-            */
-            
-            cell = clrCell
-        case 3:
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "sizeCell", for: indexPath)
-            
-            if let vc = cell.viewWithTag(1) as? UILabel {
-                vc.text = arrSizes[indexPath.row]
-            }
-        default:
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ColorCollectionViewCell", for: indexPath) as! ColorCollectionViewCell  //// change it ZERO. later
-        }
-        
-        return cell
-    }
-    
-}
-
-
-
 extension ProductDetailsTableViewController: UICollectionViewDelegateFlowLayout {
     
-    
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//
-//        switch collectionView.tag {
-//        case 1:
-//        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//        default:
-//            return UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-//        }
-//    }
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        pageController.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let size = collectionView.bounds.size
-//        colorCircleView.layer.cornerRadius = colorCircleView.frame.size.width/2
-//        colorCircleView.clipsToBounds = true
-//
-//        colorCircleView.layer.borderColor = #colorLiteral(red: 0.4392156899, green: 0.01176470611, blue: 0.1921568662, alpha: 1)
-//        colorCircleView.layer.borderWidth = 5.0
         
         switch collectionView.tag {
         case 1:
-            return CGSize(width: size.width, height: (size.width - 30) / 3)
+            return CGSize(width: size.width, height: (size.height))
             
         default:
             return CGSize(width: (size.width - 30) / 4, height: (size.width - 30) / 3)
         }
-//        return collectionView.frame.size
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -265,10 +280,5 @@ extension ProductDetailsTableViewController: UICollectionViewDelegateFlowLayout 
             return 15.0
         }
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        return 0.0
-//
-//    }
     
 }

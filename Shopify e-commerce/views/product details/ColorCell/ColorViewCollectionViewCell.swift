@@ -18,7 +18,8 @@ class ColorViewCollectionViewCell: UICollectionViewCell {
                 
         self.lbl.layer.cornerRadius = 34.0
         self.lbl.layer.masksToBounds = true
-
+        self.lbl.layer.borderWidth = 3
+        self.lbl.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         self.layer.masksToBounds = false
     }
         

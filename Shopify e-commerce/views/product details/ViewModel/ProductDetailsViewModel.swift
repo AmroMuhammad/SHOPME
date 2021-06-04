@@ -7,41 +7,43 @@
 //
 
 import Foundation
+import RxSwift
 
 class ProductDetailsViewModel {
     
+    var productDetailsDataObservable: Observable<Product>
+    
+    private var productDetailsDataSubject = PublishSubject<Product>()
+    
+    
     private var shopifyAPI: ShopifyAPI!
-    private var controller: ProductDetailsTableViewController!
+    //private var controller: ProductDetailsTableViewController!
     
     
-    init(cont: ProductDetailsTableViewController) {
+    init() {
+        productDetailsDataObservable = productDetailsDataSubject.asObservable()
+        
         shopifyAPI = ShopifyAPI.shared
-        controller = cont
+        //controller = cont
     }
     
     func getProductDetails(id: String){
         shopifyAPI.getProductDetails(productId: id) { (result) in
             switch(result){
             case .success(let product):
-                self.controller.proDetObs = product?.product
+//                self.controller.proDetObs = product?.product
                 print("VM => id => \(product?.product.id ?? 707)")
+                if let productResponse = product {
+                    self.productDetailsDataSubject.onNext(productResponse.product)
+                }
             case .failure(let err):
                 print("\n\n\n\n errrrr => \(err.localizedDescription) \nEND\n\n\n\n")
             }
         }
     }
     
-    /*
-     case .success(let cat):
-         self?.data = cat?.products
-         let filteredData = self?.data?.filter({(catItem) -> Bool in
-             catItem.productType.capitalized == subCat.capitalized
-         })
-         self?.productDatasubject.onNext(filteredData ?? [])
-         self?.data = filteredData
-         self?.Loadingsubject.onNext(false)
-     case .failure(let error):
-         self?.Loadingsubject.onNext(false)
-         self?.errorsubject.onError(error)
-     */
+    func getDeliverCity(){
+        //get city name to deliver from local 
+    }
+    
 }
