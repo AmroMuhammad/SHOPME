@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 class shopViewModel  : shopViewModelType{
     var connectivityDriver: Driver<Bool>
-    var discountCodeDrive: Driver<[DiscountCodeElement]>
+    var discountCodeDrive: Driver<[String]>
     var disposeBag = DisposeBag()
     var dataDrive: Driver<[Product]>
     var loadingDriver: Driver<Bool>
@@ -20,7 +20,7 @@ class shopViewModel  : shopViewModelType{
     var searchData : [Product] = []
     lazy var searchValueObservable:Observable<String> = searchValue.asObservable()
     var dataSubject = PublishSubject<[Product]>()
-    var discountCodeSubject = PublishSubject<[DiscountCodeElement]>()
+    var discountCodeSubject = PublishSubject<[String]>()
     var loadingSubject = PublishSubject<Bool>()
     var errorSubject = PublishSubject<String>()
     var connectivitySubject = PublishSubject<Bool>()

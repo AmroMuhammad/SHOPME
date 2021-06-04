@@ -36,7 +36,7 @@ class shopViewController: UIViewController {
         shopProductViewModel.discountCodeDrive.drive(onNext: { (discountCodeVal) in
             self.ads.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
             self.ads.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-            self.ads.text = "USE CODE: \(discountCodeVal[0].code)"
+            self.ads.text = "USE CODE: \(discountCodeVal)"
             }).disposed(by: disposeBag)
 
         // MARK: - Load function
