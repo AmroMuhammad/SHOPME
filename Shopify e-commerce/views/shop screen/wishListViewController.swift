@@ -1,15 +1,22 @@
 //
-//  ViewController.swift
+//  wishListViewController.swift
 //  Shopify e-commerce
 //
-//  Created by Amr Muhammad on 5/19/21.
+//  Created by marwa on 6/4/21.
 //  Copyright © 2021 ITI41. All rights reserved.
 //
 
 import UIKit
-class ViewController: UIViewController {
+
+class wishListViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+    }
     
-    
+
     /*
     // MARK: - Navigation
 

@@ -10,7 +10,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SDWebImage
-import ImageIO
 class shopViewController: UIViewController {
     var shopProductViewModel : shopViewModelType!
     private let disposeBag = DisposeBag()
@@ -30,13 +29,7 @@ class shopViewController: UIViewController {
     let indicatorHeight : CGFloat = 5
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-               
-//        let gifURL : String = "https://media.giphy.com/media/3o6EhTpmOMApdn87cI/giphy.gif"
-//        gifimage.sd_imageIndicator = SDWebImageActivityIndicator.gray
-//        gifimage.sd_setImage(with: URL(string: gifURL), placeholderImage: UIImage(named: "1"))
         
-    
         shopProductViewModel = shopViewModel()
         searchBar.rx.text.orEmpty.debug().distinctUntilChanged().bind(to: shopProductViewModel.searchValue).disposed(by: disposeBag)
         
