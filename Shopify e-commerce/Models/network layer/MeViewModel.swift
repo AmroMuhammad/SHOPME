@@ -62,9 +62,13 @@ class MeViewModel{
             self.checkIsCustomerexist(email: email, password: password,array:array,context:context)
         }
         else{
-            support.notifyUser(title: Constants.u_p_required_t, body: Constants.u_p_required_t, context: context.self)
+            Support.notifyUser(title: Constants.u_p_required_t, body: Constants.u_p_required_t, context: context.self)
         }
     }
+    func signOutUser() -> Void {
+        userData.deleteUserDefaults()
+    }
+    
     func checkIsCustomerexist(email:String,password:String,array:[CustomerElement],context:UIViewController)->Void{
         for customer in array{
             if customer.email == email && customer.tags == password {
@@ -74,12 +78,12 @@ class MeViewModel{
                 print("===============================================")
                 print(mytuble.1)
                 print(userData.userStatus())
-                support.notifyUser(title: Constants.loginSuccess, body: Constants.loginSuccess, context: context.self)
+                Support.notifyUser(title: Constants.loginSuccess, body: Constants.loginSuccess, context: context.self)
                 
                 
             }
             else{
-                support.notifyUser(title: Constants.wrongEmail_Pass, body: Constants.empty, context: context.self)
+                Support.notifyUser(title: Constants.wrongEmail_Pass, body: Constants.empty, context: context.self)
             }
         }
         
@@ -120,7 +124,7 @@ class MeViewModel{
             
             
             if(ShopifyAPI.statusCodeForRegistration == 201){
-                support.notifyUser(title: Constants.registerdSuccess, body: Constants.empty, context: context.self)
+                Support.notifyUser(title: Constants.registerdSuccess, body: Constants.empty, context: context.self)
             }
             //            else if(ShopifyAPI.statusCodeForRegistration == 422){
             //                support.notifyUser(title: Constants.accountExisted, body: Constants.empty, context: self)
@@ -131,16 +135,16 @@ class MeViewModel{
             
             if(password != secPass){
                 
-                support.notifyUser(title: Constants.pass_conf, body: Constants.empty, context: context.self)
+                Support.notifyUser(title: Constants.pass_conf, body: Constants.empty, context: context.self)
             }else if(!isValidEmail(email)){
-                support.notifyUser(title: Constants.emailIsnotValid_T, body: Constants.emailIsnotValid_B, context:context.self)
+                Support.notifyUser(title: Constants.emailIsnotValid_T, body: Constants.emailIsnotValid_B, context:context.self)
             }
             else{
-                support.notifyUser(title: Constants.allfeildReq, body: Constants.empty, context: context.self)
+                Support.notifyUser(title: Constants.allfeildReq, body: Constants.empty, context: context.self)
             }
         }
         else{
-            support.notifyUser(title: Constants.faildBody, body: Constants.empty, context: context.self)
+            Support.notifyUser(title: Constants.faildBody, body: Constants.empty, context: context.self)
         }
         
     }

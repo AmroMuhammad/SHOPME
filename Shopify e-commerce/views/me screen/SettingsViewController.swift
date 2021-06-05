@@ -22,7 +22,9 @@ class SettingsViewController: UIViewController {
     @IBAction func loginBtn(_ sender: Any) {
         
         meViewModel.checkUserName_Password(email: emailTextField.text!, password: passwordTextField.text!, context: self, array: array)
-        //self.checkUserName_Password()
+        print("====================================")
+        print(userData.userStatus())
+        
         
     }
     @IBOutlet weak var passwordTextField: UITextField!
@@ -84,7 +86,7 @@ class SettingsViewController: UIViewController {
     }
     func fail(){
         error = meViewModel.errorMessage
-        support.notifyUser(title: error, body: Constants.empty, context: self)
+        Support.notifyUser(title: error, body: Constants.empty, context: self)
     }
     
     @objc func wantToLoginTap(){

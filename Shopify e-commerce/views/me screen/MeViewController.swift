@@ -13,7 +13,7 @@ class MeViewController: UIViewController {
     @IBOutlet weak var signOut: UIButton!
     let currencyArray = ["USD","LE"];
     var userData = UserData.getInstance()
-    
+    var meViewModel = MeViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,10 +35,8 @@ class MeViewController: UIViewController {
         
     }
     @objc func signoutAction(){
-        userData.deleteUserDefaults()
+        meViewModel.signOutUser()
     }
-    
-    
     
     @IBAction func aboutUS(_ sender: Any) {
         let settingsVC = self.storyboard?.instantiateViewController(identifier: "SettingsViewController") as! SettingsViewController
