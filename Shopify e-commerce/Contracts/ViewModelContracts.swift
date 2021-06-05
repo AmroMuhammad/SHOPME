@@ -18,6 +18,6 @@ protocol CategoryViewModelContract:ViewModelType{
 }
 
 protocol SearchViewModelContract:ViewModelType{
-    var dataObservable: Observable<[Product]>{get}
+    var dataObservable: Observable<[SearchProduct]>{get}
     
 }

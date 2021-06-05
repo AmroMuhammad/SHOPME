@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: - ProductModel
-struct ProductModel: Codable {
+struct ProductModels: Codable {
     let products: [CategoryProduct]
 }
 

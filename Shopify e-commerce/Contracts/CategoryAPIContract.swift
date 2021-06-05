@@ -8,7 +8,7 @@
 
 import Foundation
 protocol CategoryAPIContract {
-    func getCategoryProducts(catType:String,completion: @escaping (Result<ProductModel?,NSError>) -> Void)
+    func getCategoryProducts(catType:String,completion: @escaping (Result<ProductModels?,NSError>) -> Void)
 }
 
 protocol AllProductsAPIContract {

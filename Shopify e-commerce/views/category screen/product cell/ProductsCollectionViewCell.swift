@@ -21,7 +21,7 @@ class ProductsCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    var allProductObject:Product!{
+    var allProductObject:SearchProduct!{
         didSet{
             productNameLabel.text = allProductObject.variants[0].price
             productImage.sd_setImage(with: URL(string: allProductObject.image.src), placeholderImage: UIImage(named: "placeholder"))

@@ -11,21 +11,21 @@ import RxSwift
 import RxCocoa
 
 class SearchViewModel : SearchViewModelContract{
-    var dataObservable: Observable<[Product]>
+    var dataObservable: Observable<[SearchProduct]>
     var searchValue : BehaviorRelay<String> = BehaviorRelay(value: "")
     var errorObservable: Observable<Bool>
     var LoadingObservable: Observable<Bool>
     
     private lazy var searchValueObservable:Observable<String> = searchValue.asObservable()
     private var disposeBag = DisposeBag()
-    private var datasubject = PublishSubject<[Product]>()
+    private var datasubject = PublishSubject<[SearchProduct]>()
     private var shopifyAPI:AllProductsAPIContract!
     private var errorsubject = PublishSubject<Bool>()
     private var Loadingsubject = PublishSubject<Bool>()
-    private var data:[Product]!
-    private var searchedData:[Product]!
-    private var sortedData:[Product]!
-    private var filteredData:[Product]!
+    private var data:[SearchProduct]!
+    private var searchedData:[SearchProduct]!
+    private var sortedData:[SearchProduct]!
+    private var filteredData:[SearchProduct]!
     private var isSorted:Bool = false
     private var isfiltered:Bool = false
 

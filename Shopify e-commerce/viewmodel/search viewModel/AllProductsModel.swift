@@ -10,11 +10,11 @@ import Foundation
 
 // MARK: - AllProductsModel
 struct AllProductsModel: Codable {
-    let products: [Product]
+    let products: [SearchProduct]
 }
 
 // MARK: - Product
-struct Product: Codable {
+struct SearchProduct: Codable {
     let id: Int
     let title, bodyHTML, vendor: String
     let productType: ProductType
@@ -25,9 +25,9 @@ struct Product: Codable {
     let publishedScope: PublishedScope
     let tags, adminGraphqlAPIID: String
     let variants: [Variant]
-    let options: [Option]
-    let images: [Image]
-    let image: Image
+    let options: [SearchOption]
+    let images: [SearchImage]
+    let image: SearchImage
 
     enum CodingKeys: String, CodingKey {
         case id, title
@@ -47,7 +47,7 @@ struct Product: Codable {
 }
 
 // MARK: - Image
-struct Image: Codable {
+struct SearchImage: Codable {
     let id, productID, position: Int
     let createdAt, updatedAt: String
     let width, height: Int
@@ -66,7 +66,7 @@ struct Image: Codable {
 }
 
 // MARK: - Option
-struct Option: Codable {
+struct SearchOption: Codable {
     let id, productID: Int
     let name: Name
     let position: Int
