@@ -23,8 +23,22 @@ struct Constants {
     // MARK: Amr Section
         static let genericError = "error in networkLayer"
         static let baseURL = "https://ce751b18c7156bf720ea405ad19614f4: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@itiana.myshopify.com/admin/api/2021-04/"
-       
-    //end
+        static let mainCatNibCelln = "MainCategoryCollectionViewCell"
+    static let subCatNibCell = "SubCategoryCollectionViewCell"
+    static let productNibCell = "ProductsCollectionViewCell"
+    static let mainCategories = ["Men","Women","Kids"]
+    static let subCategories = ["T-Shirts","Shoes","Accessories"]
+    static let menCatPath = "collections/268359598278/products.json"
+    static let womenCatPath = "collections/268359631046/products.json"
+    static let kidCatPath = "collections/268359663814/products.json"
+    static let searchViewController = "SearchProductViewController"
+    static let allProductsPath = "products.json"
+    static let sortList = ["Price: High to low","Price: Low to High"]
+    static let filterList = ["T-Shirts","Shoes","Accessories"]
+
+
+
+           //end
     
     
     // MARK: Ayman Section
