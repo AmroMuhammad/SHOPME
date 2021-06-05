@@ -11,13 +11,13 @@ import RxSwift
 
 class ProductDetailsViewModel {
     
-    var imagesObservable: Observable<[ProductImage]>
+    var imagesObservable: Observable<[ProductDetailsImage]>
     var colorsObservable: Observable<[UIColor]>
     var sizesObservable: Observable<[String]>
     var productTitleObservable: Observable<String>
     var productPriceObservable: Observable<String>
     
-    private var imagesSubject = PublishSubject<[ProductImage]>()
+    private var imagesSubject = PublishSubject<[ProductDetailsImage]>()
     private var colorsSubject = PublishSubject<[UIColor]>()
     private var sizesSubject = PublishSubject<[String]>()
     private var productTitleSubject = PublishSubject<String>()
@@ -51,7 +51,7 @@ class ProductDetailsViewModel {
         }
     }
     
-    func filterData(product: Product) {
+    func filterData(product: ProductDetails) {
         if let imgsArr = product.images {
             imagesSubject.onNext(imgsArr)
         }
