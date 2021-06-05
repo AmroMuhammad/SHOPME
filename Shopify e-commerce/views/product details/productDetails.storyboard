@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fHz-Xe-xE2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sDc-rm-Tud">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
@@ -10,7 +10,7 @@
         <!--Product Details Table View Controller-->
         <scene sceneID="Dj0-iB-s1l">
             <objects>
-                <tableViewController id="fHz-Xe-xE2" customClass="ProductDetailsTableViewController" customModule="Shopify_e_commerce" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ProductDetailsTableViewController" id="fHz-Xe-xE2" customClass="ProductDetailsTableViewController" customModule="Shopify_e_commerce" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="sEw-U1-c4N">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -411,6 +411,7 @@
                             <outlet property="delegate" destination="fHz-Xe-xE2" id="giB-VF-sq0"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="ZD7-Cu-9Sd"/>
                     <connections>
                         <outlet property="cityNameLabel" destination="vjZ-0T-mkv" id="4ga-DH-Nfg"/>
                         <outlet property="colorsCollectionView" destination="nyD-kx-vzA" id="w8e-8t-3a6"/>
@@ -425,6 +426,24 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P7o-8g-oIz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="211.59420289855075" y="757.36607142857144"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="dXx-Ct-SPb">
+            <objects>
+                <navigationController storyboardIdentifier="NavProductDetailsTableViewController" automaticallyAdjustsScrollViewInsets="NO" id="sDc-rm-Tud" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QQL-yL-f8G">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="fHz-Xe-xE2" kind="relationship" relationship="rootViewController" id="aNq-VX-4Gl"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eWQ-er-0XG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-698.55072463768124" y="757.36607142857144"/>
         </scene>

@@ -120,7 +120,6 @@ class ProductDetailsTableViewController: UITableViewController {
         ratingViewInit()
         
         
-        productId = "6687366316230"
         productDetailsViewModel.getProductDetails(id: productId)
         
         currencyLabel.text = "EGP"      // productDetailsViewModel.getCurrency()

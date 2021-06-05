@@ -40,7 +40,7 @@
                                 </cells>
                             </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9jT-P1-IKo">
-                                <rect key="frame" x="0.0" y="128" width="130" height="734"/>
+                                <rect key="frame" x="0.0" y="128" width="130" height="685"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="130" id="XcW-3L-Tpw"/>
@@ -63,7 +63,7 @@
                                 </cells>
                             </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="3" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8Mc-DP-z8u">
-                                <rect key="frame" x="133" y="131" width="276" height="731"/>
+                                <rect key="frame" x="133" y="131" width="276" height="682"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BPr-wa-bnw">
                                     <size key="itemSize" width="128" height="128"/>
@@ -98,6 +98,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Idk-Lh-PQM"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="CATEGORY" image="bag.fill" catalog="system" id="0gT-pU-Mfh"/>
                     <navigationItem key="navigationItem" title="Category" id="7dx-Tw-fWP">
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="txa-1z-q1Y">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -106,6 +107,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="mainCategoryCollectionView" destination="k9c-XD-9RC" id="VUp-5R-DDv"/>
                         <outlet property="productsCollectionView" destination="8Mc-DP-z8u" id="NrZ-Be-H13"/>
@@ -198,7 +200,7 @@
         <!--Navigation Controller-->
         <scene sceneID="5gG-Ly-P4S">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nOw-vO-3gP" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavCategoryViewController" automaticallyAdjustsScrollViewInsets="NO" id="nOw-vO-3gP" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="q77-xG-I1W">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -214,4 +216,7 @@
             <point key="canvasLocation" x="134.78260869565219" y="85.714285714285708"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="bag.fill" catalog="system" width="128" height="128"/>
+    </resources>
 </document>
