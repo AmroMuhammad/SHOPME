@@ -42,6 +42,37 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
     
 }
 
+//func getProducts(completion: @escaping (Result<ProductModel?,NSError>) -> Void){
+//    self.fetchData(target: .products, responseClass: ProductModel.self) { (result) in
+//        completion(result)
+//    }
+//}
+
+extension ShopifyAPI : CategoryAPIContract{
+    func getCategoryProducts(catType: String, completion: @escaping (Result<ProductModel?, NSError>) -> Void) {
+        var targetType:ApplicationNetworking = .getMenCategoryProducts
+        if(catType == Constants.mainCategories[0]){  //men
+            targetType = .getMenCategoryProducts
+        }else if(catType == Constants.mainCategories[1]){
+            targetType = .getWomenCategoryProducts
+        }else{
+            targetType = .getKidsCategoryProducts
+        }
+        
+        self.fetchData(target: targetType, responseClass: ProductModel.self) { (result) in
+            completion(result)
+        }
+        
+    }
+}
+
+extension ShopifyAPI : AllProductsAPIContract{
+    func getAllProducts(completion: @escaping (Result<AllProductsModel?, NSError>) -> Void) {
+        self.fetchData(target: .getAllProducts, responseClass: AllProductsModel.self) { (result) in
+            completion(result)
+        }
+    }
+}
 // MARK: Marwa Section
 extension ShopifyAPI : allProductProtocol{
     func getDiscountCodeData(completion: @escaping (Result<discountCode?, NSError>) -> Void) {
