@@ -14,7 +14,7 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
     private override init() {}
     
     // MARK: Ahmed Section
-    
+    // ADD   =>    extension ShopifyAPI: ProductDetailsAPIType
     func getProductDetails(productId:String, completion: @escaping (Result<ProductModel?,NSError>) -> Void){
         self.fetchData(target: .getProductDetails(id: productId), responseClass: ProductModel.self) { (result) in
             completion(result)

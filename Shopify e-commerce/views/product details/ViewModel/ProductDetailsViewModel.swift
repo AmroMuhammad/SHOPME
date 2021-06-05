@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-class ProductDetailsViewModel {
+class ProductDetailsViewModel: ProductDetailsViewModelType {
     
     var imagesObservable: Observable<[ProductImage]>
     var colorsObservable: Observable<[UIColor]>
@@ -22,6 +22,8 @@ class ProductDetailsViewModel {
     private var sizesSubject = PublishSubject<[String]>()
     private var productTitleSubject = PublishSubject<String>()
     private var productPriceSubject = PublishSubject<String>()
+    
+    private var productObject: Product?
     
     private var shopifyAPI: ShopifyAPI!
     
@@ -36,19 +38,47 @@ class ProductDetailsViewModel {
         shopifyAPI = ShopifyAPI.shared
     }
     
-    func getProductDetails(id: String){
+    
+    func getLocalData() {
+        
+        //get deliver city name from local
+        
+        //get currency from local
+        
+    }
+    
+    
+    
+    func addToCart(product: Product){
+        
+    }
+    
+    func removefromCart(product: Product){
+        
+    }
+    
+    func addTofavorite(product: Product){
+        
+    }
+    
+    func removefromFavorite(product: Product){
+        
+    }
+    
+    func getProductDetails(id: String) {
         shopifyAPI.getProductDetails(productId: id) { (result) in
-            switch(result){
-            case .success(let product):
-                print("VM => id => \(product?.product.id ?? 707)")
-                if let productResponse = product {
-//                    self.productDetailsDataSubject.onNext(productResponse.product)
-                    self.filterData(product: productResponse.product)
+                    switch(result){
+                    case .success(let product):
+                        print("VM => id => \(product?.product.id ?? 707)")
+                        if let productResponse = product {
+        //                    self.productDetailsDataSubject.onNext(productResponse.product)
+                            self.productObject = product?.product                                ///     is it Risky ???????
+                            self.filterData(product: productResponse.product)
+                        }
+                    case .failure(let err):
+                        print("\n\n\n\n errrrr => \(err.localizedDescription) \nEND\n\n\n\n")
+                    }
                 }
-            case .failure(let err):
-                print("\n\n\n\n errrrr => \(err.localizedDescription) \nEND\n\n\n\n")
-            }
-        }
     }
     
     func filterData(product: Product) {
@@ -114,13 +144,6 @@ class ProductDetailsViewModel {
             }
         }
         return arrClr
-    }
-    
-    func getDeliverCity(){
-        //get deliver city name from local
-    }
-    func getCurrency(){
-        //get currency from local
     }
     
 }
