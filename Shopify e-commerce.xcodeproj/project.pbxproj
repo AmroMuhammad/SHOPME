@@ -32,6 +32,7 @@
 		ED00A310265CB5970017B055 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED00A30F265CB5970017B055 /* SettingsViewController.swift */; };
 		ED440F7D266301A400B31D23 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED440F7C266301A400B31D23 /* UserData.swift */; };
 		ED440F7F2663052900B31D23 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED440F7E2663052900B31D23 /* Customer.swift */; };
+		ED53D1CE266BC954002E6083 /* MeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED53D1CD266BC954002E6083 /* MeViewModel.swift */; };
 		ED76EF7E2669C3B600F32C7B /* RegisterCustomer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED76EF7D2669C3B600F32C7B /* RegisterCustomer.swift */; };
 		EDE5840126640D1800580942 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE5840026640D1800580942 /* RegisterViewController.swift */; };
 		F4CDB09DC9B1BA2E976C1CB0 /* Pods_Shopify_e_commerce_Shopify_e_commerceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DFB7EEB377C4904666E17FA /* Pods_Shopify_e_commerce_Shopify_e_commerceUITests.framework */; };
@@ -93,6 +94,7 @@
 		ED00A30F265CB5970017B055 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		ED440F7C266301A400B31D23 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		ED440F7E2663052900B31D23 /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Customer.swift; path = "Shopify e-commerce/Models/Customer.swift"; sourceTree = SOURCE_ROOT; };
+		ED53D1CD266BC954002E6083 /* MeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MeViewModel.swift; path = "Shopify e-commerce/Models/network layer/MeViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		ED76EF7D2669C3B600F32C7B /* RegisterCustomer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterCustomer.swift; path = "Shopify e-commerce/Models/network layer/RegisterCustomer.swift"; sourceTree = SOURCE_ROOT; };
 		EDE5840026640D1800580942 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -247,7 +249,6 @@
 				C2A61D2A265638DF0047C648 /* DTO */,
 				C2A61D29265638D60047C648 /* local layer */,
 				C2A61D1D2656371B0047C648 /* network layer */,
-				ED440F7C266301A400B31D23 /* UserData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -275,6 +276,7 @@
 		C2A61D27265638C20047C648 /* viewmodel */ = {
 			isa = PBXGroup;
 			children = (
+				ED53D1CD266BC954002E6083 /* MeViewModel.swift */,
 			);
 			path = viewmodel;
 			sourceTree = "<group>";
@@ -294,6 +296,7 @@
 		C2A61D29265638D60047C648 /* local layer */ = {
 			isa = PBXGroup;
 			children = (
+				ED440F7C266301A400B31D23 /* UserData.swift */,
 			);
 			path = "local layer";
 			sourceTree = "<group>";
@@ -562,6 +565,7 @@
 				C2A61CEA265633200047C648 /* AppDelegate.swift in Sources */,
 				C2A61D252656378A0047C648 /* Utils.swift in Sources */,
 				C2A61D21265637530047C648 /* BaseAPI.swift in Sources */,
+				ED53D1CE266BC954002E6083 /* MeViewModel.swift in Sources */,
 				ED76EF7E2669C3B600F32C7B /* RegisterCustomer.swift in Sources */,
 				C2A61CEC265633200047C648 /* SceneDelegate.swift in Sources */,
 				C27423E9265AF4FE002D304B /* ShopifyAPI.swift in Sources */,

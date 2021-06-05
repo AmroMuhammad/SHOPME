@@ -15,5 +15,10 @@ struct CustomerRegister:Encodable {
     var first_name, last_name, tags, phone: String
     var id:Int
     var note:String
+    var address:[DefaultAddress]
     
+}
+struct DefaultAddress:Codable {
+    var city:String?
+    var country:String?
 }

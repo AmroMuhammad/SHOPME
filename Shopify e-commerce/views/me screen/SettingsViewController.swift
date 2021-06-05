@@ -27,7 +27,11 @@ class SettingsViewController: UIViewController {
     
     var isLoged = false;
     var isWhishList = true;
-    var array:[CustomerElement]!
+    var array:[CustomerElement] = [CustomerElement]()
+    var meViewModel = MeViewModel()
+    var error:String!
+    
+    
     var whishListArray = ["whishListArray","whishListArray","whishListArray","whishListArray"]
     var bagArray = ["bag1","bag1","bag1","bag1","bag1","bag1"]
     var userData = UserData.getInstance()
@@ -49,19 +53,11 @@ class SettingsViewController: UIViewController {
         
         self.checkUserLogedIn()
         
-        
-        let api = ShopifyAPI.shared
-        
-        api.getCustomers { (result) in
-            switch(result){
-            case .success(let response):
-                let customers = response
-                print(customers!.customers)
-                self.array = customers?.customers
-                
-            case .failure(_):
-                print("error")
-            }
+        meViewModel.bindCustomerToView = {
+            self.onSucsses()
+        }
+        meViewModel.bindErrorToView = {
+            self.fail()
         }
         
         tableview.delegate = self
@@ -79,6 +75,14 @@ class SettingsViewController: UIViewController {
         wantToLoginGesture.numberOfTapsRequired = 1
         wantToLogin.addGestureRecognizer(wantToLoginGesture)
         
+    }
+    
+    func onSucsses(){
+        array = meViewModel.customer
+    }
+    func fail(){
+        error = meViewModel.errorMessage
+        support.notifyUser(title: error, body: Constants.empty, context: self)
     }
     
     @objc func wantToLoginTap(){
@@ -113,6 +117,9 @@ class SettingsViewController: UIViewController {
                 print(userData.userStatus())
                 support.notifyUser(title: Constants.loginSuccess, body: Constants.loginSuccess, context: self)
                 
+            }
+            else if(customer.email != email && customer.tags != password){
+                support.notifyUser(title: Constants.wrongEmail_Pass, body: Constants.empty, context: self)
             }
         }
         

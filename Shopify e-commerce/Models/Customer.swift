@@ -40,7 +40,32 @@ struct CustomerElement: Codable {
 //        case taxExempt = "tax_exempt"
 //        case phone, tags
 //        case lastOrderName = "last_order_name"
-//        case currency, addresses
+//        case currency, addresses\
+    
+
+   /*
+     "default_address": {
+       "address1": "Chestnut Street 92",
+       "address2": "Apartment 2",
+       "city": "Louisville",
+       "company": null,
+       "country": "united states",
+       "first_name": "Bob",
+       "id": 207119551,
+       "last_name": "Norman",
+       "phone": "555-625-1199",
+       "province": "Kentucky",
+       "zip": "40202",
+       "province_code": "KY",
+       "country_code": "US",
+       "country_name": "United States",
+       "default": true
+     }
+     */
+    
+    
+    
+    
 //   }
 }
 //

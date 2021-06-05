@@ -13,10 +13,12 @@ class MeViewController: UIViewController {
     @IBOutlet weak var signOut: UIButton!
     let currencyArray = ["USD","LE"];
     var userData = UserData.getInstance()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+       
+        print("================================================================")
         var tuble = userData.userStatus()
         if(tuble.1){
             

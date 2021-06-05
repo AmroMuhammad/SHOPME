@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 
 struct Connectivity {
+
     private init() {}
     static let sharedInstance = NetworkReachabilityManager()!
     static var isConnectedToInternet:Bool {

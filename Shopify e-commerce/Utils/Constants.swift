@@ -34,6 +34,8 @@ struct Constants {
     static let allfeildReq = "all feilds are required"
     static let pass_conf = "password and confirmation password should be identical"
     static let wrongEmail_Pass = "Worng email or password"
+    static let emailIsnotValid_T = "Email is not valid"
+    static let emailIsnotValid_B = "please enter valid email"
     //end
     
     
