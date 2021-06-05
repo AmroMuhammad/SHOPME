@@ -123,6 +123,8 @@ class SearchViewModel : SearchViewModelContract{
         self.searchedData = self.data
         self.sortedData = self.data
         self.filteredData = self.data
+        isfiltered = false
+        isSorted = false
         
     }
 }
