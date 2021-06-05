@@ -8,8 +8,9 @@ target 'Shopify e-commerce' do
   # Pods for Shopify e-commerce
 
 #ahmed
-
-##
+  # Rating
+  pod 'Cosmos', '~> 23.0'
+  
 
 #Amr
   # Alamofire
