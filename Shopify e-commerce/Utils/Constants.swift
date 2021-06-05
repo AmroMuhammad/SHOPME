@@ -36,6 +36,7 @@ struct Constants {
     static let wrongEmail_Pass = "Worng email or password"
     static let emailIsnotValid_T = "Email is not valid"
     static let emailIsnotValid_B = "please enter valid email"
+    static let fullURL = "https://ce751b18c7156bf720ea405ad19614f4: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@itiana.myshopify.com/admin/api/2021-04/customers.json"
     //end
     
     

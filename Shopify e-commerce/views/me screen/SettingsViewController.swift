@@ -20,7 +20,9 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var register: UIButton!
     
     @IBAction func loginBtn(_ sender: Any) {
-        self.checkUserName_Password()
+        
+        meViewModel.checkUserName_Password(email: emailTextField.text!, password: passwordTextField.text!, context: self, array: array)
+        //self.checkUserName_Password()
         
     }
     @IBOutlet weak var passwordTextField: UITextField!
@@ -97,33 +99,37 @@ class SettingsViewController: UIViewController {
         navigationController?.pushViewController(registervc, animated: true);
     }
     
-    func checkUserName_Password() -> Void {
-        if emailTextField.text != "" && passwordTextField.text != "" {
-            self.checkIsCustomerexist(email: emailTextField.text!, password: passwordTextField.text!)
-        }
-        else{
-            support.notifyUser(title: Constants.u_p_required_t, body: Constants.u_p_required_t, context: self)
-        }
-    }
-    func checkIsCustomerexist(email:String,password:String)->Void{
-        for customer in array{
-            if customer.email == email && customer.tags == password {
-                
-                userData.saveUserDefaults(email: customer.email!, id: customer.id!)
-                let mytuble = userData.userStatus()
-                print(mytuble.0)
-                print("===============================================")
-                print(mytuble.1)
-                print(userData.userStatus())
-                support.notifyUser(title: Constants.loginSuccess, body: Constants.loginSuccess, context: self)
-                
-            }
-            else if(customer.email != email && customer.tags != password){
-                support.notifyUser(title: Constants.wrongEmail_Pass, body: Constants.empty, context: self)
-            }
-        }
-        
-    }
+    
+    
+    
+    
+//    func checkUserName_Password() -> Void {
+//        if emailTextField.text != "" && passwordTextField.text != "" {
+//            self.checkIsCustomerexist(email: emailTextField.text!, password: passwordTextField.text!)
+//        }
+//        else{
+//            support.notifyUser(title: Constants.u_p_required_t, body: Constants.u_p_required_t, context: self)
+//        }
+//    }
+//    func checkIsCustomerexist(email:String,password:String)->Void{
+//        for customer in array{
+//            if customer.email == email && customer.tags == password {
+//
+//                userData.saveUserDefaults(email: customer.email!, id: customer.id!)
+//                let mytuble = userData.userStatus()
+//                print(mytuble.0)
+//                print("===============================================")
+//                print(mytuble.1)
+//                print(userData.userStatus())
+//                support.notifyUser(title: Constants.loginSuccess, body: Constants.loginSuccess, context: self)
+//
+//            }
+//            else if(customer.email != email && customer.tags != password){
+//                support.notifyUser(title: Constants.wrongEmail_Pass, body: Constants.empty, context: self)
+//            }
+//        }
+//
+//    }
     func changeTableDataSource() -> Void {
         segmentControl.rx.selectedSegmentIndex.subscribe(onNext: {index in
             switch (index)
@@ -143,7 +149,6 @@ class SettingsViewController: UIViewController {
         })
     }
     @IBOutlet weak var tableview: UITableView!
-    //MARK:- Check if user is logdin or not and show message
     
     
 }

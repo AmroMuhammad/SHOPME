@@ -16,9 +16,7 @@ class MeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-       
-        print("================================================================")
+
         var tuble = userData.userStatus()
         if(tuble.1){
             

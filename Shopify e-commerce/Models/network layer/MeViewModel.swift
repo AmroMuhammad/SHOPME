@@ -12,7 +12,6 @@ class MeViewModel{
     var api:ShopifyAPI!
     var userData:UserData!
     var support = Support()
-    //var customerObservable<CustomerElement> =
     var customer:[CustomerElement]!{
         didSet{
             self.bindCustomerToView()
@@ -30,8 +29,6 @@ class MeViewModel{
             
         }
     }
-    
-    
     var errorMessage:String!{
         
         didSet{
@@ -60,8 +57,41 @@ class MeViewModel{
         }
     }
     
+    func checkUserName_Password(email:String,password:String,context:UIViewController,array:[CustomerElement]) -> Void {
+        if email != "" && password != "" {
+            self.checkIsCustomerexist(email: email, password: password,array:array,context:context)
+        }
+        else{
+            support.notifyUser(title: Constants.u_p_required_t, body: Constants.u_p_required_t, context: context.self)
+        }
+    }
+    func checkIsCustomerexist(email:String,password:String,array:[CustomerElement],context:UIViewController)->Void{
+        for customer in array{
+            if customer.email == email && customer.tags == password {
+                userData.saveUserDefaults(email: customer.email!, id: customer.id!)
+                let mytuble = userData.userStatus()
+                print(mytuble.0)
+                print("===============================================")
+                print(mytuble.1)
+                print(userData.userStatus())
+                support.notifyUser(title: Constants.loginSuccess, body: Constants.loginSuccess, context: context.self)
+                
+                
+            }
+            else{
+                support.notifyUser(title: Constants.wrongEmail_Pass, body: Constants.empty, context: context.self)
+            }
+        }
+        
+    }
     
     
+    
+    
+    
+    
+    
+    // MARK:- Registartion part
     func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         

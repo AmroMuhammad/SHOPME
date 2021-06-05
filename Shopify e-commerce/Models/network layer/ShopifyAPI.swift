@@ -39,7 +39,7 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
         // prepare json data
         let jsonData = try! JSONEncoder().encode(customer)
         // create post request
-        let url = URL(string: "https://ce751b18c7156bf720ea405ad19614f4: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@itiana.myshopify.com/admin/api/2021-04/customers.json")!
+        let url = URL(string:Constants.fullURL)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpShouldHandleCookies = false
@@ -51,9 +51,6 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
        
         let task = URLSession.shared.dataTask(with: request,completionHandler: handler(data:response:error:))
         task.resume()
-        
-        
-        
     }
     func handler(data:Data?,response:URLResponse?,error:Error?) -> Void {
         if error != nil{
@@ -62,23 +59,11 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
         }
         if let httpResponse = response as? HTTPURLResponse{
             print("==========================================================================")
-            print("==========================================================================")
-            print("==========================================================================")
-            print("==========================================================================")
-            print("==========================================================================")
             print("\(httpResponse.statusCode)")
             ShopifyAPI.statusCode = httpResponse.statusCode
             print("==========================================================================")
-            print("==========================================================================")
-            print("==========================================================================")
-            print("==========================================================================")
-            //print(httpResponse)
-            print("==========================================================================")
-            print("==========================================================================")
-            
         }
         if let safeData = data{
-            
         }
     }
     
@@ -102,37 +87,17 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
     
     func registrationHandler(data:Data?,response:URLResponse?,error:Error?) -> Void {
         if error != nil{
-            print(error!)
-
+            print(error!.localizedDescription)
         }
         if let httpResponse = response as? HTTPURLResponse{
-            print("==========================================================================")
-            print("==========================================================================")
-            print("==========================================================================")
-            print("==========================================================================")
             print("==========================================================================")
             print("\(httpResponse.statusCode)")
             ShopifyAPI.statusCodeForRegistration = httpResponse.statusCode
             print("==========================================================================")
-            print("==========================================================================")
-            print("==========================================================================")
-            print("==========================================================================")
-            //print(httpResponse)
-            print("==========================================================================")
-            print("==========================================================================")
-            
         }
         if let safeData = data{
             
         }
-    
-    
-    
-
-     
-     
-    
-    
     /*func ayman()->Void{
         let array = [ "one", "two" ]
         let data = NSJSONSerialization.dataWithJSONObject(array, options: nil, error: nil)
@@ -157,21 +122,6 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
     }
 
     }*/
-
-    
-//        func postCustomers(completion: @escaping (Result<Customer?,NSError>) -> Void) {
-//            self.fetchData(target: .newCustomer, responseClass: Customer.self) { (results) in
-//
-//                    completion(results)
-//                }
-//        }
-//    func getCustomers(completion: @escaping (Result<Customer?,NSError>) -> Void) {
-//        self.fetchData(target: .customers, responseClass: Customer.self) { (results) in
-//
-//            completion(results)
-//        }
-//
-//    }
     //end
     
     
