@@ -25,7 +25,7 @@ class ProductDetailsTableViewController: UITableViewController {
     
     @IBOutlet weak var pageController: UIPageControl!
     
-    private var imagesSubject = PublishSubject<[ProductImage]>()
+    private var imagesSubject = PublishSubject<[ProductDetailsImage]>()
     
     @IBOutlet weak var productNameLabel: UILabel!
     

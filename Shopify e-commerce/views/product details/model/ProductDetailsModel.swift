@@ -8,12 +8,12 @@
 
 import Foundation
 
-struct ProductModel: Codable {
+struct ProductDetailsModel: Codable {
     
-    let product: Product
+    let product: ProductDetails
 }
 
-struct Product: Codable {
+struct ProductDetails: Codable {
     
     let id: Int     //Int64
     let title: String?
@@ -22,21 +22,21 @@ struct Product: Codable {
     let handle: String?
     let status: String?
     let tags: String?
-    let variants: [ProductVariants]?
-    let options: [ProductOptions]?
-    let images: [ProductImage]?
-    let image: ProductImage?
+    let variants: [ProductDetailsVariants]?
+    let options: [ProductDetailsOptions]?
+    let images: [ProductDetailsImage]?
+    let image: ProductDetailsImage?
     
 }
 
-struct ProductVariants: Codable {
+struct ProductDetailsVariants: Codable {
     
     let id: Int  //Int64        // ???
     let product_id: Int?     // ???
     let price: String?
 }
 
-struct ProductOptions: Codable {
+struct ProductDetailsOptions: Codable {
     
     let id: Int  //Int64        // ???
     let product_id: Int?     // ???
@@ -45,7 +45,7 @@ struct ProductOptions: Codable {
 }
 
 
-struct ProductImage: Codable {
+struct ProductDetailsImage: Codable {
     
     let id: Int  //Int64        // ???
 //    let product_id: Int?     // ???
