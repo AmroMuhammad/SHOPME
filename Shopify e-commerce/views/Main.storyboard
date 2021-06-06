@@ -25,10 +25,10 @@
             </objects>
             <point key="canvasLocation" x="160.86956521739131" y="-314.0625"/>
         </scene>
-        <!--ShopViewController-->
+        <!--NavShopViewController-->
         <scene sceneID="WFr-f4-n5Z">
             <objects>
-                <viewControllerPlaceholder storyboardName="shop" referencedIdentifier="ShopViewController" id="joj-Gl-chU" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="shop" referencedIdentifier="NavShopViewController" id="joj-Gl-chU" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="dmF-KT-mS2"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3GI-zP-8Vi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

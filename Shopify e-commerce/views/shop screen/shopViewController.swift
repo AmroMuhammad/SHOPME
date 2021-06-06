@@ -117,6 +117,14 @@ class shopViewController: UIViewController {
         
         //end
        shopProductViewModel.fetchWomenData()
+        
+        shopCollectionView.rx.modelSelected(Product.self).subscribe(onNext: {[weak self] (productItem) in
+            let storyBoard : UIStoryboard = UIStoryboard(name: "productDetails", bundle:nil)
+            let productDetailsVC = storyBoard.instantiateViewController(identifier: Constants.productDetailsVC) as! ProductDetailsTableViewController
+            productDetailsVC.productId = "\(productItem.id)"
+            self?.navigationController?.pushViewController(productDetailsVC, animated: true)
+        }).disposed(by: disposeBag)
+        
    }
     
     

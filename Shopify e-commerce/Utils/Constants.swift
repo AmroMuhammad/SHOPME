@@ -16,6 +16,7 @@ struct Constants {
     static let imageCell = "imageCell"
     static let colorCell = "ColorViewCollectionViewCell"
     static let sizeCell = "sizeCell"
+    static let productDetailsVC = "ProductDetailsTableViewController"
     
     
     //end
