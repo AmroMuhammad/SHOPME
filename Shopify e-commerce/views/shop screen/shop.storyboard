@@ -2,16 +2,16 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QiX-ej-0JZ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Shop View Controller-->
+        <!--SHOP-->
         <scene sceneID="9pt-iK-Cw8">
             <objects>
-                <viewController id="QiX-ej-0JZ" customClass="shopViewController" customModule="Shopify_e_commerce" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShopViewController" id="QiX-ej-0JZ" customClass="shopViewController" customModule="Shopify_e_commerce" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vYV-H5-Llf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="1100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -239,6 +239,8 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kv0-aZ-ZfE"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="SHOP" image="house.fill" catalog="system" id="pOg-2A-uJc"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <size key="freeformSize" width="414" height="1100"/>
                     <connections>
                         <outlet property="ads" destination="m9m-oQ-dch" id="ihe-Mh-s1w"/>
@@ -309,6 +311,7 @@
         <image name="cart.fill" catalog="system" width="128" height="102"/>
         <image name="giphy" width="480" height="320"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
+        <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="images-2" width="225" height="225"/>
         <image name="nointernet_2x" width="266.5" height="200"/>
     </resources>

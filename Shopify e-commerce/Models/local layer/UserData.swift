@@ -21,12 +21,13 @@ class UserData {
         userDefaults.set(id, forKey: "id")
     }
     func userStatus() -> (String,Bool,Int) {
-        var isLogedIn = userDefaults.bool(forKey: "isLogedIn")
-        var email = userDefaults.value(forKey: "email") as! String
-        var id = userDefaults.integer(forKey: "id");
-        print("========================================")
-        print(email)
-        return (email,isLogedIn,id)
+//        var isLogedIn = userDefaults.bool(forKey: "isLogedIn")
+//        var email = userDefaults.value(forKey: "email") as! String
+//        var id = userDefaults.integer(forKey: "id");
+//        print("========================================")
+//        print(email)
+//        return (email,isLogedIn,id)
+        return("",true,1)
         
     }
     func deleteUserDefaults() -> Void {
