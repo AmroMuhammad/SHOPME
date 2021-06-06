@@ -26,6 +26,8 @@ enum ApplicationNetworking{
     
     
     // MARK: Ayman Section
+    case customers
+    case newCustomer
     
     //end
     
@@ -66,6 +68,11 @@ extension ApplicationNetworking : TargetType{
             
             
             // MARK: Ayman Section
+        case .customers:
+            return Constants.customersURL
+            
+        case .newCustomer:
+            return Constants.customersURL
             
             //end
             
@@ -80,11 +87,6 @@ extension ApplicationNetworking : TargetType{
             case .discountCode:
                 return Constants.discountCode
             //end
-            
-        
-        
-       
-       
         }
     }
     
@@ -109,11 +111,21 @@ extension ApplicationNetworking : TargetType{
             
             
             // MARK: Ayman Section
+        case .customers:
+            return .get
             
+        case .newCustomer:
+            return .post
+            
+        
             //end
             
             
             // MARK: Marwa Section
+            
+            //end
+
+
             case .allWomenProduct:
                  return .get
             case .allMenProduct:
@@ -147,7 +159,12 @@ extension ApplicationNetworking : TargetType{
             
             
             // MARK: Ayman Section
+        case .customers:
+            return .requestPlain
             
+            
+        case .newCustomer:
+            return .requestPlain
             //end
             
             
@@ -165,18 +182,9 @@ extension ApplicationNetworking : TargetType{
         
     }
     var headers: [String : String]? {
-        switch self{
-        default:
-            return ["X-Shopify-Access-Token":"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"]
+            switch self{
+            default:
+                return ["X-Shopify-Access-Token":"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"]
+            }
         }
-    }
-    
-//    var headers: [String : String]? {
-//        switch self{
-//        default:
-//            return [:]
-//        }
-//    }
 }
-
-
