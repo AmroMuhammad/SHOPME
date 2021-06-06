@@ -12,10 +12,16 @@ import Alamofire
 enum ApplicationNetworking{
     // MARK: Ahmed Section
     
+    case getProductDetails(id:String)
+    
     //end
     
     // MARK: Amr Section
-    
+    case getMenCategoryProducts
+    case getWomenCategoryProducts
+    case getKidsCategoryProducts
+    case getAllProducts
+
     //end
     
     
@@ -27,7 +33,10 @@ enum ApplicationNetworking{
     
     
     // MARK: Marwa Section
-    
+    case allWomenProduct
+    case allMenProduct
+    case allKidsProduct
+    case discountCode
     //end
 }
 
@@ -42,11 +51,19 @@ extension ApplicationNetworking : TargetType{
     var path: String {
         switch self{
             // MARK: Ahmed Section
-            
+            case .getProductDetails(let id):
+                return Constants.prductDetails + id + Constants.endPath
             //end
             
             // MARK: Amr Section
-            
+        case .getMenCategoryProducts:
+            return Constants.menCatPath
+        case .getWomenCategoryProducts:
+            return Constants.womenCatPath
+        case .getKidsCategoryProducts:
+            return Constants.kidCatPath
+        case .getAllProducts:
+            return Constants.allProductsPath
             //end
             
             
@@ -61,10 +78,15 @@ extension ApplicationNetworking : TargetType{
             
             
             // MARK: Marwa Section
-            
+            case .allWomenProduct :
+                return Constants.allWomenProduct
+            case .allMenProduct:
+                return Constants.allMenProduct
+            case .allKidsProduct:
+                return Constants.allKidsProduct
+            case .discountCode:
+                return Constants.discountCode
             //end
-            
-
         }
     }
     
@@ -72,11 +94,19 @@ extension ApplicationNetworking : TargetType{
         switch self{
             // MARK: Ahmed Section
             
+            case .getProductDetails:
+                return .get
             //end
             
             // MARK: Amr Section
-            
-            
+            case .getMenCategoryProducts:
+                return .get
+            case .getWomenCategoryProducts:
+                return .get
+            case .getKidsCategoryProducts:
+                return .get
+            case .getAllProducts:
+                return .get
             //end
             
             
@@ -96,17 +126,34 @@ extension ApplicationNetworking : TargetType{
             //end
 
 
+            case .allWomenProduct:
+                 return .get
+            case .allMenProduct:
+                return .get
+            case .allKidsProduct:
+                return .get
+            case .discountCode:
+                return .get
+            //end       
         }
     }
     
     var task: Task {
         switch self{
             // MARK: Ahmed Section
-            
+            case .getProductDetails:
+                return .requestPlain
             //end
             
             // MARK: Amr Section
-            
+            case .getMenCategoryProducts:
+                return .requestPlain
+            case .getWomenCategoryProducts:
+                return .requestPlain
+            case .getKidsCategoryProducts:
+                return .requestPlain
+            case .getAllProducts:
+                return .requestPlain
             
             //end
             
@@ -122,11 +169,18 @@ extension ApplicationNetworking : TargetType{
             
             
             // MARK: Marwa Section
-            
-            //end
+            case .allWomenProduct:
+                return.requestPlain
+            case .allMenProduct:
+                return .requestPlain
+            case .allKidsProduct:
+                return .requestPlain
+           case .discountCode:
+            return.requestPlain
         }
+            //end
+        
     }
-    
     var headers: [String : String]? {
             switch self{
             default:
@@ -134,6 +188,3 @@ extension ApplicationNetworking : TargetType{
             }
         }
 }
-
-
-

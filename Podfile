@@ -8,8 +8,9 @@ target 'Shopify e-commerce' do
   # Pods for Shopify e-commerce
 
 #ahmed
-
-##
+  # Rating
+  pod 'Cosmos', '~> 23.0'
+  
 
 #Amr
   # Alamofire
@@ -22,6 +23,9 @@ target 'Shopify e-commerce' do
 
     pod 'RxSwift', '6.1.0'
     pod 'RxCocoa', '6.1.0'
+
+pod 'DropDown'
+
 
 ##
 
