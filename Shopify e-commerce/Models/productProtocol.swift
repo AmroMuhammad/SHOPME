@@ -31,3 +31,13 @@ protocol shopViewModelType : viewModelType {
     func fetchKidsData()
     func fetchDiscountCodeData()
 }
+protocol CollectionViewCellDelegate{
+    func showAlert(msg : String)
+}
+
+protocol TableViewCellDelegate{
+    func showAlert(msg: String, completion: @escaping (Int) -> Void)
+    func showMovingAlert(msg: String)
+    
+}
+

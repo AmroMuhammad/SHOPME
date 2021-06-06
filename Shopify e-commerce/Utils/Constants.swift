@@ -72,8 +72,14 @@ struct Constants {
       static let kidsGif = "https://media.giphy.com/media/l3q2rCBSrr6D7XKLK/giphy.gif"
       static let shopCell = "shopCollectionViewCell"
       static let menuCell = "CollectionViewCell"
+      static let wishListCell = "wishListCollectionViewCell"
+      static let cartTableCell = "cartTableViewCell"
       static let wishListVC = "wishListViewController"
       static let cartVC = "cartViewController"
+      static let moveFromBagToWishMsg = "Are you sure, you want to move these items from bag to wish list?"
+      static let deleteFromBagMsg = "Are you sure, you want to delete these items from bag?"
+      static let addToBagFromWishMsg = "Are you sure you want to add these items to bag ? "
+      static let deleteFromWishMsg = "Are you sure you want to delete these items from wish List ? "
     //end
     
 }

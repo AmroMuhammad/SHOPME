@@ -240,10 +240,6 @@ extension shopViewController :  UICollectionViewDelegate, UICollectionViewDataSo
           return cell
       }
 
-      
-//      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//          return CGSize(width: self.view.frame.width / CGFloat(categories.count), height: collectionView.bounds.height)
-//      }
       func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
         {
             if(collectionView.tag == 1){

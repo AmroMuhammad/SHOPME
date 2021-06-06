@@ -19,6 +19,8 @@
 		431C85AC266AF1FE00CB6886 /* allProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C85A8266AF1FD00CB6886 /* allProductCollectionViewCell.swift */; };
 		431C85AD266AF1FE00CB6886 /* wishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C85A9266AF1FD00CB6886 /* wishListViewController.swift */; };
 		431C85AE266AF1FE00CB6886 /* shopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C85AA266AF1FD00CB6886 /* shopCollectionViewCell.swift */; };
+		4366FD0B266C8890006E4D1B /* wishListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4366FD0A266C8890006E4D1B /* wishListCollectionViewCell.swift */; };
+		4366FD0D266C9F5E006E4D1B /* cartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4366FD0C266C9F5E006E4D1B /* cartTableViewCell.swift */; };
 		438DED8C265CCCCA002717CD /* shopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DED8B265CCCCA002717CD /* shopViewController.swift */; };
 		438DED8F265CCD26002717CD /* shopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DED8E265CCD26002717CD /* shopViewModel.swift */; };
 		439BB315265E6990001F1A1D /* AllProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439BB314265E6990001F1A1D /* AllProduct.swift */; };
@@ -97,6 +99,8 @@
 		431C85A8266AF1FD00CB6886 /* allProductCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = allProductCollectionViewCell.swift; sourceTree = "<group>"; };
 		431C85A9266AF1FD00CB6886 /* wishListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wishListViewController.swift; sourceTree = "<group>"; };
 		431C85AA266AF1FD00CB6886 /* shopCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = shopCollectionViewCell.swift; sourceTree = "<group>"; };
+		4366FD0A266C8890006E4D1B /* wishListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wishListCollectionViewCell.swift; sourceTree = "<group>"; };
+		4366FD0C266C9F5E006E4D1B /* cartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cartTableViewCell.swift; sourceTree = "<group>"; };
 		438DED8B265CCCCA002717CD /* shopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shopViewController.swift; sourceTree = "<group>"; };
 		438DED8E265CCD26002717CD /* shopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shopViewModel.swift; sourceTree = "<group>"; };
 		439BB314265E6990001F1A1D /* AllProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProduct.swift; sourceTree = "<group>"; };
@@ -211,6 +215,34 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		4366FD0E266D5397006E4D1B /* wishList */ = {
+			isa = PBXGroup;
+			children = (
+				431C85A9266AF1FD00CB6886 /* wishListViewController.swift */,
+				4366FD0A266C8890006E4D1B /* wishListCollectionViewCell.swift */,
+			);
+			path = wishList;
+			sourceTree = "<group>";
+		};
+		4366FD0F266D53A4006E4D1B /* shoppingBag */ = {
+			isa = PBXGroup;
+			children = (
+				431C85A7266AF1FD00CB6886 /* CardViewController.swift */,
+				4366FD0C266C9F5E006E4D1B /* cartTableViewCell.swift */,
+			);
+			path = shoppingBag;
+			sourceTree = "<group>";
+		};
+		4366FD10266D53F8006E4D1B /* shopAndAds */ = {
+			isa = PBXGroup;
+			children = (
+				431C85A8266AF1FD00CB6886 /* allProductCollectionViewCell.swift */,
+				431C85AA266AF1FD00CB6886 /* shopCollectionViewCell.swift */,
+				438DED8B265CCCCA002717CD /* shopViewController.swift */,
+			);
+			path = shopAndAds;
+			sourceTree = "<group>";
+		};
 		438DED8D265CCCEE002717CD /* shop */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,12 +313,10 @@
 		C27423E2265AEE0A002D304B /* shop screen */ = {
 			isa = PBXGroup;
 			children = (
-				431C85A8266AF1FD00CB6886 /* allProductCollectionViewCell.swift */,
-				431C85A7266AF1FD00CB6886 /* CardViewController.swift */,
-				431C85AA266AF1FD00CB6886 /* shopCollectionViewCell.swift */,
-				431C85A9266AF1FD00CB6886 /* wishListViewController.swift */,
+				4366FD10266D53F8006E4D1B /* shopAndAds */,
+				4366FD0F266D53A4006E4D1B /* shoppingBag */,
+				4366FD0E266D5397006E4D1B /* wishList */,
 				C27423DA265AEA67002D304B /* shop.storyboard */,
-				438DED8B265CCCCA002717CD /* shopViewController.swift */,
 			);
 			path = "shop screen";
 			sourceTree = "<group>";
@@ -766,6 +796,7 @@
 				439BB317265E81FB001F1A1D /* productProtocol.swift in Sources */,
 				C27423E7265AF11A002D304B /* ApplicationNetworking.swift in Sources */,
 				0D0308DC2669373F00E56724 /* ProductDetailsViewModel.swift in Sources */,
+				4366FD0B266C8890006E4D1B /* wishListCollectionViewCell.swift in Sources */,
 				438DED8C265CCCCA002717CD /* shopViewController.swift in Sources */,
 				438DED8F265CCD26002717CD /* shopViewModel.swift in Sources */,
 				431C85AE266AF1FE00CB6886 /* shopCollectionViewCell.swift in Sources */,
@@ -774,6 +805,7 @@
 				C2A61D252656378A0047C648 /* Utils.swift in Sources */,
 				C2E83A56265CE28900A2CD95 /* ViewModelContracts.swift in Sources */,
 				0D77D2F026677C7000FFA908 /* ColorViewCollectionViewCell.swift in Sources */,
+				4366FD0D266C9F5E006E4D1B /* cartTableViewCell.swift in Sources */,
 				C2A61D21265637530047C648 /* BaseAPI.swift in Sources */,
 				ED53D1CE266BC954002E6083 /* MeViewModel.swift in Sources */,
 				ED76EF7E2669C3B600F32C7B /* RegisterCustomer.swift in Sources */,
