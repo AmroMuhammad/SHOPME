@@ -17,9 +17,7 @@ class shopViewController: UIViewController {
     @IBOutlet weak var gifBtnOutlet: UIButton!
     @IBOutlet weak var shopCollectionView: UICollectionView!
     @IBOutlet weak var ads: UILabel!
-    
     @IBOutlet weak var connectionImg: UIImageView!
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var gifimage: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
     var categories = ["Women" , "Men" , "Kids"] // edit this after merge
@@ -31,8 +29,7 @@ class shopViewController: UIViewController {
         super.viewDidLoad()
         
         shopProductViewModel = shopViewModel()
-        searchBar.rx.text.orEmpty.debug().distinctUntilChanged().bind(to: shopProductViewModel.searchValue).disposed(by: disposeBag)
-        
+
         shopProductViewModel.discountCodeDrive.drive(onNext: { (discountCodeVal) in
             self.ads.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
             self.ads.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -126,6 +123,23 @@ class shopViewController: UIViewController {
         }).disposed(by: disposeBag)
         
    }
+    @IBAction func wishListBtn(_ sender: Any) {
+           let wishListViewController = storyboard?.instantiateViewController(identifier: Constants.wishListVC) as! wishListViewController
+           navigationController?.pushViewController(wishListViewController, animated: true)
+       }
+       
+       @IBAction func cartBtn(_ sender: Any) {
+           let cartViewController = storyboard?.instantiateViewController(identifier: Constants.cartVC) as! CardViewController
+           navigationController?.pushViewController(cartViewController, animated: true)
+       }
+       
+       @IBAction func searchBtn(_ sender: Any) {
+            let storyBoard : UIStoryboard = UIStoryboard(name: "category", bundle:nil)
+            let searchViewController = storyBoard.instantiateViewController(identifier: Constants.searchViewController) as! SearchProductViewController
+            // searchViewController.productList = categoryViewModel.data
+            navigationController?.pushViewController(searchViewController, animated: true)
+       }
+
     
     
     @IBAction func gifBtn(_ sender: Any) {

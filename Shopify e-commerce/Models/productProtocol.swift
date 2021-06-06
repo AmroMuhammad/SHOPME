@@ -26,7 +26,6 @@ protocol shopViewModelType : viewModelType {
     var connectivityDriver: Driver<Bool> {get}
     var dataDrive : Driver<[Product]> {get}
     var  discountCodeDrive : Driver<[DiscountCodeElement]> {get}
-    var  searchValue : BehaviorRelay<String> {get}
     func fetchWomenData()
     func fetchMenData()
     func fetchKidsData()
