@@ -27,7 +27,7 @@ class shopViewController: UIViewController {
     let indicatorHeight : CGFloat = 5
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        indecator = UIActivityIndicatorView(style: .large)
         shopProductViewModel = shopViewModel()
 
         shopProductViewModel.discountCodeDrive.drive(onNext: {[weak self] (discountCodeVal) in
@@ -49,18 +49,17 @@ class shopViewController: UIViewController {
         // MARK: - Load function
         shopProductViewModel.loadingDriver.drive(onNext: { [weak self](loadVal) in
              print("\(loadVal)")
-            if(loadVal == true){
+          switch loadVal{
+            case true:
                 self!.shopCollectionView.isHidden = true
-                self!.indecator = UIActivityIndicatorView(style: .large)
                 self!.indecator!.center = self!.shopCollectionView.center
                 self!.indecator!.startAnimating()
                 self!.view.addSubview(self!.indecator!)
-            }
-            else{
+            case false:
                 self!.shopCollectionView.isHidden = false
                 self!.indecator!.stopAnimating()
                 self!.indecator!.isHidden = true
-            }
+           }
             }).disposed(by: disposeBag)
         // END
         
@@ -242,10 +241,21 @@ extension shopViewController :  UICollectionViewDelegate, UICollectionViewDataSo
       }
 
       
-      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-          return CGSize(width: self.view.frame.width / CGFloat(categories.count), height: collectionView.bounds.height)
-      }
-      
+//      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//          return CGSize(width: self.view.frame.width / CGFloat(categories.count), height: collectionView.bounds.height)
+//      }
+      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
+        {
+            if(collectionView.tag == 1){
+                return CGSize(width: (self.view.frame.width)/3, height: 30)
+            }else{
+                return CGSize(width: 128, height: 128)
+            }
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+            return 0
+        }
       
       func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         applyChanges(index: indexPath.row)
