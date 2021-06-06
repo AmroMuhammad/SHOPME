@@ -18,8 +18,7 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
     
     // MARK: Ahmed Section
     
-//    func getProductDetails(productId:String, completion: @escaping (Result<ProductModel?,NSError>) -> Void){
-//        self.fetchData(target: .getProductDetails(id: productId), responseClass: ProductModel.self) { (result) in
+    // ADD   =>    extension ShopifyAPI: ProductDetailsAPIType
     func getProductDetails(productId:String, completion: @escaping (Result<ProductDetailsModel?,NSError>) -> Void){
         self.fetchData(target: .getProductDetails(id: productId), responseClass: ProductDetailsModel.self) { (result) in
             completion(result)

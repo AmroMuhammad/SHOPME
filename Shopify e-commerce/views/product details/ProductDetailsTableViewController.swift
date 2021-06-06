@@ -22,36 +22,22 @@ class ProductDetailsTableViewController: UITableViewController {
     var productId: String!
     
     @IBOutlet weak var sliderCollectionView: UICollectionView!
-    
     @IBOutlet weak var pageController: UIPageControl!
-    
-    private var imagesSubject = PublishSubject<[ProductDetailsImage]>()
-    
-    @IBOutlet weak var productNameLabel: UILabel!
-    
-    
-    @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var currencyLabel: UILabel!
-    
-    
-    @IBOutlet weak var ratingViewContainer: CosmosView!
-    
-    
     @IBOutlet weak var colorsCollectionView: UICollectionView!
-    
-    private var colorsSubject = PublishSubject<[UIColor]>()
-    
-     
     @IBOutlet weak var sizeCollectionView: UICollectionView!
 
     
-    private var sizesSubject = PublishSubject<[String]>()
-    
+    @IBOutlet weak var productNameLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var currencyLabel: UILabel!
+    @IBOutlet weak var ratingViewContainer: CosmosView!
     @IBOutlet weak var cityNameLabel: UILabel!
+
     
-    
+    private var imagesSubject = PublishSubject<[ProductDetailsImage]>()
+
+
     @IBOutlet weak var favoriteButtonOutlet: UIButton!
-    
     @IBOutlet weak var addToCartButtonOutlet: UIButton! // change text clr to green if added??
     
     override func viewDidLoad() {
@@ -68,57 +54,43 @@ class ProductDetailsTableViewController: UITableViewController {
         sizeCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
         
         
+        let imageNibCell = UINib(nibName: String(describing: ImageCollectionViewCell.self), bundle: nil)
+        sliderCollectionView.register(imageNibCell, forCellWithReuseIdentifier: Constants.imageCell)
         let colorNibCell = UINib(nibName: String(describing: ColorViewCollectionViewCell.self), bundle: nil)
         colorsCollectionView.register(colorNibCell, forCellWithReuseIdentifier: Constants.colorCell)
+        let sizeNibCell = UINib(nibName: String(describing: SizeCollectionViewCell.self), bundle: nil)
+        sizeCollectionView.register(sizeNibCell, forCellWithReuseIdentifier: Constants.sizeCell)
         
-        
-        imagesSubject.bind(to: sliderCollectionView.rx.items(cellIdentifier: Constants.imageCell)){row, item, cell in
-              if let vc = cell.viewWithTag(1) as? UIImageView {
-                if let srcImg = item.src{
-                    vc.sd_setImage(with: URL(string: srcImg), placeholderImage: UIImage(named: "1"))
-                }
-            }
+        //----------------------------------------------------------------------------------------------------
+        productDetailsViewModel.sizesObservable.bind(to: sizeCollectionView.rx.items(cellIdentifier: Constants.sizeCell)){row, item, cell in
+            let sizeCell = cell as! SizeCollectionViewCell
+            sizeCell.productSize = item
         }.disposed(by: disposeBag)
         
-        colorsSubject.bind(to: colorsCollectionView.rx.items(cellIdentifier: Constants.colorCell)){row, item, cell in
-            print("COLOR BINDDDDDDD")
+        productDetailsViewModel.colorsObservable.bind(to: colorsCollectionView.rx.items(cellIdentifier: Constants.colorCell)){row, item, cell in
             let clrCell = cell as! ColorViewCollectionViewCell
-            clrCell.lbl.backgroundColor = item
+            clrCell.productColor = item
         }.disposed(by: disposeBag)
         
-        sizesSubject.bind(to: sizeCollectionView.rx.items(cellIdentifier: Constants.sizeCell)){row, item, cell in
-            if let vc = cell.viewWithTag(1) as? UILabel {
-                vc.text = item
-            }
-        }.disposed(by: disposeBag)
-        
-        
-        productDetailsViewModel.sizesObservable.bind { (sizes) in
-            print("\n\nObs BIND\n\n")
-            self.sizesSubject.onNext(sizes)
-        }.disposed(by: disposeBag)
-        productDetailsViewModel.colorsObservable.bind { (colors) in
-            print("\n\nObs BIND\n\n")
-            self.colorsSubject.onNext(colors)
-        }.disposed(by: disposeBag)
-        productDetailsViewModel.imagesObservable.bind { (images) in
-            print("\n\nObs BIND\n\n")
+        productDetailsViewModel.imagesObservable.bind { (images) in     // number of colors
             self.imagesSubject.onNext(images)
             self.pageController.numberOfPages = images.count
         }.disposed(by: disposeBag)
-
+        imagesSubject.bind(to: sliderCollectionView.rx.items(cellIdentifier: Constants.imageCell)){row, item, cell in
+            let imgCell = cell as! ImageCollectionViewCell
+            imgCell.productImgObj = item
+        }.disposed(by: disposeBag)
+        
         productDetailsViewModel.productPriceObservable.bind { (price) in
-            print("\n\nObs BIND\n\n")
             self.priceLabel.text = price
         }.disposed(by: disposeBag)
+        
         productDetailsViewModel.productTitleObservable.bind { (name) in
-            print("\n\nObs BIND\n\n")
             self.productNameLabel.text = name
         }.disposed(by: disposeBag)
         
         
         ratingViewInit()
-        
         
         productDetailsViewModel.getProductDetails(id: productId)
         
@@ -157,6 +129,9 @@ class ProductDetailsTableViewController: UITableViewController {
     }
     
     @IBAction func addToCartButtonPressed(_ sender: UIButton) {
+        
+        //productDetailsViewModel.addToCart()
+        //productDetailsViewModel.removeFromCart()
     }
     
     // MARK: - Table view data source

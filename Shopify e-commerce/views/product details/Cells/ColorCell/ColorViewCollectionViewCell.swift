@@ -10,7 +10,14 @@ import UIKit
 
 class ColorViewCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var lbl: UILabel!
+    @IBOutlet private weak var lbl: UILabel!
+    
+    var productColor: UIColor!{
+        didSet{
+            lbl.backgroundColor = productColor
+        }
+    }
+
     
     override func awakeFromNib() {
             super.awakeFromNib()

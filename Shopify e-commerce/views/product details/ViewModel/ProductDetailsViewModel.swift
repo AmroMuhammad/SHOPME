@@ -9,8 +9,9 @@
 import Foundation
 import RxSwift
 
-class ProductDetailsViewModel {
-    
+class ProductDetailsViewModel: ProductDetailsViewModelType {
+
+        
     var imagesObservable: Observable<[ProductDetailsImage]>
     var colorsObservable: Observable<[UIColor]>
     var sizesObservable: Observable<[String]>
@@ -35,6 +36,34 @@ class ProductDetailsViewModel {
         
         shopifyAPI = ShopifyAPI.shared
     }
+    
+    
+    func getLocalData() {
+        
+        //get deliver city name from local
+        
+        //get currency from local
+        
+    }
+    
+    
+    
+    func addToCart(product: Product){
+        
+    }
+    
+    func removefromCart(product: Product){
+        
+    }
+    
+    func addTofavorite(product: Product){
+        
+    }
+    
+    func removefromFavorite(product: Product){
+        
+    }
+    
     
     func getProductDetails(id: String){
         shopifyAPI.getProductDetails(productId: id) { (result) in
@@ -114,13 +143,6 @@ class ProductDetailsViewModel {
             }
         }
         return arrClr
-    }
-    
-    func getDeliverCity(){
-        //get deliver city name from local
-    }
-    func getCurrency(){
-        //get currency from local
     }
     
 }
