@@ -17,10 +17,15 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var productName: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+       // layoutMargins = UIEdgeInsets(top: 100, left: 100, bottom: 100, right: 100)
         stepperValue.text = "1"
         stepper.value = 1
     }
+    override func layoutSubviews() {
+        super.layoutSubviews()
 
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10))
+    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

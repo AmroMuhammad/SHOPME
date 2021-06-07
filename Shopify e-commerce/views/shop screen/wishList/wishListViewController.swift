@@ -18,18 +18,18 @@ class wishListViewController: UIViewController , CollectionViewCellDelegate{
         super.viewDidLoad()
         
         let button: UIButton = UIButton(type: UIButton.ButtonType.custom)
-        button.setImage(UIImage(named: "shopping-bag"), for: [])
+        button.setImage(UIImage(named: "shopping"), for: [])
         button.addTarget(self, action: #selector(doToCart), for: UIControl.Event.touchUpInside)
         button.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
         let barButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = barButton
-        let val : [String] = ["marwa" , "asmaa" , "fayza" , "soha"]
+        let val : [String] = ["marwa" , "asmaa" , "omar" , "sleem", "rovan" , "marwa"]
         Observable.just(val).bind(to: wishListCollectionView.rx.items(cellIdentifier: Constants.wishListCell)){row,item,cell in
             (cell as? wishListCollectionViewCell)?.productPrice.text = item
             (cell as? wishListCollectionViewCell)?.delegate = self
 //            cell.layer.cornerRadius = 30
             cell.layer.borderWidth = 0.0
-            cell.layer.shadowColor = UIColor.gray.cgColor
+            cell.layer.shadowColor = UIColor.black.cgColor
             cell.layer.shadowOffset = CGSize(width: 0, height: 0)
             cell.layer.shadowRadius = 5.0
             cell.layer.shadowOpacity = 1

@@ -14,29 +14,46 @@ class CardViewController: UIViewController  {
     var disposeBag = DisposeBag()
       var val : [String]?
     @IBOutlet weak var cartTableView: UITableView!
+    @IBOutlet weak var lastView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        lastView.layer.cornerRadius = 30
+        lastView.layer.shadowColor = UIColor.black.cgColor
+                         //  lastView.layer.shadowOffset = //CGSize(width: 10, height: 10)
+                         //  lastView.layer.shadowRadius = 5.0
+                         //  lastView.layer.shadowOpacity = 1
+                     //     lastView.layer.masksToBounds = true
+        view.layer.shadowOffset = CGSize(width: 10,
+                                          height: 10)
+        view.layer.shadowRadius = 5
+        view.layer.shadowOpacity = 0.3
         self.cartTableView.delegate = self
         self.cartTableView.sectionHeaderHeight = 70
         self.cartTableView.sectionFooterHeight = 70
         let button: UIButton = UIButton(type: UIButton.ButtonType.custom)
-               button.setImage(UIImage(named: "favorite"), for: [])
+               button.setImage(UIImage(named: "like"), for: [])
                button.addTarget(self, action: #selector(goToWishList), for: UIControl.Event.touchUpInside)
                button.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
                let barButton = UIBarButtonItem(customView: button)
                self.navigationItem.rightBarButtonItem = barButton
         
-         val  = ["marwa" , "asmaa" , "fayza" , "soha"]
+         val  = ["marwa" , "asmaa" ,"marwa" , "asmaa" ]
         Observable.just(val!).bind(to: cartTableView.rx.items(cellIdentifier: Constants.cartTableCell)){row,item,cell in
             (cell as? TableViewCell)?.delegate = self
                   //  (cell as? cartTableViewCell)?.productPrice.text = item
-        //          cell.layer.cornerRadius = 30
-                    cell.layer.borderWidth = 0.0
-                    cell.layer.shadowColor = UIColor.gray.cgColor
-                    cell.layer.shadowOffset = CGSize(width: 0, height: 0)
-                    cell.layer.shadowRadius = 5.0
-                    cell.layer.shadowOpacity = 1
-                    cell.layer.masksToBounds = true
+                 cell.layer.cornerRadius = 30
+//                    cell.layer.borderWidth = 0.0
+            cell.layer.shadowColor = UIColor.black.cgColor
+                   cell.layer.shadowOffset = CGSize(width: 0, height: 0)
+                    cell.layer.shadowRadius = 30
+                   cell.layer.shadowOpacity = 5
+                   cell.layer.masksToBounds = true
+//                   cell.backgroundColor = UIColor.white
+//                   cell.layer.borderColor = UIColor.black.cgColor
+//                   cell.layer.borderWidth = 1
+//                   cell.layer.cornerRadius = 8
+//                   cell.clipsToBounds = true
+//            cell.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
                 }.disposed(by: disposeBag)
                 
                 cartTableView.rx.modelSelected(String.self).subscribe(onNext: {[weak self] (productItem) in

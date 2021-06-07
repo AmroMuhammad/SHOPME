@@ -13,6 +13,8 @@ class wishListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var productPrice: UILabel!
     @IBOutlet weak var productImg: UIImageView!
     var delegate: CollectionViewCellDelegate?
+    
+    
     var cellProduct : Product! {
         didSet{
 //         vendor.text = cellProduct.vendor
