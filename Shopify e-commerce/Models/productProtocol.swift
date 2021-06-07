@@ -33,6 +33,7 @@ protocol shopViewModelType : viewModelType {
 }
 protocol CollectionViewCellDelegate{
     func showAlert(msg : String)
+    func showMovingAlert(msg: String)
 }
 
 protocol TableViewCellDelegate{

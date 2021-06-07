@@ -14,7 +14,11 @@ class wishListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var productImg: UIImageView!
     var delegate: CollectionViewCellDelegate?
     
-    
+    override func layoutSubviews() {
+           super.layoutSubviews()
+
+           contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 5, bottom: 0, right: 5))
+       }
     var cellProduct : Product! {
         didSet{
 //         vendor.text = cellProduct.vendor
@@ -26,7 +30,7 @@ class wishListCollectionViewCell: UICollectionViewCell {
     
     @IBAction func addToCart(_ sender: Any) {
         print("addToCart")
-        delegate?.showAlert(msg: Constants.addToBagFromWishMsg)
+        delegate?.showMovingAlert(msg: Constants.addToBagFromWishMsg)
     }
     
     @IBAction func deleteFromWishList(_ sender: Any) {

@@ -9,7 +9,7 @@
 import UIKit
 import RxCocoa
 import RxSwift
-class wishListViewController: UIViewController , CollectionViewCellDelegate{
+class wishListViewController: UIViewController {
     
      private let disposeBag = DisposeBag()
     @IBOutlet weak var wishListCollectionView: UICollectionView!
@@ -29,7 +29,7 @@ class wishListViewController: UIViewController , CollectionViewCellDelegate{
             (cell as? wishListCollectionViewCell)?.delegate = self
 //            cell.layer.cornerRadius = 30
             cell.layer.borderWidth = 0.0
-            cell.layer.shadowColor = UIColor.black.cgColor
+            cell.layer.shadowColor = UIColor.gray.cgColor
             cell.layer.shadowOffset = CGSize(width: 0, height: 0)
             cell.layer.shadowRadius = 5.0
             cell.layer.shadowOpacity = 1
@@ -52,19 +52,36 @@ class wishListViewController: UIViewController , CollectionViewCellDelegate{
         
     }
   
-  func showAlert(msg : String) {
+  
+}
+extension wishListViewController: CollectionViewCellDelegate{
+    func showMovingAlert(msg: String) {
+        let alertController = UIAlertController(title: "", message: msg, preferredStyle: UIAlertController.Style.alert)
+
+        alertController.addAction(UIAlertAction(title: "add", style: .default, handler: { (action: UIAlertAction!) in
+              print("Handle Ok logic here")
+        }))
+
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+              print("Handle Cancel Logic here")
+        }))
+
+        present(alertController, animated: true, completion: nil)
+    }
     
-    let alertController = UIAlertController(title: "", message: msg, preferredStyle: UIAlertController.Style.alert)
+    func showAlert(msg : String) {
+      
+      let alertController = UIAlertController(title: "", message: msg, preferredStyle: UIAlertController.Style.alert)
 
-    alertController.addAction(UIAlertAction(title: "Delete", style: .default, handler: { (action: UIAlertAction!) in
-          print("Handle Ok logic here")
-    }))
+      alertController.addAction(UIAlertAction(title: "Delete", style: .default, handler: { (action: UIAlertAction!) in
+            print("Handle Ok logic here")
+      }))
 
-    alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-          print("Handle Cancel Logic here")
-    }))
+      alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            print("Handle Cancel Logic here")
+      }))
 
-    present(alertController, animated: true, completion: nil)
-  }
+      present(alertController, animated: true, completion: nil)
+    }
 
 }
