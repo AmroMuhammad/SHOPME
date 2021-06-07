@@ -14,6 +14,7 @@ class CardViewController: UIViewController  {
     var disposeBag = DisposeBag()
       var val : [String]?
     @IBOutlet weak var cartTableView: UITableView!
+    @IBOutlet weak var noItemImg: UIImageView!
     @IBOutlet weak var totalPrice: UILabel!
     @IBOutlet weak var lastView: UIView!
     override func viewDidLoad() {

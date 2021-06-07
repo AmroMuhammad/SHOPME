@@ -11,7 +11,9 @@ import RxCocoa
 import RxSwift
 class wishListViewController: UIViewController {
     
-     private let disposeBag = DisposeBag()
+    @IBOutlet weak var toolBar: UIToolbar!
+    private let disposeBag = DisposeBag()
+    @IBOutlet weak var noItemImg: UIImageView!
     @IBOutlet weak var wishListCollectionView: UICollectionView!
     
     override func viewDidLoad() {
