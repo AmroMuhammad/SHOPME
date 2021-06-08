@@ -23,14 +23,31 @@ class ColorViewCollectionViewCell: UICollectionViewCell {
             super.awakeFromNib()
             // Initialization code
                 
-        self.lbl.layer.cornerRadius = 34.0
+        self.layer.cornerRadius = 15.0
+        self.layer.borderWidth = 1.0
+        
+        self.lbl.layer.cornerRadius = 15
         self.lbl.layer.masksToBounds = true
-        self.lbl.layer.borderWidth = 3
-        self.lbl.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+//        self.lbl.layer.borderWidth = 2
+//        self.lbl.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         self.layer.masksToBounds = false
     }
         
+    override var isSelected: Bool{
+        didSet{
+            self.layer.borderWidth = isSelected ? 2.0 : 0.0
+            self.layer.borderColor = isSelected ? UIColor.red.cgColor : #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        }
+    }
 //
-    
+//    func selectedCell() {
+//        self.lbl.layer.borderColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
+//        self.lbl.layer.borderWidth = 3.5
+//    }
+//
+//    func unselectCell() {
+//        self.lbl.layer.borderWidth = 3
+//        self.lbl.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+//    }
 
 }

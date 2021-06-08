@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0hD-Os-Cob">
-                        <rect key="frame" x="8" y="8" width="94" height="99"/>
+                        <rect key="frame" x="11" y="11.5" width="88" height="92"/>
                         <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                         <nil key="textColor"/>
@@ -26,10 +26,10 @@
                 </subviews>
             </view>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="0hD-Os-Cob" secondAttribute="bottom" constant="8" id="8Zd-Cc-lx2"/>
-                <constraint firstAttribute="trailing" secondItem="0hD-Os-Cob" secondAttribute="trailing" constant="8" id="SXe-OH-0BT"/>
-                <constraint firstItem="0hD-Os-Cob" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="o2b-2h-4RK"/>
-                <constraint firstItem="0hD-Os-Cob" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="t5F-si-bzN"/>
+                <constraint firstItem="0hD-Os-Cob" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="E9a-cI-8EW"/>
+                <constraint firstItem="0hD-Os-Cob" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" multiplier="0.8" id="Znp-mc-cOg"/>
+                <constraint firstItem="0hD-Os-Cob" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="b8Z-Zo-BXh"/>
+                <constraint firstItem="0hD-Os-Cob" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.8" id="gIq-Re-ikN"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="110" height="115"/>
