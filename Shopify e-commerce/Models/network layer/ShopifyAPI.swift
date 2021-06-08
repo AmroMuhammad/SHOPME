@@ -11,7 +11,11 @@ import Alamofire
 class ShopifyAPI : BaseAPI<ApplicationNetworking>{
     
     static let shared = ShopifyAPI()
-    static var statusCode:Int!
+    static var statusCode:Int!{
+        didSet{
+            print("i am insdie did set in shopfi api")
+        }
+    }
     static var statusCodeForRegistration:Int!
     
     private override init() {}
@@ -43,7 +47,10 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
     }
     
     
-    func addNewCustomer(customer:RegisterCustomer) -> Void {
+    func addNewCustomer(customer:RegisterCustomer,complition: @escaping (Int)->Void) -> Void {
+        print(customer)
+        print(customer)
+        print(customer)
         // prepare json data
         let jsonData = try! JSONEncoder().encode(customer)
         // create post request
@@ -57,33 +64,34 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
         // insert json data to the request
         request.httpBody = jsonData
        
-        let task = URLSession.shared.dataTask(with: request,completionHandler: handler(data:response:error:))
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if error != nil{
+                print(error!)
+
+            }
+            if let httpResponse = response as? HTTPURLResponse{
+                print("==========================================================================")
+                complition(httpResponse.statusCode)
+                
+                print("=======================================================================")
+            }
+        }
         task.resume()
     }
-    func handler(data:Data?,response:URLResponse?,error:Error?) -> Void {
-        if error != nil{
-            print(error!)
-
-        }
-        if let httpResponse = response as? HTTPURLResponse{
-            print("==========================================================================")
-            print("\(httpResponse.statusCode)")
-            ShopifyAPI.statusCode = httpResponse.statusCode
-            print("==========================================================================")
-        }
-        if let safeData = data{
-        }
-    }
     
     
-    func editCustomer(customer:RegisterCustomer) -> Void {
+    func editCustomer(customer:RegisterCustomer,id:Int) -> Void {
         let jsonData = try! JSONEncoder().encode(customer)
-        let url = URL(string: "https://ce751b18c7156bf720ea405ad19614f4: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@itiana.myshopify.com/admin/api/2021-04/customers/\(customer.customer.id).json")!
+        print(jsonData)
+        let url = URL(string: "https://ce751b18c7156bf720ea405ad19614f4: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@itiana.myshopify.com/admin/api/2021-04/customers/\(id).json")!
+        print("===============================The id is======================================")
+        print(id)
+        print("===============================The id is======================================")
         var request = URLRequest(url: url)
         request.httpMethod = "PUT"
         request.httpShouldHandleCookies = false
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        request.addValue("application/json", forHTTPHeaderField: "Accept")
 
         // insert json data to the request
         request.httpBody = jsonData
@@ -100,7 +108,11 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
         if let httpResponse = response as? HTTPURLResponse{
             print("==========================================================================")
             print("\(httpResponse.statusCode)")
-            ShopifyAPI.statusCodeForRegistration = httpResponse.statusCode
+
+//            if httpResponse.statusCode == 201 {
+//                <#code#>
+//            }
+           // ShopifyAPI.statusCodeForRegistration = httpResponse.statusCode
             print("==========================================================================")
         }
         if let safeData = data{

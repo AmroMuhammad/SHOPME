@@ -11,21 +11,26 @@ import RxCocoa
 
 class SettingsViewController: UIViewController {
     
+    @IBAction func settings(_ sender: UIButton) {
+        let meScreen = self.storyboard?.instantiateViewController(identifier: "MeViewController") as! MeViewController
+        self.navigationController?.pushViewController(meScreen, animated: true)
+    }
+    
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var signInOutlet: UIView!
-    @IBOutlet weak var customerEmail: UILabel!
+    
     @IBOutlet weak var welcome: UILabel!
     @IBOutlet weak var wantToLogin: UIButton!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var register: UIButton!
     
+    let userData:UserData = UserData.getInstance()
+    
     @IBAction func loginBtn(_ sender: Any) {
-        
-        meViewModel.checkUserName_Password(email: emailTextField.text!, password: passwordTextField.text!, context: self, array: array)
-        print("====================================")
         print(userData.userStatus())
-        
-        
+        meViewModel.checkIsCustomerexist(email: emailTextField.text!, password: passwordTextField.text!, array: array, context: self, welcome: welcome, signInOutlet: signInOutlet,emailTextField: emailTextField, passwordTextField: passwordTextField)
+       
+
     }
     @IBOutlet weak var passwordTextField: UITextField!
     
@@ -35,33 +40,54 @@ class SettingsViewController: UIViewController {
     var meViewModel = MeViewModel()
     var error:String!
     
+
     
     var whishListArray = ["whishListArray","whishListArray","whishListArray","whishListArray"]
     var bagArray = ["bag1","bag1","bag1","bag1","bag1","bag1"]
-    var userData = UserData.getInstance()
+    
     var support = Support()
     
-    func checkUserLogedIn() -> Void {
-        let tuble = userData.userStatus()
-        if(tuble.1){
-            welcome.alpha = 1
-            customerEmail.text! = tuble.0
-            register.alpha = 0
+
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        welcome.alpha = 0
+        if(userData.userStatus().0 != ""){
             wantToLogin.alpha = 0
+            print("inside view will appear in if condition")
+            print(userData.userStatus().0)
+            register.alpha = 0
+            welcome.alpha = 1
+            signInOutlet.alpha = 0
+            welcome.text! = userData.userStatus().0
+            
+        }else if(userData.userStatus().0 == ""){
+            wantToLogin.alpha = 1
+            register.alpha = 1
+            welcome.alpha = 0
+            signInOutlet.alpha = 0
+            print("inside view will appear in else condition")
+            print(userData.userStatus().0)
+
         }
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.title = "Settings"
+
         
-        self.checkUserLogedIn()
+        
         
         meViewModel.bindCustomerToView = {
             self.onSucsses()
         }
         meViewModel.bindErrorToView = {
             self.fail()
+        }
+        meViewModel.bindCustomerName = {
+            
         }
         
         tableview.delegate = self
@@ -90,6 +116,7 @@ class SettingsViewController: UIViewController {
     }
     
     @objc func wantToLoginTap(){
+        welcome.alpha = 0
         signInOutlet.alpha = 1
         register.alpha = 0
         wantToLogin.alpha = 0
@@ -97,41 +124,11 @@ class SettingsViewController: UIViewController {
     @objc func registerTap() {
         
         let registervc = self.storyboard?.instantiateViewController(identifier: "RegisterViewController") as! RegisterViewController
-        self.present(registervc, animated: true, completion: nil )
-        navigationController?.pushViewController(registervc, animated: true);
+        self.navigationController?.pushViewController(registervc, animated: true)
+
     }
     
     
-    
-    
-    
-//    func checkUserName_Password() -> Void {
-//        if emailTextField.text != "" && passwordTextField.text != "" {
-//            self.checkIsCustomerexist(email: emailTextField.text!, password: passwordTextField.text!)
-//        }
-//        else{
-//            support.notifyUser(title: Constants.u_p_required_t, body: Constants.u_p_required_t, context: self)
-//        }
-//    }
-//    func checkIsCustomerexist(email:String,password:String)->Void{
-//        for customer in array{
-//            if customer.email == email && customer.tags == password {
-//
-//                userData.saveUserDefaults(email: customer.email!, id: customer.id!)
-//                let mytuble = userData.userStatus()
-//                print(mytuble.0)
-//                print("===============================================")
-//                print(mytuble.1)
-//                print(userData.userStatus())
-//                support.notifyUser(title: Constants.loginSuccess, body: Constants.loginSuccess, context: self)
-//
-//            }
-//            else if(customer.email != email && customer.tags != password){
-//                support.notifyUser(title: Constants.wrongEmail_Pass, body: Constants.empty, context: self)
-//            }
-//        }
-//
-//    }
     func changeTableDataSource() -> Void {
         segmentControl.rx.selectedSegmentIndex.subscribe(onNext: {index in
             switch (index)
