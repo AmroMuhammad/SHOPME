@@ -9,25 +9,26 @@
 import UIKit
 import RxCocoa
 import RxSwift
-class CardViewController: UIViewController  {
-
+class CardViewController: UIViewController {
+    var cartViewModelObj : cartViewModelType!
     var disposeBag = DisposeBag()
-      var val : [String]?
+  //  var val : [String]?
     @IBOutlet weak var cartTableView: UITableView!
     @IBOutlet weak var noItemImg: UIImageView!
     @IBOutlet weak var totalPrice: UILabel!
     @IBOutlet weak var lastView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        cartViewModelObj = cartViewModel()
         lastView.layer.cornerRadius = 30
         lastView.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: 10,
-                                          height: 10)
+        view.layer.shadowOffset = CGSize(width: 10,height: 10)
         view.layer.shadowRadius = 5
         view.layer.shadowOpacity = 0.3
         self.cartTableView.delegate = self
         self.cartTableView.sectionHeaderHeight = 70
         self.cartTableView.sectionFooterHeight = 70
+        
         let button: UIButton = UIButton(type: UIButton.ButtonType.custom)
                button.setImage(UIImage(named: "like"), for: [])
                button.addTarget(self, action: #selector(goToWishList), for: UIControl.Event.touchUpInside)
@@ -35,8 +36,11 @@ class CardViewController: UIViewController  {
                let barButton = UIBarButtonItem(customView: button)
                self.navigationItem.rightBarButtonItem = barButton
         
-         val  = ["marwa" , "asmaa"]
-        Observable.just(val!).bind(to: cartTableView.rx.items(cellIdentifier: Constants.cartTableCell)){row,item,cell in
+      //   val  = ["marwa" , "asmaa"]
+        cartViewModelObj.dataDrive.drive(onNext: {[weak self] (val) in
+        self!.cartTableView.delegate = nil
+        self!.cartTableView.dataSource = nil
+            Observable.just(val).bind(to: self!.cartTableView.rx.items(cellIdentifier: Constants.cartTableCell)){row,item,cell in
             (cell as? TableViewCell)?.delegate = self
                   //  (cell as? cartTableViewCell)?.productPrice.text = item
                    cell.layer.cornerRadius = 30
@@ -45,15 +49,17 @@ class CardViewController: UIViewController  {
                     cell.layer.shadowRadius = 30
                    cell.layer.shadowOpacity = 5
                     cell.layer.masksToBounds = true
-                }.disposed(by: disposeBag)
-                
-                cartTableView.rx.modelSelected(String.self).subscribe(onNext: {[weak self] (productItem) in
-                    let storyBoard : UIStoryboard = UIStoryboard(name: "productDetails", bundle:nil)
-                    let productDetailsVC = storyBoard.instantiateViewController(identifier: Constants.productDetailsVC) as! ProductDetailsTableViewController
-                    productDetailsVC.productId = "\(6687367168198)"
-                    self?.navigationController?.pushViewController(productDetailsVC, animated: true)
-                }).disposed(by: disposeBag)
+            }.disposed(by: self!.disposeBag)
+        }).disposed(by: disposeBag)
         
+        cartTableView.rx.modelSelected(String.self).subscribe(onNext: {[weak self] (productItem) in
+            let storyBoard : UIStoryboard = UIStoryboard(name: "productDetails", bundle:nil)
+            let productDetailsVC = storyBoard.instantiateViewController(identifier: Constants.productDetailsVC) as! ProductDetailsTableViewController
+            productDetailsVC.productId = "\(6687367168198)"
+            self?.navigationController?.pushViewController(productDetailsVC, animated: true)
+        }).disposed(by: disposeBag)
+            
+        cartViewModelObj.getCartData()
     }
     @objc func goToWishList() {
            let wishListViewController = storyboard?.instantiateViewController(identifier: Constants.wishListVC) as! wishListViewController
@@ -68,6 +74,10 @@ class CardViewController: UIViewController  {
 
 
 extension CardViewController: TableViewCellDelegate {
+    func updateCoreDate(stepperNum : Int) {
+        cartViewModelObj.changeProductNumber(num: stepperNum)
+    }
+    
     func showMovingAlert(msg: String) {
         let alertController = UIAlertController(title: msg, message: "", preferredStyle: UIAlertController.Style.alert)
         alertController.addAction(UIAlertAction(title: "Move", style: .default, handler: {[weak self](action: UIAlertAction!) in
@@ -97,12 +107,14 @@ extension CardViewController: TableViewCellDelegate {
     //MARK:- DELETE FROM CORE DATA AND UPDATE Table view
        func deleteProductFromCart() -> Int{
            print("deleeeeete")
+         cartViewModelObj.deleteCartData()
            return 0
        }
      //END
     
     //MARK:- DELETE FROM CORE DATA AND UPDATE Table view then add it to wish list core data
       func moveProductToWishList(){
+        cartViewModelObj.moveToWishList()
           print("Moveeeeeeeeee")
       }
     //END

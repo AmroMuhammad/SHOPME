@@ -36,9 +36,24 @@ protocol CollectionViewCellDelegate{
     func showMovingAlert(msg: String)
 }
 
-protocol TableViewCellDelegate{
+protocol TableViewCellDelegate {
     func showAlert(msg: String, completion: @escaping (Int) -> Void)
     func showMovingAlert(msg: String)
+    func updateCoreDate(stepperNum : Int)
     
 }
 
+protocol wishListViewModelType {
+     var dataDrive : Driver<[String]> {get}
+     func getwishListData()
+     func addToCart()
+     func deleteWishListData()
+}
+protocol cartViewModelType {
+     var dataDrive : Driver<[String]> {get}
+     func getCartData()
+     func moveToWishList()
+     func deleteCartData()
+     func changeProductNumber(num : Int)
+     
+}

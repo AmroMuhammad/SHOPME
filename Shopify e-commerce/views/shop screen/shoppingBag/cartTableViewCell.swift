@@ -46,6 +46,7 @@ class TableViewCell: UITableViewCell {
             })
         }
         else{
+           delegate?.updateCoreDate(stepperNum : result)
            stepperValue.text = String(result)
         }
         

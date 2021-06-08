@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 class wishListViewController: UIViewController {
-    
+    var wishListViewModelObj : wishListViewModelType!
     @IBOutlet weak var toolBar: UIToolbar!
     private let disposeBag = DisposeBag()
     @IBOutlet weak var noItemImg: UIImageView!
@@ -18,16 +18,18 @@ class wishListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        wishListViewModelObj = wishListViewModel()
         let button: UIButton = UIButton(type: UIButton.ButtonType.custom)
         button.setImage(UIImage(named: "shopping"), for: [])
         button.addTarget(self, action: #selector(doToCart), for: UIControl.Event.touchUpInside)
         button.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
         let barButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = barButton
-        let val : [String] = ["marwa" , "asmaa" , "omar" , "sleem", "rovan" , "marwa"]
-        Observable.just(val).bind(to: wishListCollectionView.rx.items(cellIdentifier: Constants.wishListCell)){row,item,cell in
-            (cell as? wishListCollectionViewCell)?.productPrice.text = item
+         wishListViewModelObj.dataDrive.drive(onNext: {[weak self] (val) in
+                self!.wishListCollectionView.delegate = nil
+                self!.wishListCollectionView.dataSource = nil
+            Observable.just(val).bind(to: self!.wishListCollectionView.rx.items(cellIdentifier: Constants.wishListCell)){row,item,cell in
+         //   (cell as? wishListCollectionViewCell)?.productPrice.text = item
             (cell as? wishListCollectionViewCell)?.delegate = self
 //            cell.layer.cornerRadius = 30
             cell.layer.borderWidth = 0.0
@@ -36,7 +38,8 @@ class wishListViewController: UIViewController {
             cell.layer.shadowRadius = 5.0
             cell.layer.shadowOpacity = 1
             cell.layer.masksToBounds = true
-        }.disposed(by: disposeBag)
+            }.disposed(by: self!.disposeBag)
+    }).disposed(by: disposeBag)
         
         wishListCollectionView.rx.modelSelected(String.self).subscribe(onNext: {[weak self] (productItem) in
             let storyBoard : UIStoryboard = UIStoryboard(name: "productDetails", bundle:nil)
@@ -45,6 +48,7 @@ class wishListViewController: UIViewController {
             self?.navigationController?.pushViewController(productDetailsVC, animated: true)
         }).disposed(by: disposeBag)
         
+        wishListViewModelObj.getwishListData()
     }
 
          
@@ -56,12 +60,15 @@ class wishListViewController: UIViewController {
   
   
 }
+
+
 extension wishListViewController: CollectionViewCellDelegate{
     func showMovingAlert(msg: String) {
         let alertController = UIAlertController(title: "", message: msg, preferredStyle: UIAlertController.Style.alert)
 
-        alertController.addAction(UIAlertAction(title: "add", style: .default, handler: { (action: UIAlertAction!) in
+        alertController.addAction(UIAlertAction(title: "add", style: .default, handler: { [weak self](action: UIAlertAction!) in
               print("Handle Ok logic here")
+            self!.wishListViewModelObj.addToCart()
         }))
 
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
@@ -75,8 +82,9 @@ extension wishListViewController: CollectionViewCellDelegate{
       
       let alertController = UIAlertController(title: "", message: msg, preferredStyle: UIAlertController.Style.alert)
 
-      alertController.addAction(UIAlertAction(title: "Delete", style: .default, handler: { (action: UIAlertAction!) in
+      alertController.addAction(UIAlertAction(title: "Delete", style: .default, handler: { [weak self] (action: UIAlertAction!) in
             print("Handle Ok logic here")
+        self!.wishListViewModelObj.deleteWishListData()
       }))
 
       alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in

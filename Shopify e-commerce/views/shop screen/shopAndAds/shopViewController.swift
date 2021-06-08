@@ -197,9 +197,9 @@ class shopViewController: UIViewController {
     func tapIsSelected(imgName : String) {
          gifimage.image = UIImage(named: imgName)!
          gifBtnOutlet.isHidden = false
-         self.ads.backgroundColor = #colorLiteral(red: 0.8712413026, green: 0.8746695709, blue: 0.8610845463, alpha: 1)
-         self.ads.textColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
-         self.ads.text = "ADS"
+         self.ads.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+         self.ads.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+         self.ads.text = "- #ADS -"
     }
     
     func showAlert(msg : String){
