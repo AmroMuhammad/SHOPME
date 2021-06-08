@@ -9,9 +9,15 @@
 /* Begin PBXBuildFile section */
 		0D0308DC2669373F00E56724 /* ProductDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0308DB2669373F00E56724 /* ProductDetailsViewModel.swift */; };
 		0D090F212666151600E74B52 /* productDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27423DE265AEAB5002D304B /* productDetails.storyboard */; };
+		0D14F112266C47BC006AD092 /* ProductDetailsContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D14F111266C47BC006AD092 /* ProductDetailsContracts.swift */; };
+		0D14F117266C4930006AD092 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D14F115266C4930006AD092 /* ImageCollectionViewCell.swift */; };
+		0D14F118266C4930006AD092 /* ImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D14F116266C4930006AD092 /* ImageCollectionViewCell.xib */; };
+		0D14F11C266C4B61006AD092 /* SizeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D14F11A266C4B61006AD092 /* SizeCollectionViewCell.swift */; };
+		0D14F11D266C4B61006AD092 /* SizeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D14F11B266C4B61006AD092 /* SizeCollectionViewCell.xib */; };
 		0D77D2F026677C7000FFA908 /* ColorViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D77D2EE26677C7000FFA908 /* ColorViewCollectionViewCell.swift */; };
 		0D77D2F126677C7000FFA908 /* ColorViewCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D77D2EF26677C7000FFA908 /* ColorViewCollectionViewCell.xib */; };
 		0D864DA6266565F5008474FE /* ProductDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D864DA5266565F5008474FE /* ProductDetailsTableViewController.swift */; };
+		0D9E50EA266CC14600017EE6 /* LocalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9E50E9266CC14600017EE6 /* LocalManager.swift */; };
 		2233A5199A5D5E90DBA5D3F0 /* Pods_Shopify_e_commerceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 241DCD4517229F4D795A6565 /* Pods_Shopify_e_commerceTests.framework */; };
 		34B6F34AD82B2CBC720E8731 /* Pods_Shopify_e_commerce.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2D64D5343D0B47711A1179C /* Pods_Shopify_e_commerce.framework */; };
 		431C85A4266AF1C300CB6886 /* discountCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C85A3266AF1C300CB6886 /* discountCode.swift */; };
@@ -91,9 +97,15 @@
 
 /* Begin PBXFileReference section */
 		0D0308DB2669373F00E56724 /* ProductDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewModel.swift; sourceTree = "<group>"; };
+		0D14F111266C47BC006AD092 /* ProductDetailsContracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsContracts.swift; sourceTree = "<group>"; };
+		0D14F115266C4930006AD092 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		0D14F116266C4930006AD092 /* ImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCollectionViewCell.xib; sourceTree = "<group>"; };
+		0D14F11A266C4B61006AD092 /* SizeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeCollectionViewCell.swift; sourceTree = "<group>"; };
+		0D14F11B266C4B61006AD092 /* SizeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SizeCollectionViewCell.xib; sourceTree = "<group>"; };
 		0D77D2EE26677C7000FFA908 /* ColorViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorViewCollectionViewCell.swift; sourceTree = "<group>"; };
 		0D77D2EF26677C7000FFA908 /* ColorViewCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorViewCollectionViewCell.xib; sourceTree = "<group>"; };
 		0D864DA5266565F5008474FE /* ProductDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsTableViewController.swift; sourceTree = "<group>"; };
+		0D9E50E9266CC14600017EE6 /* LocalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalManager.swift; sourceTree = "<group>"; };
 		241DCD4517229F4D795A6565 /* Pods_Shopify_e_commerceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shopify_e_commerceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3457CB85F7732A62091C709A /* Pods-Shopify e-commerce.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shopify e-commerce.release.xcconfig"; path = "Target Support Files/Pods-Shopify e-commerce/Pods-Shopify e-commerce.release.xcconfig"; sourceTree = "<group>"; };
 		431C85A3266AF1C300CB6886 /* discountCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = discountCode.swift; sourceTree = "<group>"; };
@@ -200,6 +212,42 @@
 				C234155B266BB68A00D2AB67 /* ProductDetailsModel.swift */,
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		0D14F110266C477C006AD092 /* Contracts */ = {
+			isa = PBXGroup;
+			children = (
+				0D14F111266C47BC006AD092 /* ProductDetailsContracts.swift */,
+			);
+			path = Contracts;
+			sourceTree = "<group>";
+		};
+		0D14F113266C48B6006AD092 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				0D14F114266C4913006AD092 /* ImageCell */,
+				0D77D2F62667DB0100FFA908 /* ColorCell */,
+				0D14F119266C4B53006AD092 /* SizeCell */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		0D14F114266C4913006AD092 /* ImageCell */ = {
+			isa = PBXGroup;
+			children = (
+				0D14F115266C4930006AD092 /* ImageCollectionViewCell.swift */,
+				0D14F116266C4930006AD092 /* ImageCollectionViewCell.xib */,
+			);
+			path = ImageCell;
+			sourceTree = "<group>";
+		};
+		0D14F119266C4B53006AD092 /* SizeCell */ = {
+			isa = PBXGroup;
+			children = (
+				0D14F11A266C4B61006AD092 /* SizeCollectionViewCell.swift */,
+				0D14F11B266C4B61006AD092 /* SizeCollectionViewCell.xib */,
+			);
+			path = SizeCell;
 			sourceTree = "<group>";
 		};
 		0D77D2F62667DB0100FFA908 /* ColorCell */ = {
@@ -356,9 +404,10 @@
 		C27423E4265AEE2C002D304B /* product details */ = {
 			isa = PBXGroup;
 			children = (
+				0D14F110266C477C006AD092 /* Contracts */,
 				0D0308D82669226200E56724 /* model */,
 				0D77D2F72667DB2E00FFA908 /* ViewModel */,
-				0D77D2F62667DB0100FFA908 /* ColorCell */,
+				0D14F113266C48B6006AD092 /* Cells */,
 				C27423DE265AEAB5002D304B /* productDetails.storyboard */,
 				0D864DA5266565F5008474FE /* ProductDetailsTableViewController.swift */,
 			);
@@ -494,6 +543,7 @@
 			isa = PBXGroup;
 			children = (
 				ED440F7C266301A400B31D23 /* UserData.swift */,
+				0D9E50E9266CC14600017EE6 /* LocalManager.swift */,
 			);
 			path = "local layer";
 			sourceTree = "<group>";
@@ -674,9 +724,11 @@
 				C27423DB265AEA67002D304B /* shop.storyboard in Resources */,
 				0D77D2F126677C7000FFA908 /* ColorViewCollectionViewCell.xib in Resources */,
 				C234155A266BB34F00D2AB67 /* Main.storyboard in Resources */,
+				0D14F118266C4930006AD092 /* ImageCollectionViewCell.xib in Resources */,
 				C27423E1265AED36002D304B /* meScreen.storyboard in Resources */,
 				C2E83A5A265CF13900A2CD95 /* SubCategoryCollectionViewCell.xib in Resources */,
 				0D090F212666151600E74B52 /* productDetails.storyboard in Resources */,
+				0D14F11D266C4B61006AD092 /* SizeCollectionViewCell.xib in Resources */,
 				C2A61CF9265633220047C648 /* LaunchScreen.storyboard in Resources */,
 				C2A61CF6265633220047C648 /* Assets.xcassets in Resources */,
 			);
@@ -815,6 +867,7 @@
 				C2E83A54265CE24500A2CD95 /* BaseViewModel.swift in Sources */,
 				C2E83A59265CF13900A2CD95 /* SubCategoryCollectionViewCell.swift in Sources */,
 				431C85A4266AF1C300CB6886 /* discountCode.swift in Sources */,
+				0D14F11C266C4B61006AD092 /* SizeCollectionViewCell.swift in Sources */,
 				439BB317265E81FB001F1A1D /* productProtocol.swift in Sources */,
 				C27423E7265AF11A002D304B /* ApplicationNetworking.swift in Sources */,
 				0D0308DC2669373F00E56724 /* ProductDetailsViewModel.swift in Sources */,
@@ -835,10 +888,13 @@
 				C2A61CEC265633200047C648 /* SceneDelegate.swift in Sources */,
 				C2A8A235266757E700D9CBBA /* SearchProductViewController.swift in Sources */,
 				C27423E9265AF4FE002D304B /* ShopifyAPI.swift in Sources */,
+				0D14F117266C4930006AD092 /* ImageCollectionViewCell.swift in Sources */,
 				ED440F7F2663052900B31D23 /* Customer.swift in Sources */,
+				0D14F112266C47BC006AD092 /* ProductDetailsContracts.swift in Sources */,
 				EDE5840126640D1800580942 /* RegisterViewController.swift in Sources */,
 				C2E83A51265CE1A000A2CD95 /* CategoryViewModel.swift in Sources */,
 				C26E7C29266625EE000CB417 /* ProductModels.swift in Sources */,
+				0D9E50EA266CC14600017EE6 /* LocalManager.swift in Sources */,
 				C20420EB265DB20600F4A70B /* ProductsCollectionViewCell.swift in Sources */,
 				C2A61CF4265633200047C648 /* Shopify_e_commerce.xcdatamodeld in Sources */,
 				C26E7C2B26662FB2000CB417 /* CategoryAPIContract.swift in Sources */,
