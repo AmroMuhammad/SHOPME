@@ -349,6 +349,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="ZD7-Cu-9Sd"/>
                     <connections>
+                        <outlet property="addToCartButtonOutlet" destination="FFT-em-0Ce" id="4G1-ZF-6EI"/>
                         <outlet property="cityNameLabel" destination="vjZ-0T-mkv" id="4ga-DH-Nfg"/>
                         <outlet property="colorsCollectionView" destination="nyD-kx-vzA" id="w8e-8t-3a6"/>
                         <outlet property="currencyLabel" destination="eQA-GT-XA2" id="0PM-8k-bKS"/>

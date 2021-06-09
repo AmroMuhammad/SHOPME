@@ -20,9 +20,6 @@ class ProductDetailsTableViewController: UITableViewController {
     
     var productId: String!
     
-    var selectedSizeIndex: IndexPath = IndexPath(item: 0, section: 0)
-    var selectedColorIndex: Int = 0
-    
     var selectedSize: String?
     var selectedColor: UIColor?
     
@@ -48,7 +45,6 @@ class ProductDetailsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Bean Bag"
         
         productDetailsViewModel = ProductDetailsViewModel()
         disposeBag = DisposeBag()
@@ -94,6 +90,10 @@ class ProductDetailsTableViewController: UITableViewController {
             self.productNameLabel.text = name
         }.disposed(by: disposeBag)
         
+        productDetailsViewModel.productVendorObservable.bind { (vendor) in
+            self.title = vendor
+        }.disposed(by: disposeBag)
+        
         
         //----------------------selected item----------------------
         
@@ -127,12 +127,17 @@ class ProductDetailsTableViewController: UITableViewController {
 //            print("selected Size => \(size)")
 //            self?.selectedSize = size
 //        }).disposed(by: disposeBag)
+        
+        
         sizeCollectionView.rx.modelSelected(String.self).subscribe(onNext: {[weak self] (value) in
-//            self?.subCat = value
-//            self?.categoryViewModel.fetchCatProducts(mainCat: self!.mainCat, subCat: self!.subCat)
             print("VALUE modelSelected => \(value)")
+            self?.selectedSize = value
         }).disposed(by: disposeBag)
         
+        colorsCollectionView.rx.modelSelected(UIColor.self).subscribe(onNext: {[weak self] (value) in
+            print("VALUE modelSelected => \(value)")
+            self?.selectedColor = value
+        }).disposed(by: disposeBag)
         
         ratingViewInit()
         
@@ -142,12 +147,29 @@ class ProductDetailsTableViewController: UITableViewController {
         cityNameLabel.text = "Balteem"  // productDetailsViewModel.getDeliverCity()
         
         
-        productDetailsViewModel.favoriteProductsObservable.subscribe(onNext: { (favArr) in
-            print("VC sunscribe on favvvv arr count => \(favArr.count)")
-            for item in favArr {
-                print("VC sunscribe on favvvv -- id => \(item.productId)")
+//        productDetailsViewModel.favoriteProductsObservable.subscribe(onNext: { (favArr) in
+//            print("VC sunscribe on favvvv arr count => \(favArr.count)")
+//            for item in favArr {
+//                print("VC sunscribe on favvvv -- id => \(item.productId)")
+//            }
+//        }).disposed(by: disposeBag)
+        
+        productDetailsViewModel.checkProductInFavoriteObservable.subscribe(onNext: { (resBool) in
+            print("VC checkProductInFavoriteObservable bool => \(resBool)")
+            if resBool {
+                self.favoriteButtonOutlet.tag = 1
+                self.favoriteButtonOutlet.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             }
         }).disposed(by: disposeBag)
+        
+        productDetailsViewModel.checkProductInCartObservable.subscribe(onNext: { (resBool) in
+            print("VC checkProductInCartObservable bool => \(resBool)")
+            if resBool {
+                self.addToCartButtonOutlet.tag = 1
+                self.addToCartButtonOutlet.setTitle("ADDED TO CART", for: .normal)
+            }
+        }).disposed(by: disposeBag)
+        
     }
     
 //    func getData(){
@@ -174,6 +196,14 @@ class ProductDetailsTableViewController: UITableViewController {
         ratingViewContainer.settings.textMargin = 7.0
     }
     
+    func showAlert(title: String, msg: String){
+        let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
+            print("Handle Ok logic here")
+        }))
+        self.present(alertController, animated: true, completion:nil)
+    }
+    
     @IBAction func favoriteButtonPressed(_ sender: UIButton) {
         print("\n\n\nHEEEEY\n")
         if sender.tag == 0 {
@@ -197,20 +227,28 @@ class ProductDetailsTableViewController: UITableViewController {
     
     @IBAction func addToCartButtonPressed(_ sender: UIButton) {
         
+        if selectedColor == nil {
+            print("please select color")
+            showAlert(title: "Missing", msg: "Please, select color!")
+            return
+        }
+        if selectedSize == nil {
+            print("please select size")
+            showAlert(title: "Missing", msg: "Please, select size!")
+            return
+        }
+        
         print("\n\n\nHEEEEY\n")
         if sender.tag == 0 {
             print("Cart Pressed tag = 0")
             
             productDetailsViewModel.addToCart(selectedSize: selectedSize, selectedColor: selectedColor)
+            sender.setTitle("ADDED TO CART", for: .normal)
             
             sender.tag = 1
             
         } else {
-            print("Cart Pressed tag = 1")
-            
-            productDetailsViewModel.removefromCart(productId: productId)
-            
-            sender.tag = 0
+            showAlert(title: "Info", msg: "This product is alraedy added before!")
         }
         print("\n\n\nBYEEEE\n")
     }

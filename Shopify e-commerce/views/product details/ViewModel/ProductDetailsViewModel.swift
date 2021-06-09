@@ -16,12 +16,14 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
     var sizesObservable: Observable<[String]>
     var productTitleObservable: Observable<String>
     var productPriceObservable: Observable<String>
+    var productVendorObservable: Observable<String>
     
     private var imagesSubject = PublishSubject<[ProductDetailsImage]>()
     private var colorsSubject = PublishSubject<[UIColor]>()
     private var sizesSubject = PublishSubject<[String]>()
     private var productTitleSubject = PublishSubject<String>()
     private var productPriceSubject = PublishSubject<String>()
+    private var productVendorSubject = PublishSubject<String>()
     
     private var productObject: ProductDetails?
     
@@ -30,8 +32,13 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
     var cartProductsObservable: Observable<[CartProduct]>
     private var cartProductsSubject = PublishSubject<[CartProduct]>()
     
-//    var addProductToLocalObservable: Observable<[Bool]>
-//    private var addProductToLocalSubject = PublishSubject<[Bool]>()
+
+    var checkProductInFavoriteObservable: Observable<Bool>
+    private var checkProductInFavoriteSubject = PublishSubject<Bool>()
+    var checkProductInCartObservable: Observable<Bool>
+    private var checkProductInCartSubject = PublishSubject<Bool>()
+    var checkProductInCartWithObjectObservable: Observable<CartProduct?>
+    private var checkProductInCartWithObjectSubject = PublishSubject<CartProduct?>()
     
     
     var showErrorObservable: Observable<String>
@@ -48,10 +55,16 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
         sizesObservable = sizesSubject.asObservable()
         productTitleObservable = productTitleSubject.asObservable()
         productPriceObservable = productPriceSubject.asObservable()
+        productVendorObservable = productVendorSubject.asObservable()
         
-//        addProductToLocalObservable = addProductToLocalSubject.asObservable()
         favoriteProductsObservable = favoriteProductsSubject.asObservable()
         cartProductsObservable = cartProductsSubject.asObservable()
+        
+        
+        checkProductInFavoriteObservable = checkProductInFavoriteSubject.asObservable()
+        checkProductInCartObservable = checkProductInCartSubject.asObservable()
+        checkProductInCartWithObjectObservable = checkProductInCartWithObjectSubject.asObservable()
+
         
         showErrorObservable = showErrorSubject.asObservable()
         
@@ -73,6 +86,30 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
     }
     
     //----------------------------------------Favorite------------------------------------------------
+    
+    func checkIfFavorite(){
+        print("VM B4 checkIfFavorite \(productObject?.id)")
+        if let productObj = productObject{
+            localManager.checkFavProduct(userEmail: getUserEmail(), productId: productObj.id) { (resBool) in
+                self.checkProductInFavoriteSubject.onNext(resBool)
+            }
+        }
+    }
+    
+    func checkIfCart(){
+        print("VM B4 checkIfCart \(productObject?.id)")
+        if let productObj = productObject{
+            localManager.checkCartProduct(userEmail: getUserEmail(), productId: productObj.id) { (cartProduct) in
+                if cartProduct != nil {
+                    print("VM checkIfCart Found Successfully ")
+                    self.checkProductInCartSubject.onNext(true)
+                    self.checkProductInCartWithObjectSubject.onNext(cartProduct)
+                }
+            }
+        }
+    }
+    
+    
     func addTofavorite(){
         var res = true
         
@@ -82,10 +119,15 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
             if let productImg = productObj.image?.src {
                 print("VM addTofavorite B44  dataImage => \(String(describing: imgData))")
                 let url = URL(string: productImg)
-                DispatchQueue.global().sync {
-                    let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-                    imgData = data
-                    print("VM addTofavorite dataImage has value => \(String(describing: imgData))")
+                DispatchQueue.global(qos: .background).sync {
+                    do{
+                        let data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                        imgData = data
+                        print("VM addTofavorite dataImage has value => \(String(describing: imgData))")
+                    } catch {
+                        imgData = Data()
+                        print("VM addTofavorite dataImage CATCH => \(String(describing: imgData))")
+                    }
                 }
             } else {
                 imgData = Data()
@@ -149,7 +191,7 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
             if let productImg = productObj.image?.src {
                 print("VM addToCart B44  dataImage => \(String(describing: imgData))")
                 let url = URL(string: productImg)
-                DispatchQueue.global().sync {
+                DispatchQueue.global(qos: .background).sync {
                     let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
                     imgData = data
                     print("VM addToCart dataImage has value => \(String(describing: imgData))")
@@ -272,6 +314,8 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
 //                    self.productDetailsDataSubject.onNext(productResponse.product)
                     self.filterData(product: productResponse.product)
                     self.productObject = product?.product
+                    self.checkIfFavorite()
+                    self.checkIfCart()
                 }
             case .failure(let err):
                 print("\n\n\n\n errrrr => \(err.localizedDescription) \nEND\n\n\n\n")
