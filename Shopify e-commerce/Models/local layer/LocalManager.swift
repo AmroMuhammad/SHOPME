@@ -325,24 +325,39 @@ class LocalManagerHelper {
                                 price = productPrice as! String
                                 if let productImageData = item.value(forKey: "productImage"){
                                     imgData = productImageData as! Data
-                                    print("GET imgData => \(productImageData)")
-                                    if let title = item.value(forKey: "title"){
-                                        titl = title as! String
-                                        if let size = item.value(forKey: "selectedSize"){
-                                            siz = size as! String
-                                            if let color = item.value(forKey: "selectedColor"){
-                                                clr = color as! String
-                                                if let quatity = item.value(forKey: "quantity"){
-                                                    qunt = quatity as! Int
-                                                }
-                                            }
-                                        }
-                                    }
+                                    print("GET imgData => \(imgData)")
+                                } else {
+                                    print("VM getAllCartProducts else imageData \(imgData)")
                                 }
+                                if let title = item.value(forKey: "title"){
+                                    titl = title as! String
+                                    print("GET title => \(titl)")
+                                } else {
+                                    print("VM getAllCartProducts else title \(titl)")
+                                }
+                                if let size = item.value(forKey: "selectedSize"){
+                                    siz = size as! String
+                                    print("GET size => \(siz)")
+                                } else {
+                                    print("VM getAllCartProducts else size \(siz)")
+                                }
+                                if let color = item.value(forKey: "selectedColor"){
+                                    clr = color as! String
+                                    print("GET color => \(clr)")
+                                } else {
+                                    print("VM getAllCartProducts else color \(clr)")
+                                }
+                                if let quatity = item.value(forKey: "quantity"){
+                                    qunt = quatity as! Int
+                                    print("GET quatity => \(qunt)")
+                                } else {
+                                    print("VM getAllCartProducts else quatity \(qunt)")
+                                }
+                            } else {
+                                print("VM getAllCartProducts else price \(price)")
                             }
                             cartProducts?.append(CartProduct(productId: prodId as! Int, productPrice: price, productImageData: imgData, userEmail: userEmail, title: titl, selectedSize: siz, selectedColor: clr, quantity: qunt))
-                            completion(.success(cartProducts))
-                            return
+                            print("prod appended to cart Arr")
                         }
                     } else {
                         print("email does NOT Match to DLT")
@@ -354,15 +369,12 @@ class LocalManagerHelper {
         } catch (let err) {
             print("CAAAAAAAAATCHHHHHHHH  GET \(err.localizedDescription)")
             completion(.failure(err as NSError))
-//            return                                                              // ???????
+            //            return                                                              // ???????
         }
-       
-        completion(.failure(NSError.init(domain: "", code: 707, userInfo: [NSLocalizedDescriptionKey : "Can NOT get product id"])))
-       
-        print("Finish Retrive  GET")
-        
+        print("Finish Retrive GET  B4 completion")
+        completion(.success(cartProducts))
+        print("Finish Retrive  GET after completoin")
     }
-    
 }
     
 

@@ -32,28 +32,29 @@ protocol shopViewModelType : viewModelType {
     func fetchDiscountCodeData()
 }
 protocol CollectionViewCellDelegate{
-    func showAlert(msg : String)
-    func showMovingAlert(msg: String)
+    func showAlert(msg : String ,  product : FavoriteProduct)
+    func showMovingAlert(msg: String ,  product : FavoriteProduct)
 }
 
 protocol TableViewCellDelegate {
-    func showAlert(msg: String, completion: @escaping (Int) -> Void)
-    func showMovingAlert(msg: String)
-    func updateCoreDate(stepperNum : Int)
+    func showAlert(msg: String, product:CartProduct , completion: @escaping (Int) -> Void)
+    func showMovingAlert(msg: String , product:CartProduct)
+    func updateCoreDate(product:CartProduct)
     
 }
 
 protocol wishListViewModelType {
-     var dataDrive : Driver<[String]> {get}
+     var dataDrive : Driver<[FavoriteProduct]> {get}
      func getwishListData()
-     func addToCart()
-     func deleteWishListData()
+     func addToCart( product : FavoriteProduct)
+     func deleteWishListData( product : FavoriteProduct)
 }
 protocol cartViewModelType {
-     var dataDrive : Driver<[String]> {get}
+     var totalPriceDrive: Driver<Double>{get}
+     var dataDrive : Driver<[CartProduct]> {get}
      func getCartData()
-     func moveToWishList()
-     func deleteCartData()
-     func changeProductNumber(num : Int)
+     func moveToWishList(product:CartProduct)
+     func deleteCartData(product: CartProduct)
+     func changeProductNumber(product: CartProduct)
      
 }
