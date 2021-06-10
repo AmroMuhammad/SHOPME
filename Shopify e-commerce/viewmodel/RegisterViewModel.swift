@@ -68,8 +68,11 @@ class RegisterViewModel:RegisterViewModelContract{
             errorSubject.onNext(("Please enter valid phone number", true))
             return
         }
-        if(password != confirmPassword){
+        if(password.count <= 5){
             errorSubject.onNext(("Confirm password is worng", true))
+            return
+        }else if(password != confirmPassword){
+            errorSubject.onNext(("password should be more than 5 characters", true))
             return
         }
         if(!nameRegexCheck(text: country) || !nameRegexCheck(text: city)){

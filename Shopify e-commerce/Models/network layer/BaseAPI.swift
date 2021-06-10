@@ -76,6 +76,7 @@ class BaseAPI<T:TargetType> {
                 completion(.failure(error))
                 return
             }
+            var errorMessage = ""
             if(statusCode >= 200 && statusCode < 300){
                 print("==statusCode for \(method) is \(statusCode)")
                 guard let jsonResponse = try? response.result.get() else {
@@ -92,12 +93,18 @@ class BaseAPI<T:TargetType> {
                     completion(.failure(error))
                     return
                 }
-                print(responseObject)
                 completion(.success(responseObject))
             }else{
+                errorMessage = String(data:try! response.result.get()!, encoding: .utf8)!
                 var message = "Error Message Parsed From Server"
                 if(statusCode == 422){
-                    message = "Email or phone is already exists"
+                    if(errorMessage.lowercased().contains("email")){
+                        message = "Email already exists"
+                    }else if(errorMessage.lowercased().contains("phone")){
+                        message = "phone already exists"
+                    }else if(errorMessage.lowercased().contains("country")){
+                        message = "Please enter valid country name"
+                    }
                 }
                 let error = NSError(domain: target.baseURL, code: statusCode, userInfo: [NSLocalizedDescriptionKey: message])
                 print(error)
