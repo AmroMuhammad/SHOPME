@@ -15,6 +15,7 @@ class RegisterViewModel:RegisterViewModelContract{
     private var doneSubject = PublishSubject<Bool>()
     private var data:Customer!
     private var shopifyAPI:RegisterAPIContract!
+    private var userData:UserData
     
     var errorObservable: Observable<(String, Bool)>
     var loadingObservable: Observable<Bool>
@@ -26,6 +27,7 @@ class RegisterViewModel:RegisterViewModelContract{
         doneObservable = doneSubject.asObservable()
         
         shopifyAPI = ShopifyAPI.shared
+        userData = UserData.sharedInstance
     }
     
     func postData(newCustomer:RegisterCustomer){
@@ -37,6 +39,7 @@ class RegisterViewModel:RegisterViewModelContract{
                 self?.data = customer?.customer
                 print("=============================")
                 print(customer)
+                self?.userData.saveUserDefaults(customer: customer!.customer)
                 //add to userDefaults
                 self?.doneSubject.onCompleted()
             case .failure(let error):

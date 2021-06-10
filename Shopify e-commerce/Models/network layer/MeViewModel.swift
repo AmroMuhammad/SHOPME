@@ -13,7 +13,7 @@ class MeViewModel{
     init() {
         //Ayman
         api = ShopifyAPI.shared
-        userData = UserData.getInstance()
+        //userData = UserData.sharedInstance
         self.featchCustomerData()
     }
     
@@ -80,7 +80,7 @@ class MeViewModel{
     }
     
     func checkIsCustomerexist(email:String,password:String,array:[CustomerElement],context:UIViewController,welcome:UILabel,signInOutlet: UIView,emailTextField: UITextField,passwordTextField: UITextField)->Void{
-        print(userData.userStatus())
+//        print(userData.userStatus())
         //userData.saveUserDefaults(email: "assmaa", id: 0)
         if email == "" || password == "" {
             Support.notifyUser(title: Constants.u_p_required_t, body: Constants.u_p_required_t, context: context.self)
@@ -88,15 +88,15 @@ class MeViewModel{
         else{
             for customer in customer{
                 if customer.email == email && customer.tags == password {
-                    userData.saveUserDefaults(email: customer.email!, id: customer.id!)
-                    welcome.alpha = 1
-                    signInOutlet.alpha = 0
-                    welcome.text! = userData.userStatus().0
-                    emailTextField.text! = ""
-                    passwordTextField.text! = ""
-                    userEmailObservable = Observable<String>.just(userData.userStatus().0)
-                    self.logedInAlert(context: context)
-                    print(userData.userStatus())
+//                    userData.saveUserDefaults(email: customer.email!, id: customer.id!)
+//                    welcome.alpha = 1
+//                    signInOutlet.alpha = 0
+//                    welcome.text! = userData.userStatus().0
+//                    emailTextField.text! = ""
+//                    passwordTextField.text! = ""
+//                    userEmailObservable = Observable<String>.just(userData.userStatus().0)
+//                    self.logedInAlert(context: context)
+//                    print(userData.userStatus())
                     
                 }
                 else{

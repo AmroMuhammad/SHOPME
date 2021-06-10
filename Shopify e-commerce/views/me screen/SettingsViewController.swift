@@ -24,10 +24,10 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var register: UIButton!
     
-    let userData:UserData = UserData.getInstance()
+//    let userData:UserData = UserData.getInstance()
     
     @IBAction func loginBtn(_ sender: Any) {
-        print(userData.userStatus())
+//        print(userData.userStatus())
         meViewModel.checkIsCustomerexist(email: emailTextField.text!, password: passwordTextField.text!, array: array, context: self, welcome: welcome, signInOutlet: signInOutlet,emailTextField: emailTextField, passwordTextField: passwordTextField)
        
 
@@ -51,25 +51,25 @@ class SettingsViewController: UIViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        welcome.alpha = 0
-        if(userData.userStatus().0 != ""){
-            wantToLogin.alpha = 0
-            print("inside view will appear in if condition")
-            print(userData.userStatus().0)
-            register.alpha = 0
-            welcome.alpha = 1
-            signInOutlet.alpha = 0
-            welcome.text! = userData.userStatus().0
-            
-        }else if(userData.userStatus().0 == ""){
-            wantToLogin.alpha = 1
-            register.alpha = 1
-            welcome.alpha = 0
-            signInOutlet.alpha = 0
-            print("inside view will appear in else condition")
-            print(userData.userStatus().0)
-
-        }
+//        welcome.alpha = 0
+//        if(userData.userStatus().0 != ""){
+//            wantToLogin.alpha = 0
+//            print("inside view will appear in if condition")
+//            print(userData.userStatus().0)
+//            register.alpha = 0
+//            welcome.alpha = 1
+//            signInOutlet.alpha = 0
+//            welcome.text! = userData.userStatus().0
+//            
+//        }else if(userData.userStatus().0 == ""){
+//            wantToLogin.alpha = 1
+//            register.alpha = 1
+//            welcome.alpha = 0
+//            signInOutlet.alpha = 0
+//            print("inside view will appear in else condition")
+//            print(userData.userStatus().0)
+//
+//        }
     }
     
     

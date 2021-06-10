@@ -12,17 +12,17 @@ class MeViewController: UIViewController {
     
     @IBOutlet weak var signOut: UIButton!
     
-    var userData = UserData.getInstance()
+//    var userData = UserData.getInstance()
     var meViewModel = MeViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        var tuble = userData.userStatus()
-        if(tuble.1){
-            
-        }else{
-            signOut.alpha = 0
-        }
+//        var tuble = userData.userStatus()
+//        if(tuble.1){
+//
+//        }else{
+//            signOut.alpha = 0
+//        }
         
         let signOutGesture = UITapGestureRecognizer(target: self, action: #selector(signoutAction))
         
@@ -46,13 +46,13 @@ class MeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        var tuble = userData.userStatus()
-        if(tuble.0 != "" && tuble.2 != 0){
-            editCustomerData.alpha = 1
-        }
-        else{
-            editCustomerData.alpha = 0
-        }
+//        var tuble = userData.userStatus()
+//        if(tuble.0 != "" && tuble.2 != 0){
+//            editCustomerData.alpha = 1
+//        }
+//        else{
+//            editCustomerData.alpha = 0
+//        }
         
         
     }

@@ -33,7 +33,7 @@ class EditIngViewController: UIViewController {
     
     
     var api = ShopifyAPI.shared
-    var userData = UserData.getInstance().userStatus()
+//    var userData = UserData.getInstance().userStatus()
     
     
     override func viewDidLoad() {
