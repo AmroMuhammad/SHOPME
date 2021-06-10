@@ -41,9 +41,10 @@ class cartViewModel : cartViewModelType {
         var totalPrice : Double = 0.0
         var count = 0
         while count < products.count {
-            totalPrice += Double(products[count].productPrice)!
+            totalPrice += (Double(products[count].productPrice)! * Double(products[count].quantity ?? 1))
             count += 1
         }
+        totalPrice = (totalPrice * 100).rounded() / 100
         totalPriceSubject.onNext(totalPrice)
     }
     
