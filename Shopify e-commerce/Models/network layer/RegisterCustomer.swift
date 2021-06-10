@@ -6,17 +6,17 @@
 //  Copyright © 2021 ITI41. All rights reserved.
 
 import Foundation
-class RegisterCustomer:Codable {
+struct RegisterCustomer:Codable {
     var customer:CustomerRegister?
 }
-class CustomerRegister:Codable {
+struct CustomerRegister:Codable {
     var email:String?
     var first_name, last_name, tags, phone: String?
     var id:Int?
     var note:String?
     var address:[DefaultAddress]?
 }
-class DefaultAddress:Codable {
+struct DefaultAddress:Codable {
     var city:String?
     var country:String?
     var customer_id:Int?

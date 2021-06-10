@@ -21,6 +21,8 @@ enum ApplicationNetworking{
     case getWomenCategoryProducts
     case getKidsCategoryProducts
     case getAllProducts
+    case putCustomer(customer:RegisterCustomer,id:Int)
+    case postCustomer(customer:RegisterCustomer)
 
     //end
     
@@ -64,6 +66,10 @@ extension ApplicationNetworking : TargetType{
             return Constants.kidCatPath
         case .getAllProducts:
             return Constants.allProductsPath
+        case .putCustomer(_,let id):
+            return Constants.putCustomerPath+"\(id).json"
+        case .postCustomer:
+            return Constants.postCustomerPath
             //end
             
             
@@ -107,6 +113,10 @@ extension ApplicationNetworking : TargetType{
                 return .get
             case .getAllProducts:
                 return .get
+        case .putCustomer:
+            return .put
+        case .postCustomer:
+            return .post
             //end
             
             
@@ -154,7 +164,10 @@ extension ApplicationNetworking : TargetType{
                 return .requestPlain
             case .getAllProducts:
                 return .requestPlain
-            
+        case .putCustomer(let customer,_):
+            return .requestParameters(parameters: ["object":customer], encoding: URLEncoding.default)
+        case .postCustomer(let customer):
+            return .requestParameters(parameters: ["object":customer], encoding: URLEncoding.default)
             //end
             
             
@@ -184,7 +197,7 @@ extension ApplicationNetworking : TargetType{
     var headers: [String : String]? {
             switch self{
             default:
-                return ["X-Shopify-Access-Token":"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"]
+                return ["Accept": "application/json","Content-Type": "application/json","X-Shopify-Access-Token":"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"]
             }
         }
 }

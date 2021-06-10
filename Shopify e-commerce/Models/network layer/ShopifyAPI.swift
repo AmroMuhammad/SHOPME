@@ -32,15 +32,24 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
     //end
     
     // MARK: Amr Section
+    func editCustomer(customerData:RegisterCustomer,id:Int,completion: @escaping (Result<RegisterCustomer?,NSError>) -> Void){
+        self.postData(target: .putCustomer(customer: customerData, id: id), responseClass: RegisterCustomer.self) { (result) in
+            completion(result)
+        }
+    }
     
-    
+    func addCustomer(customerData:RegisterCustomer,completion: @escaping (Result<RegisterCustomer?,NSError>) -> Void){
+        self.postData(target: .postCustomer(customer: customerData), responseClass: RegisterCustomer.self) { (result) in
+            completion(result)
+        }
+    }
+        
     //end
     
     
     // MARK: Ayman Section
     func getCustomers(completion: @escaping (Result<Customer?,NSError>) -> Void) {
             self.fetchData(target: .customers, responseClass: Customer.self) { (results) in
-                
                 completion(results)
             }
     }

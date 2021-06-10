@@ -142,7 +142,7 @@ class MeViewModel{
             customerElement.tags = password
             
             let cust = RegisterCustomer()
-            cust.customer = customerElement
+            //cust.customer = customerElement
             api.addNewCustomer(customer: cust) { (statusCode) in
                 print("==========================================================================user customer clouser")
                 print(statusCode)

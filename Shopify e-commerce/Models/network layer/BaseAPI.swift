@@ -59,6 +59,53 @@ class BaseAPI<T:TargetType> {
         }
     }
     
+    func postData<M:Codable>(target:T,responseClass : M.Type,completion: @escaping (Result<M?,NSError>) -> Void){
+        let method = Alamofire.HTTPMethod(rawValue: target.method.rawValue)
+        let headers = Alamofire.HTTPHeaders(target.headers ?? [:])
+        let params = buildParams(task: target.task)
+        AF.request(target.baseURL+target.path,
+                   method: method,
+                   parameters: (params.0["object"] as! M),
+                   encoder: JSONParameterEncoder.default,headers: headers,requestModifier: {$0.httpShouldHandleCookies = false
+                    $0.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+        }).response { response in
+            guard let statusCode = response.response?.statusCode else {
+                //add custom Error
+                let error = NSError(domain: target.baseURL, code: 0, userInfo: [NSLocalizedDescriptionKey: Constants.genericError])
+                print("at guard statusCode")
+                completion(.failure(error))
+                return
+            }
+            if(statusCode >= 200 && statusCode < 300){
+                print("==statusCode for \(method) is \(statusCode)")
+                guard let jsonResponse = try? response.result.get() else {
+                    //add custom Error
+                    let error = NSError(domain: target.baseURL, code: 0, userInfo: [NSLocalizedDescriptionKey: Constants.genericError])
+                    print("at jsonResponse")
+                    completion(.failure(error))
+                    return
+                }
+                guard let responseObject = try? JSONDecoder().decode(M.self, from: jsonResponse) else {
+                    //add custom Error
+                    let error = NSError(domain: target.baseURL, code: 0, userInfo: [NSLocalizedDescriptionKey: Constants.genericError])
+                    print("at responseObject, error on parsing")
+                    completion(.failure(error))
+                    return
+                }
+                print(responseObject)
+                completion(.success(responseObject))
+            }else{
+                var message = "Error Message Parsed From Server"
+                if(statusCode == 422){
+                    message = "Email or phone is already exists"
+                }
+                let error = NSError(domain: target.baseURL, code: statusCode, userInfo: [NSLocalizedDescriptionKey: message])
+                print(error)
+                completion(.failure(error))
+            }
+        }
+    }
+    
     private func buildParams(task:Task)-> ([String:Any],ParameterEncoding){
         switch task {
         case .requestPlain:

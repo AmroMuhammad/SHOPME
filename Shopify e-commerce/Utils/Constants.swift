@@ -36,8 +36,8 @@ struct Constants {
     static let allProductsPath = "products.json"
     static let sortList = ["Price: High to low","Price: Low to High"]
     static let filterList = ["T-Shirts","Shoes","Accessories"]
-
-
+    static let putCustomerPath = "customers/"
+    static let postCustomerPath = "customers.json"
 
            //end
     
