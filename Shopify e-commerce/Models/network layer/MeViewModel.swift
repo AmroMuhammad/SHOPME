@@ -8,11 +8,22 @@
 
 import Foundation
 import RxSwift
+
 class MeViewModel{
+    init() {
+        //Ayman
+        api = ShopifyAPI.shared
+        userData = UserData.getInstance()
+        self.featchCustomerData()
+    }
+    
+    
+    
+    
+    
     var api:ShopifyAPI!
     var userData:UserData!
     var support = Support()
-    static var  int:Int!
     var userEmailObservable:Observable<String>?
     var isLogedInObservable:Observable<Bool>?
     
@@ -34,11 +45,7 @@ class MeViewModel{
             self.bindErrorToView()
         }
     }
-    init() {
-        api = ShopifyAPI.shared
-        userData = UserData.getInstance()
-        self.featchCustomerData()
-    }
+    
     
     
     func featchCustomerData(){
@@ -125,75 +132,69 @@ class MeViewModel{
         errorTryAgainLater.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil))
         context.present(errorTryAgainLater, animated: true, completion: nil)
     }
-    func validateRegisterdData(first:String,last:String,phone:String,password:String,secPass:String,email:String,country:String,city:String,context:UIViewController,cityTextField: UITextField,passwordTF:UITextField,emailTF:UITextField,firstTF:UITextField,secondTF:UITextField,phoneNumberTF:UITextField,confPassword:UITextField,countryTF:UITextField) -> Void {
+    
+//        if(first != "" && last != "" && email != "" && phone != "" && password != "" && secPass != "" && password == secPass && isValidEmail(email) && city != "" && country != ""){
+//
+//            var customerElement = CustomerRegister()
+//            customerElement.email = email
+//            customerElement.first_name = first
+//            customerElement.last_name = last
+//            customerElement.phone = phone
+//            customerElement.tags = password
+//
+//            let cust = RegisterCustomer()
+//            //cust.customer = customerElement
+//            api.addNewCustomer(customer: cust) { (statusCode) in
+//                print("==========================================================================user customer clouser")
+//                print(statusCode)
+//                if(statusCode == 201){
+//                    print("=================== inside the clouser and the status code is 201")
+//
+//                    self.userData.saveUserDefaults(email: (cust.customer?.email)!, id: 0)
+//
+//                    DispatchQueue.main.sync {
+//                        cityTextField.text! = ""
+//                        confPassword.text! = ""
+//                        secondTF.text! = ""
+//                        firstTF.text! = ""
+//                        phoneNumberTF.text! = ""
+//                        countryTF.text! = ""
+//                        emailTF.text! = ""
+//                        passwordTF.text! = ""
+//                        self.registerDoneAlert(context: context.self)
+//
+//
+//
+//                    }
+//                }else if(statusCode == 422){
+//                    DispatchQueue.main.sync {
+//                        self.accountIsAlreadyExist(context: context.self)
+//                    }
+//                }
+//
+//                else{
+//                    print(statusCode)
+//                    DispatchQueue.main.sync {
+//                        self.errorTryAgainLater(context: context.self)
+//                    }
+//                }
+//            }
+//        }
+//        else if(first != "" || last != "" || email != "" || phone != "" || password != "" || secPass != "" || password != secPass || !isValidEmail(email)){
+//
+//            if(password != secPass){
+//
+//                Support.notifyUser(title: Constants.pass_conf, body: Constants.empty, context: context.self)
+//            }else if(!isValidEmail(email)){
+//                Support.notifyUser(title: Constants.emailIsnotValid_T, body: Constants.emailIsnotValid_B, context:context.self)
+//            }
+//            else{
+//                Support.notifyUser(title: Constants.allfeildReq, body: Constants.empty, context: context.self)
+//            }
+//        }
+//        else{
+//            Support.notifyUser(title: Constants.faildBody, body: Constants.empty, context: context.self)
+//        }
         
-        if(first != "" && last != "" && email != "" && phone != "" && password != "" && secPass != "" && password == secPass && isValidEmail(email) && city != "" && country != ""){
-            //var d:[DefaultAddress]  = [DefaultAddress]()
-            //var abc = DefaultAddress()
-            //abc.city = self.city.text!
-            // d[0].city = self.city.text!
-            //abc.country = self.country.text!
-            //d.append(abc)
-            var customerElement = CustomerRegister()
-            customerElement.email = email
-            customerElement.first_name = first
-            customerElement.last_name = last
-            customerElement.phone = phone
-            customerElement.tags = password
-            
-            let cust = RegisterCustomer()
-            //cust.customer = customerElement
-            api.addNewCustomer(customer: cust) { (statusCode) in
-                print("==========================================================================user customer clouser")
-                print(statusCode)
-                if(statusCode == 201){
-                    print("=================== inside the clouser and the status code is 201")
-                    
-                    self.userData.saveUserDefaults(email: (cust.customer?.email)!, id: 0)
-                    
-                    DispatchQueue.main.sync {
-                        cityTextField.text! = ""
-                        confPassword.text! = ""
-                        secondTF.text! = ""
-                        firstTF.text! = ""
-                        phoneNumberTF.text! = ""
-                        countryTF.text! = ""
-                        emailTF.text! = ""
-                        passwordTF.text! = ""
-                        self.registerDoneAlert(context: context.self)
-                        
-                        
-                        
-                    }
-                }else if(statusCode == 422){
-                    DispatchQueue.main.sync {
-                        self.accountIsAlreadyExist(context: context.self)
-                    }
-                }
-                
-                else{
-                    print(statusCode)
-                    DispatchQueue.main.sync {
-                        self.errorTryAgainLater(context: context.self)
-                    }
-                }
-            }
-        }
-        else if(first != "" || last != "" || email != "" || phone != "" || password != "" || secPass != "" || password != secPass || !isValidEmail(email)){
-            
-            if(password != secPass){
-                
-                Support.notifyUser(title: Constants.pass_conf, body: Constants.empty, context: context.self)
-            }else if(!isValidEmail(email)){
-                Support.notifyUser(title: Constants.emailIsnotValid_T, body: Constants.emailIsnotValid_B, context:context.self)
-            }
-            else{
-                Support.notifyUser(title: Constants.allfeildReq, body: Constants.empty, context: context.self)
-            }
-        }
-        else{
-            Support.notifyUser(title: Constants.faildBody, body: Constants.empty, context: context.self)
-        }
-        
-    }
+//    }
 }

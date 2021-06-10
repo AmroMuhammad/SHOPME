@@ -93,7 +93,7 @@ class CategoryViewController: UIViewController {
             //self?.noConnectionImage.isHidden = false
             }).disposed(by: disposeBag)
         
-        categoryViewModel.LoadingObservable.subscribe(onNext: {[weak self] (value) in
+        categoryViewModel.loadingObservable.subscribe(onNext: {[weak self] (value) in
             switch value{
             case true:
                 self?.showLoading()

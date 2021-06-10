@@ -21,3 +21,13 @@ protocol SearchViewModelContract:ViewModelType{
     var dataObservable: Observable<[SearchProduct]>{get}
     
 }
+
+protocol RegisterViewModelContract{
+    var errorObservable:Observable<(String,Bool)>{get}
+    var loadingObservable: Observable<Bool> {get}
+    var doneObservable: Observable<Bool>{get}
+    func postData(newCustomer:RegisterCustomer)
+    func validateRegisterdData(firstName:String,lastName:String,email:String,phoneNumber:String,password:String,confirmPassword:String,country:String,city:String)
+}
+
+

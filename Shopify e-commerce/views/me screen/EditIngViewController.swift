@@ -42,28 +42,28 @@ class EditIngViewController: UIViewController {
     
 
     @IBAction func submit(_ sender: UIButton) {
-        print("inside the btn action of edit")
-        var registerCustomer = RegisterCustomer()
-        var customer = CustomerRegister()
-        customer.id = userData.2
-        //customer.id = userData.2
-        customer.email = email.text!
-        //registerCustomer.customer?.phone = phoneNumber.text!
-        customer.first_name = firstName.text!
-        customer.last_name = secondName.text!
-        //if(password.text! == confermationPassword.text!){
-        registerCustomer.customer?.tags = password.text!
-        registerCustomer.customer = customer
-        print(customer.email)
-        print(registerCustomer.customer?.email)
-        print(customer.id)
-        print(registerCustomer.customer?.id)
-        print(customer.first_name)
-        print(registerCustomer.customer?.first_name)
-        
-        //}
-        //registerCustomer.customer?.address
-         api.editCustomer(customer: registerCustomer, id: userData.2)
+//        print("inside the btn action of edit")
+//        var registerCustomer = RegisterCustomer()
+//        var customer = CustomerRegister()
+//        customer.id = userData.2
+//        //customer.id = userData.2
+//        customer.email = email.text!
+//        //registerCustomer.customer?.phone = phoneNumber.text!
+//        customer.first_name = firstName.text!
+//        customer.last_name = secondName.text!
+//        //if(password.text! == confermationPassword.text!){
+//        registerCustomer.customer?.tags = password.text!
+//        registerCustomer.customer = customer
+//        print(customer.email)
+//        print(registerCustomer.customer?.email)
+//        print(customer.id)
+//        print(registerCustomer.customer?.id)
+//        print(customer.first_name)
+//        print(registerCustomer.customer?.first_name)
+//        
+//        //}
+//        //registerCustomer.customer?.address
+//         api.editCustomer(customer: registerCustomer, id: userData.2)
 
     }
     

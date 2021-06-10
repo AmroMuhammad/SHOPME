@@ -15,7 +15,7 @@ class CategoryViewModel : CategoryViewModelContract{
     var productDataObservable: Observable<[CategoryProduct]>
     var searchDataObservable: Observable<[CategoryProduct]>
     var errorObservable: Observable<Bool>
-    var LoadingObservable: Observable<Bool>
+    var loadingObservable: Observable<Bool>
     
     private var shopifyAPI:CategoryAPIContract!
     var data:[CategoryProduct]?
@@ -27,7 +27,7 @@ class CategoryViewModel : CategoryViewModelContract{
 
     
     private var errorsubject = PublishSubject<Bool>()
-    private var Loadingsubject = PublishSubject<Bool>()
+    private var loadingsubject = PublishSubject<Bool>()
 
     init() {
         mainCatDataObservable = mainCatDatasubject.asObservable()
@@ -36,7 +36,7 @@ class CategoryViewModel : CategoryViewModelContract{
         searchDataObservable = searchDatasubject.asObservable()
 
         errorObservable = errorsubject.asObservable()
-        LoadingObservable = Loadingsubject.asObservable()
+        loadingObservable = loadingsubject.asObservable()
         
         shopifyAPI = ShopifyAPI.shared
     }
@@ -47,7 +47,7 @@ class CategoryViewModel : CategoryViewModelContract{
     }
     
     func fetchCatProducts(mainCat:String,subCat:String){
-        Loadingsubject.onNext(true)
+        loadingsubject.onNext(true)
         print(mainCat + " " + subCat)
         shopifyAPI.getCategoryProducts(catType: mainCat) {[weak self] (result) in
             switch result{
@@ -58,9 +58,9 @@ class CategoryViewModel : CategoryViewModelContract{
                 })
                 self?.productDatasubject.onNext(filteredData ?? [])
                 self?.data = filteredData
-                self?.Loadingsubject.onNext(false)
+                self?.loadingsubject.onNext(false)
             case .failure(let error):
-                self?.Loadingsubject.onNext(false)
+                self?.loadingsubject.onNext(false)
                 self?.errorsubject.onError(error)
             }
         }

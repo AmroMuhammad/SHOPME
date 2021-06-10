@@ -37,55 +37,49 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
             completion(result)
         }
     }
-    
-    func addCustomer(customerData:RegisterCustomer,completion: @escaping (Result<RegisterCustomer?,NSError>) -> Void){
-        self.postData(target: .postCustomer(customer: customerData), responseClass: RegisterCustomer.self) { (result) in
-            completion(result)
-        }
-    }
         
     //end
     
     
     // MARK: Ayman Section
-    func getCustomers(completion: @escaping (Result<Customer?,NSError>) -> Void) {
-            self.fetchData(target: .customers, responseClass: Customer.self) { (results) in
+    func getCustomers(completion: @escaping (Result<Customer1?,NSError>) -> Void) {
+            self.fetchData(target: .customers, responseClass: Customer1.self) { (results) in
                 completion(results)
             }
     }
     
     
-    func addNewCustomer(customer:RegisterCustomer,complition: @escaping (Int)->Void) -> Void {
-        print(customer)
-        print(customer)
-        print(customer)
-        // prepare json data
-        let jsonData = try! JSONEncoder().encode(customer)
-        // create post request
-        let url = URL(string:Constants.fullURL)!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpShouldHandleCookies = false
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-
-        // insert json data to the request
-        request.httpBody = jsonData
-       
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if error != nil{
-                print(error!)
-
-            }
-            if let httpResponse = response as? HTTPURLResponse{
-                print("==========================================================================")
-                complition(httpResponse.statusCode)
-                
-                print("=======================================================================")
-            }
-        }
-        task.resume()
-    }
+//    func addNewCustomer(customer:RegisterCustomer,complition: @escaping (Int)->Void) -> Void {
+//        print(customer)
+//        print(customer)
+//        print(customer)
+//        // prepare json data
+//        let jsonData = try! JSONEncoder().encode(customer)
+//        // create post request
+//        let url = URL(string:Constants.fullURL)!
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "POST"
+//        request.httpShouldHandleCookies = false
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        request.addValue("application/json", forHTTPHeaderField: "Accept")
+//
+//        // insert json data to the request
+//        request.httpBody = jsonData
+//
+//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//            if error != nil{
+//                print(error!)
+//
+//            }
+//            if let httpResponse = response as? HTTPURLResponse{
+//                print("==========================================================================")
+//                complition(httpResponse.statusCode)
+//
+//                print("=======================================================================")
+//            }
+//        }
+//        task.resume()
+//    }
     
     
     func editCustomer(customer:RegisterCustomer,id:Int) -> Void {
@@ -159,11 +153,6 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
     
 }
 
-//func getProducts(completion: @escaping (Result<ProductModel?,NSError>) -> Void){
-//    self.fetchData(target: .products, responseClass: ProductModel.self) { (result) in
-//        completion(result)
-//    }
-//}
 }
 
 
@@ -188,6 +177,14 @@ extension ShopifyAPI : CategoryAPIContract{
 extension ShopifyAPI : AllProductsAPIContract{
     func getAllProducts(completion: @escaping (Result<AllProductsModel?, NSError>) -> Void) {
         self.fetchData(target: .getAllProducts, responseClass: AllProductsModel.self) { (result) in
+            completion(result)
+        }
+    }
+}
+
+extension ShopifyAPI : RegisterAPIContract{
+    func addCustomer(customerData:RegisterCustomer,completion: @escaping (Result<RegisterCustomer?,NSError>) -> Void){
+        self.postData(target: .postCustomer(customer: customerData), responseClass: RegisterCustomer.self) { (result) in
             completion(result)
         }
     }

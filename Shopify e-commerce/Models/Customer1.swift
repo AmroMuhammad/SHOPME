@@ -9,7 +9,7 @@
 //import Foundation
 //
 //// MARK: - Customer
-struct Customer: Codable {
+struct Customer1: Codable {
     var customers: [CustomerElement]
 }
 

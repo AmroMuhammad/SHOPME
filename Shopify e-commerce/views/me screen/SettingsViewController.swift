@@ -122,10 +122,8 @@ class SettingsViewController: UIViewController {
         wantToLogin.alpha = 0
     }
     @objc func registerTap() {
-        
-        let registervc = self.storyboard?.instantiateViewController(identifier: "RegisterViewController") as! RegisterViewController
-        self.navigationController?.pushViewController(registervc, animated: true)
-
+        let registerVC = self.storyboard?.instantiateViewController(identifier: "RegisterViewController") as! RegisterViewController
+        self.present(registerVC, animated: true, completion: nil)
     }
     
     

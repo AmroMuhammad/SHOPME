@@ -14,7 +14,7 @@ class SearchViewModel : SearchViewModelContract{
     var dataObservable: Observable<[SearchProduct]>
     var searchValue : BehaviorRelay<String> = BehaviorRelay(value: "")
     var errorObservable: Observable<Bool>
-    var LoadingObservable: Observable<Bool>
+    var loadingObservable: Observable<Bool>
     
     private lazy var searchValueObservable:Observable<String> = searchValue.asObservable()
     private var disposeBag = DisposeBag()
@@ -34,7 +34,7 @@ class SearchViewModel : SearchViewModelContract{
         shopifyAPI = ShopifyAPI.shared
         dataObservable = datasubject.asObservable()
         errorObservable = errorsubject.asObservable()
-        LoadingObservable = Loadingsubject.asObservable()
+        loadingObservable = Loadingsubject.asObservable()
         searchedData = data
         
         searchValueObservable.subscribe(onNext: {[weak self] (value) in
