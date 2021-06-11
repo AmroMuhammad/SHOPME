@@ -18,19 +18,17 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var register: UIButton!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var tableview: UITableView!
-    private var activityView:UIActivityIndicatorView!
+    @IBOutlet weak var isLoggedTableViewView: UIView!
 
-    //Amr
-    var userData:UserData!
+    private var activityView:UIActivityIndicatorView!
+    private var disposeBag:DisposeBag!
+    private var meViewModel:MeViewModel!
+    private var userData:UserData!
 
     //Ayman
-    var isLoged = false;
     var isWhishList = true;
-    var meViewModel:MeViewModel!
-    var error:String!
     var whishListArray = ["whishListArray","whishListArray","whishListArray","whishListArray"]
     var bagArray = ["bag1","bag1","bag1","bag1","bag1","bag1"]
-    var disposeBag:DisposeBag!
     
 
     override func viewDidLoad() {
@@ -65,15 +63,83 @@ class SettingsViewController: UIViewController {
             }
             }).disposed(by: disposeBag)
         
-        tableview.delegate = self
-        tableview.dataSource = self
-        self.changeTableDataSource()
-        signInOutlet.alpha = 0
-        
+        let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 40)))
+        button.setTitle("Load more", for: .normal)
+        button.backgroundColor = .lightGray
+        button.addTarget(self, action: #selector(moreButtonClicked(_:)), for: .touchUpInside)
+                
         let registerGesture = UITapGestureRecognizer(target: self, action: #selector(registerTap))
         registerGesture.numberOfTapsRequired = 1
         register.addGestureRecognizer(registerGesture)
         
+        segmentControl.rx.selectedSegmentIndex.subscribe(onNext: {[weak self] index in
+            if(self?.userData.isLoggedIn() ?? false){
+                switch (index){
+                case 0:
+                    self?.meViewModel.fetchLocalData(type: "favourite")
+                case 1:
+                    self?.meViewModel.fetchLocalData(type: "wishlist")
+                default:
+                    break
+                }
+            }
+            }).disposed(by: disposeBag)
+        
+//        meViewModel.favouriteObservable.bind(to: tableview.rx.items(cellIdentifier: "localCell")){row,item,cell in
+//            if(row == 3){
+//                self.tableview.tableFooterView = button
+//                cell.textLabel?.text = item.productPrice
+//                button.tag = 1
+//                cell.imageView?.image = UIImage(data: item.productImageData)
+//
+//            }else{
+//                cell.textLabel?.text = item.productPrice
+//                self.tableview.tableFooterView = nil
+//                cell.imageView?.image = UIImage(data: item.productImageData)
+//
+//            }
+//
+//        }.disposed(by: disposeBag)
+        
+        meViewModel.wishlistObservable.bind(to: tableview.rx.items(cellIdentifier: "localCell")){row,item,cell in
+           if(row == 3){
+            self.tableview.tableFooterView = button
+            cell.textLabel?.text = item.title
+            cell.imageView?.image = UIImage(data: item.productImageData)
+                button.tag = 2
+            }else{
+            cell.textLabel?.text = item.title
+            cell.imageView?.image = UIImage(data: item.productImageData)
+            self.tableview.tableFooterView = nil
+            }
+        }.disposed(by: disposeBag)
+        
+        tableview.rx.modelSelected(CartProduct.self).subscribe(onNext: {[weak self] (cartProduct) in
+            let storyBoard : UIStoryboard = UIStoryboard(name: "productDetails", bundle:nil)
+            let productDetailsVC = storyBoard.instantiateViewController(identifier: Constants.productDetailsVC) as! ProductDetailsTableViewController
+            productDetailsVC.productId = "\(cartProduct.productId)"
+            self?.navigationController?.pushViewController(productDetailsVC, animated: true)
+            }).disposed(by: disposeBag)
+        
+//        tableview.rx.modelSelected(FavoriteProduct.self).subscribe(onNext: {[weak self] (favProduct) in
+//        let storyBoard : UIStoryboard = UIStoryboard(name: "productDetails", bundle:nil)
+//        let productDetailsVC = storyBoard.instantiateViewController(identifier: Constants.productDetailsVC) as! ProductDetailsTableViewController
+//        productDetailsVC.productId = "\(favProduct.productId)"
+//        self?.navigationController?.pushViewController(productDetailsVC, animated: true)
+//        }).disposed(by: disposeBag)
+
+                        
+    }
+    
+    @objc func moreButtonClicked(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "shop", bundle: nil)
+        if(sender.tag == 1){
+            let favVC = storyboard.instantiateViewController(identifier: "wishListViewController")
+            self.navigationController?.pushViewController(favVC, animated: true)
+        }else{
+            let wishVC = storyboard.instantiateViewController(identifier: "cartViewController")
+            self.navigationController?.pushViewController(wishVC, animated: true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,38 +150,24 @@ class SettingsViewController: UIViewController {
             print("Logged Off")
             showLoginView()
         }
-//        welcome.alpha = 0
-//        if(userData.userStatus().0 != ""){
-//            wantToLogin.alpha = 0
-//            print("inside view will appear in if condition")
-//            print(userData.userStatus().0)
-//            register.alpha = 0
-//            welcome.alpha = 1
-//            signInOutlet.alpha = 0
-//            welcome.text! = userData.userStatus().0
-//            
-//        }else if(userData.userStatus().0 == ""){
-//            wantToLogin.alpha = 1
-//            register.alpha = 1
-//            welcome.alpha = 0
-//            signInOutlet.alpha = 0
-//            print("inside view will appear in else condition")
-//            print(userData.userStatus().0)
-//
-//        }
     }
     
     func showLoginView(){
         welcome.alpha = 0
         signInOutlet.alpha = 1
         register.alpha = 1
+        isLoggedTableViewView.isHidden = false
     }
     
     func showWelcomeView(){
-            welcome.alpha = 1
-            signInOutlet.alpha = 0
+        welcome.alpha = 1
+        signInOutlet.alpha = 0
         register.alpha = 0
-        }
+        emailTextField.text = ""
+        passwordTextField.text = ""
+        meViewModel.fetchLocalData(type: "favourite")
+        isLoggedTableViewView.isHidden = true
+    }
     
     @IBAction func settingsButtonPressed(_ sender: Any) {
         let meScreen = self.storyboard?.instantiateViewController(identifier: "MeViewController") as! MeViewController
@@ -125,26 +177,6 @@ class SettingsViewController: UIViewController {
     @objc func registerTap() {
         let registerVC = self.storyboard?.instantiateViewController(identifier: "RegisterViewController") as! RegisterViewController
         self.navigationController?.pushViewController(registerVC, animated: true)
-    }
-    
-    
-    func changeTableDataSource() -> Void {
-        segmentControl.rx.selectedSegmentIndex.subscribe(onNext: {index in
-            switch (index)
-            {
-            case 0:
-                self.isWhishList = true;
-                self.tableview.reloadData()
-                print("case 0")
-            case 1:
-                self.isWhishList = false;
-                self.tableview.reloadData()
-                print("case 1")
-            default:
-                break
-            }
-            
-        })
     }
     
     @IBAction func loginBtn(_ sender: Any) {
@@ -160,30 +192,4 @@ class SettingsViewController: UIViewController {
     func hideLoading() {
         activityView!.stopAnimating()
     }
-}
-// MARK:- Refactor to RX Swift
-extension SettingsViewController:UITableViewDelegate,UITableViewDataSource{
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isWhishList {
-            return whishListArray.count
-        }
-        else{
-            return bagArray.count
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
-        if isWhishList {
-            cell.textLabel?.text = whishListArray[indexPath.row]
-            return cell;
-        }
-        else{
-            cell.textLabel?.text = bagArray[indexPath.row]
-            return cell;
-        }
-    }
-    
 }

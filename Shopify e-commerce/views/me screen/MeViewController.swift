@@ -54,8 +54,8 @@ class MeViewController: UIViewController {
         meViewModel.signOutUser()
         signOut.alpha = 0
         editCustomerData.alpha = 0
-        Support.notifyUser(title: "Looged out", body: "Logged out successfully", context: self)
-        userData.deleteUserDefaults()
+        Support.notifyUser(title: "Logged out", body: "Logged out successfully", context: self)
+        
     }
     
     func isLogged(){

@@ -14,23 +14,30 @@ class MeViewModel : MeViewModelContract{
     private var errorSubject = PublishSubject<(String,Bool)>()
     private var loadingSubject = PublishSubject<Bool>()
     private var signedInSubject = PublishSubject<Bool>()
+    private var favouriteSubject = PublishSubject<[FavoriteProduct]>()
+    private var wishListSubject = PublishSubject<[CartProduct]>()
 
     private var data:[Customer]!
     private var shopifyAPI:ShopifyAPI!
     private var userData:UserData!
+    private var localManager:LocalManagerHelper!
 
     var errorObservable: Observable<(String, Bool)>
     var loadingObservable: Observable<Bool>
     var signedInObservable: Observable<Bool>
-
+    var favouriteObservable: Observable<[FavoriteProduct]>
+    var wishlistObservable: Observable<[CartProduct]>
     
     init() {
         errorObservable = errorSubject.asObservable()
         loadingObservable = loadingSubject.asObservable()
         signedInObservable = signedInSubject.asObservable()
+        favouriteObservable = favouriteSubject.asObservable()
+        wishlistObservable = wishListSubject.asObservable()
 
         shopifyAPI = ShopifyAPI.shared
         userData = UserData.sharedInstance
+        localManager = LocalManagerHelper.localSharedInstance
     }
     
     func validateRegisterdData(email: String, password: String) {
@@ -60,6 +67,38 @@ class MeViewModel : MeViewModelContract{
         }
     }
     
+    func fetchLocalData(type:String) {
+//        var email = userData.getUserFromUserDefaults().email!
+        let email = "ahm@d.com"
+        if(type == "favourite"){
+            localManager.getAllProductsFromFavorite(userEmail: email) {[weak self] (result) in
+                switch(result){
+                case .success(let favList):
+                    if(favList?.count ?? 0 > 4){
+                        self?.favouriteSubject.onNext(Array(favList?[0...3] ?? []))
+                    }else{
+                        self?.favouriteSubject.onNext(favList ?? [])
+                    }
+                case .failure(let error):
+                    self?.errorSubject.onNext((error.localizedDescription, true))
+                }
+            }
+        }else{
+            localManager.getAllCartProducts(userEmail: email) {[weak self] (result) in
+                switch(result){
+                case .success(let cartList):
+                    if(cartList?.count ?? 0 > 4){
+                        self?.wishListSubject.onNext(Array(cartList?[0...3] ?? []))
+                    }else{
+                        self?.wishListSubject.onNext(cartList ?? [])
+                    }
+                case .failure(let error):
+                    self?.errorSubject.onNext((error.localizedDescription, true))
+                }
+            }
+        }
+    }
+    
     private func userExistance(email: String, password: String){
         for customer in data{
             if(customer.email == email && customer.tags == password){
@@ -84,23 +123,8 @@ class MeViewModel : MeViewModelContract{
         }
     }
     
-//    func featchCustomerData(){
-//        api.getCustomers { (result) in
-//            switch(result){
-//            case .success(let response):
-//                let customers = response
-//                print(customers!.customers)
-//                self.customer = customers?.customers
-//
-//            case .failure(let error):
-//                print("error")
-//                self.errorMessage = error.localizedDescription
-//            }
-//        }
-//    }
-    
     func signOutUser() -> Void {
-        //userData.deleteUserDefaults()
+        userData.deleteUserDefaults()
     }
     
     

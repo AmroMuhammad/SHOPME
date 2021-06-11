@@ -33,8 +33,12 @@ protocol RegisterViewModelContract{
 protocol MeViewModelContract{
     var errorObservable:Observable<(String,Bool)>{get}
     var loadingObservable: Observable<Bool> {get}
+    var favouriteObservable: Observable<[FavoriteProduct]> {get}
+    var wishlistObservable: Observable<[CartProduct]> {get}
+    var signedInObservable: Observable<Bool> {get}
     func validateRegisterdData(email:String,password:String)
     func fetchData(email: String, password: String)
+    func fetchLocalData(type:String)
 }
 
 
