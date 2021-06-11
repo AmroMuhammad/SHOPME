@@ -11,8 +11,8 @@ import RxSwift
 import RxCocoa
 class cartViewModel : cartViewModelType {
     var disposeBag = DisposeBag()
-    var dataDrive: Driver<[CartProduct]>
-    var dataSubject = PublishSubject<[CartProduct]>()
+    var dataDrive: Driver<[LocalProductDetails]>
+    var dataSubject = PublishSubject<[LocalProductDetails]>()
     var totalPriceDrive: Driver<Double>
     var totalPriceSubject = PublishSubject<Double>()
     var coreDataobj = LocalManagerHelper.localSharedInstance
@@ -26,31 +26,31 @@ class cartViewModel : cartViewModelType {
         //get data from core data
     //  let email = UserDefaults.standard.string(forKey: "email")
         coreDataobj.getAllCartProducts(userEmail: "ahm@d.com") { [weak self](result) in
-            switch result{
-            case .success(let data):
-                self!.dataSubject.onNext(data ?? [])
-                self!.totalPrice(products: data ?? [])
-                print("the count is equal : \(data?.count ?? 0)")
-            case .failure(_):
+            if  let res = result {
+                self!.dataSubject.onNext(res)
+                self!.totalPrice(products: res)
+                print("the count is equal : \(res.count)")
+            } else {
                 print("erroooooooooooooooooooor")
             }
         }
         
     }
-    func totalPrice(products: [CartProduct]) {
-        var totalPrice : Double = 0.0
+    func totalPrice(products: [LocalProductDetails]) {
+        var totalPrice: Double = 0.0
         var count = 0
         while count < products.count {
-            totalPrice += (Double(products[count].productPrice)! * Double(products[count].quantity ?? 1))
+            totalPrice += ((Double(products[count].productPrice ?? "0.0") ?? 0.0) * Double(products[count].quantity ?? 1) )
+//            totalPrice += (Double(products[count].productPrice)! * Double(products[count].quantity ?? 1))
             count += 1
         }
         totalPrice = (totalPrice * 100).rounded() / 100
         totalPriceSubject.onNext(totalPrice)
     }
     
-    func moveToWishList(product:CartProduct) {
+    func moveToWishList(product:LocalProductDetails) {
       //  delete from cart core data and add to wishlist core data
-        coreDataobj.deleteProductFromCart(cartObj: product) {[weak self] (result) in
+        coreDataobj.deleteProductFromCart(localProductDetails: product) {[weak self] (result) in
             switch result{
             case true:
                 self!.getCartData()
@@ -58,7 +58,7 @@ class cartViewModel : cartViewModelType {
                 print("error")
             }
         }
-        coreDataobj.addProductToFavorite(favoriteProduct: product as FavoriteProduct) { (result) in
+        coreDataobj.addProductToFavorite(localProduct: product) { (result) in
             switch result{
                 
             case true:
@@ -69,9 +69,9 @@ class cartViewModel : cartViewModelType {
         }
        
     }
-    func deleteCartData(product: CartProduct) {
+    func deleteCartData(product: LocalProductDetails) {
       //  delete from cart core data
-        coreDataobj.deleteProductFromCart(cartObj: product) { [weak self](result) in
+        coreDataobj.deleteProductFromCart(localProductDetails: product) { [weak self](result) in
             switch result{
                 case true:
                     self!.getCartData()
@@ -80,9 +80,9 @@ class cartViewModel : cartViewModelType {
             }
         }
     }
-    func changeProductNumber(product: CartProduct){
+    func changeProductNumber(product: LocalProductDetails){
         print("\(product.quantity ?? 0)")
-        coreDataobj.updateCartProduct(cartObj: product) {[weak self] (result) in
+        coreDataobj.updateCartProduct(localProductDetails: product) {[weak self] (result) in
              switch result{
                 case true:
                     self!.getCartData()

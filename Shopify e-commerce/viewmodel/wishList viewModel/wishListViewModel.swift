@@ -11,27 +11,28 @@ import RxSwift
 import RxCocoa
 class wishListViewModel : wishListViewModelType{
     var disposeBag = DisposeBag()
-    var dataDrive: Driver<[FavoriteProduct]>
-    var dataSubject = PublishSubject<[FavoriteProduct]>()
+    var dataDrive: Driver<[LocalProductDetails]>
+    var dataSubject = PublishSubject<[LocalProductDetails]>()
     var coreDataobj = LocalManagerHelper.localSharedInstance
     init() {
            dataDrive = dataSubject.asDriver(onErrorJustReturn: [] )
     }
     func getwishListData() {
         coreDataobj.getAllProductsFromFavorite(userEmail: "ahm@d.com") { [weak self](result) in
-            switch result{
-            case .success(let data):
-                self!.dataSubject.onNext(data ?? [])
-                print("the count is equal : \(data?.count ?? 0)")
-            case .failure(_):
+            if let res = result{
+                self!.dataSubject.onNext(res)
+                print("the count is equal : \(res.count)")
+            } else {
                 print("erroooooooooooooooooooor")
             }
         }
     }
-    func addToCart( product : FavoriteProduct) {
+    func addToCart( product : LocalProductDetails) {
       //  add to cart core data and not delete from wishlist core data
-        let fav = CartProduct(productId: product.productId, productPrice: product.productPrice, productImageData: product.productImageData, userEmail: product.userEmail, title: "no name", selectedSize: "x", selectedColor: "red", quantity: 1)
-        coreDataobj.addProductToCart(cartObj: fav) { (result) in
+        print("whishListVM - addToCart - id \(String(describing: product.productId))")
+        print("whishListVM - addToCart - title \(String(describing: product.title))")
+        let fav = LocalProductDetails(productId: product.productId, userEmail: product.userEmail, title: product.title, productPrice: product.productPrice, productImageData: product.productImageData, quantity: product.quantity, selectedSize: product.selectedSize, selectedColor: product.selectedColor, mainCategory: product.mainCategory)
+        coreDataobj.addProductToCart(localProduct: fav) { (result) in
             switch result{
                     case true:
                        print("true")
@@ -40,9 +41,9 @@ class wishListViewModel : wishListViewModelType{
                 }
             }
     }
-    func deleteWishListData(product : FavoriteProduct) {
+    func deleteWishListData(product : LocalProductDetails) {
       //  delete from wishlist core data
-        coreDataobj.deleteProductFromFavorite(favoriteProduct: product) { [weak self](result) in
+        coreDataobj.deleteProductFromFavorite(localProductDetails: product) { [weak self](result) in
             switch result{
                 case true:
                     self!.getwishListData()

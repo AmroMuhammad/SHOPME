@@ -52,7 +52,7 @@ class wishListViewController: UIViewController {
         }
     }).disposed(by: disposeBag)
         
-        wishListCollectionView.rx.modelSelected(FavoriteProduct.self).subscribe(onNext: {[weak self] (productItem) in
+        wishListCollectionView.rx.modelSelected(LocalProductDetails.self).subscribe(onNext: {[weak self] (productItem) in
             let storyBoard : UIStoryboard = UIStoryboard(name: "productDetails", bundle:nil)
             let productDetailsVC = storyBoard.instantiateViewController(identifier: Constants.productDetailsVC) as! ProductDetailsTableViewController
             productDetailsVC.productId = "\(productItem.productId)"
@@ -84,7 +84,7 @@ class wishListViewController: UIViewController {
 
 
 extension wishListViewController: CollectionViewCellDelegate{
-    func showMovingAlert(msg: String , product : FavoriteProduct) {
+    func showMovingAlert(msg: String , product : LocalProductDetails) {
         let alertController = UIAlertController(title: "", message: msg, preferredStyle: UIAlertController.Style.alert)
 
         alertController.addAction(UIAlertAction(title: "add", style: .default, handler: { [weak self](action: UIAlertAction!) in
@@ -99,7 +99,7 @@ extension wishListViewController: CollectionViewCellDelegate{
         present(alertController, animated: true, completion: nil)
     }
     
-    func showAlert(msg : String , product : FavoriteProduct) {
+    func showAlert(msg : String , product : LocalProductDetails) {
       
       let alertController = UIAlertController(title: "", message: msg, preferredStyle: UIAlertController.Style.alert)
 

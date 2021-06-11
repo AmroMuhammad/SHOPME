@@ -32,29 +32,29 @@ protocol shopViewModelType : viewModelType {
     func fetchDiscountCodeData()
 }
 protocol CollectionViewCellDelegate{
-    func showAlert(msg : String ,  product : FavoriteProduct)
-    func showMovingAlert(msg: String ,  product : FavoriteProduct)
+    func showAlert(msg : String ,  product : LocalProductDetails)
+    func showMovingAlert(msg: String ,  product : LocalProductDetails)
 }
 
 protocol TableViewCellDelegate {
-    func showAlert(msg: String, product:CartProduct , completion: @escaping (Int) -> Void)
-    func showMovingAlert(msg: String , product:CartProduct)
-    func updateCoreDate(product:CartProduct)
+    func showAlert(msg: String, product:LocalProductDetails , completion: @escaping (Int) -> Void)
+    func showMovingAlert(msg: String , product:LocalProductDetails)
+    func updateCoreDate(product:LocalProductDetails)
     
 }
 
 protocol wishListViewModelType {
-     var dataDrive : Driver<[FavoriteProduct]> {get}
+     var dataDrive : Driver<[LocalProductDetails]> {get}
      func getwishListData()
-     func addToCart( product : FavoriteProduct)
-     func deleteWishListData( product : FavoriteProduct)
+     func addToCart( product : LocalProductDetails)
+     func deleteWishListData( product : LocalProductDetails)
 }
 protocol cartViewModelType {
      var totalPriceDrive: Driver<Double>{get}
-     var dataDrive : Driver<[CartProduct]> {get}
+     var dataDrive : Driver<[LocalProductDetails]> {get}
      func getCartData()
-     func moveToWishList(product:CartProduct)
-     func deleteCartData(product: CartProduct)
-     func changeProductNumber(product: CartProduct)
+     func moveToWishList(product:LocalProductDetails)
+     func deleteCartData(product: LocalProductDetails)
+     func changeProductNumber(product: LocalProductDetails)
      
 }

@@ -10,7 +10,7 @@ import UIKit
 import SDWebImage
 class TableViewCell: UITableViewCell {
     var delegate: TableViewCellDelegate?
-    var productItem : CartProduct?
+    var productItem : LocalProductDetails?
     @IBOutlet weak var productImg: UIImageView!
     @IBOutlet weak var stepperValue: UILabel!
     @IBOutlet weak var stepper: UIStepper!
@@ -41,7 +41,7 @@ class TableViewCell: UITableViewCell {
 //
 //        // Configure the view for the selected state
 //    }
-    var cellCartProduct : CartProduct! {
+    var cellCartProduct : LocalProductDetails! {
             didSet{
                 productPrice.text = cellCartProduct.productPrice
                 productName.text = cellCartProduct.title
