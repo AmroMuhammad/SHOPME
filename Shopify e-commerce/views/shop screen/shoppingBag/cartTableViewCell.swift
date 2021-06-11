@@ -73,9 +73,16 @@ class TableViewCell: UITableViewCell {
             })
         }
         else{
-            productItem?.quantity = result
-            delegate?.updateCoreDate(product : productItem!)
-           stepperValue.text = String(result)
+            if result <= productItem?.inventory_quantity ?? 0 {
+                productItem?.quantity = result
+                delegate?.updateCoreDate(product : productItem!)
+                stepperValue.text = String(result)
+            } else {
+                delegate?.showAlert(msg: "Sorry, this quantity in NOT in the inventory quantity :(", product: productItem!, completion: { [weak self] (val) in
+                    (sender as! UIStepper).value -= 1.0
+                    self!.stepperValue.text = "\(result-1)"
+                })
+            }
         }
         
     }

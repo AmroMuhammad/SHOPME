@@ -71,6 +71,8 @@ struct LocalProductDetails {
     let selectedColor: String?
     
     let mainCategory: String?
+    
+    let inventory_quantity: Int?
 }
 
 

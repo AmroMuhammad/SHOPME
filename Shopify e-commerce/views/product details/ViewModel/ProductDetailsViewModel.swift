@@ -91,8 +91,8 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
     func getMainCategory() -> String {
         return "Kids"
     }
-    func getQuantityOfProductSize(selectedSize: String?) -> Int? {
-        let variantsArr = productObject?.variants ?? []
+    func getInventoryQuantityOfProductSize(productObject: ProductDetails, selectedSize: String?) -> Int? {
+        let variantsArr = productObject.variants ?? []
         for item in variantsArr {
             if item.option1 == selectedSize {
                 return item.inventory_quantity
@@ -151,7 +151,7 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
             }
             print("VM addTofavorite id => \(productObj.id)")
             
-            localManager.addProductToFavorite(localProduct: LocalProductDetails(productId: productObj.id, userEmail: getUserEmail(), title: productObj.title, productPrice: productObj.variants?[0].price, productImageData: imgData, quantity: nil, selectedSize: nil, selectedColor: nil, mainCategory: getMainCategory())) { (resBool) in
+            localManager.addProductToFavorite(localProduct: LocalProductDetails(productId: productObj.id, userEmail: getUserEmail(), title: productObj.title, productPrice: productObj.variants?[0].price, productImageData: imgData, quantity: nil, selectedSize: nil, selectedColor: nil, mainCategory: getMainCategory(), inventory_quantity: nil)) { (resBool) in
                 if !resBool {
                     res = false
                 }
@@ -185,7 +185,7 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
         
         if let productObj = productObject{
             print("VM addTofavorite id => \(productObj.id)")
-            localManager.deleteProductFromFavorite(localProductDetails: LocalProductDetails(productId: intId, userEmail: getUserEmail(), title: nil, productPrice: nil, productImageData: Data(), quantity: nil, selectedSize: nil, selectedColor: nil, mainCategory: nil)) { (resBool) in
+            localManager.deleteProductFromFavorite(localProductDetails: LocalProductDetails(productId: intId, userEmail: getUserEmail(), title: nil, productPrice: nil, productImageData: Data(), quantity: nil, selectedSize: nil, selectedColor: nil, mainCategory: nil, inventory_quantity: nil)) { (resBool) in
                 if !resBool {
                     print("product has NOT been deleted")
                 }
@@ -217,9 +217,9 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
                 print("VM addToCart dataImage Empty => \(String(describing: imgData))")
             }
             print("VM addToCart id => \(productObj.id)")
-//            let cartProductObj = CartProduct(productId: productObj.id, productPrice: productObj.variants?[0].price ?? "--", productImageData: imgData, userEmail: getUserEmail(), title: productObj.title ?? "---", selectedSize: selectedSize, selectedColor: mapFromColor(color: selectedColor ?? UIColor.white), quantity: 1)
+            
 
-            localManager.addProductToCart(localProduct: LocalProductDetails(productId: productObj.id, userEmail: getUserEmail(), title: productObj.title, productPrice: productObj.variants?[0].price, productImageData: imgData, quantity: 1, selectedSize: selectedSize, selectedColor: mapFromColor(color: selectedColor), mainCategory: getMainCategory())) { (resBool) in
+            localManager.addProductToCart(localProduct: LocalProductDetails(productId: productObj.id, userEmail: getUserEmail(), title: productObj.title, productPrice: productObj.variants?[0].price, productImageData: imgData, quantity: 1, selectedSize: selectedSize, selectedColor: mapFromColor(color: selectedColor), mainCategory: getMainCategory(), inventory_quantity: getInventoryQuantityOfProductSize(productObject: productObj, selectedSize: selectedSize))) { (resBool) in
                 if !resBool {
                     res = false
                 }
@@ -245,7 +245,7 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
             print("VM addTofavorite id => \(productObj.id)")
             
             
-            localManager.deleteProductFromCart(localProductDetails: LocalProductDetails(productId: intId, userEmail: getUserEmail(), title: nil, productPrice: nil, productImageData: Data(), quantity: nil, selectedSize: nil, selectedColor: nil, mainCategory: nil)) { (resBool) in
+            localManager.deleteProductFromCart(localProductDetails: LocalProductDetails(productId: intId, userEmail: getUserEmail(), title: nil, productPrice: nil, productImageData: Data(), quantity: nil, selectedSize: nil, selectedColor: nil, mainCategory: nil, inventory_quantity: nil)) { (resBool) in
                 if !resBool {
                     print("product has NOT been deleted")
                 }

@@ -114,7 +114,7 @@ class LocalManagerHelper {
                             let price = item.value(forKey: Constants.productPriceCoraDataAtt) as? String ?? "--"
                             let titleVal = item.value(forKey: Constants.titleCoraDataAtt) as? String ?? "Product"
                             
-                            localProductDetails.append(LocalProductDetails(productId: prodId as! Int, userEmail: userEmail, title: titleVal, productPrice: price, productImageData: imgData, quantity: nil, selectedSize: nil, selectedColor: nil, mainCategory: mainCategory))
+                            localProductDetails.append(LocalProductDetails(productId: prodId as! Int, userEmail: userEmail, title: titleVal, productPrice: price, productImageData: imgData, quantity: nil, selectedSize: nil, selectedColor: nil, mainCategory: mainCategory, inventory_quantity: nil))
                             
                         } else {
                             print("getAllProductsFromFavorite - failed to get ID")
@@ -203,8 +203,9 @@ class LocalManagerHelper {
                                 let sizeVal = item.value(forKey: Constants.selectedSizeCoraDataAtt) as? String ?? "-"
                                 let colorVal = item.value(forKey: Constants.selectedColorCoraDataAtt) as? String ?? "-"
                                 let quantVal = item.value(forKey: Constants.quantityCoraDataAtt) as? Int ?? 1
+                                let invQuant = item.value(forKey: Constants.invQuantCoraDataAtt) as? Int ?? 0
                                 
-                                completion(LocalProductDetails(productId: productId, userEmail: userEmail, title: titleVal, productPrice: price, productImageData: imgData, quantity: quantVal, selectedSize: sizeVal, selectedColor: colorVal, mainCategory: mainCategory))
+                                completion(LocalProductDetails(productId: productId, userEmail: userEmail, title: titleVal, productPrice: price, productImageData: imgData, quantity: quantVal, selectedSize: sizeVal, selectedColor: colorVal, mainCategory: mainCategory, inventory_quantity: invQuant))
                                 return                // useless???
                         
                             } else {
@@ -249,6 +250,7 @@ class LocalManagerHelper {
                 let size = localProduct.selectedSize ?? "-"
                 let color = localProduct.selectedColor ?? "-"
                 let quantity = localProduct.quantity ?? 1
+                let invQuantity = localProduct.inventory_quantity ?? 0
                 
                 productMngObj.setValue(localProduct.userEmail, forKey: Constants.userEmailCoraDataAtt)
                 productMngObj.setValue(localProduct.productId, forKey: Constants.productIdCoraDataAtt)
@@ -259,6 +261,7 @@ class LocalManagerHelper {
                 productMngObj.setValue(size, forKey: Constants.selectedSizeCoraDataAtt)
                 productMngObj.setValue(color, forKey: Constants.selectedColorCoraDataAtt)
                 productMngObj.setValue(quantity, forKey: Constants.quantityCoraDataAtt)
+                productMngObj.setValue(invQuantity, forKey: Constants.invQuantCoraDataAtt)
              
                 do{
                     try context.save()
@@ -376,8 +379,9 @@ class LocalManagerHelper {
                             let sizeVal = item.value(forKey: Constants.selectedSizeCoraDataAtt) as? String ?? "-"
                             let colorVal = item.value(forKey: Constants.selectedColorCoraDataAtt) as? String ?? "-"
                             let quantVal = item.value(forKey: Constants.quantityCoraDataAtt) as? Int ?? 1
+                            let invQuantVal = item.value(forKey: Constants.invQuantCoraDataAtt) as? Int ?? 0
                             
-                            localProductDetails.append(LocalProductDetails(productId: prodId as! Int, userEmail: userEmail, title: titleVal, productPrice: price, productImageData: imgData, quantity: quantVal, selectedSize: sizeVal, selectedColor: colorVal, mainCategory: mainCategory))
+                            localProductDetails.append(LocalProductDetails(productId: prodId as! Int, userEmail: userEmail, title: titleVal, productPrice: price, productImageData: imgData, quantity: quantVal, selectedSize: sizeVal, selectedColor: colorVal, mainCategory: mainCategory, inventory_quantity: invQuantVal))
                             
                         } else {
                             print("getAllCartProducts - failed to get ID")

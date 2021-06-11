@@ -31,7 +31,7 @@ class wishListViewModel : wishListViewModelType{
       //  add to cart core data and not delete from wishlist core data
         print("whishListVM - addToCart - id \(String(describing: product.productId))")
         print("whishListVM - addToCart - title \(String(describing: product.title))")
-        let fav = LocalProductDetails(productId: product.productId, userEmail: product.userEmail, title: product.title, productPrice: product.productPrice, productImageData: product.productImageData, quantity: product.quantity, selectedSize: product.selectedSize, selectedColor: product.selectedColor, mainCategory: product.mainCategory)
+        let fav = LocalProductDetails(productId: product.productId, userEmail: product.userEmail, title: product.title, productPrice: product.productPrice, productImageData: product.productImageData, quantity: product.quantity, selectedSize: product.selectedSize, selectedColor: product.selectedColor, mainCategory: product.mainCategory, inventory_quantity: product.inventory_quantity)
         coreDataobj.addProductToCart(localProduct: fav) { (result) in
             switch result{
                     case true:

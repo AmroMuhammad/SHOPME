@@ -29,6 +29,7 @@ struct Constants {
     static let selectedColorCoraDataAtt = "selectedColor"
     static let selectedSizeCoraDataAtt = "selectedSize"
     static let titleCoraDataAtt = "title"
+    static let invQuantCoraDataAtt = "inventory_quantity"
     
     
     

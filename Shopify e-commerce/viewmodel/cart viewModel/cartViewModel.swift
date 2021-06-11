@@ -18,6 +18,8 @@ class cartViewModel : cartViewModelType {
     var coreDataobj = LocalManagerHelper.localSharedInstance
    // private var userDefaults = UserDefaults.standard
     
+    var inventoryQuantity = 0
+    
     init() {
         dataDrive = dataSubject.asDriver(onErrorJustReturn: [] )
         totalPriceDrive = totalPriceSubject.asDriver(onErrorJustReturn: 0.0 )
@@ -91,5 +93,16 @@ class cartViewModel : cartViewModelType {
                        }
         }
     }
+//    func getQuantityOfProductSize(productObject: LocalProductDetails) -> Int? {
+//        
+//        var selectedSize: String?
+//        let variantsArr = productObject?.variants ?? []
+//        for item in variantsArr {
+//            if item.option1 == selectedSize {
+//                return item.inventory_quantity
+//            }
+//        }
+//        return 0
+//    }
     
 }
