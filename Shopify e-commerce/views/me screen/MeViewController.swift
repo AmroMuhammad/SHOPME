@@ -25,6 +25,7 @@ class MeViewController: UIViewController {
         
         userData = UserData.sharedInstance
         currencyLabel.text = userData.getCurrency()
+        isLogged()
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
         currencyLabel.addGestureRecognizer(tap)
@@ -49,37 +50,29 @@ class MeViewController: UIViewController {
         currencyDropMenu.show()
        }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
-    
-    
-    
-    
-    func signoutAction(){
+    @IBAction func signOutButtonPressed(_ sender: Any) {
         meViewModel.signOutUser()
-        self.registerDoneAlert(context: self)
         signOut.alpha = 0
+        editCustomerData.alpha = 0
+        Support.notifyUser(title: "Looged out", body: "Logged out successfully", context: self)
+        userData.deleteUserDefaults()
     }
     
-    func registerDoneAlert(context:UIViewController) -> Void {
-        let signOutSucsess = UIAlertController(title: "signOut Succesfully", message: "", preferredStyle: UIAlertController.Style.alert)
-        signOutSucsess.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil))
-        context.present(signOutSucsess, animated: true, completion: nil)
+    func isLogged(){
+        if(userData.isLoggedIn()){
+            signOut.alpha = 1
+            editCustomerData.alpha = 1
+        }else{
+            signOut.alpha = 0
+            editCustomerData.alpha = 0
+        }
     }
-    
-   
-    
     
     @IBAction func aboutUS(_ sender: Any) {
         let aboutusvc = self.storyboard?.instantiateViewController(identifier: "AboutUsViewController") as! AboutUsViewController
         self.navigationController?.pushViewController(aboutusvc, animated: true)
 
     }
-    
-    
-    
-    
     
     func editCustomerAction(){
         let editvc = self.storyboard?.instantiateViewController(identifier: "EditIngViewController") as! EditIngViewController

@@ -20,8 +20,8 @@ class UserData {
         userDefaults.set(customer.id!, forKey: Constants.idUserDefaults)
         userDefaults.set(customer.firstName!, forKey: Constants.firstNameUserDefaults)
         userDefaults.set(customer.lastName!, forKey: Constants.lastNameUserDefaults)
-        userDefaults.set(customer.addresses![0]!.city!, forKey: Constants.cityUserDefaults)
-        userDefaults.set(customer.addresses![0]!.country!, forKey: Constants.countryUserDefaults)
+        userDefaults.set(customer.addresses?[0]!.city!, forKey: Constants.cityUserDefaults)
+        userDefaults.set(customer.addresses?[0]!.country!, forKey: Constants.countryUserDefaults)
     }
     
     func isLoggedIn()->Bool{

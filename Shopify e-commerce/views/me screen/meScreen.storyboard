@@ -44,6 +44,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <state key="normal" title="Sign Out"/>
+                                <connections>
+                                    <action selector="signOutButtonPressed:" destination="P5t-vW-MC7" eventType="touchUpInside" id="9rz-6f-xh7"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZmZ-gr-Aih">
                                 <rect key="frame" x="10" y="168" width="394" height="40"/>
@@ -109,7 +112,7 @@
                     <connections>
                         <outlet property="currencyLabel" destination="scQ-6U-zaE" id="D9X-0x-ygB"/>
                         <outlet property="editCustomerData" destination="j7d-Dk-zeG" id="RJE-ro-3pJ"/>
-                        <outlet property="signOut" destination="gd3-aw-dkk" id="uxD-gZ-EuF"/>
+                        <outlet property="signOut" destination="gd3-aw-dkk" id="mYM-J3-bWI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jpa-vD-iVj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
