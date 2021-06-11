@@ -34,7 +34,7 @@ class ProductDetailsTableViewController: UITableViewController {
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var ratingViewContainer: CosmosView!
     @IBOutlet weak var cityNameLabel: UILabel!
-
+    @IBOutlet weak var descriptionTextView: UITextView!
     
     private var imagesSubject = PublishSubject<[ProductDetailsImage]>()
 
@@ -44,7 +44,6 @@ class ProductDetailsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
         productDetailsViewModel = ProductDetailsViewModel()
         disposeBag = DisposeBag()
@@ -94,6 +93,22 @@ class ProductDetailsTableViewController: UITableViewController {
             self.title = vendor
         }.disposed(by: disposeBag)
         
+        productDetailsViewModel.productDescriptionObservable.bind { (desc) in
+            print("\n\n\nDESC => \(desc)")
+            
+            self.descriptionTextView.text = desc
+//            self.testDescLabel.text = desc
+//            self.tableView.layoutSubviews()
+//            if let visbleIndxPath = self.tableView.indexPathsForVisibleRows {
+//                self.tableView.reloadRows(at: visbleIndxPath, with: .none)
+//                print("\n\n\nVsbleIndxPth => \(visbleIndxPath)")
+//            } else {
+//                print("\n\n\n\nelse => failed to get visbleIndxPth")
+//            }
+//            self.tableView.layoutIfNeeded()
+            
+        }.disposed(by: disposeBag)
+        
         
         //----------------------selected item----------------------
         
@@ -140,6 +155,7 @@ class ProductDetailsTableViewController: UITableViewController {
         }).disposed(by: disposeBag)
         
         ratingViewInit()
+        descriptionTextViewInit()
         
         productDetailsViewModel.getProductDetails(id: productId)
         
@@ -171,21 +187,11 @@ class ProductDetailsTableViewController: UITableViewController {
         }).disposed(by: disposeBag)
         
     }
-    
-//    func getData(){
-//        let res = productDetailsViewModel.getFromFavorite()
-//
-//        pricyyyLabeltest.text = res.0?.variants?[0].price
-//        if let resDAt = res.1 {
-//            if  resDAt.isEmpty {
-//                print("\n\n\nres.1.isEMPTYYYYYYYYYYYYY\n\n")
-//            } else {
-//                imgyyyTest.image = UIImage(data: resDAt)
-//            }
-//        } else {
-//            print("\n\n\nresDATAA   EMPTYYYYYYYYYYYYY\n\n")
-//        }     
-//    }
+
+    func descriptionTextViewInit() {
+//        descriptionTextView.translatesAutoresizingMaskIntoConstraints = true
+        descriptionTextView.sizeToFit()
+    }
     
     func ratingViewInit(){
         ratingViewContainer.settings.fillMode = .half
@@ -265,6 +271,8 @@ class ProductDetailsTableViewController: UITableViewController {
         case 0:
             if indexPath.row == 0 {
                 return view.frame.height * 0.5
+            } else if indexPath.row == 3 {
+                return  view.frame.height * 0.15
             } else {
                 return productNameLabel.bounds.height + 25
             }

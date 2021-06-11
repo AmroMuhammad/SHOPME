@@ -17,6 +17,7 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
     var productTitleObservable: Observable<String>
     var productPriceObservable: Observable<String>
     var productVendorObservable: Observable<String>
+    var productDescriptionObservable: Observable<String>
     
     private var imagesSubject = PublishSubject<[ProductDetailsImage]>()
     private var colorsSubject = PublishSubject<[UIColor]>()
@@ -24,6 +25,7 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
     private var productTitleSubject = PublishSubject<String>()
     private var productPriceSubject = PublishSubject<String>()
     private var productVendorSubject = PublishSubject<String>()
+    private var productDescriptionSubject = PublishSubject<String>()
     
     private var productObject: ProductDetails?
     
@@ -56,6 +58,8 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
         productTitleObservable = productTitleSubject.asObservable()
         productPriceObservable = productPriceSubject.asObservable()
         productVendorObservable = productVendorSubject.asObservable()
+        productDescriptionObservable = productDescriptionSubject.asObservable()
+        
         
         favoriteProductsObservable = favoriteProductsSubject.asObservable()
         cartProductsObservable = cartProductsSubject.asObservable()
@@ -332,6 +336,12 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
         }
         if let productPrice = product.variants?[0].price {
             productPriceSubject.onNext(productPrice)
+        }
+        if let productVendor = product.vendor {
+            productVendorSubject.onNext(productVendor)
+        }
+        if let productDescription = product.body_html {
+            productDescriptionSubject.onNext(productDescription)
         }
         if let optionsArr = product.options {
             for option in optionsArr {

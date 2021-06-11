@@ -17,7 +17,8 @@ struct ProductDetails: Codable {
     
     let id: Int
     let title: String?
-//    let vendor: String?          // ???
+    let vendor: String?
+    let body_html: String?
 //    let product_type: String?    // ???
 //    let handle: String?
 //    let status: String?
