@@ -59,14 +59,24 @@ class wishListViewController: UIViewController {
             self?.navigationController?.pushViewController(productDetailsVC, animated: true)
         }).disposed(by: disposeBag)
         
+//        wishListViewModelObj.getwishListData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         wishListViewModelObj.getwishListData()
     }
 
          
     @objc func doToCart() {
-        let cartViewController = storyboard?.instantiateViewController(identifier: Constants.cartVC) as! CardViewController
-        navigationController?.pushViewController(cartViewController, animated: true)
-        
+        if checkVC(addedVC: CardViewController.self) {
+            print("checkVC is NOT nil")
+            navigationController?.popViewController(animated: true)
+        } else {
+            print("checkVC is NIIIIIIIL")
+            
+            let cartViewController = storyboard?.instantiateViewController(identifier: Constants.cartVC) as! CardViewController
+            navigationController?.pushViewController(cartViewController, animated: true)
+        }
     }
   
   

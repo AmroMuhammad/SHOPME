@@ -68,13 +68,27 @@ class CardViewController: UIViewController {
             self?.navigationController?.pushViewController(productDetailsVC, animated: true)
         }).disposed(by: disposeBag)
             
+//        cartViewModelObj.getCartData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         cartViewModelObj.getCartData()
     }
+    
     @objc func goToWishList() {
-           let wishListViewController = storyboard?.instantiateViewController(identifier: Constants.wishListVC) as! wishListViewController
-           navigationController?.pushViewController(wishListViewController, animated: true)
-           
+        if checkVC(addedVC: wishListViewController.self) {
+            print("checkVC is NOT nil")
+            navigationController?.popViewController(animated: true)
+        } else {
+            print("checkVC is NIIIIIIIL")
+            
+            let wishListViewControllerr = storyboard?.instantiateViewController(identifier: Constants.wishListVC) as! wishListViewController
+            navigationController?.pushViewController(wishListViewControllerr, animated: true)
+        }
     }
+    
+    
+    
     func cartEmpty() {
         print("it is empty ................")
         self.cartTableView.isHidden = true
@@ -150,4 +164,32 @@ extension CardViewController:   UITableViewDelegate {
         return 169
     }
     
+}
+
+extension UIViewController {
+    func checkVC(addedVC: AnyClass) -> Bool{
+        if let viewControllers = self.navigationController?.viewControllers {
+            for vc in viewControllers {
+                if vc.isKind(of: addedVC) {
+                    print("\n\n\n\nVCs are ==")
+                    print("kind class => \(String(describing: vc.classForCoder))")
+//                    self.navigationController?.viewControllers.remove(at: <#T##Int#>)
+                    return true
+                    
+                } else {
+                    print("\n\n\n\nVCs are !=")
+                    print("kind class => \(String(describing: vc.classForCoder))")
+                }
+            }
+        }
+        return false
+    }
+    
+}
+
+extension UINavigationController {
+    func removeRedundentVC(addedVC: UIViewController) {
+        print("\n\n\n\nRemove Redundent VC\n\n\n\n")
+        self.viewControllers = self.viewControllers.filter({ !$0.isKind(of: addedVC.classForCoder) })
+    }
 }
