@@ -69,9 +69,8 @@ class MeViewController: UIViewController {
     }
     
     @IBAction func aboutUS(_ sender: Any) {
-        let aboutusvc = self.storyboard?.instantiateViewController(identifier: "AboutUsViewController") as! AboutUsViewController
-        self.navigationController?.pushViewController(aboutusvc, animated: true)
-
+        let aboutusVC = self.storyboard?.instantiateViewController(identifier: "AboutUsViewController") as! AboutUsViewController
+        self.present(aboutusVC, animated: true, completion: nil)
     }
     
     func editCustomerAction(){
