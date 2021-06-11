@@ -30,4 +30,11 @@ protocol RegisterViewModelContract{
     func validateRegisterdData(firstName:String,lastName:String,email:String,phoneNumber:String,password:String,confirmPassword:String,country:String,city:String)
 }
 
+protocol MeViewModelContract{
+    var errorObservable:Observable<(String,Bool)>{get}
+    var loadingObservable: Observable<Bool> {get}
+    func validateRegisterdData(email:String,password:String)
+    func fetchData(email: String, password: String)
+}
+
 

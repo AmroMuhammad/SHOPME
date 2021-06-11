@@ -48,7 +48,7 @@ class RegisterViewController: UIViewController {
         registerViewModel.doneObservable.subscribe(onCompleted: {
             print(UserData.sharedInstance.getUserFromUserDefaults())
             print(UserData.sharedInstance.isLoggedIn())
-            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
     }
     

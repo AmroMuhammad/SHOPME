@@ -134,17 +134,17 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YKY-ak-nwk">
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YKY-ak-nwk">
                                         <rect key="frame" x="20" y="84" width="156" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="user name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rQU-wz-hMD">
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rQU-wz-hMD">
                                         <rect key="frame" x="20" y="136" width="157" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VBh-JC-1PC">
                                         <rect key="frame" x="76" y="214" width="45" height="30"/>
@@ -161,12 +161,9 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iYf-ht-hZ6">
-                                <rect key="frame" x="37" y="106" width="102" height="30"/>
-                                <state key="normal" title="Want to logIn ?"/>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Bb-Wc-JE1">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Welcome" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Bb-Wc-JE1">
                                 <rect key="frame" x="150" y="110.66666666666667" width="71" height="21.000000000000014"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -198,20 +195,16 @@
                             <constraint firstItem="Wdr-Vw-anx" firstAttribute="top" secondItem="lTi-M7-nHp" secondAttribute="bottom" constant="18" id="6uu-W7-g6I"/>
                             <constraint firstItem="05f-pz-Xgv" firstAttribute="top" secondItem="Wdr-Vw-anx" secondAttribute="bottom" constant="35" id="7D0-pO-hXD"/>
                             <constraint firstItem="Wdr-Vw-anx" firstAttribute="centerY" secondItem="MRc-ss-7vG" secondAttribute="centerY" id="Sxr-ub-o48"/>
-                            <constraint firstItem="iYf-ht-hZ6" firstAttribute="leading" secondItem="2TO-ZJ-wRi" secondAttribute="leading" constant="37" id="Tki-6I-2fh"/>
                             <constraint firstItem="2TO-ZJ-wRi" firstAttribute="trailing" secondItem="05f-pz-Xgv" secondAttribute="trailing" constant="84" id="UcE-HT-3hJ"/>
                             <constraint firstItem="ksm-QE-xyY" firstAttribute="leading" secondItem="2TO-ZJ-wRi" secondAttribute="leading" constant="303" id="V90-4Q-agx"/>
-                            <constraint firstItem="iYf-ht-hZ6" firstAttribute="centerY" secondItem="0Bb-Wc-JE1" secondAttribute="centerY" id="VYY-yp-iRY"/>
                             <constraint firstItem="2TO-ZJ-wRi" firstAttribute="trailing" secondItem="lTi-M7-nHp" secondAttribute="trailing" constant="126" id="Wtj-N2-f7b"/>
                             <constraint firstItem="Wdr-Vw-anx" firstAttribute="leading" secondItem="2TO-ZJ-wRi" secondAttribute="leading" constant="66" id="bQr-dt-F4D"/>
                             <constraint firstItem="lTi-M7-nHp" firstAttribute="top" secondItem="MRc-ss-7vG" secondAttribute="top" constant="151" id="brt-9Q-EEd"/>
-                            <constraint firstItem="lTi-M7-nHp" firstAttribute="top" secondItem="iYf-ht-hZ6" secondAttribute="bottom" constant="15" id="dhp-PR-KC6"/>
                             <constraint firstItem="2TO-ZJ-wRi" firstAttribute="trailing" secondItem="ksm-QE-xyY" secondAttribute="trailing" constant="54" id="jDB-IW-cAd"/>
                             <constraint firstItem="s5y-lc-xUT" firstAttribute="leading" secondItem="2TO-ZJ-wRi" secondAttribute="leading" constant="77" id="mJf-KG-swt"/>
                             <constraint firstItem="05f-pz-Xgv" firstAttribute="leading" secondItem="2TO-ZJ-wRi" secondAttribute="leading" constant="163" id="p8G-FN-Uj2"/>
                             <constraint firstItem="2TO-ZJ-wRi" firstAttribute="bottom" secondItem="s5y-lc-xUT" secondAttribute="bottom" constant="45" id="sn4-Tf-ZRO"/>
                             <constraint firstItem="lTi-M7-nHp" firstAttribute="leading" secondItem="2TO-ZJ-wRi" secondAttribute="leading" constant="91" id="ts3-Ez-L06"/>
-                            <constraint firstItem="0Bb-Wc-JE1" firstAttribute="leading" secondItem="iYf-ht-hZ6" secondAttribute="trailing" constant="11" id="zIl-ci-WfM"/>
                             <constraint firstItem="s5y-lc-xUT" firstAttribute="top" secondItem="05f-pz-Xgv" secondAttribute="bottom" constant="24" id="zzK-BK-Wre"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2TO-ZJ-wRi"/>
@@ -226,7 +219,6 @@
                         <outlet property="segmentControl" destination="05f-pz-Xgv" id="JCJ-Wg-MpH"/>
                         <outlet property="signInOutlet" destination="lTi-M7-nHp" id="8X6-je-8qB"/>
                         <outlet property="tableview" destination="s5y-lc-xUT" id="1di-B0-1GD"/>
-                        <outlet property="wantToLogin" destination="iYf-ht-hZ6" id="6Jc-pk-gTU"/>
                         <outlet property="welcome" destination="0Bb-Wc-JE1" id="CoO-gr-oUV"/>
                     </connections>
                 </viewController>

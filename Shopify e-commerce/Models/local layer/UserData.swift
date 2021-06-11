@@ -25,8 +25,13 @@ class UserData {
     }
     
     func isLoggedIn()->Bool{
-        if(userDefaults.value(forKey: Constants.isLoggedInUserDefaults) != nil){
-            return true
+        var loggedIn = userDefaults.value(forKey: Constants.isLoggedInUserDefaults)
+        if(loggedIn != nil){
+            if(loggedIn as! Bool){
+                return true
+            }else{
+                return false
+            }
         }else{
             return false
         }

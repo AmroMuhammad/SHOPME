@@ -36,3 +36,9 @@ struct Address: Codable {
         case city, country
     }
 }
+
+
+
+struct AllCustomers: Codable {
+    var customers: [Customer]
+}

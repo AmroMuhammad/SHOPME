@@ -11,46 +11,79 @@ import RxCocoa
 
 class SettingsViewController: UIViewController {
     
-    @IBAction func settings(_ sender: UIButton) {
-        let meScreen = self.storyboard?.instantiateViewController(identifier: "MeViewController") as! MeViewController
-        self.navigationController?.pushViewController(meScreen, animated: true)
-    }
-    
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var signInOutlet: UIView!
-    
     @IBOutlet weak var welcome: UILabel!
-    @IBOutlet weak var wantToLogin: UIButton!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var register: UIButton!
-    
-//    let userData:UserData = UserData.getInstance()
-    
-    @IBAction func loginBtn(_ sender: Any) {
-//        print(userData.userStatus())
-        meViewModel.checkIsCustomerexist(email: emailTextField.text!, password: passwordTextField.text!, array: array, context: self, welcome: welcome, signInOutlet: signInOutlet,emailTextField: emailTextField, passwordTextField: passwordTextField)
-       
-
-    }
     @IBOutlet weak var passwordTextField: UITextField!
-    
+    @IBOutlet weak var tableview: UITableView!
+    private var activityView:UIActivityIndicatorView!
+
+    //Amr
+    var userData:UserData!
+
+    //Ayman
     var isLoged = false;
     var isWhishList = true;
-    var array:[CustomerElement] = [CustomerElement]()
-    var meViewModel = MeViewModel()
+    var meViewModel:MeViewModel!
     var error:String!
-    
-
-    
     var whishListArray = ["whishListArray","whishListArray","whishListArray","whishListArray"]
     var bagArray = ["bag1","bag1","bag1","bag1","bag1","bag1"]
-    
-    var support = Support()
+    var disposeBag:DisposeBag!
     
 
-    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationController?.title = "Settings"
+        userData = UserData.sharedInstance
+        meViewModel = MeViewModel()
+        disposeBag = DisposeBag()
+        activityView = UIActivityIndicatorView(style: .large)
+        
+        meViewModel.errorObservable.subscribe(onNext: { (message, boolValue) in
+            if(boolValue){
+                Support.notifyUser(title: "Error", body: message, context: self)
+            }
+            }).disposed(by: disposeBag)
+        
+        meViewModel.loadingObservable.subscribe(onNext: {[weak self] (boolValue) in
+            switch boolValue{
+            case true:
+                self?.showLoading()
+            case false:
+                self?.hideLoading()
+            }
+            }).disposed(by: disposeBag)
+        
+        meViewModel.signedInObservable.subscribe(onNext: {[weak self] (boolValue) in
+            switch boolValue{
+            case true:
+                self?.showWelcomeView()
+            case false:
+                self?.showLoginView()
+            }
+            }).disposed(by: disposeBag)
+        
+        tableview.delegate = self
+        tableview.dataSource = self
+        self.changeTableDataSource()
+        signInOutlet.alpha = 0
+        
+        let registerGesture = UITapGestureRecognizer(target: self, action: #selector(registerTap))
+        registerGesture.numberOfTapsRequired = 1
+        register.addGestureRecognizer(registerGesture)
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
+        if(userData.isLoggedIn()){
+            print("logged In")
+            showWelcomeView()
+        }else{
+            print("Logged Off")
+            showLoginView()
+        }
 //        welcome.alpha = 0
 //        if(userData.userStatus().0 != ""){
 //            wantToLogin.alpha = 0
@@ -72,58 +105,21 @@ class SettingsViewController: UIViewController {
 //        }
     }
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.navigationController?.title = "Settings"
-
-        
-        
-        
-        meViewModel.bindCustomerToView = {
-            self.onSucsses()
-        }
-        meViewModel.bindErrorToView = {
-            self.fail()
-        }
-        meViewModel.bindCustomerName = {
-            
-        }
-        
-        tableview.delegate = self
-        tableview.dataSource = self
-        self.changeTableDataSource()
-        signInOutlet.alpha = 0
-        
-        let registerGesture = UITapGestureRecognizer(target: self, action: #selector(registerTap))
-        
-        registerGesture.numberOfTapsRequired = 1
-        register.addGestureRecognizer(registerGesture)
-        
-        let wantToLoginGesture = UITapGestureRecognizer(target: self, action: #selector(wantToLoginTap))
-        
-        wantToLoginGesture.numberOfTapsRequired = 1
-        wantToLogin.addGestureRecognizer(wantToLoginGesture)
-        
-    }
-    
-    func onSucsses(){
-        array = meViewModel.customer
-    }
-    func fail(){
-        error = meViewModel.errorMessage
-        Support.notifyUser(title: error, body: Constants.empty, context: self)
-    }
-    
-    @objc func wantToLoginTap(){
+    func showLoginView(){
         welcome.alpha = 0
         signInOutlet.alpha = 1
-        register.alpha = 0
-        wantToLogin.alpha = 0
+        //register.alpha = 1
+        //wantToLogin.alpha = 0
     }
+    
+    func showWelcomeView(){
+            welcome.alpha = 1
+            signInOutlet.alpha = 0
+        }
+    
     @objc func registerTap() {
         let registerVC = self.storyboard?.instantiateViewController(identifier: "RegisterViewController") as! RegisterViewController
-        self.present(registerVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(registerVC, animated: true)
     }
     
     
@@ -145,9 +141,26 @@ class SettingsViewController: UIViewController {
             
         })
     }
-    @IBOutlet weak var tableview: UITableView!
     
     
+    @IBAction func settings(_ sender: UIButton) {
+        let meScreen = self.storyboard?.instantiateViewController(identifier: "MeViewController") as! MeViewController
+        self.navigationController?.pushViewController(meScreen, animated: true)
+    }
+    
+    @IBAction func loginBtn(_ sender: Any) {
+        meViewModel.validateRegisterdData(email: emailTextField.text!, password: passwordTextField.text!)
+    }
+    
+    func showLoading() {
+        activityView!.center = self.view.center
+        self.view.addSubview(activityView!)
+        activityView!.startAnimating()
+    }
+    
+    func hideLoading() {
+        activityView!.stopAnimating()
+    }
 }
 // MARK:- Refactor to RX Swift
 extension SettingsViewController:UITableViewDelegate,UITableViewDataSource{
@@ -173,4 +186,5 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource{
             return cell;
         }
     }
+    
 }
