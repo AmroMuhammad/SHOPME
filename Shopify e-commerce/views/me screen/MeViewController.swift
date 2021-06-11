@@ -11,7 +11,7 @@ import UIKit
 class MeViewController: UIViewController {
     
     @IBOutlet weak var signOut: UIButton!
-    let currencyArray = ["USD","LE"];
+    
     var userData = UserData.getInstance()
     var meViewModel = MeViewModel()
     override func viewDidLoad() {
@@ -28,38 +28,63 @@ class MeViewController: UIViewController {
         
         signOutGesture.numberOfTapsRequired = 1
         signOut.addGestureRecognizer(signOutGesture)
-        
-        pickerView.dataSource = self
-        pickerView.delegate = self
+
         self.navigationController?.title = "ME";
         
-    }
-    @objc func signoutAction(){
-        meViewModel.signOutUser()
-    }
-    
-    @IBAction func aboutUS(_ sender: Any) {
-        let settingsVC = self.storyboard?.instantiateViewController(identifier: "SettingsViewController") as! SettingsViewController
-        self.present(settingsVC, animated: true, completion: nil )
-        navigationController?.pushViewController(settingsVC, animated: true);
-    }
-    
-    @IBOutlet weak var pickerView: UIPickerView!
-    
-    
-}
-// MARK:- pickerview for currency
-extension MeViewController: UIPickerViewDelegate, UIPickerViewDataSource{
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-            return 1
-    }
-    
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-            return currencyArray.count
-    }
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        currencyArray[row]
+        
+         let editGesture = UITapGestureRecognizer(target: self, action: #selector(editCustomerAction))
+         
+         signOutGesture.numberOfTapsRequired = 1
+         editCustomerData.addGestureRecognizer(editGesture)
+
+         
+         
         
     }
+    
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        var tuble = userData.userStatus()
+        if(tuble.0 != "" && tuble.2 != 0){
+            editCustomerData.alpha = 1
+        }
+        else{
+            editCustomerData.alpha = 0
+        }
+        
+        
+    }
+    
+    
+    
+    @IBOutlet weak var editCustomerData: UIButton!
+    
+    @objc func signoutAction(){
+        meViewModel.signOutUser()
+        self.registerDoneAlert(context: self)
+        signOut.alpha = 0
+    }
+    func registerDoneAlert(context:UIViewController) -> Void {
+        let signOutSucsess = UIAlertController(title: "signOut Succesfully", message: "", preferredStyle: UIAlertController.Style.alert)
+        signOutSucsess.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil))
+        context.present(signOutSucsess, animated: true, completion: nil)
+    }
+    @IBAction func aboutUS(_ sender: Any) {
+        let aboutusvc = self.storyboard?.instantiateViewController(identifier: "AboutUsViewController") as! AboutUsViewController
+        self.navigationController?.pushViewController(aboutusvc, animated: true)
+
+    }
+    
+    
+    
+    
+    
+    @objc func editCustomerAction(){
+        let editvc = self.storyboard?.instantiateViewController(identifier: "EditIngViewController") as! EditIngViewController
+        self.navigationController?.pushViewController(editvc, animated: true)
+    }
+    
 }
+

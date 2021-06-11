@@ -19,13 +19,19 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var password: UITextField!
     
     var meViewModel = MeViewModel();
+    var userData = UserData.getInstance().userStatus().0
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationController?.title = "Regestration"
     }
     
     @IBAction func submit(_ sender: Any) {
-        meViewModel.validateRegisterdData(first: firstName.text!, last:secondName.text!, phone: phoneNumber.text!, password: password.text!, secPass: confPassword.text!, email: email.text!,country: country.text!,city: city.text!, context: self)
+        meViewModel.validateRegisterdData(first: firstName.text!, last:secondName.text!, phone: phoneNumber.text!, password: password.text!, secPass: confPassword.text!, email: email.text!,country: country.text!,city: city.text!, context: self,cityTextField: city,passwordTF: password,emailTF: email,firstTF: firstName,secondTF: secondName,phoneNumberTF: phoneNumber,confPassword: confPassword,countryTF: country)
+    
+        if(userData != ""){
+            self.navigationController?.popViewController(animated: true)
+        }
+    
     }
     
 }

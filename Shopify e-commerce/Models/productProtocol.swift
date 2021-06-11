@@ -26,9 +26,35 @@ protocol shopViewModelType : viewModelType {
     var connectivityDriver: Driver<Bool> {get}
     var dataDrive : Driver<[Product]> {get}
     var  discountCodeDrive : Driver<[DiscountCodeElement]> {get}
-    var  searchValue : BehaviorRelay<String> {get}
     func fetchWomenData()
     func fetchMenData()
     func fetchKidsData()
     func fetchDiscountCodeData()
+}
+protocol CollectionViewCellDelegate{
+    func showAlert(msg : String ,  product : FavoriteProduct)
+    func showMovingAlert(msg: String ,  product : FavoriteProduct)
+}
+
+protocol TableViewCellDelegate {
+    func showAlert(msg: String, product:CartProduct , completion: @escaping (Int) -> Void)
+    func showMovingAlert(msg: String , product:CartProduct)
+    func updateCoreDate(product:CartProduct)
+    
+}
+
+protocol wishListViewModelType {
+     var dataDrive : Driver<[FavoriteProduct]> {get}
+     func getwishListData()
+     func addToCart( product : FavoriteProduct)
+     func deleteWishListData( product : FavoriteProduct)
+}
+protocol cartViewModelType {
+     var totalPriceDrive: Driver<Double>{get}
+     var dataDrive : Driver<[CartProduct]> {get}
+     func getCartData()
+     func moveToWishList(product:CartProduct)
+     func deleteCartData(product: CartProduct)
+     func changeProductNumber(product: CartProduct)
+     
 }

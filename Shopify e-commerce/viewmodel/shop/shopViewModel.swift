@@ -16,9 +16,7 @@ class shopViewModel  : shopViewModelType{
     var dataDrive: Driver<[Product]>
     var loadingDriver: Driver<Bool>
     var errorDriver: Driver<String>
-    var searchValue : BehaviorRelay<String> = BehaviorRelay(value: "")
     var searchData : [Product] = []
-    lazy var searchValueObservable:Observable<String> = searchValue.asObservable()
     var dataSubject = PublishSubject<[Product]>()
     var discountCodeSubject = PublishSubject<[DiscountCodeElement]>()
     var loadingSubject = PublishSubject<Bool>()
@@ -31,14 +29,6 @@ class shopViewModel  : shopViewModelType{
         loadingDriver =  loadingSubject.asDriver(onErrorJustReturn: false)
         errorDriver = errorSubject.asDriver(onErrorJustReturn: "")
         connectivityDriver = connectivitySubject.asDriver(onErrorJustReturn: false)
-        searchValueObservable.subscribe(onNext: {[weak self] (value) in
-            let filteredData = self?.searchData.filter({ (product) -> Bool in
-                product
-                .productType.lowercased().prefix(value.count) == value.lowercased()
-        })
-        self?.dataSubject.onNext(filteredData ?? [])
-        }).disposed(by: disposeBag)
-
     }
     func fetchWomenData() {
         if(!Connectivity.isConnectedToInternet){

@@ -12,23 +12,22 @@ class MeViewModel{
     var api:ShopifyAPI!
     var userData:UserData!
     var support = Support()
+    static var  int:Int!
+    var userEmailObservable:Observable<String>?
+    var isLogedInObservable:Observable<Bool>?
+    
+    
     var customer:[CustomerElement]!{
         didSet{
             self.bindCustomerToView()
         }
         
     }
-    
+    var bindCustomerName:(()->()) = {}
     var  bindCustomerToView:(()->()) = {}
     var  bindErrorToView:(()->()) = {}
     
     
-    var registrationError:String!{
-        
-        didSet{
-            
-        }
-    }
     var errorMessage:String!{
         
         didSet{
@@ -56,43 +55,50 @@ class MeViewModel{
             }
         }
     }
-    
-    func checkUserName_Password(email:String,password:String,context:UIViewController,array:[CustomerElement]) -> Void {
-        if email != "" && password != "" {
-            self.checkIsCustomerexist(email: email, password: password,array:array,context:context)
-        }
-        else{
-            Support.notifyUser(title: Constants.u_p_required_t, body: Constants.u_p_required_t, context: context.self)
-        }
-    }
+    //    func checkUserName_Password(email:String,password:String,context:UIViewController,array:[CustomerElement]) -> Void {
+    //        if email != "" && password != "" {
+    //            self.checkIsCustomerexist(email: email, password: password,array:array,context:context)
+    //        }
+    //        else{
+    //            Support.notifyUser(title: Constants.u_p_required_t, body: Constants.u_p_required_t, context: context.self)
+    //        }
+    //    }
     func signOutUser() -> Void {
         userData.deleteUserDefaults()
     }
-    
-    func checkIsCustomerexist(email:String,password:String,array:[CustomerElement],context:UIViewController)->Void{
-        for customer in array{
-            if customer.email == email && customer.tags == password {
-                userData.saveUserDefaults(email: customer.email!, id: customer.id!)
-                let mytuble = userData.userStatus()
-                print(mytuble.0)
-                print("===============================================")
-                print(mytuble.1)
-                print(userData.userStatus())
-                Support.notifyUser(title: Constants.loginSuccess, body: Constants.loginSuccess, context: context.self)
-                
-                
-            }
-            else{
-                Support.notifyUser(title: Constants.wrongEmail_Pass, body: Constants.empty, context: context.self)
-            }
-        }
-        
+    func logedInAlert(context:UIViewController) -> Void {
+        let SucssesAlert = UIAlertController(title: "Log In success", message: "", preferredStyle: UIAlertController.Style.alert)
+        SucssesAlert.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil))
+        context.present(SucssesAlert, animated: true, completion: nil)
     }
     
-    
-    
-    
-    
+    func checkIsCustomerexist(email:String,password:String,array:[CustomerElement],context:UIViewController,welcome:UILabel,signInOutlet: UIView,emailTextField: UITextField,passwordTextField: UITextField)->Void{
+        print(userData.userStatus())
+        //userData.saveUserDefaults(email: "assmaa", id: 0)
+        if email == "" || password == "" {
+            Support.notifyUser(title: Constants.u_p_required_t, body: Constants.u_p_required_t, context: context.self)
+        }
+        else{
+            for customer in customer{
+                if customer.email == email && customer.tags == password {
+                    userData.saveUserDefaults(email: customer.email!, id: customer.id!)
+                    welcome.alpha = 1
+                    signInOutlet.alpha = 0
+                    welcome.text! = userData.userStatus().0
+                    emailTextField.text! = ""
+                    passwordTextField.text! = ""
+                    userEmailObservable = Observable<String>.just(userData.userStatus().0)
+                    self.logedInAlert(context: context)
+                    print(userData.userStatus())
+                    
+                }
+                else{
+                    // IF USER NAME AND PASSOWRD IS INCORRECT
+                }
+                
+            }
+        }
+    }
     
     
     // MARK:- Registartion part
@@ -103,33 +109,75 @@ class MeViewModel{
         return emailPred.evaluate(with: email)
     }
     
-    func validateRegisterdData(first:String,last:String,phone:String,password:String,secPass:String,email:String,country:String,city:String,context:UIViewController) -> Void {
+    func registerDoneAlert(context:UIViewController) -> Void {
+        let registerDoneAlert = UIAlertController(title: "registerd Succesfully", message: "", preferredStyle: UIAlertController.Style.alert)
+        registerDoneAlert.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil))
+        context.present(registerDoneAlert, animated: true, completion: nil)
+    }
+    
+    func accountIsAlreadyExist(context:UIViewController) -> Void {
+        let accountIsAlreadyExist = UIAlertController(title: "account Already Exist", message: "", preferredStyle: UIAlertController.Style.alert)
+        accountIsAlreadyExist.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil))
+        context.present(accountIsAlreadyExist, animated: true, completion: nil)
+    }
+    func errorTryAgainLater(context:UIViewController) -> Void {
+        let errorTryAgainLater = UIAlertController(title: "error please try agin later", message: "", preferredStyle: UIAlertController.Style.alert)
+        errorTryAgainLater.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil))
+        context.present(errorTryAgainLater, animated: true, completion: nil)
+    }
+    func validateRegisterdData(first:String,last:String,phone:String,password:String,secPass:String,email:String,country:String,city:String,context:UIViewController,cityTextField: UITextField,passwordTF:UITextField,emailTF:UITextField,firstTF:UITextField,secondTF:UITextField,phoneNumberTF:UITextField,confPassword:UITextField,countryTF:UITextField) -> Void {
         
         if(first != "" && last != "" && email != "" && phone != "" && password != "" && secPass != "" && password == secPass && isValidEmail(email) && city != "" && country != ""){
-            var d:[DefaultAddress]  = [DefaultAddress]()
-            var abc = DefaultAddress()
+            //var d:[DefaultAddress]  = [DefaultAddress]()
+            //var abc = DefaultAddress()
             //abc.city = self.city.text!
-           // d[0].city = self.city.text!
+            // d[0].city = self.city.text!
             //abc.country = self.country.text!
             //d.append(abc)
-            var customerElement = CustomerRegister(email:"aymanomara55@gmail.com", first_name:first,last_name:last,tags: "",phone: "",id:234,note: "1234", address: d)
+            var customerElement = CustomerRegister()
             customerElement.email = email
             customerElement.first_name = first
             customerElement.last_name = last
             customerElement.phone = phone
             customerElement.tags = password
             
-            let cust = RegisterCustomer(customer: customerElement)
-            api.addNewCustomer(customer: cust)
-            
-            
-            if(ShopifyAPI.statusCodeForRegistration == 201){
-                Support.notifyUser(title: Constants.registerdSuccess, body: Constants.empty, context: context.self)
+            let cust = RegisterCustomer()
+            cust.customer = customerElement
+            api.addNewCustomer(customer: cust) { (statusCode) in
+                print("==========================================================================user customer clouser")
+                print(statusCode)
+                if(statusCode == 201){
+                    print("=================== inside the clouser and the status code is 201")
+                    
+                    self.userData.saveUserDefaults(email: (cust.customer?.email)!, id: 0)
+                    
+                    DispatchQueue.main.sync {
+                        cityTextField.text! = ""
+                        confPassword.text! = ""
+                        secondTF.text! = ""
+                        firstTF.text! = ""
+                        phoneNumberTF.text! = ""
+                        countryTF.text! = ""
+                        emailTF.text! = ""
+                        passwordTF.text! = ""
+                        self.registerDoneAlert(context: context.self)
+                        
+                        
+                        
+                    }
+                }else if(statusCode == 422){
+                    DispatchQueue.main.sync {
+                        self.accountIsAlreadyExist(context: context.self)
+                    }
+                }
+                
+                else{
+                    print(statusCode)
+                    DispatchQueue.main.sync {
+                        self.errorTryAgainLater(context: context.self)
+                    }
+                }
             }
-            //            else if(ShopifyAPI.statusCodeForRegistration == 422){
-            //                support.notifyUser(title: Constants.accountExisted, body: Constants.empty, context: self)
-            //
-            //            }
         }
         else if(first != "" || last != "" || email != "" || phone != "" || password != "" || secPass != "" || password != secPass || !isValidEmail(email)){
             

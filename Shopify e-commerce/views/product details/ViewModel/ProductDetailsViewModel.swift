@@ -9,21 +9,44 @@
 import Foundation
 import RxSwift
 
-class ProductDetailsViewModel {
+class ProductDetailsViewModel: ProductDetailsViewModelType {
     
     var imagesObservable: Observable<[ProductDetailsImage]>
     var colorsObservable: Observable<[UIColor]>
     var sizesObservable: Observable<[String]>
     var productTitleObservable: Observable<String>
     var productPriceObservable: Observable<String>
+    var productVendorObservable: Observable<String>
     
     private var imagesSubject = PublishSubject<[ProductDetailsImage]>()
     private var colorsSubject = PublishSubject<[UIColor]>()
     private var sizesSubject = PublishSubject<[String]>()
     private var productTitleSubject = PublishSubject<String>()
     private var productPriceSubject = PublishSubject<String>()
+    private var productVendorSubject = PublishSubject<String>()
+    
+    private var productObject: ProductDetails?
+    
+    var favoriteProductsObservable: Observable<[FavoriteProduct]>
+    private var favoriteProductsSubject = PublishSubject<[FavoriteProduct]>()
+    var cartProductsObservable: Observable<[CartProduct]>
+    private var cartProductsSubject = PublishSubject<[CartProduct]>()
+    
+
+    var checkProductInFavoriteObservable: Observable<Bool>
+    private var checkProductInFavoriteSubject = PublishSubject<Bool>()
+    var checkProductInCartObservable: Observable<Bool>
+    private var checkProductInCartSubject = PublishSubject<Bool>()
+    var checkProductInCartWithObjectObservable: Observable<CartProduct?>
+    private var checkProductInCartWithObjectSubject = PublishSubject<CartProduct?>()
+    
+    
+    var showErrorObservable: Observable<String>
+    private var showErrorSubject = PublishSubject<String>()
+    
     
     private var shopifyAPI: ShopifyAPI!
+    private var localManager: LocalManagerHelper!
     
     
     init() {
@@ -32,18 +55,267 @@ class ProductDetailsViewModel {
         sizesObservable = sizesSubject.asObservable()
         productTitleObservable = productTitleSubject.asObservable()
         productPriceObservable = productPriceSubject.asObservable()
+        productVendorObservable = productVendorSubject.asObservable()
+        
+        favoriteProductsObservable = favoriteProductsSubject.asObservable()
+        cartProductsObservable = cartProductsSubject.asObservable()
+        
+        
+        checkProductInFavoriteObservable = checkProductInFavoriteSubject.asObservable()
+        checkProductInCartObservable = checkProductInCartSubject.asObservable()
+        checkProductInCartWithObjectObservable = checkProductInCartWithObjectSubject.asObservable()
+
+        
+        showErrorObservable = showErrorSubject.asObservable()
         
         shopifyAPI = ShopifyAPI.shared
+        localManager = LocalManagerHelper.localSharedInstance
     }
     
+    func getLocalData() {
+        //
+        
+        //get deliver city name from local
+
+        //get currency from local
+    }
+    
+    func getUserEmail() -> String {
+        //get email from UserDefaults
+        return "ahm@d.com"
+    }
+    
+    //----------------------------------------Favorite------------------------------------------------
+    
+    func checkIfFavorite(){
+        print("VM B4 checkIfFavorite \(productObject?.id)")
+        if let productObj = productObject{
+            localManager.checkFavProduct(userEmail: getUserEmail(), productId: productObj.id) { (resBool) in
+                self.checkProductInFavoriteSubject.onNext(resBool)
+            }
+        }
+    }
+    
+    func checkIfCart(){
+        print("VM B4 checkIfCart \(productObject?.id)")
+        if let productObj = productObject{
+            localManager.checkCartProduct(userEmail: getUserEmail(), productId: productObj.id) { (cartProduct) in
+                if cartProduct != nil {
+                    print("VM checkIfCart Found Successfully ")
+                    self.checkProductInCartSubject.onNext(true)
+                    self.checkProductInCartWithObjectSubject.onNext(cartProduct)
+                }
+            }
+        }
+    }
+    
+    
+    func addTofavorite(){
+        var res = true
+        
+        var imgData: Data!
+        
+        if let productObj = productObject{
+            if let productImg = productObj.image?.src {
+                print("VM addTofavorite B44  dataImage => \(String(describing: imgData))")
+                let url = URL(string: productImg)
+                DispatchQueue.global(qos: .background).sync {
+                    do{
+                        let data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                        imgData = data
+                        print("VM addTofavorite dataImage has value => \(String(describing: imgData))")
+                    } catch {
+                        imgData = Data()
+                        print("VM addTofavorite dataImage CATCH => \(String(describing: imgData))")
+                    }
+                }
+            } else {
+                imgData = Data()
+                print("VM addTofavorite dataImage Empty => \(String(describing: imgData))")
+            }
+            print("VM addTofavorite id => \(productObj.id)")
+            localManager.addProductToFavorite(favoriteProduct: FavoriteProduct(productId: productObj.id, productPrice: productObj.variants?[0].price ?? "--", productImageData: imgData, userEmail: getUserEmail())) { (resBool) in
+                if !resBool {
+                    res = false
+                }
+            }
+        } else {
+            print("VM addTofavorite => CAN NOT ADD TO FAVORITE !!!")
+            res = false
+        }
+        
+        if !res {
+            //show alert to user, This item does NOT added
+            showErrorSubject.onNext("CAN NOT ADD TO FAVORITE")
+        } else {
+            print("Product has been added")
+        }
+    }
+    
+    
+    func getFromFavorite()  {
+        localManager.getAllProductsFromFavorite(userEmail: getUserEmail()) { (res) in
+            switch(res){
+            case .success(let favProds):
+                self.favoriteProductsSubject.onNext(favProds ?? [FavoriteProduct]())
+            case .failure(let err):
+                self.showErrorSubject.onNext(err.localizedDescription)
+            }
+        }
+    }
+    
+    func removefromFavorite(productId: String){
+        let intId = Int(productId) ?? 0
+        
+        if let productObj = productObject{
+            print("VM addTofavorite id => \(productObj.id)")
+            localManager.deleteProductFromFavorite(favoriteProduct: FavoriteProduct(productId: productObj.id, productPrice: "--", productImageData: Data(), userEmail: getUserEmail())) { (resBool) in
+                if !resBool {
+                    print("product has NOT been deleted")
+                }
+            }
+        } else {
+            print("VM addTofavorite => CAN NOT REMOVE FROM FAVORITE !!!")
+        }
+    }
+    
+    //------------------------------------------------CART------------------------------------------------
+    
+    func addToCart(selectedSize: String?, selectedColor: UIColor?){
+        
+        var res = true
+        
+        var imgData: Data!
+        
+        if let productObj = productObject{
+            if let productImg = productObj.image?.src {
+                print("VM addToCart B44  dataImage => \(String(describing: imgData))")
+                let url = URL(string: productImg)
+                DispatchQueue.global(qos: .background).sync {
+                    let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                    imgData = data
+                    print("VM addToCart dataImage has value => \(String(describing: imgData))")
+                }
+            } else {
+                imgData = Data()
+                print("VM addToCart dataImage Empty => \(String(describing: imgData))")
+            }
+            print("VM addToCart id => \(productObj.id)")
+            let cartProductObj = CartProduct(productId: productObj.id, productPrice: productObj.variants?[0].price ?? "--", productImageData: imgData, userEmail: getUserEmail(), title: productObj.title ?? "---", selectedSize: selectedSize, selectedColor: mapFromColor(color: selectedColor ?? UIColor.white), quantity: 1)
+            localManager.addProductToCart(cartObj: cartProductObj) { (resBool) in
+                if !resBool {
+                    res = false
+                }
+            }
+        } else {
+            print("VM addToCart => CAN NOT ADD TO CART !!!")
+            res = false
+        }
+        
+        if !res {
+            //show alert to user, This item does NOT added
+            showErrorSubject.onNext("CAN NOT ADD TO CART")
+        } else {
+            print("Product has been added")
+        }
+        
+    }
+    
+    func removefromCart(productId: String){
+        let intId = Int(productId) ?? 0
+        
+        if let productObj = productObject{
+            print("VM addTofavorite id => \(productObj.id)")
+            
+            let cartProductObj = CartProduct(productId: productObj.id, productPrice: "--", productImageData: Data(), userEmail: getUserEmail(), title: "---", selectedSize: "-", selectedColor: "-", quantity: 0)
+            
+            localManager.deleteProductFromCart(cartObj: cartProductObj) { (resBool) in
+               if !resBool {
+                    print("product has NOT been deleted")
+                }
+            }
+        } else {
+            print("VM addTofavorite => CAN NOT REMOVE FROM CART !!!")
+        }
+    }
+    
+    func getAllCartProducts() {
+        
+        localManager.getAllCartProducts(userEmail: getUserEmail()) { (res) in
+            switch(res){
+            case .success(let products):
+                self.cartProductsSubject.onNext(products ?? [CartProduct]())
+            case .failure(let err):
+                self.showErrorSubject.onNext(err.localizedDescription)
+            }
+        }
+    }
+    
+    func mapFromColor(color: UIColor) -> String {
+        var clr: String = ""
+        print("from COLOR MAPPINGGGGGGG")
+            switch color {
+            case UIColor.black:
+                clr = "black"
+            case UIColor.blue:
+                clr = "blue"
+            case UIColor.white:
+                clr = "white"
+            case UIColor.yellow:
+                clr = "yellow"
+            case UIColor.red:
+                clr = "red"
+            case #colorLiteral(red: 0.9607843137, green: 0.9607843137, blue: 0.862745098, alpha: 1):
+                clr = "beige"
+            case #colorLiteral(red: 0.7098039216, green: 0.3960784314, blue: 0.1137254902, alpha: 1):
+                clr = "light_brown"
+            case #colorLiteral(red: 0.5019607843, green: 0, blue: 0.1254901961, alpha: 1):
+                clr = "burgandy"
+            default:
+                clr = "white"
+            }
+        return clr
+    }
+    
+//    func mapFromColors(colorsNames: [UIColor]) -> [String] {
+//        var arrClr: [String] = []
+//        print("from COLOR MAPPINGGGGGGG")
+//        for clr in colorsNames {
+//            switch clr {
+//            case UIColor.black:
+//                arrClr.append("black")
+//            case UIColor.blue:
+//                arrClr.append("blue")
+//            case UIColor.white:
+//                arrClr.append("white")
+//            case UIColor.yellow:
+//                arrClr.append("yellow")
+//            case UIColor.red:
+//                arrClr.append("red")
+//            case #colorLiteral(red: 0.9607843137, green: 0.9607843137, blue: 0.862745098, alpha: 1):
+//                arrClr.append("beige")
+//            case #colorLiteral(red: 0.7098039216, green: 0.3960784314, blue: 0.1137254902, alpha: 1):
+//                arrClr.append("light_brown")
+//            case #colorLiteral(red: 0.5019607843, green: 0, blue: 0.1254901961, alpha: 1):
+//                arrClr.append("burgandy")
+//            default:
+//                arrClr.append("white")
+//            }
+//        }
+//        return arrClr
+//    }
+    //------------------------------------------------API------------------------------------------------
     func getProductDetails(id: String){
         shopifyAPI.getProductDetails(productId: id) { (result) in
             switch(result){
             case .success(let product):
-                print("VM => id => \(product?.product.id ?? 707)")
+                print("VM getProductDetails => id => \(product?.product.id ?? 707)")
                 if let productResponse = product {
 //                    self.productDetailsDataSubject.onNext(productResponse.product)
                     self.filterData(product: productResponse.product)
+                    self.productObject = product?.product
+                    self.checkIfFavorite()
+                    self.checkIfCart()
                 }
             case .failure(let err):
                 print("\n\n\n\n errrrr => \(err.localizedDescription) \nEND\n\n\n\n")
@@ -114,13 +386,6 @@ class ProductDetailsViewModel {
             }
         }
         return arrClr
-    }
-    
-    func getDeliverCity(){
-        //get deliver city name from local
-    }
-    func getCurrency(){
-        //get currency from local
     }
     
 }
