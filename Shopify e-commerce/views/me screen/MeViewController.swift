@@ -73,10 +73,9 @@ class MeViewController: UIViewController {
         self.present(aboutusVC, animated: true, completion: nil)
     }
     
-    func editCustomerAction(){
+    @IBAction func editInfoPressed(_ sender: Any) {
         let editvc = self.storyboard?.instantiateViewController(identifier: "EditIngViewController") as! EditIngViewController
         self.navigationController?.pushViewController(editvc, animated: true)
     }
-    
 }
 

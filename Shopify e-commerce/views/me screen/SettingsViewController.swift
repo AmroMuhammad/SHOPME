@@ -108,14 +108,19 @@ class SettingsViewController: UIViewController {
     func showLoginView(){
         welcome.alpha = 0
         signInOutlet.alpha = 1
-        //register.alpha = 1
-        //wantToLogin.alpha = 0
+        register.alpha = 1
     }
     
     func showWelcomeView(){
             welcome.alpha = 1
             signInOutlet.alpha = 0
+        register.alpha = 0
         }
+    
+    @IBAction func settingsButtonPressed(_ sender: Any) {
+        let meScreen = self.storyboard?.instantiateViewController(identifier: "MeViewController") as! MeViewController
+        self.navigationController?.pushViewController(meScreen, animated: true)
+    }
     
     @objc func registerTap() {
         let registerVC = self.storyboard?.instantiateViewController(identifier: "RegisterViewController") as! RegisterViewController
@@ -140,12 +145,6 @@ class SettingsViewController: UIViewController {
             }
             
         })
-    }
-    
-    
-    @IBAction func settings(_ sender: UIButton) {
-        let meScreen = self.storyboard?.instantiateViewController(identifier: "MeViewController") as! MeViewController
-        self.navigationController?.pushViewController(meScreen, animated: true)
     }
     
     @IBAction func loginBtn(_ sender: Any) {

@@ -47,6 +47,7 @@ struct Constants {
     static let countryUserDefaults = "country"
     static let currencies = ["EGP","USD"]
     static let currencyUserDefaults = "currency"
+    static let getCustomerPath = "customers/"
 
 
 

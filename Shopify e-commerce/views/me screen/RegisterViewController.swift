@@ -55,10 +55,6 @@ class RegisterViewController: UIViewController {
     @IBAction func submit(_ sender: Any) {
         registerViewModel.validateRegisterdData(firstName: firstName.text!, lastName: lastName.text!, email: email.text!, phoneNumber: phoneNumber.text!, password: password.text!, confirmPassword: confPassword.text!, country: country.text!, city: city.text!)
     
-//        if(userData != ""){
-//            self.navigationController?.popViewController(animated: true)
-//        }
-    
     }
     
     func showLoading() {

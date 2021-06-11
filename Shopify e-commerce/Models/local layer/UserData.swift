@@ -18,10 +18,15 @@ class UserData {
         userDefaults.set(true, forKey: Constants.isLoggedInUserDefaults)
         userDefaults.set(customer.email!, forKey: Constants.emailUserDefaults)
         userDefaults.set(customer.id!, forKey: Constants.idUserDefaults)
-        userDefaults.set(customer.firstName!, forKey: Constants.firstNameUserDefaults)
-        userDefaults.set(customer.lastName!, forKey: Constants.lastNameUserDefaults)
-        userDefaults.set(customer.addresses?[0]!.city!, forKey: Constants.cityUserDefaults)
-        userDefaults.set(customer.addresses?[0]!.country!, forKey: Constants.countryUserDefaults)
+        userDefaults.set(customer.firstName ?? "", forKey: Constants.firstNameUserDefaults)
+        userDefaults.set(customer.lastName ?? "", forKey: Constants.lastNameUserDefaults)
+        if(!customer.addresses!.isEmpty){
+            userDefaults.set(customer.addresses?[0]!.city!, forKey: Constants.cityUserDefaults)
+            userDefaults.set(customer.addresses?[0]!.country!, forKey: Constants.countryUserDefaults)
+        }else{
+            userDefaults.set("No Country", forKey: Constants.cityUserDefaults)
+            userDefaults.set("No City", forKey: Constants.countryUserDefaults)
+        }
     }
     
     func isLoggedIn()->Bool{

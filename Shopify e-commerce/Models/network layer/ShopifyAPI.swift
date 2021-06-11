@@ -32,11 +32,7 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
     //end
     
     // MARK: Amr Section
-    func editCustomer(customerData:RegisterCustomer,id:Int,completion: @escaping (Result<RegisterCustomer?,NSError>) -> Void){
-        self.postData(target: .putCustomer(customer: customerData, id: id), responseClass: RegisterCustomer.self) { (result) in
-            completion(result)
-        }
-    }
+    
         
     //end
     
@@ -82,44 +78,44 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
 //    }
     
     
-    func editCustomer(customer:RegisterCustomer,id:Int) -> Void {
-        let jsonData = try! JSONEncoder().encode(customer)
-        print(jsonData)
-        let url = URL(string: "https://ce751b18c7156bf720ea405ad19614f4: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@itiana.myshopify.com/admin/api/2021-04/customers/\(id).json")!
-        print("===============================The id is======================================")
-        print(id)
-        print("===============================The id is======================================")
-        var request = URLRequest(url: url)
-        request.httpMethod = "PUT"
-        request.httpShouldHandleCookies = false
-//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.addValue("application/json", forHTTPHeaderField: "Accept")
-
-        // insert json data to the request
-        request.httpBody = jsonData
-        let task = URLSession.shared.dataTask(with: request,completionHandler: registrationHandler(data:response:error:))
-        task.resume()
-       
-    }
+//    func editCustomer(customer:RegisterCustomer,id:Int) -> Void {
+//        let jsonData = try! JSONEncoder().encode(customer)
+//        print(jsonData)
+//        let url = URL(string: "https://ce751b18c7156bf720ea405ad19614f4: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@itiana.myshopify.com/admin/api/2021-04/customers/\(id).json")!
+//        print("===============================The id is======================================")
+//        print(id)
+//        print("===============================The id is======================================")
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "PUT"
+//        request.httpShouldHandleCookies = false
+////        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+////        request.addValue("application/json", forHTTPHeaderField: "Accept")
+//
+//        // insert json data to the request
+//        request.httpBody = jsonData
+//        let task = URLSession.shared.dataTask(with: request,completionHandler: registrationHandler(data:response:error:))
+//        task.resume()
+//
+//    }
     
     
-    func registrationHandler(data:Data?,response:URLResponse?,error:Error?) -> Void {
-        if error != nil{
-            print(error!.localizedDescription)
-        }
-        if let httpResponse = response as? HTTPURLResponse{
-            print("==========================================================================")
-            print("\(httpResponse.statusCode)")
-
-//            if httpResponse.statusCode == 201 {
-//                <#code#>
-//            }
-           // ShopifyAPI.statusCodeForRegistration = httpResponse.statusCode
-            print("==========================================================================")
-        }
-        if let safeData = data{
-            
-        }
+//    func registrationHandler(data:Data?,response:URLResponse?,error:Error?) -> Void {
+//        if error != nil{
+//            print(error!.localizedDescription)
+//        }
+//        if let httpResponse = response as? HTTPURLResponse{
+//            print("==========================================================================")
+//            print("\(httpResponse.statusCode)")
+//
+////            if httpResponse.statusCode == 201 {
+////                <#code#>
+////            }
+//           // ShopifyAPI.statusCodeForRegistration = httpResponse.statusCode
+//            print("==========================================================================")
+//        }
+//        if let safeData = data{
+//
+//        }
     /*func ayman()->Void{
         let array = [ "one", "two" ]
         let data = NSJSONSerialization.dataWithJSONObject(array, options: nil, error: nil)
@@ -151,7 +147,7 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
     
     //end
     
-}
+//}
 
 }
 
@@ -185,6 +181,20 @@ extension ShopifyAPI : AllProductsAPIContract{
 extension ShopifyAPI : RegisterAPIContract{
     func addCustomer(customerData:RegisterCustomer,completion: @escaping (Result<RegisterCustomer?,NSError>) -> Void){
         self.postData(target: .postCustomer(customer: customerData), responseClass: RegisterCustomer.self) { (result) in
+            completion(result)
+        }
+    }
+}
+
+extension ShopifyAPI : EditInfoAPIContract{
+    func editCustomer(customerData:RegisterCustomer,id:Int,completion: @escaping (Result<RegisterCustomer?,NSError>) -> Void){
+        self.postData(target: .putCustomer(customer: customerData, id: id), responseClass: RegisterCustomer.self) { (result) in
+            completion(result)
+        }
+    }
+    
+    func getCustomer(id:Int,completion: @escaping (Result<RegisterCustomer?,NSError>) -> Void){
+        self.fetchData(target: .getCustomer(id: id), responseClass: RegisterCustomer.self) { (result) in
             completion(result)
         }
     }

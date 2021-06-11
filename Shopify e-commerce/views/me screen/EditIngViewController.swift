@@ -7,65 +7,82 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class EditIngViewController: UIViewController {
     
     
     @IBOutlet weak var firstName: UITextField!
-    
     @IBOutlet weak var secondName: UITextField!
-    
-    
     @IBOutlet weak var email: UITextField!
-    
-    
-    @IBOutlet weak var password: UITextField!
-    
-    @IBOutlet weak var confermationPassword: UITextField!
-    
-    
     @IBOutlet weak var phoneNumber: UITextField!
     @IBOutlet weak var countrry: UITextField!
-    
-    
     @IBOutlet weak var city: UITextField!
-    
-    
-    
-    var api = ShopifyAPI.shared
-//    var userData = UserData.getInstance().userStatus()
-    
-    
+    private var disposeBag:DisposeBag!
+    private var editViewModel:EditInfoViewModel!
+    private var activityView:UIActivityIndicatorView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        disposeBag = DisposeBag()
+        editViewModel = EditInfoViewModel()
+        
+        activityView = UIActivityIndicatorView(style: .large)
+        
+        editViewModel.errorObservable.subscribe(onNext: { (message,boolResult) in
+        if(boolResult){
+            Support.notifyUser(title: "Error", body: message, context: self)
+        }
+        }).disposed(by: disposeBag)
+        
+        editViewModel.loadingObservable.subscribe(onNext: {[weak self] (result) in
+        switch result{
+        case true:
+            self?.showLoading()
+        case false:
+            self?.hideLoading()
+        }
+        }).disposed(by: disposeBag)
+        
+        editViewModel.dataObservable.subscribe(onNext: {[weak self] (customer) in
+            self?.setData(customer: customer)
+            },onCompleted: {
+                self.navigationController?.popViewController(animated: true)
+        }).disposed(by: disposeBag)
+        
+        editViewModel.fetchData()
     }
     
 
     @IBAction func submit(_ sender: UIButton) {
-//        print("inside the btn action of edit")
-//        var registerCustomer = RegisterCustomer()
-//        var customer = CustomerRegister()
-//        customer.id = userData.2
-//        //customer.id = userData.2
-//        customer.email = email.text!
-//        //registerCustomer.customer?.phone = phoneNumber.text!
-//        customer.first_name = firstName.text!
-//        customer.last_name = secondName.text!
-//        //if(password.text! == confermationPassword.text!){
-//        registerCustomer.customer?.tags = password.text!
-//        registerCustomer.customer = customer
-//        print(customer.email)
-//        print(registerCustomer.customer?.email)
-//        print(customer.id)
-//        print(registerCustomer.customer?.id)
-//        print(customer.first_name)
-//        print(registerCustomer.customer?.first_name)
-//        
-//        //}
-//        //registerCustomer.customer?.address
-//         api.editCustomer(customer: registerCustomer, id: userData.2)
-
+        editViewModel.validateData(firstName: firstName.text!, lastName: secondName.text!, email: email.text!, phoneNumber: phoneNumber.text!, country: countrry.text!, city: city.text!)
+        
+    }
+    
+    func setData(customer:Customer){
+        firstName.text = customer.firstName
+        secondName.text = customer.lastName
+        email.text = customer.email
+        phoneNumber.text = String(describing: customer.phone?.dropFirst(2) ?? "")
+        if(!customer.addresses!.isEmpty){
+            countrry.text = customer.addresses?[0]?.country ?? ""
+            city.text = customer.addresses?[0]?.city ?? ""
+        }else{
+            countrry.text = ""
+            city.text = ""
+        }
     }
     
 
+    func showLoading() {
+        activityView!.center = self.view.center
+        self.view.addSubview(activityView!)
+        activityView!.startAnimating()
+    }
+    
+    func hideLoading() {
+        activityView!.stopAnimating()
+    }
+    
 }

@@ -38,3 +38,12 @@ protocol MeViewModelContract{
 }
 
 
+protocol EditViewModelContract{
+    var dataObservable: Observable<Customer>{get}
+    var errorObservable:Observable<(String,Bool)>{get}
+    var loadingObservable: Observable<Bool> {get}
+    func fetchData()
+    func postData(newCustomer:RegisterCustomer)
+    func validateData(firstName:String,lastName:String,email:String,phoneNumber:String,country:String,city:String)
+}
+
