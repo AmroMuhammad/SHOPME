@@ -28,6 +28,7 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
     private var productDescriptionSubject = PublishSubject<String>()
     
     private var productObject: ProductDetails?
+    private var productMainCategory: String = ""
     
     var favoriteProductsObservable: Observable<[LocalProductDetails]>
     private var favoriteProductsSubject = PublishSubject<[LocalProductDetails]>()
@@ -89,7 +90,7 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
         return "ahm@d.com"
     }
     func getMainCategory() -> String {
-        return "Kids"
+        return productMainCategory
     }
     func getInventoryQuantityOfProductSize(productObject: ProductDetails, selectedSize: String?) -> Int? {
         let variantsArr = productObject.variants ?? []
@@ -320,13 +321,14 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
 //        return arrClr
 //    }
     //------------------------------------------------API------------------------------------------------
-    func getProductDetails(id: String){
+    func getProductDetails(id: String, mainCategory: String?){
         shopifyAPI.getProductDetails(productId: id) { (result) in
             switch(result){
             case .success(let product):
                 print("VM getProductDetails => id => \(product?.product.id ?? 707)")
                 if let productResponse = product {
 //                    self.productDetailsDataSubject.onNext(productResponse.product)
+                    self.productMainCategory = mainCategory ?? ""
                     self.filterData(product: productResponse.product)
                     self.productObject = product?.product
                     self.checkIfFavorite()

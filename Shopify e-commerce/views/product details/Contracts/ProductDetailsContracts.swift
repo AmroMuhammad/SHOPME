@@ -16,7 +16,7 @@ protocol ProductDetailsAPIType {
 
 
 protocol ProductDetailsViewModelType {
-    func getProductDetails(id: String)
+    func getProductDetails(id: String, mainCategory: String?)
     func getLocalData()
 
     var imagesObservable: Observable<[ProductDetailsImage]> {get}

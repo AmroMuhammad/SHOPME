@@ -19,6 +19,7 @@ class ProductDetailsTableViewController: UITableViewController {
     
     
     var productId: String!
+    var productMainCategory: String?
     
     var selectedSize: String?
     var selectedColor: UIColor?
@@ -157,7 +158,7 @@ class ProductDetailsTableViewController: UITableViewController {
         ratingViewInit()
         descriptionTextViewInit()
         
-        productDetailsViewModel.getProductDetails(id: productId)
+        productDetailsViewModel.getProductDetails(id: productId, mainCategory: productMainCategory)
         
         currencyLabel.text = "EGP"      // productDetailsViewModel.getCurrency()
         cityNameLabel.text = "Balteem"  // productDetailsViewModel.getDeliverCity()
