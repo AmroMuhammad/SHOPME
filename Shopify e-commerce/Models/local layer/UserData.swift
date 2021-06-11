@@ -57,4 +57,20 @@ class UserData {
         userDefaults.set("", forKey: Constants.countryUserDefaults)
     }
     
+    func setInitialCurrency(){
+        if(userDefaults.value(forKey: Constants.currencyUserDefaults) == nil){
+            userDefaults.set("EGP", forKey: Constants.currencyUserDefaults)
+        }
+    }
+    
+    func setCurrency(type:String){
+        userDefaults.set(type, forKey: Constants.currencyUserDefaults)
+    }
+    
+    func getCurrency()->String{
+        return userDefaults.value(forKey: Constants.currencyUserDefaults) as! String
+    }
+    
+    
+    
 }

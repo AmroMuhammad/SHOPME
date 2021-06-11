@@ -7,70 +7,70 @@
 //
 
 import UIKit
+import DropDown
 
 class MeViewController: UIViewController {
     
-    @IBOutlet weak var signOut: UIButton!
+    @IBOutlet private weak var currencyLabel: UILabel!
+    @IBOutlet private weak var signOut: UIButton!
+    @IBOutlet private weak var editCustomerData: UIButton!
+    private var currencyDropMenu:DropDown!
+    private var userData:UserData!
+
     
-//    var userData = UserData.getInstance()
     var meViewModel = MeViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        var tuble = userData.userStatus()
-//        if(tuble.1){
-//
-//        }else{
-//            signOut.alpha = 0
-//        }
-        
-        let signOutGesture = UITapGestureRecognizer(target: self, action: #selector(signoutAction))
-        
-        signOutGesture.numberOfTapsRequired = 1
-        signOut.addGestureRecognizer(signOutGesture)
-
         self.navigationController?.title = "ME";
         
+        userData = UserData.sharedInstance
+        currencyLabel.text = userData.getCurrency()
         
-         let editGesture = UITapGestureRecognizer(target: self, action: #selector(editCustomerAction))
-         
-         signOutGesture.numberOfTapsRequired = 1
-         editCustomerData.addGestureRecognizer(editGesture)
-
-         
-         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
+        currencyLabel.addGestureRecognizer(tap)
+        currencyLabel.isUserInteractionEnabled = true
+        
+        //initialize drop menu
+        currencyDropMenu = DropDown()
+        currencyDropMenu.anchorView = currencyLabel
+        currencyDropMenu.dataSource = Constants.currencies
+        currencyDropMenu.direction = .bottom
+        currencyDropMenu.bottomOffset = CGPoint(x: 0, y:currencyLabel.frame.height)
+        
+        //dropList actions
+        currencyDropMenu.selectionAction = { [unowned self] (index: Int, item: String) in
+            self.currencyLabel.text = item
+            self.userData.setCurrency(type: item)
+        }
         
     }
     
-    
+    @objc func tapFunction() {
+        currencyDropMenu.show()
+       }
     
     override func viewWillAppear(_ animated: Bool) {
         
-//        var tuble = userData.userStatus()
-//        if(tuble.0 != "" && tuble.2 != 0){
-//            editCustomerData.alpha = 1
-//        }
-//        else{
-//            editCustomerData.alpha = 0
-//        }
-        
-        
     }
     
     
     
-    @IBOutlet weak var editCustomerData: UIButton!
     
-    @objc func signoutAction(){
+    func signoutAction(){
         meViewModel.signOutUser()
         self.registerDoneAlert(context: self)
         signOut.alpha = 0
     }
+    
     func registerDoneAlert(context:UIViewController) -> Void {
         let signOutSucsess = UIAlertController(title: "signOut Succesfully", message: "", preferredStyle: UIAlertController.Style.alert)
         signOutSucsess.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil))
         context.present(signOutSucsess, animated: true, completion: nil)
     }
+    
+   
+    
+    
     @IBAction func aboutUS(_ sender: Any) {
         let aboutusvc = self.storyboard?.instantiateViewController(identifier: "AboutUsViewController") as! AboutUsViewController
         self.navigationController?.pushViewController(aboutusvc, animated: true)
@@ -81,7 +81,7 @@ class MeViewController: UIViewController {
     
     
     
-    @objc func editCustomerAction(){
+    func editCustomerAction(){
         let editvc = self.storyboard?.instantiateViewController(identifier: "EditIngViewController") as! EditIngViewController
         self.navigationController?.pushViewController(editvc, animated: true)
     }

@@ -45,6 +45,8 @@ struct Constants {
     static let idUserDefaults = "userID"
     static let cityUserDefaults = "city"
     static let countryUserDefaults = "country"
+    static let currencies = ["EGP","USD"]
+    static let currencyUserDefaults = "currency"
 
 
 
