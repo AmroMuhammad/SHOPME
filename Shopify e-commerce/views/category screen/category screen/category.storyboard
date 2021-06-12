@@ -100,12 +100,26 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="CATEGORY" image="bag.fill" catalog="system" id="0gT-pU-Mfh"/>
                     <navigationItem key="navigationItem" title="Category" id="7dx-Tw-fWP">
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="txa-1z-q1Y">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="heart.fill" catalog="system" id="hOJ-AB-yIY">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <action selector="searchButtonClicked:" destination="90V-fO-bYd" id="Gom-Cy-4jD"/>
+                                <action selector="favButtonPressed:" destination="90V-fO-bYd" id="2sW-qr-C3V"/>
                             </connections>
                         </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" image="cart.fill" catalog="system" id="kff-Pf-Lpg">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="cartButtonPressed:" destination="90V-fO-bYd" id="zRv-S6-xZX"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="search" id="txa-1z-q1Y">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="searchButtonClicked:" destination="90V-fO-bYd" id="Gom-Cy-4jD"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -218,5 +232,7 @@
     </scenes>
     <resources>
         <image name="bag.fill" catalog="system" width="128" height="128"/>
+        <image name="cart.fill" catalog="system" width="128" height="102"/>
+        <image name="heart.fill" catalog="system" width="128" height="109"/>
     </resources>
 </document>

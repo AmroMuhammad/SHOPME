@@ -112,6 +112,18 @@ class CategoryViewController: UIViewController {
         navigationController?.pushViewController(searchViewController, animated: true)
     }
     
+    @IBAction func favButtonPressed(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "shop", bundle: nil)
+        let wishVC = storyboard.instantiateViewController(identifier: "wishListViewController")
+        self.navigationController?.pushViewController(wishVC, animated: true)
+    }
+    
+    @IBAction func cartButtonPressed(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "shop", bundle: nil)
+            let favVC = storyboard.instantiateViewController(identifier: "cartViewController")
+            self.navigationController?.pushViewController(favVC, animated: true)
+    }
+    
 }
 
 
