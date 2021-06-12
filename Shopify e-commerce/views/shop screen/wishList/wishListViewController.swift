@@ -52,21 +52,31 @@ class wishListViewController: UIViewController {
         }
     }).disposed(by: disposeBag)
         
-        wishListCollectionView.rx.modelSelected(FavoriteProduct.self).subscribe(onNext: {[weak self] (productItem) in
+        wishListCollectionView.rx.modelSelected(LocalProductDetails.self).subscribe(onNext: {[weak self] (productItem) in
             let storyBoard : UIStoryboard = UIStoryboard(name: "productDetails", bundle:nil)
             let productDetailsVC = storyBoard.instantiateViewController(identifier: Constants.productDetailsVC) as! ProductDetailsTableViewController
             productDetailsVC.productId = "\(productItem.productId)"
             self?.navigationController?.pushViewController(productDetailsVC, animated: true)
         }).disposed(by: disposeBag)
         
+//        wishListViewModelObj.getwishListData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         wishListViewModelObj.getwishListData()
     }
 
          
     @objc func doToCart() {
-        let cartViewController = storyboard?.instantiateViewController(identifier: Constants.cartVC) as! CardViewController
-        navigationController?.pushViewController(cartViewController, animated: true)
-        
+        if checkVC(addedVC: CardViewController.self) {
+            print("checkVC is NOT nil")
+            navigationController?.popViewController(animated: true)
+        } else {
+            print("checkVC is NIIIIIIIL")
+            
+            let cartViewController = storyboard?.instantiateViewController(identifier: Constants.cartVC) as! CardViewController
+            navigationController?.pushViewController(cartViewController, animated: true)
+        }
     }
   
   
@@ -74,7 +84,7 @@ class wishListViewController: UIViewController {
 
 
 extension wishListViewController: CollectionViewCellDelegate{
-    func showMovingAlert(msg: String , product : FavoriteProduct) {
+    func showMovingAlert(msg: String , product : LocalProductDetails) {
         let alertController = UIAlertController(title: "", message: msg, preferredStyle: UIAlertController.Style.alert)
 
         alertController.addAction(UIAlertAction(title: "add", style: .default, handler: { [weak self](action: UIAlertAction!) in
@@ -89,7 +99,7 @@ extension wishListViewController: CollectionViewCellDelegate{
         present(alertController, animated: true, completion: nil)
     }
     
-    func showAlert(msg : String , product : FavoriteProduct) {
+    func showAlert(msg : String , product : LocalProductDetails) {
       
       let alertController = UIAlertController(title: "", message: msg, preferredStyle: UIAlertController.Style.alert)
 

@@ -11,12 +11,17 @@ import RxSwift
 
 class ProductDetailsViewModel: ProductDetailsViewModelType {
     
+    private var productObject: ProductDetails?
+    private var productMainCategory: String = ""
+    
+    
     var imagesObservable: Observable<[ProductDetailsImage]>
     var colorsObservable: Observable<[UIColor]>
     var sizesObservable: Observable<[String]>
     var productTitleObservable: Observable<String>
     var productPriceObservable: Observable<String>
     var productVendorObservable: Observable<String>
+    var productDescriptionObservable: Observable<String>
     
     private var imagesSubject = PublishSubject<[ProductDetailsImage]>()
     private var colorsSubject = PublishSubject<[UIColor]>()
@@ -24,21 +29,27 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
     private var productTitleSubject = PublishSubject<String>()
     private var productPriceSubject = PublishSubject<String>()
     private var productVendorSubject = PublishSubject<String>()
+    private var productDescriptionSubject = PublishSubject<String>()
     
-    private var productObject: ProductDetails?
-    
-    var favoriteProductsObservable: Observable<[FavoriteProduct]>
-    private var favoriteProductsSubject = PublishSubject<[FavoriteProduct]>()
-    var cartProductsObservable: Observable<[CartProduct]>
-    private var cartProductsSubject = PublishSubject<[CartProduct]>()
+    var quantutyObservable: Observable<String>
+    private var quantitySubject = PublishSubject<String>()
+    var currencyObservable: Observable<String>
+    private var currencySubject = PublishSubject<String>()
+    var userCityObservable: Observable<String>
+    private var userCitySubject = PublishSubject<String>()
+
+    var favoriteProductsObservable: Observable<[LocalProductDetails]>
+    private var favoriteProductsSubject = PublishSubject<[LocalProductDetails]>()
+    var cartProductsObservable: Observable<[LocalProductDetails]>
+    private var cartProductsSubject = PublishSubject<[LocalProductDetails]>()
     
 
     var checkProductInFavoriteObservable: Observable<Bool>
     private var checkProductInFavoriteSubject = PublishSubject<Bool>()
     var checkProductInCartObservable: Observable<Bool>
     private var checkProductInCartSubject = PublishSubject<Bool>()
-    var checkProductInCartWithObjectObservable: Observable<CartProduct?>
-    private var checkProductInCartWithObjectSubject = PublishSubject<CartProduct?>()
+    var checkProductInCartWithObjectObservable: Observable<LocalProductDetails?>
+    private var checkProductInCartWithObjectSubject = PublishSubject<LocalProductDetails?>()
     
     
     var showErrorObservable: Observable<String>
@@ -56,6 +67,10 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
         productTitleObservable = productTitleSubject.asObservable()
         productPriceObservable = productPriceSubject.asObservable()
         productVendorObservable = productVendorSubject.asObservable()
+        productDescriptionObservable = productDescriptionSubject.asObservable()
+        quantutyObservable = quantitySubject.asObservable()
+        currencyObservable = currencySubject.asObservable()
+        userCityObservable = userCitySubject.asObservable()
         
         favoriteProductsObservable = favoriteProductsSubject.asObservable()
         cartProductsObservable = cartProductsSubject.asObservable()
@@ -72,12 +87,32 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
         localManager = LocalManagerHelper.localSharedInstance
     }
     
+    
+    
+    
+    func getMainCategory() -> String {
+        return productMainCategory
+    }
+    func getInventoryQuantityOfProductSize(productObject: ProductDetails, selectedSize: String?) -> Int? {
+        let variantsArr = productObject.variants ?? []
+        for item in variantsArr {
+            if item.option1 == selectedSize {
+                return item.inventory_quantity
+            }
+        }
+        return 0
+    }
+    
+    //----------------------------------------User Defaults------------------------------------------------
     func getLocalData() {
-        //
         
         //get deliver city name from local
+        userCitySubject.onNext("Ghana")
 
         //get currency from local
+        currencySubject.onNext("EG")
+        
+        
     }
     
     func getUserEmail() -> String {
@@ -85,31 +120,35 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
         return "ahm@d.com"
     }
     
-    //----------------------------------------Favorite------------------------------------------------
+    
+    
+    //----------------------------------------check Local------------------------------------------------
     
     func checkIfFavorite(){
-        print("VM B4 checkIfFavorite \(productObject?.id)")
+        print("VM B4 checkIfFavorite \(String(describing: productObject?.id))")
         if let productObj = productObject{
-            localManager.checkFavProduct(userEmail: getUserEmail(), productId: productObj.id) { (resBool) in
+            localManager.checkProduct(entityName: .FavoriteProducts, userEmail: getUserEmail(), productId: productObj.id) { [weak self] (_, resBool) in
+                guard let self = self else {return}
                 self.checkProductInFavoriteSubject.onNext(resBool)
             }
         }
     }
     
     func checkIfCart(){
-        print("VM B4 checkIfCart \(productObject?.id)")
+        print("VM B4 checkIfCart \(String(describing: productObject?.id))")
         if let productObj = productObject{
-            localManager.checkCartProduct(userEmail: getUserEmail(), productId: productObj.id) { (cartProduct) in
-                if cartProduct != nil {
+            localManager.checkProduct(entityName: .CartProducts, userEmail: getUserEmail(), productId: productObj.id) { [weak self] (product, resBool) in
+                guard let self = self else {return}
+                if product != nil {
                     print("VM checkIfCart Found Successfully ")
-                    self.checkProductInCartSubject.onNext(true)
-                    self.checkProductInCartWithObjectSubject.onNext(cartProduct)
+                    self.checkProductInCartWithObjectSubject.onNext(product)
                 }
+                self.checkProductInCartSubject.onNext(resBool)
             }
         }
     }
     
-    
+    //----------------------------------------Favorite------------------------------------------------
     func addTofavorite(){
         var res = true
         
@@ -134,7 +173,8 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
                 print("VM addTofavorite dataImage Empty => \(String(describing: imgData))")
             }
             print("VM addTofavorite id => \(productObj.id)")
-            localManager.addProductToFavorite(favoriteProduct: FavoriteProduct(productId: productObj.id, productPrice: productObj.variants?[0].price ?? "--", productImageData: imgData, userEmail: getUserEmail())) { (resBool) in
+            
+            localManager.addProductToFavorite(localProduct: LocalProductDetails(productId: productObj.id, userEmail: getUserEmail(), title: productObj.title, productPrice: productObj.variants?[0].price, productImageData: imgData, quantity: nil, selectedSize: nil, selectedColor: nil, mainCategory: getMainCategory(), inventory_quantity: nil)) { (resBool) in
                 if !resBool {
                     res = false
                 }
@@ -155,11 +195,10 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
     
     func getFromFavorite()  {
         localManager.getAllProductsFromFavorite(userEmail: getUserEmail()) { (res) in
-            switch(res){
-            case .success(let favProds):
-                self.favoriteProductsSubject.onNext(favProds ?? [FavoriteProduct]())
-            case .failure(let err):
-                self.showErrorSubject.onNext(err.localizedDescription)
+            if let res = res {
+                self.favoriteProductsSubject.onNext(res)
+            } else {
+                self.showErrorSubject.onNext("arr is NIL")
             }
         }
     }
@@ -169,7 +208,7 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
         
         if let productObj = productObject{
             print("VM addTofavorite id => \(productObj.id)")
-            localManager.deleteProductFromFavorite(favoriteProduct: FavoriteProduct(productId: productObj.id, productPrice: "--", productImageData: Data(), userEmail: getUserEmail())) { (resBool) in
+            localManager.deleteProductFromFavorite(localProductDetails: LocalProductDetails(productId: intId, userEmail: getUserEmail(), title: nil, productPrice: nil, productImageData: Data(), quantity: nil, selectedSize: nil, selectedColor: nil, mainCategory: nil, inventory_quantity: nil)) { (resBool) in
                 if !resBool {
                     print("product has NOT been deleted")
                 }
@@ -201,8 +240,9 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
                 print("VM addToCart dataImage Empty => \(String(describing: imgData))")
             }
             print("VM addToCart id => \(productObj.id)")
-            let cartProductObj = CartProduct(productId: productObj.id, productPrice: productObj.variants?[0].price ?? "--", productImageData: imgData, userEmail: getUserEmail(), title: productObj.title ?? "---", selectedSize: selectedSize, selectedColor: mapFromColor(color: selectedColor ?? UIColor.white), quantity: 1)
-            localManager.addProductToCart(cartObj: cartProductObj) { (resBool) in
+            
+
+            localManager.addProductToCart(localProduct: LocalProductDetails(productId: productObj.id, userEmail: getUserEmail(), title: productObj.title, productPrice: productObj.variants?[0].price, productImageData: imgData, quantity: 1, selectedSize: selectedSize, selectedColor: mapFromColor(color: selectedColor), mainCategory: getMainCategory(), inventory_quantity: getInventoryQuantityOfProductSize(productObject: productObj, selectedSize: selectedSize))) { (resBool) in
                 if !resBool {
                     res = false
                 }
@@ -227,10 +267,9 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
         if let productObj = productObject{
             print("VM addTofavorite id => \(productObj.id)")
             
-            let cartProductObj = CartProduct(productId: productObj.id, productPrice: "--", productImageData: Data(), userEmail: getUserEmail(), title: "---", selectedSize: "-", selectedColor: "-", quantity: 0)
             
-            localManager.deleteProductFromCart(cartObj: cartProductObj) { (resBool) in
-               if !resBool {
+            localManager.deleteProductFromCart(localProductDetails: LocalProductDetails(productId: intId, userEmail: getUserEmail(), title: nil, productPrice: nil, productImageData: Data(), quantity: nil, selectedSize: nil, selectedColor: nil, mainCategory: nil, inventory_quantity: nil)) { (resBool) in
+                if !resBool {
                     print("product has NOT been deleted")
                 }
             }
@@ -239,19 +278,29 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
         }
     }
     
-    func getAllCartProducts() {
-        
-        localManager.getAllCartProducts(userEmail: getUserEmail()) { (res) in
-            switch(res){
-            case .success(let products):
-                self.cartProductsSubject.onNext(products ?? [CartProduct]())
-            case .failure(let err):
-                self.showErrorSubject.onNext(err.localizedDescription)
+//    func getAllCartProducts() {
+//
+//        localManager.getAllCartProducts(userEmail: getUserEmail()) { (res) in
+//            if let res = res {
+//                self.cartProductsSubject.onNext(res)
+//            } else {
+//                self.showErrorSubject.onNext("arr is NIL")
+//            }
+//        }
+//    }
+    func getCartQuantity() {
+        localManager.getAllCartProducts(userEmail: getUserEmail()) { [weak self] (localProductsArr) in
+            guard let self = self else {return}
+            var allQuantity = 0
+            if let localArr = localProductsArr {
+                for item in localArr {
+                    allQuantity += item.quantity ?? 0
+                }
             }
+            self.quantitySubject.onNext(String(allQuantity))
         }
     }
-    
-    func mapFromColor(color: UIColor) -> String {
+    func mapFromColor(color: UIColor?) -> String {
         var clr: String = ""
         print("from COLOR MAPPINGGGGGGG")
             switch color {
@@ -305,13 +354,14 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
 //        return arrClr
 //    }
     //------------------------------------------------API------------------------------------------------
-    func getProductDetails(id: String){
+    func getProductDetails(id: String, mainCategory: String?){
         shopifyAPI.getProductDetails(productId: id) { (result) in
             switch(result){
             case .success(let product):
                 print("VM getProductDetails => id => \(product?.product.id ?? 707)")
                 if let productResponse = product {
 //                    self.productDetailsDataSubject.onNext(productResponse.product)
+                    self.productMainCategory = mainCategory ?? ""
                     self.filterData(product: productResponse.product)
                     self.productObject = product?.product
                     self.checkIfFavorite()
@@ -332,6 +382,12 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
         }
         if let productPrice = product.variants?[0].price {
             productPriceSubject.onNext(productPrice)
+        }
+        if let productVendor = product.vendor {
+            productVendorSubject.onNext(productVendor)
+        }
+        if let productDescription = product.body_html {
+            productDescriptionSubject.onNext(productDescription)
         }
         if let optionsArr = product.options {
             for option in optionsArr {

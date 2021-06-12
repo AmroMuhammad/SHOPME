@@ -20,6 +20,7 @@ class shopViewController: UIViewController {
     @IBOutlet weak var connectionImg: UIImageView!
     @IBOutlet weak var gifimage: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var cartRightNavBar: RightNavBarView!
     var categories = ["Women" , "Men" , "Kids"] // edit this after merge
     var selectedIndex = 0
     var selectedIndexPath = IndexPath(item: 0, section: 0)
@@ -29,11 +30,17 @@ class shopViewController: UIViewController {
         super.viewDidLoad()
         indecator = UIActivityIndicatorView(style: .large)
         shopProductViewModel = shopViewModel()
+        
+        shopProductViewModel.quantutyObservable.subscribe(onNext: { [weak self] (quant) in
+            self?.cartRightNavBar.quantity = "\(quant)"
+        }).disposed(by: disposeBag)
+
        // collectionView.delegate = self
         let mainCatNibCell = UINib(nibName: Constants.menuCell, bundle: nil)
         collectionView.register(mainCatNibCell, forCellWithReuseIdentifier: Constants.menuCell)
         collectionView.rx.setDelegate(self).disposed(by: disposeBag)
-        shopProductViewModel.discountCodeDrive.drive(onNext: {[weak self] (discountCodeVal) in
+
+          shopProductViewModel.discountCodeDrive.drive(onNext: {[weak self] (discountCodeVal) in
             var  i : Int?
             self!.ads.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
             self!.ads.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -144,6 +151,9 @@ class shopViewController: UIViewController {
         }).disposed(by: disposeBag)
         
    }
+    override func viewWillAppear(_ animated: Bool) {
+        shopProductViewModel.getCartQuantity()
+    }
     @IBAction func wishListBtn(_ sender: Any) {
            let wishListViewController = storyboard?.instantiateViewController(identifier: Constants.wishListVC) as! wishListViewController
            navigationController?.pushViewController(wishListViewController, animated: true)

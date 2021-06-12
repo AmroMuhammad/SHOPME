@@ -64,20 +64,34 @@ class CardViewController: UIViewController {
         }
         }).disposed(by: disposeBag)
         
-        cartTableView.rx.modelSelected(CartProduct.self).subscribe(onNext: {[weak self] (productItem) in
+        cartTableView.rx.modelSelected(LocalProductDetails.self).subscribe(onNext: {[weak self] (productItem) in
             let storyBoard : UIStoryboard = UIStoryboard(name: "productDetails", bundle:nil)
             let productDetailsVC = storyBoard.instantiateViewController(identifier: Constants.productDetailsVC) as! ProductDetailsTableViewController
             productDetailsVC.productId = "\(productItem.productId)"
             self?.navigationController?.pushViewController(productDetailsVC, animated: true)
         }).disposed(by: disposeBag)
             
+//        cartViewModelObj.getCartData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         cartViewModelObj.getCartData()
     }
+    
     @objc func goToWishList() {
-           let wishListViewController = storyboard?.instantiateViewController(identifier: Constants.wishListVC) as! wishListViewController
-           navigationController?.pushViewController(wishListViewController, animated: true)
-           
+        if checkVC(addedVC: wishListViewController.self) {
+            print("checkVC is NOT nil")
+            navigationController?.popViewController(animated: true)
+        } else {
+            print("checkVC is NIIIIIIIL")
+            
+            let wishListViewControllerr = storyboard?.instantiateViewController(identifier: Constants.wishListVC) as! wishListViewController
+            navigationController?.pushViewController(wishListViewControllerr, animated: true)
+        }
     }
+    
+    
+    
     func cartEmpty() {
         print("it is empty ................")
         self.cartTableView.isHidden = true
@@ -102,11 +116,11 @@ class CardViewController: UIViewController {
 
 
 extension CardViewController: TableViewCellDelegate {
-    func updateCoreDate(product: CartProduct) {
+    func updateCoreDate(product: LocalProductDetails) {
         cartViewModelObj.changeProductNumber(product: product)
     }
     
-    func showMovingAlert(msg: String , product:CartProduct) {
+    func showMovingAlert(msg: String , product:LocalProductDetails) {
         let alertController = UIAlertController(title: msg, message: "", preferredStyle: UIAlertController.Style.alert)
         alertController.addAction(UIAlertAction(title: "Move", style: .default, handler: {[weak self](action: UIAlertAction!) in
               print("Handle Ok logic here")
@@ -119,7 +133,7 @@ extension CardViewController: TableViewCellDelegate {
     }
     
     
-    func showAlert(msg: String, product:CartProduct, completion: @escaping (Int) -> Void) {
+    func showAlert(msg: String, product:LocalProductDetails, completion: @escaping (Int) -> Void) {
            let alertController = UIAlertController(title: msg, message: "", preferredStyle: UIAlertController.Style.alert)
            alertController.addAction(UIAlertAction(title: "Delete", style: .default, handler: {[weak self] (action: UIAlertAction!) in
                  print("Handle Ok logic here")
@@ -133,7 +147,7 @@ extension CardViewController: TableViewCellDelegate {
        }
     
     //MARK:- DELETE FROM CORE DATA AND UPDATE Table view
-       func deleteProductFromCart(product: CartProduct) -> Int{
+       func deleteProductFromCart(product: LocalProductDetails) -> Int{
            print("deleeeeete")
          cartViewModelObj.deleteCartData(product: product)
            return 0
@@ -141,7 +155,7 @@ extension CardViewController: TableViewCellDelegate {
      //END
     
     //MARK:- DELETE FROM CORE DATA AND UPDATE Table view then add it to wish list core data
-    func moveProductToWishList(product:CartProduct){
+    func moveProductToWishList(product:LocalProductDetails){
         cartViewModelObj.moveToWishList(product: product)
           print("Moveeeeeeeeee")
       }
@@ -156,4 +170,32 @@ extension CardViewController:   UITableViewDelegate {
         return 169
     }
     
+}
+
+extension UIViewController {
+    func checkVC(addedVC: AnyClass) -> Bool{
+        if let viewControllers = self.navigationController?.viewControllers {
+            for vc in viewControllers {
+                if vc.isKind(of: addedVC) {
+                    print("\n\n\n\nVCs are ==")
+                    print("kind class => \(String(describing: vc.classForCoder))")
+//                    self.navigationController?.viewControllers.remove(at: <#T##Int#>)
+                    return true
+                    
+                } else {
+                    print("\n\n\n\nVCs are !=")
+                    print("kind class => \(String(describing: vc.classForCoder))")
+                }
+            }
+        }
+        return false
+    }
+    
+}
+
+extension UINavigationController {
+    func removeRedundentVC(addedVC: UIViewController) {
+        print("\n\n\n\nRemove Redundent VC\n\n\n\n")
+        self.viewControllers = self.viewControllers.filter({ !$0.isKind(of: addedVC.classForCoder) })
+    }
 }

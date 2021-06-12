@@ -10,7 +10,7 @@ import UIKit
 import SDWebImage
 class TableViewCell: UITableViewCell {
     var delegate: TableViewCellDelegate?
-    var productItem : CartProduct?
+    var productItem : LocalProductDetails?
     @IBOutlet weak var productImg: UIImageView!
     @IBOutlet weak var stepperValue: UILabel!
     @IBOutlet weak var stepper: UIStepper!
@@ -41,7 +41,7 @@ class TableViewCell: UITableViewCell {
 //
 //        // Configure the view for the selected state
 //    }
-    var cellCartProduct : CartProduct! {
+    var cellCartProduct : LocalProductDetails! {
             didSet{
                 productPrice.text = cellCartProduct.productPrice
                 productName.text = cellCartProduct.title
@@ -73,9 +73,16 @@ class TableViewCell: UITableViewCell {
             })
         }
         else{
-            productItem?.quantity = result
-            delegate?.updateCoreDate(product : productItem!)
-           stepperValue.text = String(result)
+            if result <= productItem?.inventory_quantity ?? 0 {
+                productItem?.quantity = result
+                delegate?.updateCoreDate(product : productItem!)
+                stepperValue.text = String(result)
+            } else {
+                delegate?.showAlert(msg: "Sorry, this quantity in NOT in the inventory quantity :(", product: productItem!, completion: { [weak self] (val) in
+                    (sender as! UIStepper).value -= 1.0
+                    self!.stepperValue.text = "\(result-1)"
+                })
+            }
         }
         
     }

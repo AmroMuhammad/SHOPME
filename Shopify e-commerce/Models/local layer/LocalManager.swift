@@ -14,238 +14,167 @@ class LocalManagerHelper {
     
     private init(){}
     
-//    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-//    func saveImage(data: Data) {
-//        let imageInstance = Image(context: context)
-//        imageInstance.img = data
-//        do {
-//            try context.save()
-//            print("Image is saved")
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//    }
     
-    func checkFavProduct(userEmail: String, productId: Int, completion: @escaping (Bool) -> Void) { //check if exist
-        print("LocMng - checkData - \(productId)")
+    //-------------------------------------------------------------------------------------------------------------------------
+    
+    func checkProduct(entityName: EntityName, userEmail: String, productId: Int, completion: @escaping (LocalProductDetails?, Bool) -> Void) { //return obj         from LocalPDs to display user selection when navigate to productDeatails screen and show his selections  [ later ]
         let appDelegte: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        print("LocMng - checkData - appDelegte")
         let context = appDelegte.persistentContainer.viewContext
-        print("LocMng - checkData - context")
-        let fetchReq = NSFetchRequest<NSManagedObject>(entityName: EntityName.FavoriteProducts.rawValue)     /// ? ? ? ? ? ? ? ? ? ? ? ? *** * * **||||\\\\////******
-        print("LocMng - checkData - fetchReq")
+        let fetchReq = NSFetchRequest<NSManagedObject>(entityName: entityName.rawValue)
+        print("checkProduct - start with id => \(productId)")
         do{
             let products = try context.fetch(fetchReq)
-            print("LocMng - checkData - context.fetch")
             for item in products {
-                print("LocMng - checkData - for item ")
-                if let uEmail = item.value(forKey: "userEmail"){
+                if let uEmail = item.value(forKey: Constants.userEmailCoraDataAtt){
                     if userEmail == uEmail as! String {
-                        if let prodId = item.value(forKey: "productId"){
+                        if let prodId = item.value(forKey: Constants.productIdCoraDataAtt){
                             if prodId as! Int == productId {
-                                print("FOUNDDDDDDDDDD")
-                                completion(true)
-                                return
+                                print("checkProduct - FOUNDD id")
+                                
+                                switch entityName {
+                                case .FavoriteProducts:
+                                    completion(nil, true)
+                                case .CartProducts:
+                                    let mainCategory = item.value(forKey: Constants.mainCategoryCoraDataAtt) as? String ?? "---"
+                                    let imgData = item.value(forKey: Constants.productImageCoraDataAtt) as? Data ?? Data()
+                                    let price = item.value(forKey: Constants.productPriceCoraDataAtt) as? String ?? "--"
+                                    let titleVal = item.value(forKey: Constants.titleCoraDataAtt) as? String ?? "Product"
+                                    let sizeVal = item.value(forKey: Constants.selectedSizeCoraDataAtt) as? String ?? "-"
+                                    let colorVal = item.value(forKey: Constants.selectedColorCoraDataAtt) as? String ?? "-"
+                                    let quantVal = item.value(forKey: Constants.quantityCoraDataAtt) as? Int ?? 1
+                                    let invQuant = item.value(forKey: Constants.invQuantCoraDataAtt) as? Int ?? 0
+                                    completion(LocalProductDetails(productId: productId, userEmail: userEmail, title: titleVal, productPrice: price, productImageData: imgData,     quantity: quantVal, selectedSize: sizeVal, selectedColor: colorVal, mainCategory: mainCategory, inventory_quantity: invQuant), true)
+                                }
+                                return                // useless???
+                                
                             } else {
-                                print("LOC MNGR  - CHK  -- not match")
+                                print("checkProduct - id - not match")
                             }
                         } else {
-                            print("LOC MNGR  - CHK-- Failed to get id")
+                            print("checkProduct - Failed to get id")
                         }
                     } else {
-                        print("LOC MNGR  - CHK  -- email Not match")
+                        print("checkProduct -  Not match")
                     }
                 } else {
-                    print("LOC MNGR  - CHK -- Failed to get email")
+                    print("checkProduct - Failed to get email")
                 }
             }
-            //???????????  line: 63
         } catch {
-            print("CAAAAAAAAATCHHHHHHHH Local Mngr checkFav")
-            completion(false)
+            print("checkProduct - CAAAAAAAAATCHHHHHHHH")
+            completion(nil, false)
         }
-        completion(false)
+        print("checkProduct - finish checking")
+        completion(nil, false)
     }
     
-    func checkCartProduct(userEmail: String, productId: Int, completion: @escaping (CartProduct?) -> Void) { //check if exist
-        print("LocMng - checkData - \(productId)")
-        let appDelegte: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        print("LocMng - checkData - appDelegte")
-        let context = appDelegte.persistentContainer.viewContext
-        print("LocMng - checkData - context")
-        let fetchReq = NSFetchRequest<NSManagedObject>(entityName: EntityName.CartProducts.rawValue)     /// ? ? ? ? ? ? ? ? ? ? ? ? *** * * **||||\\\\////******
-        print("LocMng - checkData - fetchReq")
-        do{
-            let products = try context.fetch(fetchReq)
-            print("LocMng - checkData - context.fetch")
-            for item in products {
-                print("LocMng - checkData - for item ")
-                if let uEmail = item.value(forKey: "userEmail"){
-                    if userEmail == uEmail as! String {
-                        if let prod = item.value(forKey: "productId"){
-                            if prod as! Int == productId {
-                                print("FOUNDDDDDDDDDD")
-                                var priceProd = "--"
-                                var imgdata = Data()
-                                var titleProd = "-"
-                                var sizeProd = ""
-                                var clrProd = ""
-                                var quantProd = 0
-                                
-                                if let imageDt = item.value(forKey: "productImage") {
-                                    imgdata = imageDt as! Data
-                                }
-                                if let price = item.value(forKey: "productPrice") {
-                                    priceProd = price as! String
-                                }
-                                if let titleVal = item.value(forKey: "title"){
-                                    titleProd = titleVal as! String
-                                }
-                                if let sizeVal = item.value(forKey: "selectedSize"){
-                                    sizeProd = sizeVal as! String
-                                }
-                                if let colorVal = item.value(forKey: "selectedColor"){
-                                    clrProd = colorVal as! String
-                                }
-                                if let quantVal = item.value(forKey: "quantity"){
-                                    quantProd = quantVal as! Int
-                                }
-                                //                                switch entityName {
-                                //                                case .FavoriteProducts:
-                                //                                    completion(.success(FavoriteProduct(productId: productId, productPrice: priceProd, productImageData: imgdata, userEmail: userEmail)))
-                                //                                case .CartProducts:
-                                completion(CartProduct(productId: productId, productPrice: priceProd, productImageData: imgdata, userEmail: userEmail, title: titleProd, selectedSize: sizeProd, selectedColor: clrProd, quantity: quantProd))
-                                //                                }
-                                return
-                            } else {
-                                print("LOC MNGR  - CHK  -- not match")
-                            }
-                        } else {
-                            print("LOC MNGR  - CHK-- Failed to get id")
-                        }
-                    } else {
-                        print("LOC MNGR  - CHK  -- email Not match")
-                    }
-                } else {
-                    print("LOC MNGR  - CHK -- Failed to get email")
-                }
-            }
-            
-            //???????????  line: 63
-        } catch {
-            print("CAAAAAAAAATCHHHHHHHH check Cart ")
-            completion(nil)
-        }
-        completion(nil)
-    }
-
-
     //----------------------------------------------FAVORITE--------------------------------------------------------
-    func addProductToFavorite(favoriteProduct: FavoriteProduct, completion: @escaping (Bool) -> Void){
+    
+    func addProductToFavorite(localProduct: LocalProductDetails, completion: @escaping (Bool) -> Void){
         
-        checkFavProduct(userEmail: favoriteProduct.userEmail, productId: favoriteProduct.productId) { (resBool) in
+        checkProduct(entityName: .FavoriteProducts, userEmail: localProduct.userEmail, productId: localProduct.productId) { (_, resBool) in
             if !resBool {
-                print("start addToLocal in Local Manager")
+                print("addProductToFavorite - start adding")
                 let appDelegte = UIApplication.shared.delegate as? AppDelegate
                 let context = appDelegte!.persistentContainer.viewContext
-                let entity = NSEntityDescription.entity(forEntityName: "FavoriteProducts", in: context)
+                let entity = NSEntityDescription.entity(forEntityName: Constants.favoriteCoraDataEntity, in: context)
                 let productMngObj = NSManagedObject(entity: entity!, insertInto: context)
                 
-                print("PUT imgData => \(String(describing: favoriteProduct.productImageData))")
+                print("addProductToFavorite - imgData => \(String(describing: localProduct.productImageData))")
                 
-                productMngObj.setValue(favoriteProduct.userEmail, forKey: "userEmail")
-                productMngObj.setValue(favoriteProduct.productId, forKey: "productId")
-                productMngObj.setValue(favoriteProduct.productPrice, forKey: "productPrice")
-                productMngObj.setValue(favoriteProduct.productImageData, forKey: "productImage")
+                let mainCategory = localProduct.mainCategory ?? "---"
+                let price = localProduct.productPrice ?? "--"
+                let titleVal = localProduct.title ?? "Product"
+                
+                productMngObj.setValue(localProduct.userEmail, forKey: Constants.userEmailCoraDataAtt)
+                productMngObj.setValue(localProduct.productId, forKey: Constants.productIdCoraDataAtt)
+                productMngObj.setValue(localProduct.productImageData, forKey: Constants.productImageCoraDataAtt)
+                productMngObj.setValue(price, forKey: Constants.productPriceCoraDataAtt)
+                productMngObj.setValue(mainCategory, forKey: Constants.mainCategoryCoraDataAtt)
+                productMngObj.setValue(titleVal, forKey: Constants.titleCoraDataAtt)
                 
                 do{
                     try context.save()
-                    print("\nDataAddedToLocal")
+                    print("\naddProductToFavorite - DataAdded Successfully")
                     
                 } catch {
-                    print("CATCH WHEN SAVE")
+                    print("addProductToFavorite - CATCH WHEN add")
                     completion(false)
-                    
                 }
-                print("\nDataSaved")
+                print("\naddProductToFavorite- finish adding")
                 completion(true)
             } else {
+                print("\naddProductToFavorite- product is already in the favorite")
                 completion(false)
             }
         }
+
     }
    
-    func getAllProductsFromFavorite(userEmail: String, completion: @escaping (Result<[FavoriteProduct]?, NSError>) -> Void){
+    func getAllProductsFromFavorite(userEmail: String, completion: @escaping ([LocalProductDetails]?) -> Void){
         
-        var favoriteProducts: [FavoriteProduct]? = [FavoriteProduct]()
+        var localProductDetails: [LocalProductDetails] = [LocalProductDetails]()
         
         let appDelegte = UIApplication.shared.delegate as? AppDelegate
         let context = appDelegte!.persistentContainer.viewContext
-        let fetchReq = NSFetchRequest<NSManagedObject>(entityName: "FavoriteProducts")
+        let fetchReq = NSFetchRequest<NSManagedObject>(entityName: Constants.favoriteCoraDataEntity)
         do{
             let products = try context.fetch(fetchReq)
             for item in products {
-                if let uEmail = item.value(forKey: "userEmail"){
+                if let uEmail = item.value(forKey: Constants.userEmailCoraDataAtt){
                     if userEmail == uEmail as! String {
-                        if let prodId = item.value(forKey: "productId"){
-                            print("GET id => \(prodId as! Int)")
-                            var price = "--"
-                            var imgData = Data()
-                            if let productPrice = item.value(forKey: "productPrice"){
-                                print("GET price => \(productPrice as! String)")
-                                price = productPrice as! String
-                                if let productImageData = item.value(forKey: "productImage"){
-                                    imgData = productImageData as! Data
-                                    print("GET imgData => \(productImageData)")
-                                    
-                                } else {
-                                    print("empty IMAGE  GET")
-                                }
-                            } else {
-                                print("empty PRICE  GET")
-                            }
+                        if let prodId = item.value(forKey: Constants.productIdCoraDataAtt){
+                            print("getAllProductsFromFavorite - append product with id => \(prodId as! Int)")
                             
-                            favoriteProducts?.append(FavoriteProduct(productId: prodId as! Int, productPrice: price, productImageData: imgData, userEmail: userEmail))
+                            let mainCategory = item.value(forKey: Constants.mainCategoryCoraDataAtt) as? String ?? "---"
+                            let imgData = item.value(forKey: Constants.productImageCoraDataAtt) as? Data ?? Data()
+                            let price = item.value(forKey: Constants.productPriceCoraDataAtt) as? String ?? "--"
+                            let titleVal = item.value(forKey: Constants.titleCoraDataAtt) as? String ?? "Product"
+                            
+                            localProductDetails.append(LocalProductDetails(productId: prodId as! Int, userEmail: userEmail, title: titleVal, productPrice: price, productImageData: imgData, quantity: nil, selectedSize: nil, selectedColor: nil, mainCategory: mainCategory, inventory_quantity: nil))
                             
                         } else {
-                            print("empty ID  GET")
-                            completion(.failure(NSError.init(domain: "", code: 707, userInfo: [NSLocalizedDescriptionKey : "Can NOT get product id"])))
+                            print("getAllProductsFromFavorite - failed to get ID")
                         }
                     } else {
-                        print("email does NOT match")
+                        print("getAllProductsFromFavorite - email does NOT match")
                     }
                 } else {
-                    print("Failed to get email")
+                    print("getAllProductsFromFavorite - Failed to get email")
                 }
             }
-        } catch (let err) {
-            print("CAAAAAAAAATCHHHHHHHH  GET \(err.localizedDescription)")
-            completion(.failure(err as NSError))
+        } catch {
+            print("CAAAAAAAAATCHHHHHHHH - getAllProductsFromFavorite ")
+            completion(nil)
         }
-        print("Finish Retrive  GET")
-        completion(.success(favoriteProducts))
+        print("getAllProductsFromFavorite - Finish Retrive")
+        
+        if localProductDetails.isEmpty {
+            completion(nil)
+        } else {
+            completion(localProductDetails)
+        }
     }
     
     
-    func deleteProductFromFavorite(favoriteProduct: FavoriteProduct, completion: @escaping (Bool) -> Void){
-        var res = false
+    func deleteProductFromFavorite(localProductDetails: LocalProductDetails, completion: @escaping (Bool) -> Void){
         
         let appDelegte = UIApplication.shared.delegate as? AppDelegate
         let context = appDelegte!.persistentContainer.viewContext
-        let fetchReq = NSFetchRequest<NSManagedObject>(entityName: "FavoriteProducts")
+        let fetchReq = NSFetchRequest<NSManagedObject>(entityName: Constants.favoriteCoraDataEntity)
         do{
             let products = try context.fetch(fetchReq)
             for item in products {
-                if let uEmail = item.value(forKey: "userEmail"){
-                    if favoriteProduct.userEmail == uEmail as! String {
-                        if let prodId = item.value(forKey: "productId"){
-                            if prodId as! Int == favoriteProduct.productId{
-                                print("FOUNDDDDDDDDDD  DLT")
+                if let uEmail = item.value(forKey: Constants.userEmailCoraDataAtt){
+                    if localProductDetails.userEmail == uEmail as! String {
+                        if let prodId = item.value(forKey: Constants.productIdCoraDataAtt){
+                            if prodId as! Int == localProductDetails.productId{
+                                print("deleteProductFromFavorite - FOUNDDDDDDDDDD  DLT")
                                 context.delete(item)
                                 try context.save()
-                                print("DataDeletedFromLocal  DLT")
-                                res = true
-                                break
+                                print("deleteProductFromFavorite - DataDeletedFromLocal  DLT")
+                                completion(true)
+                                return
                             } else {
                                 print("id does NOT Match to DLT")
                             }
@@ -260,73 +189,83 @@ class LocalManagerHelper {
                 }
             }
         } catch {
-            print("CAAAAAAAAATCHHHHHHHH  DLT")
-//            completion(false)                   //
+            print("deleteProductFromFavorite - CAAAAAAAAATCHHHHHHHH")
+            completion(false)
         }
-        print("Finish Removing  DLT")
-        completion(res)
+        print("deleteProductFromFavorite - did not found to DLT")
+        completion(false)
     }
     
     
     //--------------------------------------------------------CART-----------------------------------------------------------
-    func addProductToCart(cartObj: CartProduct, completion: @escaping (Bool) -> Void){
         
-        checkCartProduct(userEmail: cartObj.userEmail, productId: cartObj.productId) { (cartProd) in
-            if cartProd == nil {
-                print("start addToLocal in Local Manager")
+    func addProductToCart(localProduct: LocalProductDetails, completion: @escaping (Bool) -> Void){
+        
+        checkProduct(entityName: .CartProducts, userEmail: localProduct.userEmail, productId: localProduct.productId) { (product, resBool) in
+            if product == nil {
+                print("addProductToCart - start adding to Local")
                 let appDelegte = UIApplication.shared.delegate as? AppDelegate
                 let context = appDelegte!.persistentContainer.viewContext
-                let entity = NSEntityDescription.entity(forEntityName: "CartProducts", in: context)
+                let entity = NSEntityDescription.entity(forEntityName: Constants.cartCoraDataEntity, in: context)
                 let productMngObj = NSManagedObject(entity: entity!, insertInto: context)
                 
-                print("PUT ID => \(cartObj.productId)")
-                print("PUT imgData => \(String(describing: cartObj.productImageData))")
+                print("addProductToCart - PUT ID => \(localProduct.productId)")
+                print("addProductToCart - PUT imgData => \(String(describing: localProduct.productImageData))")
+                print("addProductToCart - PUT title => \(String(describing: localProduct.title))")
                 
-                productMngObj.setValue(cartObj.userEmail, forKey: "userEmail")
-                productMngObj.setValue(cartObj.productId, forKey: "productId")
-                productMngObj.setValue(cartObj.productPrice, forKey: "productPrice")
-                productMngObj.setValue(cartObj.productImageData, forKey: "productImage")
-                productMngObj.setValue(cartObj.title, forKey: "title")
-                productMngObj.setValue(cartObj.selectedColor, forKey: "selectedColor")
-                productMngObj.setValue(cartObj.selectedSize, forKey: "selectedSize")
-                productMngObj.setValue(cartObj.quantity, forKey: "quantity")
+                let mainCategory = localProduct.mainCategory ?? "---"
+                let price = localProduct.productPrice ?? "--"
+                let titleVal = localProduct.title ?? "Product"
+                let size = localProduct.selectedSize ?? "-"
+                let color = localProduct.selectedColor ?? "-"
+                let quantity = localProduct.quantity ?? 1
+                let invQuantity = localProduct.inventory_quantity ?? 0
                 
+                productMngObj.setValue(localProduct.userEmail, forKey: Constants.userEmailCoraDataAtt)
+                productMngObj.setValue(localProduct.productId, forKey: Constants.productIdCoraDataAtt)
+                productMngObj.setValue(localProduct.productImageData, forKey: Constants.productImageCoraDataAtt)
+                productMngObj.setValue(price, forKey: Constants.productPriceCoraDataAtt)
+                productMngObj.setValue(mainCategory, forKey: Constants.mainCategoryCoraDataAtt)
+                productMngObj.setValue(titleVal, forKey: Constants.titleCoraDataAtt)
+                productMngObj.setValue(size, forKey: Constants.selectedSizeCoraDataAtt)
+                productMngObj.setValue(color, forKey: Constants.selectedColorCoraDataAtt)
+                productMngObj.setValue(quantity, forKey: Constants.quantityCoraDataAtt)
+                productMngObj.setValue(invQuantity, forKey: Constants.invQuantCoraDataAtt)
+             
                 do{
                     try context.save()
-                    print("\nDataAddedToLocalCART")
+                    print("\naddProductToCart - DataAddedToLocalCART")
                 } catch {
-                    print("CATCH WHEN SAVE")
+                    print("addProductToCart - CATCH WHEN SAVE")
                     completion(false)
                 }
-                print("\nDataSavedCART")
-                
+                print("\naddProductToCart - DataSavedCART")
                 completion(true)
             } else {
+                print("\naddProductToCart - product is already in the cart")
                 completion(false)
             }
         }
-        
     }
     
-    func deleteProductFromCart(cartObj: CartProduct, completion: @escaping (Bool) -> Void){
-        var res = false
+    func deleteProductFromCart(localProductDetails: LocalProductDetails, completion: @escaping (Bool) -> Void){
         
         let appDelegte = UIApplication.shared.delegate as? AppDelegate
         let context = appDelegte!.persistentContainer.viewContext
-        let fetchReq = NSFetchRequest<NSManagedObject>(entityName: "CartProducts")
+        let fetchReq = NSFetchRequest<NSManagedObject>(entityName: Constants.cartCoraDataEntity)
         do{
             let products = try context.fetch(fetchReq)
             for item in products {
-                if let uEmail = item.value(forKey: "userEmail"){
-                    if cartObj.userEmail == uEmail as! String {
-                        if let prodId = item.value(forKey: "productId"){
-                            if prodId as! Int == cartObj.productId{
-                                print("FOUNDDDDDDDDDD  DLT")
+                if let uEmail = item.value(forKey: Constants.userEmailCoraDataAtt){
+                    if localProductDetails.userEmail == uEmail as! String {
+                        if let prodId = item.value(forKey: Constants.productIdCoraDataAtt){
+                            if prodId as! Int == localProductDetails.productId{
+                                print("deleteProductFromCart - FOUNDDDDDDDDDD  DLT")
                                 context.delete(item)
                                 try context.save()
-                                print("DataDeletedFromLocal  DLT")
-                                res = true
-                                break
+                                print("deleteProductFromCart - DataDeletedFromLocal  DLT")
+                                completion(true)
+                                return
                             } else {
                                 print("id does NOT Match to DLT")
                             }
@@ -341,111 +280,26 @@ class LocalManagerHelper {
                 }
             }
         } catch {
-            print("CAAAAAAAAATCHHHHHHHH  DLT")
-//            completion(false)
+            print("deleteProductFromCart - CAAAAAAAAATCHHHHHHHH")
+            completion(false)
         }
-        print("Finish Removing  DLT")
-        completion(res)
-    }
-    
-    func updateCartProduct(cartObj: CartProduct, completion: @escaping (Bool) -> Void){
-        let appDelegte = UIApplication.shared.delegate as? AppDelegate
-        let context = appDelegte!.persistentContainer.viewContext
-        let fetchReq = NSFetchRequest<NSManagedObject>(entityName: "CartProducts")
-        do{
-            let products = try context.fetch(fetchReq)
-            for item in products {
-                if let uEmail = item.value(forKey: "userEmail"){
-                    if cartObj.userEmail == uEmail as! String {
-                        if let prodId = item.value(forKey: "productId"){
-                            if prodId as! Int == cartObj.productId{
-                                print("FOUNDDDDDDDDDD  UPDaTe")
-                                
-                                item.setValue(cartObj.quantity, forKey: "quantity")
-                                try context.save()
-                                print("DataDeletedFromLocal  UPDaTe")
-                                completion(true)
-                                return
-                            } else {
-                                print("id does NOT Match to UPDaTe")
-                            }
-                        } else {
-                            print("failed to get ID to UPDaTe")
-                        }
-                    } else {
-                        print("email does NOT Match to UPDaTe")
-                    }
-                } else {
-                    print("failed to get email to UPDaTe")
-                }
-            }
-        } catch {
-            print("CAAAAAAAAATCHHHHHHHH  UPDaTe")
-            //            completion(false)
-        }
-        print("Finish UPDaTe")
+        print("deleteProductFromCart - did not found to DLT")
         completion(false)
     }
     
-    func getAllCartProducts(userEmail: String, completion: @escaping (Result<[CartProduct]?, NSError>) -> Void){
-        var cartProducts: [CartProduct]? = [CartProduct]()
-        
+    func deleteAllProductFromCart(userEmail: String, completion: @escaping (Bool) -> Void){
         let appDelegte = UIApplication.shared.delegate as? AppDelegate
         let context = appDelegte!.persistentContainer.viewContext
-        let fetchReq = NSFetchRequest<NSManagedObject>(entityName: "CartProducts")
+        let fetchReq = NSFetchRequest<NSManagedObject>(entityName: Constants.cartCoraDataEntity)
         do{
             let products = try context.fetch(fetchReq)
             for item in products {
-                if let uEmail = item.value(forKey: "userEmail"){
+                if let uEmail = item.value(forKey: Constants.userEmailCoraDataAtt){
                     if userEmail == uEmail as! String {
-                        if let prodId = item.value(forKey: "productId"){
-                            print("GET id => \(prodId as! Int)")
-//                            guard let productPrice = item.value(forKey: "productPrice") else { return }
-                            var price = "--"
-                            var imgData = Data()
-                            var titl = ""
-                            var siz = ""
-                            var clr = ""
-                            var qunt = 0
-                            if let productPrice = item.value(forKey: "productPrice"){
-                                print("GET price => \(productPrice as! String)")
-                                price = productPrice as! String
-                                if let productImageData = item.value(forKey: "productImage"){
-                                    imgData = productImageData as! Data
-                                    print("GET imgData => \(imgData)")
-                                } else {
-                                    print("VM getAllCartProducts else imageData \(imgData)")
-                                }
-                                if let title = item.value(forKey: "title"){
-                                    titl = title as! String
-                                    print("GET title => \(titl)")
-                                } else {
-                                    print("VM getAllCartProducts else title \(titl)")
-                                }
-                                if let size = item.value(forKey: "selectedSize"){
-                                    siz = size as! String
-                                    print("GET size => \(siz)")
-                                } else {
-                                    print("VM getAllCartProducts else size \(siz)")
-                                }
-                                if let color = item.value(forKey: "selectedColor"){
-                                    clr = color as! String
-                                    print("GET color => \(clr)")
-                                } else {
-                                    print("VM getAllCartProducts else color \(clr)")
-                                }
-                                if let quatity = item.value(forKey: "quantity"){
-                                    qunt = quatity as! Int
-                                    print("GET quatity => \(qunt)")
-                                } else {
-                                    print("VM getAllCartProducts else quatity \(qunt)")
-                                }
-                            } else {
-                                print("VM getAllCartProducts else price \(price)")
-                            }
-                            cartProducts?.append(CartProduct(productId: prodId as! Int, productPrice: price, productImageData: imgData, userEmail: userEmail, title: titl, selectedSize: siz, selectedColor: clr, quantity: qunt))
-                            print("prod appended to cart Arr")
-                        }
+                        print("deleteAllProductFromCart - match email")
+                        context.delete(item)
+                        try context.save()
+                        print("deleteProductFromCart - DataDeletedFromLocal  DLT")
                     } else {
                         print("email does NOT Match to DLT")
                     }
@@ -453,161 +307,100 @@ class LocalManagerHelper {
                     print("failed to get email to DLT")
                 }
             }
-        } catch (let err) {
-            print("CAAAAAAAAATCHHHHHHHH  GET \(err.localizedDescription)")
-            completion(.failure(err as NSError))
-            //            return                                                              // ???????
+        } catch {
+            print("deleteProductFromCart - CAAAAAAAAATCHHHHHHHH")
+            completion(false)
         }
-        print("Finish Retrive GET  B4 completion")
-        completion(.success(cartProducts))
-        print("Finish Retrive  GET after completoin")
+        print("deleteAllProductFromCart - finish")
+        completion(true)
+    }
+    
+    func updateCartProduct(localProductDetails: LocalProductDetails, completion: @escaping (Bool) -> Void){
+        let appDelegte = UIApplication.shared.delegate as? AppDelegate
+        let context = appDelegte!.persistentContainer.viewContext
+        let fetchReq = NSFetchRequest<NSManagedObject>(entityName: Constants.cartCoraDataEntity)
+        do{
+            let products = try context.fetch(fetchReq)
+            for item in products {
+                if let uEmail = item.value(forKey: Constants.userEmailCoraDataAtt){
+                    if localProductDetails.userEmail == uEmail as! String {
+                        if let prodId = item.value(forKey: Constants.productIdCoraDataAtt){
+                            if prodId as! Int == localProductDetails.productId{
+                                print("updateCartProduct - FOUNDDDDDDDDDD  UPDaTe")
+                                
+                                item.setValue(localProductDetails.quantity, forKey: Constants.quantityCoraDataAtt)
+                                try context.save()
+                                print("updateCartProduct -  UPDaTe")
+                                completion(true)
+                                return
+                            } else {
+                                print("updateCartProduct - id does NOT Match to UPDaTe")
+                            }
+                        } else {
+                            print("updateCartProduct - failed to get ID to UPDaTe")
+                        }
+                    } else {
+                        print("updateCartProduct - email does NOT Match to UPDaTe")
+                    }
+                } else {
+                    print("updateCartProduct - failed to get email to UPDaTe")
+                }
+            }
+        } catch {
+            print("updateCartProduct - CAAAAAAAAATCHHHHHHHH")
+            completion(false)
+        }
+        print("updateCartProduct - did NOT UPDaTe")
+        completion(false)
+    }
+    
+    func getAllCartProducts(userEmail: String, completion: @escaping ([LocalProductDetails]?) -> Void){
+        var localProductDetails: [LocalProductDetails] = [LocalProductDetails]()
+        
+        let appDelegte = UIApplication.shared.delegate as? AppDelegate
+        let context = appDelegte!.persistentContainer.viewContext
+        let fetchReq = NSFetchRequest<NSManagedObject>(entityName: Constants.cartCoraDataEntity)
+        do{
+            let products = try context.fetch(fetchReq)
+            for item in products {
+                if let uEmail = item.value(forKey: Constants.userEmailCoraDataAtt){
+                    if userEmail == uEmail as! String {
+                        if let prodId = item.value(forKey: Constants.productIdCoraDataAtt){
+                            print("getAllCartProducts - append product with id => \(prodId as! Int)")
+                            
+                            let mainCategory = item.value(forKey: Constants.mainCategoryCoraDataAtt) as? String ?? "---"
+                            let imgData = item.value(forKey: Constants.productImageCoraDataAtt) as? Data ?? Data()
+                            let price = item.value(forKey: Constants.productPriceCoraDataAtt) as? String ?? "--"
+                            let titleVal = item.value(forKey: Constants.titleCoraDataAtt) as? String ?? "Product"
+                            let sizeVal = item.value(forKey: Constants.selectedSizeCoraDataAtt) as? String ?? "-"
+                            let colorVal = item.value(forKey: Constants.selectedColorCoraDataAtt) as? String ?? "-"
+                            let quantVal = item.value(forKey: Constants.quantityCoraDataAtt) as? Int ?? 1
+                            let invQuantVal = item.value(forKey: Constants.invQuantCoraDataAtt) as? Int ?? 0
+                            
+                            localProductDetails.append(LocalProductDetails(productId: prodId as! Int, userEmail: userEmail, title: titleVal, productPrice: price, productImageData: imgData, quantity: quantVal, selectedSize: sizeVal, selectedColor: colorVal, mainCategory: mainCategory, inventory_quantity: invQuantVal))
+                            
+                        } else {
+                            print("getAllCartProducts - failed to get ID")
+                        }
+                    } else {
+                        print("getAllCartProducts - email does NOT match")
+                    }
+                } else {
+                    print("getAllCartProducts - Failed to get email")
+                }
+            }
+        } catch {
+            print("getAllCartProducts - CAAAAAAAAATCHHHHHHH")
+            completion(nil)
+        }
+        print("getAllCartProducts - Finish Retrive")
+        
+        if localProductDetails.isEmpty {
+            print("getAllCartProducts - Finish Retrive arr is empty")
+            completion(nil)
+        } else {
+            print("getAllCartProducts - Finish Retrive arr fully")
+            completion(localProductDetails)
+        }
     }
 }
-    
-
-
-
-
-
-
-
-
-
-//    func getData(productId: String) -> (ProductDetails?, Data?) {
-//
-//        var imageData = Data()
-//        var productObj: ProductDetails?
-//        var variants = [ProductDetailsVariants]()
-//
-//        let appDelegte = UIApplication.shared.delegate as? AppDelegate
-//        let context = appDelegte!.persistentContainer.viewContext
-//        let fetchReq = NSFetchRequest<NSManagedObject>(entityName: "FavoriteProducts")
-//        do{
-//            let products = try context.fetch(fetchReq)
-//            for item in products {
-//                if let prodId = item.value(forKey: "productId"){
-//                    print("GET id => \(prodId as! Int)")
-//                    if let productPrice = item.value(forKey: "productPrice"){
-//                        print("GET price => \(productPrice as! String)")
-//                        if let productImageData = item.value(forKey: "productImage"){
-//
-////       ******                     if productId == prodId as! String {
-////***
-////   * *****                        }
-//                            imageData = productImageData as! Data
-//                            print("GET imgData => \(imageData)")
-//                            let variant = ProductDetailsVariants(id: 70, product_id: nil, price: productPrice as? String)
-//                            variants.append(variant)
-//
-//                            productObj = ProductDetails(id: prodId as! Int, title: nil, vendor: nil, product_type: nil, handle: nil, status: nil, tags: nil, variants: variants, options: nil, images: nil, image: nil)
-//
-//
-////                                leaguesArr.append(Country(idLeague: leagueId as? String, idAPIfootball: nil, strSport: nil, strLeague: leagueName as? String, strLeagueAlternate: nil, strDivision: nil, idCup: nil, strCurrentSeason: nil, intFormedYear: nil, dateFirstEvent: nil, strGender: nil, strCountry: nil, strWebsite: nil, strFacebook: nil, strTwitter: nil, strYoutube: youtubeStr as? String, strRSS: nil, strDescriptionEN: nil, strBadge: leagueBadge as? String, strNaming: nil, strLocked: nil))
-//
-//                        } else {
-//                            print("empty IMAGE  GET")
-//                        }
-//                    } else {
-//                        print("empty PRICE  GET")
-//                    }
-//                } else {
-//                    print("empty ID  GET")
-//                }
-//            }
-//        } catch (let err) {
-//            print("CAAAAAAAAATCHHHHHHHH  GET \(err.localizedDescription)")
-////            delegate.onFailure(errorMessage: err.localizedDescription)
-//        }
-//        print("Finish Retrive  GET")
-//        return (productObj, imageData)
-////        delegate.onSuccess(leagues: leaguesArr)
-//    }
-
-
-
-
-/*
- var prdObjj: ProductDetails?
- 
- let appDelegte = UIApplication.shared.delegate as? AppDelegate
- let context = appDelegte!.persistentContainer.viewContext
- let fetchReq = NSFetchRequest<NSManagedObject>(entityName: "FavoriteLeagues")
- do{
-     let leagues = try context.fetch(fetchReq)
-     for item in leagues {
-         if let leagueId = item.value(forKey: "leagueId"){
-             if let leagueName = item.value(forKey: "leagueName"){
-                 if let leagueBadge = item.value(forKey: "leagueBadge"){
-                     if let youtubeStr = item.value(forKey: "youtubeStr"){
-                         leaguesArr.append(Country(idLeague: leagueId as? String, idAPIfootball: nil, strSport: nil, strLeague: leagueName as? String, strLeagueAlternate: nil, strDivision: nil, idCup: nil, strCurrentSeason: nil, intFormedYear: nil, dateFirstEvent: nil, strGender: nil, strCountry: nil, strWebsite: nil, strFacebook: nil, strTwitter: nil, strYoutube: youtubeStr as? String, strRSS: nil, strDescriptionEN: nil, strBadge: leagueBadge as? String, strNaming: nil, strLocked: nil))
-                     } else {
-                         print("empty YOUTUBE  GET")
-                     }
-                 } else {
-                     print("empty BADEG  GET")
-                 }
-             } else {
-                 print("empty NAME  GET")
-             }
-         } else {
-             print("empty ID  GET")
-         }
-     }
- } catch (let err) {
-     print("CAAAAAAAAATCHHHHHHHH  GET")
-     delegate.onFailure(errorMessage: err.localizedDescription)
- }
- print("Finish Retrive  GET")
- 
- delegate.onSuccess(leagues: leaguesArr)
- */
-
-/*
- func addData(leagueId: String, leagueCountry: Country) {              // response WHEN onSuccess or Fail  (missing)
-     print("start addToLocal in Presenter")
-     let appDelegte = UIApplication.shared.delegate as? AppDelegate
-     let context = appDelegte!.persistentContainer.viewContext
-     let entity = NSEntityDescription.entity(forEntityName: "FavoriteLeagues", in: context)
-     let leagueMngObj = NSManagedObject(entity: entity!, insertInto: context)
- 
-     leagueMngObj.setValue(leagueId, forKey: "leagueId")
-     leagueMngObj.setValue(leagueCountry.strLeague ?? "League", forKey: "leagueName")
-     leagueMngObj.setValue(leagueCountry.strBadge, forKey: "leagueBadge")
-     leagueMngObj.setValue(leagueCountry.strYoutube ?? "", forKey: "youtubeStr")
-     
-     do{
-         try context.save()
-         print("\nDataAddedToLocal")
-     } catch {
-         print("CATCH WHEN SAVE")
-     }
-     print("\nDataSaved")
- }
- */
-
-
-/*
-
- //    func addData(product: ProductDetails, imageData: Data?) {              // response WHEN onSuccess or Fail  (missing)
- //        print("start addToLocal in Local Manager")
- //        let appDelegte = UIApplication.shared.delegate as? AppDelegate
- //        let context = appDelegte!.persistentContainer.viewContext
- //        let entity = NSEntityDescription.entity(forEntityName: "FavoriteProducts", in: context)
- //        let productMngObj = NSManagedObject(entity: entity!, insertInto: context)
- //
- //        print("PUT imgData => \(String(describing: imageData))")
- //
- //        productMngObj.setValue(product.id, forKey: "productId")
- //        productMngObj.setValue(product.variants?[0].price ?? "--", forKey: "productPrice")
- //        productMngObj.setValue(imageData, forKey: "productImage")
- //
- //        do{
- //            try context.save()
- //            print("\nDataAddedToLocal")
- //        } catch {
- //            print("CATCH WHEN SAVE")
- //        }
- //        print("\nDataSaved")
- //    }
-     
- */

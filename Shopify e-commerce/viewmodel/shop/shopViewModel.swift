@@ -23,12 +23,17 @@ class shopViewModel  : shopViewModelType{
     var errorSubject = PublishSubject<String>()
     var connectivitySubject = PublishSubject<Bool>()
     var getDataobj = ShopifyAPI.shared
+    let localManager = LocalManagerHelper.localSharedInstance
+    var quantutyObservable: Observable<Int>
+    private var quantitySubject = PublishSubject<Int>()
+    
     init() {
         dataDrive = dataSubject.asDriver(onErrorJustReturn: [] )
         discountCodeDrive = discountCodeSubject.asDriver(onErrorJustReturn: [])
         loadingDriver =  loadingSubject.asDriver(onErrorJustReturn: false)
         errorDriver = errorSubject.asDriver(onErrorJustReturn: "")
         connectivityDriver = connectivitySubject.asDriver(onErrorJustReturn: false)
+        quantutyObservable = quantitySubject.asObservable()
     }
     func fetchWomenData() {
         if(!Connectivity.isConnectedToInternet){
@@ -111,6 +116,21 @@ class shopViewModel  : shopViewModelType{
         }
     }
     
-       
+    func getCartQuantity() {
+        localManager.getAllCartProducts(userEmail: getUserEmail()) { [weak self] (localProductsArr) in
+            guard let self = self else {return}
+            var allQuantity = 0
+            if let localArr = localProductsArr {
+                for item in localArr {
+                    allQuantity += item.quantity ?? 0
+                }
+            }
+            self.quantitySubject.onNext(allQuantity)
+        }
+    }
+    
+    func getUserEmail() -> String {
+        return "ahm@d.com"
+    }
        
 }

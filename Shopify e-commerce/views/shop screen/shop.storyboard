@@ -202,11 +202,43 @@
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem title="Item" image="cart.fill" catalog="system" id="CN5-Wl-WSu">
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <action selector="cartBtn:" destination="QiX-ej-0JZ" id="c3s-QK-khq"/>
-                                </connections>
+                            <barButtonItem style="plain" id="CW2-2k-aYW">
+                                <view key="customView" contentMode="scaleToFill" id="ihs-FH-JKY">
+                                    <rect key="frame" x="302" y="5.5" width="92" height="33"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aYR-Ch-gVL">
+                                            <rect key="frame" x="0.0" y="0.0" width="92" height="33"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i1H-mE-hbj" customClass="RightNavBarView" customModule="Shopify_e_commerce" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="92" height="33"/>
+                                                </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AU3-Qa-ykH">
+                                                    <rect key="frame" x="0.0" y="0.0" width="92" height="33"/>
+                                                    <connections>
+                                                        <action selector="cartBtn:" destination="QiX-ej-0JZ" eventType="touchUpInside" id="UGm-hg-zkp"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="i1H-mE-hbj" firstAttribute="leading" secondItem="aYR-Ch-gVL" secondAttribute="leading" id="N18-rz-k20"/>
+                                                <constraint firstItem="i1H-mE-hbj" firstAttribute="top" secondItem="aYR-Ch-gVL" secondAttribute="top" id="WWU-oz-HI8"/>
+                                                <constraint firstItem="AU3-Qa-ykH" firstAttribute="leading" secondItem="aYR-Ch-gVL" secondAttribute="leading" id="Wg4-0d-3Jq"/>
+                                                <constraint firstAttribute="bottom" secondItem="i1H-mE-hbj" secondAttribute="bottom" id="Wpm-ss-N4y"/>
+                                                <constraint firstItem="AU3-Qa-ykH" firstAttribute="top" secondItem="aYR-Ch-gVL" secondAttribute="top" id="Wz9-S9-VgF"/>
+                                                <constraint firstAttribute="bottom" secondItem="AU3-Qa-ykH" secondAttribute="bottom" id="cjh-6P-srW"/>
+                                                <constraint firstAttribute="trailing" secondItem="i1H-mE-hbj" secondAttribute="trailing" id="nG4-6o-4ic"/>
+                                                <constraint firstAttribute="trailing" secondItem="AU3-Qa-ykH" secondAttribute="trailing" id="yP4-1Q-AK8"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="aYR-Ch-gVL" firstAttribute="top" secondItem="ihs-FH-JKY" secondAttribute="top" id="EB0-ou-Bwy"/>
+                                        <constraint firstItem="aYR-Ch-gVL" firstAttribute="leading" secondItem="ihs-FH-JKY" secondAttribute="leading" id="fkO-Qx-GZ5"/>
+                                        <constraint firstAttribute="trailing" secondItem="aYR-Ch-gVL" secondAttribute="trailing" id="ljZ-NS-UYE"/>
+                                        <constraint firstAttribute="bottom" secondItem="aYR-Ch-gVL" secondAttribute="bottom" id="uRl-c4-Zfr"/>
+                                    </constraints>
+                                </view>
                             </barButtonItem>
                             <barButtonItem title="Item" image="magnifyingglass" catalog="system" id="S96-FD-iPh">
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -220,6 +252,7 @@
                     <size key="freeformSize" width="414" height="980"/>
                     <connections>
                         <outlet property="ads" destination="m9m-oQ-dch" id="ihe-Mh-s1w"/>
+                        <outlet property="cartRightNavBar" destination="i1H-mE-hbj" id="iST-92-qzU"/>
                         <outlet property="collectionView" destination="Me8-Gc-FjH" id="5EM-sK-m9b"/>
                         <outlet property="connectionImg" destination="UKl-rF-niu" id="ZA7-VS-X1a"/>
                         <outlet property="gifBtnOutlet" destination="Zo3-cL-DRL" id="qyG-Is-7Wl"/>
@@ -1115,7 +1148,6 @@
         <image name="1111" width="347" height="484"/>
         <image name="add-to-cart (1)" width="512" height="512"/>
         <image name="add-to-favorites" width="512" height="512"/>
-        <image name="cart.fill" catalog="system" width="128" height="102"/>
         <image name="delete" width="24" height="24"/>
         <image name="dry-clean" width="16" height="16"/>
         <image name="empty" width="512" height="512"/>

@@ -18,6 +18,20 @@ struct Constants {
     static let sizeCell = "SizeCollectionViewCell"
     static let productDetailsVC = "ProductDetailsTableViewController"
     
+    static let favoriteCoraDataEntity = "FavoriteProducts"
+    static let cartCoraDataEntity = "CartProducts"
+    static let productIdCoraDataAtt = "productId"
+    static let userEmailCoraDataAtt = "userEmail"
+    static let mainCategoryCoraDataAtt = "mainCategory"
+    static let productImageCoraDataAtt = "productImage"
+    static let productPriceCoraDataAtt = "productPrice"
+    static let quantityCoraDataAtt = "quantity"
+    static let selectedColorCoraDataAtt = "selectedColor"
+    static let selectedSizeCoraDataAtt = "selectedSize"
+    static let titleCoraDataAtt = "title"
+    static let invQuantCoraDataAtt = "inventory_quantity"
+    
+    
     
     //end
     

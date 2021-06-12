@@ -18,6 +18,8 @@
 		0D77D2F126677C7000FFA908 /* ColorViewCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D77D2EF26677C7000FFA908 /* ColorViewCollectionViewCell.xib */; };
 		0D864DA6266565F5008474FE /* ProductDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D864DA5266565F5008474FE /* ProductDetailsTableViewController.swift */; };
 		0D9E50EA266CC14600017EE6 /* LocalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9E50E9266CC14600017EE6 /* LocalManager.swift */; };
+		0DF91A13267498F400E7D6B7 /* RightNavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF91A12267498F400E7D6B7 /* RightNavBarView.swift */; };
+		0DF91A152674990200E7D6B7 /* RightNavBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DF91A142674990200E7D6B7 /* RightNavBarView.xib */; };
 		2233A5199A5D5E90DBA5D3F0 /* Pods_Shopify_e_commerceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 241DCD4517229F4D795A6565 /* Pods_Shopify_e_commerceTests.framework */; };
 		34B6F34AD82B2CBC720E8731 /* Pods_Shopify_e_commerce.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2D64D5343D0B47711A1179C /* Pods_Shopify_e_commerce.framework */; };
 		431C85A4266AF1C300CB6886 /* discountCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C85A3266AF1C300CB6886 /* discountCode.swift */; };
@@ -121,6 +123,8 @@
 		0D77D2EF26677C7000FFA908 /* ColorViewCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorViewCollectionViewCell.xib; sourceTree = "<group>"; };
 		0D864DA5266565F5008474FE /* ProductDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsTableViewController.swift; sourceTree = "<group>"; };
 		0D9E50E9266CC14600017EE6 /* LocalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalManager.swift; sourceTree = "<group>"; };
+		0DF91A12267498F400E7D6B7 /* RightNavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightNavBarView.swift; sourceTree = "<group>"; };
+		0DF91A142674990200E7D6B7 /* RightNavBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RightNavBarView.xib; sourceTree = "<group>"; };
 		241DCD4517229F4D795A6565 /* Pods_Shopify_e_commerceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shopify_e_commerceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3457CB85F7732A62091C709A /* Pods-Shopify e-commerce.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shopify e-commerce.release.xcconfig"; path = "Target Support Files/Pods-Shopify e-commerce/Pods-Shopify e-commerce.release.xcconfig"; sourceTree = "<group>"; };
 		431C85A3266AF1C300CB6886 /* discountCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = discountCode.swift; sourceTree = "<group>"; };
@@ -258,6 +262,7 @@
 				0D14F114266C4913006AD092 /* ImageCell */,
 				0D77D2F62667DB0100FFA908 /* ColorCell */,
 				0D14F119266C4B53006AD092 /* SizeCell */,
+				0DF91A162674B3E400E7D6B7 /* RightNavBarView */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -295,6 +300,15 @@
 				0D0308DB2669373F00E56724 /* ProductDetailsViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0DF91A162674B3E400E7D6B7 /* RightNavBarView */ = {
+			isa = PBXGroup;
+			children = (
+				0DF91A12267498F400E7D6B7 /* RightNavBarView.swift */,
+				0DF91A142674990200E7D6B7 /* RightNavBarView.xib */,
+			);
+			path = RightNavBarView;
 			sourceTree = "<group>";
 		};
 		4366FD0E266D5397006E4D1B /* wishList */ = {
@@ -817,6 +831,7 @@
 				C27423DB265AEA67002D304B /* shop.storyboard in Resources */,
 				0D77D2F126677C7000FFA908 /* ColorViewCollectionViewCell.xib in Resources */,
 				C234155A266BB34F00D2AB67 /* Main.storyboard in Resources */,
+				0DF91A152674990200E7D6B7 /* RightNavBarView.xib in Resources */,
 				0D14F118266C4930006AD092 /* ImageCollectionViewCell.xib in Resources */,
 				C27423E1265AED36002D304B /* meScreen.storyboard in Resources */,
 				436A2A012672FAB60044B5DA /* receiptProductCollectionViewCell.xib in Resources */,
@@ -958,6 +973,7 @@
 				C2A8A2382667754D00D9CBBA /* SearchViewModel.swift in Sources */,
 				C2A61D20265637530047C648 /* TargetType.swift in Sources */,
 				ED00A30E265BC1D70017B055 /* MeViewController.swift in Sources */,
+				0DF91A13267498F400E7D6B7 /* RightNavBarView.swift in Sources */,
 				ED440F7D266301A400B31D23 /* UserData.swift in Sources */,
 				C2E83A4D265CAA9000A2CD95 /* MainCategoryCollectionViewCell.swift in Sources */,
 				C27423E7265AF11A002D304B /* ApplicationNetworking.swift in Sources */,
