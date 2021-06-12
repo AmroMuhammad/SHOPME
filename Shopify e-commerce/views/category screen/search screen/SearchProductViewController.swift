@@ -24,6 +24,7 @@ class SearchProductViewController: UIViewController {
     private var disposeBag:DisposeBag!
     private var sortDropDown:DropDown!
     private var filterDropDown:DropDown!
+    @IBOutlet private weak var noInternetView: UIView!
     
     
     override func viewDidLoad() {
@@ -64,6 +65,15 @@ class SearchProductViewController: UIViewController {
            let castedCell = cell as! ProductsCollectionViewCell
             castedCell.allProductObject = item
         }.disposed(by: disposeBag)
+        
+        searchViewModel.errorObservable.subscribe(onNext: {[weak self] (boolValue) in
+            switch boolValue{
+            case true:
+                self?.noInternetView.isHidden = false
+            case false:
+                self?.noInternetView.isHidden = true
+            }
+            }).disposed(by: disposeBag)
         
         searchViewModel.fetchData()
         
