@@ -13,7 +13,7 @@ import SDWebImage
 import Cosmos
 
 class ProductDetailsTableViewController: UITableViewController {
-
+    
     private var productDetailsViewModel: ProductDetailsViewModel!
     private var disposeBag: DisposeBag!
     
@@ -38,11 +38,11 @@ class ProductDetailsTableViewController: UITableViewController {
     @IBOutlet weak private var descriptionTextView: UITextView!
     
     @IBOutlet weak private var cartRightNavBar: RightNavBarView!
-
+    
     @IBOutlet weak private var favoriteButtonOutlet: UIButton!
     @IBOutlet weak private var addToCartButtonOutlet: UIButton! // change text clr to green if added??
     
-        override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         productDetailsViewModel = ProductDetailsViewModel()
@@ -51,13 +51,13 @@ class ProductDetailsTableViewController: UITableViewController {
         sliderCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
         colorsCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
         sizeCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
-            
+        
         registerNibs()
         binding()
         subscribtion()
         ratingViewInit()
         descriptionTextViewInit()
-   
+        
         productDetailsViewModel.getProductDetails(id: productId, mainCategory: productMainCategory)
         productDetailsViewModel.getLocalData()
     }
@@ -66,7 +66,7 @@ class ProductDetailsTableViewController: UITableViewController {
         productDetailsViewModel.getCartQuantity()
         productDetailsViewModel.checkIfCart()
     }
-
+    
     
     @IBAction func navToCart(_ sender: UIButton) {
         if(UserData.sharedInstance.isLoggedIn()){
@@ -79,15 +79,20 @@ class ProductDetailsTableViewController: UITableViewController {
     }
     
     @IBAction func favoriteButtonPressed(_ sender: UIButton) {
-        if sender.tag == 0 {
-            sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            productDetailsViewModel.addTofavorite()
-            sender.tag = 1
-        } else {
-            sender.setImage(UIImage(systemName: "heart"), for: .normal)
-            productDetailsViewModel.removefromFavorite(productId: productId)
-            sender.tag = 0
+        if(UserData.sharedInstance.isLoggedIn()){
+            if sender.tag == 0 {
+                sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                productDetailsViewModel.addTofavorite()
+                sender.tag = 1
+            } else {
+                sender.setImage(UIImage(systemName: "heart"), for: .normal)
+                productDetailsViewModel.removefromFavorite(productId: productId)
+                sender.tag = 0
+            }
+        }else{
+            Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List", context: self)
         }
+        
     }
     
     @IBAction func addToCartButtonPressed(_ sender: UIButton) {
@@ -99,14 +104,19 @@ class ProductDetailsTableViewController: UITableViewController {
             showAlert(title: "Missing", msg: "Please, select size!")
             return
         }
-        if sender.tag == 0 {
-            productDetailsViewModel.addToCart(selectedSize: selectedSize, selectedColor: selectedColor)
-            sender.setTitle("ADDED TO CART", for: .normal)
-            sender.tag = 1
-            productDetailsViewModel.getCartQuantity()
-        } else {
-            showAlert(title: "Info", msg: "This product is alraedy added before!")
+        if(UserData.sharedInstance.isLoggedIn()){
+            if sender.tag == 0 {
+                productDetailsViewModel.addToCart(selectedSize: selectedSize, selectedColor: selectedColor)
+                sender.setTitle("ADDED TO CART", for: .normal)
+                sender.tag = 1
+                productDetailsViewModel.getCartQuantity()
+            } else {
+                showAlert(title: "Info", msg: "This product is alraedy added before!")
+            }
+        }else{
+            Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List :D", context: self)
         }
+        
     }
     
     
@@ -114,7 +124,7 @@ class ProductDetailsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
-
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         switch indexPath.section {
@@ -134,6 +144,10 @@ class ProductDetailsTableViewController: UITableViewController {
                 val = 30.0
             case 1,3:
                 val = 50.0
+            case 4:
+                if !(UserData.sharedInstance.isLoggedIn()) {
+                    val = CGFloat.leastNonzeroMagnitude
+                }
             default:
                 val = 50.0 //CGFloat.leastNonzeroMagnitude
             }
@@ -142,7 +156,7 @@ class ProductDetailsTableViewController: UITableViewController {
             return 10.0
         }
     }
-
+    
 }
 
 
@@ -213,7 +227,7 @@ extension ProductDetailsTableViewController {
         productDetailsViewModel.quantutyObservable.bind(to: cartRightNavBar.rx.quantity).disposed(by: disposeBag)
         productDetailsViewModel.currencyObservable.bind(to: currencyLabel.rx.text).disposed(by: disposeBag)
         productDetailsViewModel.userCityObservable.bind(to: cityNameLabel.rx.text).disposed(by: disposeBag)
-
+        
     }
     
     private func subscribtion() {
@@ -261,7 +275,7 @@ extension ProductDetailsTableViewController {
     }
     
     private func descriptionTextViewInit() {
-//        descriptionTextView.translatesAutoresizingMaskIntoConstraints = true
+        //        descriptionTextView.translatesAutoresizingMaskIntoConstraints = true
         descriptionTextView.sizeToFit()
     }
     

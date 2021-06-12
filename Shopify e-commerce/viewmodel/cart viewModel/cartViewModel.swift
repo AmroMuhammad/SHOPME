@@ -34,6 +34,7 @@ class cartViewModel : cartViewModelType {
                 print("the count is equal : \(res.count)")
             } else {
                 print("erroooooooooooooooooooor")
+                
             }
         }
         

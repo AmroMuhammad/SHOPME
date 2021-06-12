@@ -106,11 +106,15 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
     //----------------------------------------User Defaults------------------------------------------------
     func getLocalData() {
         
+        let city = UserData.sharedInstance.getUserFromUserDefaults().addresses?[0]?.city ?? "Giza"
+        let country = UserData.sharedInstance.getUserFromUserDefaults().addresses?[0]?.country ?? "Egypt"
+        
         //get deliver city name from local
-        userCitySubject.onNext("Ghana")
+        userCitySubject.onNext(city+", "+country)
 
         //get currency from local
-        currencySubject.onNext("EG")
+        
+        currencySubject.onNext(UserData.sharedInstance.getCurrency())
         
         
     }
