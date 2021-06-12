@@ -62,7 +62,7 @@ protocol cartViewModelType {
 }
 protocol receiptViewModelType {
      var itemNumDrive: Driver<Int>{get}
-     func getItemNum(products: [CartProduct])
+     func getItemNum(products: [LocalProductDetails])
      
 }
 protocol applyCouponDelegate {

@@ -144,9 +144,11 @@ class shopViewController: UIViewController {
        shopProductViewModel.fetchWomenData()
         
         shopCollectionView.rx.modelSelected(Product.self).subscribe(onNext: {[weak self] (productItem) in
+            
             let storyBoard : UIStoryboard = UIStoryboard(name: "productDetails", bundle:nil)
             let productDetailsVC = storyBoard.instantiateViewController(identifier: Constants.productDetailsVC) as! ProductDetailsTableViewController
             productDetailsVC.productId = "\(productItem.id)"
+            productDetailsVC.productMainCategory = self?.categories[self?.selectedIndex ?? 0]
             self?.navigationController?.pushViewController(productDetailsVC, animated: true)
         }).disposed(by: disposeBag)
         
@@ -154,15 +156,27 @@ class shopViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         shopProductViewModel.getCartQuantity()
     }
+    
+    
     @IBAction func wishListBtn(_ sender: Any) {
-           let wishListViewController = storyboard?.instantiateViewController(identifier: Constants.wishListVC) as! wishListViewController
-           navigationController?.pushViewController(wishListViewController, animated: true)
-       }
-       
-       @IBAction func cartBtn(_ sender: Any) {
-           let cartViewController = storyboard?.instantiateViewController(identifier: Constants.cartVC) as! CardViewController
-           navigationController?.pushViewController(cartViewController, animated: true)
-       }
+        if(UserData.sharedInstance.isLoggedIn()){
+            let storyboard = UIStoryboard(name: "shop", bundle: nil)
+            let wishVC = storyboard.instantiateViewController(identifier: "wishListViewController")
+            self.navigationController?.pushViewController(wishVC, animated: true)
+        }else{
+            Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List", context: self)
+        }
+    }
+    
+    @IBAction func cartBtn(_ sender: Any) {
+        if(UserData.sharedInstance.isLoggedIn()){
+            let storyboard = UIStoryboard(name: "shop", bundle: nil)
+            let favVC = storyboard.instantiateViewController(identifier: "cartViewController")
+            self.navigationController?.pushViewController(favVC, animated: true)
+        }else{
+            Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Cart", context: self)
+        }
+    }
        
        @IBAction func searchBtn(_ sender: Any) {
             let storyBoard : UIStoryboard = UIStoryboard(name: "category", bundle:nil)

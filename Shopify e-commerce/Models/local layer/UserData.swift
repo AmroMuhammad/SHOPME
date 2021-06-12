@@ -43,12 +43,12 @@ class UserData {
     }
     
     func getUserFromUserDefaults() -> Customer {
-        let firstName = userDefaults.value(forKey: Constants.firstNameUserDefaults) as! String
-        let lastName = userDefaults.value(forKey: Constants.lastNameUserDefaults) as! String
-        let email = userDefaults.value(forKey: Constants.emailUserDefaults) as! String
-        let id = userDefaults.value(forKey: Constants.idUserDefaults) as! Int
-        let country = userDefaults.value(forKey: Constants.countryUserDefaults) as! String
-        let city = userDefaults.value(forKey: Constants.cityUserDefaults) as! String
+        let firstName = userDefaults.value(forKey: Constants.firstNameUserDefaults) as? String
+        let lastName = userDefaults.value(forKey: Constants.lastNameUserDefaults) as? String
+        let email = userDefaults.value(forKey: Constants.emailUserDefaults) as? String
+        let id = userDefaults.value(forKey: Constants.idUserDefaults) as? Int
+        let country = userDefaults.value(forKey: Constants.countryUserDefaults) as? String
+        let city = userDefaults.value(forKey: Constants.cityUserDefaults) as? String
         return Customer(id: id, email: email, firstName: firstName, lastName: lastName, phone: nil, tags: nil, addresses: [Address(id: nil, customerID: nil, city: city, country: country)])
     }
     

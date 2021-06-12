@@ -12,7 +12,7 @@ import RxSwift
 class ProductDetailsViewModel: ProductDetailsViewModelType {
     
     private var productObject: ProductDetails?
-    private var productMainCategory: String = ""
+    private var productMainCategory: String = "Men"
     
     
     var imagesObservable: Observable<[ProductDetailsImage]>
@@ -117,7 +117,8 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
     
     func getUserEmail() -> String {
         //get email from UserDefaults
-        return "ahm@d.com"
+        return UserData.sharedInstance.getUserFromUserDefaults().email ?? ""
+//        return "ahm@d.com"
     }
     
     
@@ -361,7 +362,7 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
                 print("VM getProductDetails => id => \(product?.product.id ?? 707)")
                 if let productResponse = product {
 //                    self.productDetailsDataSubject.onNext(productResponse.product)
-                    self.productMainCategory = mainCategory ?? ""
+                    self.productMainCategory = mainCategory ?? "Men"
                     self.filterData(product: productResponse.product)
                     self.productObject = product?.product
                     self.checkIfFavorite()

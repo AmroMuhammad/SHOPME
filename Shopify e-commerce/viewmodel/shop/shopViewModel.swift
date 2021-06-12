@@ -130,7 +130,8 @@ class shopViewModel  : shopViewModelType{
     }
     
     func getUserEmail() -> String {
-        return "ahm@d.com"
+        return UserDefaults.standard.string(forKey: Constants.emailUserDefaults) ?? ""
+//        return "ahm@d.com"
     }
        
 }

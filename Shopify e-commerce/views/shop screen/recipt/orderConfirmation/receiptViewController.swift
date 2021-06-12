@@ -12,7 +12,7 @@ import RxCocoa
 
 class receiptViewController: UITableViewController {
     var disposeBag = DisposeBag()
-    var allCartProductForReceipt : [CartProduct]?
+    var allCartProductForReceipt : [LocalProductDetails]?
     var totalCartPrice : String?
     var receiptViewModelObj : receiptViewModelType!
     var couponProductType : String?

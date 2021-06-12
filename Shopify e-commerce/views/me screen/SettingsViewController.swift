@@ -25,12 +25,7 @@ class SettingsViewController: UIViewController {
     private var meViewModel:MeViewModel!
     private var userData:UserData!
 
-    //Ayman
-    var isWhishList = true;
-    var whishListArray = ["whishListArray","whishListArray","whishListArray","whishListArray"]
-    var bagArray = ["bag1","bag1","bag1","bag1","bag1","bag1"]
-    
-
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.title = "Settings"
@@ -89,50 +84,47 @@ class SettingsViewController: UIViewController {
             }
             }).disposed(by: disposeBag)
         
-//        meViewModel.favouriteObservable.bind(to: tableview.rx.items(cellIdentifier: "localCell")){row,item,cell in
-//            if(row == 3){
-//                self.tableview.tableFooterView = button
-//                cell.textLabel?.text = item.productPrice
-//                button.tag = 1
-//                cell.imageView?.image = UIImage(data: item.productImageData)
-//
-//            }else{
-//                cell.textLabel?.text = item.productPrice
-//                self.tableview.tableFooterView = nil
-//                cell.imageView?.image = UIImage(data: item.productImageData)
-//
-//            }
-//
-//        }.disposed(by: disposeBag)
-        
-        meViewModel.wishlistObservable.bind(to: tableview.rx.items(cellIdentifier: "localCell")){row,item,cell in
-           if(row == 3){
-            self.tableview.tableFooterView = button
-            cell.textLabel?.text = item.title
-            cell.imageView?.image = UIImage(data: item.productImageData)
-                button.tag = 2
+        meViewModel.favouriteObservable.bind(to: tableview.rx.items(cellIdentifier: "localCell")){row,item,cell in
+            if(row == 3){
+                self.tableview.tableFooterView = button
+                cell.textLabel?.text = item.title
+                button.tag = 1
+                cell.imageView?.image = UIImage(data: item.productImageData)
             }else{
-            cell.textLabel?.text = item.title
-            cell.imageView?.image = UIImage(data: item.productImageData)
-            self.tableview.tableFooterView = nil
+                cell.textLabel?.text = item.title
+                self.tableview.tableFooterView = nil
+                cell.imageView?.image = UIImage(data: item.productImageData)
             }
         }.disposed(by: disposeBag)
         
-        tableview.rx.modelSelected(CartProduct.self).subscribe(onNext: {[weak self] (cartProduct) in
+//        meViewModel.wishlistObservable.bind(to: tableview.rx.items(cellIdentifier: "localCell")){row,item,cell in
+//            if(row == 3){
+//                self.tableview.tableFooterView = button
+//                cell.textLabel?.text = item.title
+//                cell.imageView?.image = UIImage(data: item.productImageData)
+//                button.tag = 2
+//            }else{
+//                cell.textLabel?.text = item.title
+//                cell.imageView?.image = UIImage(data: item.productImageData)
+//                self.tableview.tableFooterView = nil
+//            }
+//        }.disposed(by: disposeBag)
+        
+        tableview.rx.modelSelected(LocalProductDetails.self).subscribe(onNext: {[weak self] (cartProduct) in
             let storyBoard : UIStoryboard = UIStoryboard(name: "productDetails", bundle:nil)
             let productDetailsVC = storyBoard.instantiateViewController(identifier: Constants.productDetailsVC) as! ProductDetailsTableViewController
             productDetailsVC.productId = "\(cartProduct.productId)"
+            productDetailsVC.productMainCategory = "\(cartProduct.mainCategory!)"
             self?.navigationController?.pushViewController(productDetailsVC, animated: true)
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
-//        tableview.rx.modelSelected(FavoriteProduct.self).subscribe(onNext: {[weak self] (favProduct) in
-//        let storyBoard : UIStoryboard = UIStoryboard(name: "productDetails", bundle:nil)
-//        let productDetailsVC = storyBoard.instantiateViewController(identifier: Constants.productDetailsVC) as! ProductDetailsTableViewController
-//        productDetailsVC.productId = "\(favProduct.productId)"
-//        self?.navigationController?.pushViewController(productDetailsVC, animated: true)
-//        }).disposed(by: disposeBag)
-
-                        
+        tableview.rx.modelSelected(LocalProductDetails.self).subscribe(onNext: {[weak self] (favProduct) in
+            let storyBoard : UIStoryboard = UIStoryboard(name: "productDetails", bundle:nil)
+            let productDetailsVC = storyBoard.instantiateViewController(identifier: Constants.productDetailsVC) as! ProductDetailsTableViewController
+            productDetailsVC.productId = "\(favProduct.productId)"
+            productDetailsVC.productMainCategory = "\(favProduct.mainCategory!)"
+            self?.navigationController?.pushViewController(productDetailsVC, animated: true)
+        }).disposed(by: disposeBag)
     }
     
     @objc func moreButtonClicked(_ sender: UIButton) {

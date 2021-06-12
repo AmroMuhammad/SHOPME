@@ -12,7 +12,7 @@ import RxSwift
 class CardViewController: UIViewController {
     var cartViewModelObj : cartViewModelType!
     var disposeBag = DisposeBag()
-    var allCartProduct : [CartProduct]?
+    var allCartProduct : [LocalProductDetails]?
    
     @IBOutlet weak var cartTableView: UITableView!
     @IBOutlet weak var noItemImg: UIImageView!

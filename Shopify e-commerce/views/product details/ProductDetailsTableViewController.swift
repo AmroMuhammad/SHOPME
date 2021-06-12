@@ -69,9 +69,13 @@ class ProductDetailsTableViewController: UITableViewController {
 
     
     @IBAction func navToCart(_ sender: UIButton) {
-        let storyBoard = UIStoryboard(name: "shop", bundle: nil)
-        let cartVC = storyBoard.instantiateViewController(withIdentifier: Constants.cartVC) as! CardViewController
-        navigationController?.pushViewController(cartVC, animated: true)
+        if(UserData.sharedInstance.isLoggedIn()){
+            let storyboard = UIStoryboard(name: "shop", bundle: nil)
+            let wishVC = storyboard.instantiateViewController(identifier: "cartViewController")
+            self.navigationController?.pushViewController(wishVC, animated: true)
+        }else{
+            Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List", context: self)
+        }
     }
     
     @IBAction func favoriteButtonPressed(_ sender: UIButton) {

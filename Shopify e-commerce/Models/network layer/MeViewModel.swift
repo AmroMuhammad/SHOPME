@@ -14,8 +14,8 @@ class MeViewModel : MeViewModelContract{
     private var errorSubject = PublishSubject<(String,Bool)>()
     private var loadingSubject = PublishSubject<Bool>()
     private var signedInSubject = PublishSubject<Bool>()
-    private var favouriteSubject = PublishSubject<[FavoriteProduct]>()
-    private var wishListSubject = PublishSubject<[CartProduct]>()
+    private var favouriteSubject = PublishSubject<[LocalProductDetails]>()
+    private var wishListSubject = PublishSubject<[LocalProductDetails]>()
 
     private var data:[Customer]!
     private var shopifyAPI:ShopifyAPI!
@@ -25,8 +25,8 @@ class MeViewModel : MeViewModelContract{
     var errorObservable: Observable<(String, Bool)>
     var loadingObservable: Observable<Bool>
     var signedInObservable: Observable<Bool>
-    var favouriteObservable: Observable<[FavoriteProduct]>
-    var wishlistObservable: Observable<[CartProduct]>
+    var favouriteObservable: Observable<[LocalProductDetails]>
+    var wishlistObservable: Observable<[LocalProductDetails]>
     
     init() {
         errorObservable = errorSubject.asObservable()
@@ -68,32 +68,31 @@ class MeViewModel : MeViewModelContract{
     }
     
     func fetchLocalData(type:String) {
-//        var email = userData.getUserFromUserDefaults().email!
-        let email = "ahm@d.com"
+        let email = userData.getUserFromUserDefaults().email ?? ""
+//        let email = "ahm@d.com"
         if(type == "favourite"){
             localManager.getAllProductsFromFavorite(userEmail: email) {[weak self] (result) in
-                switch(result){
-                case .success(let favList):
-                    if(favList?.count ?? 0 > 4){
-                        self?.favouriteSubject.onNext(Array(favList?[0...3] ?? []))
+                if let res = result {
+                    if(res.count > 4){
+                        self?.favouriteSubject.onNext(Array(res[0...3]))
                     }else{
-                        self?.favouriteSubject.onNext(favList ?? [])
+                        self?.favouriteSubject.onNext(res)
                     }
-                case .failure(let error):
-                    self?.errorSubject.onNext((error.localizedDescription, true))
+                } else {
+                    self?.errorSubject.onNext(("No favorite items Found", true))
                 }
             }
         }else{
             localManager.getAllCartProducts(userEmail: email) {[weak self] (result) in
-                switch(result){
-                case .success(let cartList):
-                    if(cartList?.count ?? 0 > 4){
-                        self?.wishListSubject.onNext(Array(cartList?[0...3] ?? []))
+
+                if let res = result {
+                    if(res.count > 4){
+                        self?.wishListSubject.onNext(Array(res[0...3]))
                     }else{
-                        self?.wishListSubject.onNext(cartList ?? [])
+                        self?.wishListSubject.onNext(res)
                     }
-                case .failure(let error):
-                    self?.errorSubject.onNext((error.localizedDescription, true))
+                } else {
+                    self?.errorSubject.onNext(("No cart items Found", true))
                 }
             }
         }

@@ -18,7 +18,8 @@ class wishListViewModel : wishListViewModelType{
            dataDrive = dataSubject.asDriver(onErrorJustReturn: [] )
     }
     func getwishListData() {
-        coreDataobj.getAllProductsFromFavorite(userEmail: "ahm@d.com") { [weak self](result) in
+        let email = UserDefaults.standard.string(forKey: Constants.emailUserDefaults) ?? ""
+        coreDataobj.getAllProductsFromFavorite(userEmail: email) { [weak self](result) in
             if let res = result{
                 self!.dataSubject.onNext(res)
                 print("the count is equal : \(res.count)")

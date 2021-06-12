@@ -18,11 +18,15 @@ class RightNavBarView: UIView {
     
     var quantity: String!{
         didSet{
-            if quantity == "0"{
-                quantityViewContainer.isHidden = true
+            if (UserData.sharedInstance.isLoggedIn()) {
+                if quantity == "0"{
+                    quantityViewContainer.isHidden = true
+                } else {
+                    quantityViewContainer.isHidden = false
+                    quantityLabrl.text = quantity
+                }
             } else {
-                quantityViewContainer.isHidden = false
-                quantityLabrl.text = quantity
+                quantityViewContainer.isHidden = true
             }
         }
     }

@@ -18,7 +18,7 @@ class receiptViewModel : receiptViewModelType {
     init() {
        itemNumDrive = itemNumSubject.asDriver(onErrorJustReturn: 0 )
     }
-    func getItemNum(products: [CartProduct]) {
+    func getItemNum(products: [LocalProductDetails]) {
         var totalItemNum : Int = 0
         var count = 0
         while count < products.count {

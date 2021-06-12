@@ -26,7 +26,7 @@ class receiptProductCollectionViewCell: UICollectionViewCell {
                img.layer.shadowOpacity = 1
                img.layer.masksToBounds = true
     }
-   var cellProduct : CartProduct! {
+   var cellProduct : LocalProductDetails! {
        didSet{
          checkImageData(imageData: cellProduct.productImageData)
          productNum.text = "\(cellProduct.quantity!)"

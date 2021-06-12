@@ -26,8 +26,8 @@ class cartViewModel : cartViewModelType {
     }
     func getCartData() {
         //get data from core data
-    //  let email = UserDefaults.standard.string(forKey: "email")
-        coreDataobj.getAllCartProducts(userEmail: "ahm@d.com") { [weak self](result) in
+        let email = UserDefaults.standard.string(forKey: Constants.emailUserDefaults) ?? ""
+        coreDataobj.getAllCartProducts(userEmail: email) { [weak self](result) in
             if  let res = result {
                 self!.dataSubject.onNext(res)
                 self!.totalPrice(products: res)
