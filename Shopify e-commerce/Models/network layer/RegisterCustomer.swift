@@ -6,30 +6,39 @@
 //  Copyright © 2021 ITI41. All rights reserved.
 
 import Foundation
-class RegisterCustomer:Codable {
-    var customer:CustomerRegister?
+struct RegisterCustomer: Codable {
+    let customer: Customer
 }
-class CustomerRegister:Codable {
-    var email:String?
-    var first_name, last_name, tags, phone: String?
-    var id:Int?
-    var note:String?
-    var address:[DefaultAddress]?
+
+struct Customer: Codable {
+    let id: Int?
+    let email, firstName, lastName, phone: String?
+    let tags: String?
+    let addresses: [Address?]?
+
+    enum CodingKeys: String, CodingKey {
+        case id, email
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case addresses
+        case phone, tags
+    }
 }
-class DefaultAddress:Codable {
-    var city:String?
-    var country:String?
-    var customer_id:Int?
-    var first_name:String?
-    var last_name:String?
-    var company:String?
-    var address1:String?
-    var address2:String?
-    var province: String?
-    var zip:String?
-    var phone : String?
-    var name: String?
-    var province_code:String?
-    var country_code: String?
-    var country_name: String?
+
+// MARK: - Address
+struct Address: Codable {
+    let id, customerID: Int?
+    let city,country: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case customerID = "customer_id"
+        case city, country
+    }
+}
+
+
+
+struct AllCustomers: Codable {
+    var customers: [Customer]
 }

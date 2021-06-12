@@ -35,7 +35,12 @@ class shopViewController: UIViewController {
             self?.cartRightNavBar.quantity = "\(quant)"
         }).disposed(by: disposeBag)
 
-        shopProductViewModel.discountCodeDrive.drive(onNext: {[weak self] (discountCodeVal) in
+       // collectionView.delegate = self
+        let mainCatNibCell = UINib(nibName: Constants.menuCell, bundle: nil)
+        collectionView.register(mainCatNibCell, forCellWithReuseIdentifier: Constants.menuCell)
+        collectionView.rx.setDelegate(self).disposed(by: disposeBag)
+
+          shopProductViewModel.discountCodeDrive.drive(onNext: {[weak self] (discountCodeVal) in
             var  i : Int?
             self!.ads.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
             self!.ads.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -88,6 +93,15 @@ class shopViewController: UIViewController {
          }).disposed(by: disposeBag)
        //end
         
+        
+        Observable.just(categories).bind(to: collectionView.rx.items(cellIdentifier: Constants.menuCell)){row,item,cell in
+            (cell as? mainCategoriesCollectionViewCell )?.categoryName.text = item
+         }.disposed(by: disposeBag)
+        
+        collectionView.rx.itemSelected.subscribe{[weak self](IndexPath) in
+            self!.applyChanges(index: IndexPath.element![1])
+        }.disposed(by: disposeBag)
+
        // MARK: - Error
         
          shopProductViewModel.errorDriver.drive(onNext: { [weak self](errorVal) in
@@ -163,13 +177,18 @@ class shopViewController: UIViewController {
         gifBtnOutlet.isHidden = true
         var gifURL = ""
         
+        let defaults = UserDefaults.standard
+       
         if(selectedIndex == 0){
             gifURL = Constants.womenGif
+            defaults.set(true, forKey: "Women")
         }
         else if(selectedIndex == 1){
             gifURL  = Constants.menGif
+            defaults.set(true, forKey: "Men")
         }else{
             gifURL = Constants.kidsGif
+            defaults.set(true, forKey: "Kids")
         }
         
         gifimage.sd_imageIndicator = SDWebImageActivityIndicator.gray
@@ -198,7 +217,7 @@ class shopViewController: UIViewController {
            let desiredX = (collectionView.bounds.width / CGFloat(categories.count)) * CGFloat(selectedIndex)
            
            UIView.animate(withDuration: 0.3) {
-                self.indicatorView.frame = CGRect(x: desiredX, y: self.collectionView.bounds.maxY - self.indicatorHeight, width: self.collectionView.bounds.width / CGFloat(self.categories.count), height: self.indicatorHeight)
+                self.indicatorView.frame = CGRect(x: desiredX, y: self.collectionView.bounds.maxY - self.indicatorHeight, width: self.collectionView.frame.width / CGFloat(self.categories.count), height: self.indicatorHeight)
            }
        }
     
@@ -207,7 +226,7 @@ class shopViewController: UIViewController {
          gifBtnOutlet.isHidden = false
          self.ads.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
          self.ads.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-         self.ads.text = "- #ADS -"
+         self.ads.text = "- ADS -"
     }
     
     func showAlert(msg : String){
@@ -234,35 +253,16 @@ class shopViewController: UIViewController {
 
 }
 
-extension shopViewController :  UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
-
-   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-          return categories.count
-      }
-
-
-      func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.menuCell , for: indexPath) as! allProductCollectionViewCell
-        cell.setupCell(text: categories[indexPath.row])
-          return cell
-      }
+extension shopViewController :  UICollectionViewDelegateFlowLayout {
 
       func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
         {
             if(collectionView.tag == 1){
-                return CGSize(width: (self.view.frame.width)/3, height: 30)
+                return CGSize(width: (self.collectionView.frame.width)/3, height: 30)
             }else{
                 return CGSize(width: 128, height: 128)
             }
         }
-        
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-            return 0
-        }
-      
-      func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        applyChanges(index: indexPath.row)
-      }
+    
 }
 

@@ -15,7 +15,8 @@ class CategoryViewModel : CategoryViewModelContract{
     var productDataObservable: Observable<[CategoryProduct]>
     var searchDataObservable: Observable<[CategoryProduct]>
     var errorObservable: Observable<Bool>
-    var LoadingObservable: Observable<Bool>
+    var loadingObservable: Observable<Bool>
+    var noItemsObservable: Observable<Bool>
     
     private var shopifyAPI:CategoryAPIContract!
     var data:[CategoryProduct]?
@@ -27,16 +28,19 @@ class CategoryViewModel : CategoryViewModelContract{
 
     
     private var errorsubject = PublishSubject<Bool>()
-    private var Loadingsubject = PublishSubject<Bool>()
+    private var loadingsubject = PublishSubject<Bool>()
+    private var noItemSubject = PublishSubject<Bool>()
+
 
     init() {
         mainCatDataObservable = mainCatDatasubject.asObservable()
         subCatDataObservable = subCatDatasubject.asObservable()
         productDataObservable = productDatasubject.asObservable()
         searchDataObservable = searchDatasubject.asObservable()
+        noItemsObservable = noItemSubject.asObservable()
 
         errorObservable = errorsubject.asObservable()
-        LoadingObservable = Loadingsubject.asObservable()
+        loadingObservable = loadingsubject.asObservable()
         
         shopifyAPI = ShopifyAPI.shared
     }
@@ -47,21 +51,27 @@ class CategoryViewModel : CategoryViewModelContract{
     }
     
     func fetchCatProducts(mainCat:String,subCat:String){
-        Loadingsubject.onNext(true)
+        loadingsubject.onNext(true)
         print(mainCat + " " + subCat)
         shopifyAPI.getCategoryProducts(catType: mainCat) {[weak self] (result) in
             switch result{
             case .success(let cat):
+                self?.errorsubject.onNext(false)
                 self?.data = cat?.products
                 let filteredData = self?.data?.filter({(catItem) -> Bool in
                     catItem.productType.capitalized == subCat.capitalized
                 })
+                if(filteredData?.isEmpty ?? true){
+                    self?.noItemSubject.onNext(true)
+                }else{
+                    self?.noItemSubject.onNext(false)
+                }
                 self?.productDatasubject.onNext(filteredData ?? [])
                 self?.data = filteredData
-                self?.Loadingsubject.onNext(false)
-            case .failure(let error):
-                self?.Loadingsubject.onNext(false)
-                self?.errorsubject.onError(error)
+                self?.loadingsubject.onNext(false)
+            case .failure(_):
+                self?.loadingsubject.onNext(false)
+                self?.errorsubject.onNext(true)
             }
         }
     }
