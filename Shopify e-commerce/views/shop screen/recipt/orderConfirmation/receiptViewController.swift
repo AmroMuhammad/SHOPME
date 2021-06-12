@@ -17,6 +17,7 @@ class receiptViewController: UITableViewController {
     var receiptViewModelObj : receiptViewModelType!
     var couponProductType : String?
     
+    @IBOutlet weak var paymentCell: UITableViewCell!
     @IBOutlet weak var finalDiscount: UILabel!
     @IBOutlet weak var receiptProductCollectionView: UICollectionView!
     @IBOutlet weak var itemNumber: UILabel!

@@ -547,11 +547,11 @@
                         <sections>
                             <tableViewSection id="K07-HH-gwK">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="114" id="oDk-SN-p7q">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="114"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="151" id="oDk-SN-p7q">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="151"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oDk-SN-p7q" id="pwo-3d-26F">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="114"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="151"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Method" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flE-ny-HHZ">
@@ -588,7 +588,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="207" id="gVL-Hf-yAB">
-                                        <rect key="frame" x="0.0" y="142" width="414" height="207"/>
+                                        <rect key="frame" x="0.0" y="179" width="414" height="207"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gVL-Hf-yAB" id="Uxf-6f-mcP">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="207"/>
@@ -645,7 +645,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="66" id="gU0-wY-2gm">
-                                        <rect key="frame" x="0.0" y="349" width="414" height="66"/>
+                                        <rect key="frame" x="0.0" y="386" width="414" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gU0-wY-2gm" id="9aI-t4-hy5">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="66"/>
@@ -680,7 +680,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="363" id="48L-8x-LD0">
-                                        <rect key="frame" x="0.0" y="415" width="414" height="363"/>
+                                        <rect key="frame" x="0.0" y="452" width="414" height="363"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="48L-8x-LD0" id="ZMH-aU-nsr">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="363"/>
@@ -831,6 +831,7 @@
                         <outlet property="discount" destination="3RG-t1-EBE" id="ggT-yw-LEs"/>
                         <outlet property="finalDiscount" destination="9GB-jm-y8J" id="Qhl-jw-Nar"/>
                         <outlet property="itemNumber" destination="2Hl-F4-JOD" id="9nG-za-blo"/>
+                        <outlet property="paymentCell" destination="oDk-SN-p7q" id="Pug-9L-ufj"/>
                         <outlet property="receiptProductCollectionView" destination="lSb-ou-nVs" id="k5O-Bn-a7s"/>
                         <outlet property="secondCell" destination="gU0-wY-2gm" id="wdi-G3-GgO"/>
                         <outlet property="totalPrice" destination="EJt-nE-hO0" id="mhU-V8-Z5F"/>
