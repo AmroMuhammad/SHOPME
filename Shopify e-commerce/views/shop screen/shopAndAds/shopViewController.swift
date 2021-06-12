@@ -167,13 +167,18 @@ class shopViewController: UIViewController {
         gifBtnOutlet.isHidden = true
         var gifURL = ""
         
+        let defaults = UserDefaults.standard
+       
         if(selectedIndex == 0){
             gifURL = Constants.womenGif
+            defaults.set(true, forKey: "Women")
         }
         else if(selectedIndex == 1){
             gifURL  = Constants.menGif
+            defaults.set(true, forKey: "Men")
         }else{
             gifURL = Constants.kidsGif
+            defaults.set(true, forKey: "Kids")
         }
         
         gifimage.sd_imageIndicator = SDWebImageActivityIndicator.gray

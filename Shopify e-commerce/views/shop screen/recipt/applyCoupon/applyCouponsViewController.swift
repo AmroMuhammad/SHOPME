@@ -18,12 +18,15 @@ class applyCouponsViewController: UIViewController {
     var selectedIndex = 0
     var discountDelegate : applyCouponDelegate?
     
+    var applyCouponViewModelObj: applyCouponViewModel?
+    
     @IBOutlet weak var availableCoupon: UITableView!
     @IBOutlet weak var alertLabel: UILabel!
     @IBOutlet weak var couponStateCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        applyCouponViewModelObj = applyCouponViewModel()
         availableCoupon.delegate = self
         couponStateCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
         couponStateCollectionView.delegate = self
@@ -49,10 +52,12 @@ class applyCouponsViewController: UIViewController {
             self!.navigationController?.popViewController(animated: true)
         }.disposed(by: disposeBag)
        
-        
-        Observable.just(["Available","Not Available"]).bind(to: availableCoupon.rx.items(cellIdentifier: Constants.availableCouponCell)){row,item,cell in
-           // (cell as? availableCouponTableViewCell )?.lbl.text = item
-        }.disposed(by: disposeBag)
+        applyCouponViewModelObj?.availableCouponsDrive.drive(onNext: {[weak self] (val) in
+            Observable.just(val).bind(to: self!.availableCoupon.rx.items(cellIdentifier: Constants.availableCouponCell)){row,item,cell in
+                (cell as? availableCouponTableViewCell )?.discountCode.text = "Code: " + item.code!
+                (cell as? availableCouponTableViewCell )?.productType.text = item.productType
+            }.disposed(by: self!.disposeBag)
+        }).disposed(by: disposeBag)
         
         let imageAttachment = NSTextAttachment()
         imageAttachment.image = UIImage(named:"alert")
@@ -65,6 +70,8 @@ class applyCouponsViewController: UIViewController {
         completeText.append(textAfterIcon)
         self.alertLabel.textAlignment = .left
         self.alertLabel.attributedText = completeText
+        
+        applyCouponViewModelObj!.getAvailableAndUnavailableCoupons(productType: ["Women","Kids","Men"])
                
     }
     
