@@ -64,7 +64,6 @@ class ProductDetailsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         productDetailsViewModel.getCartQuantity()
-        print("\n\n\n\n\n\n\nviewWillAppear\n\n\n\n\n\n")
         productDetailsViewModel.checkIfCart()
     }
 
@@ -247,13 +246,10 @@ extension ProductDetailsTableViewController {
         
         productDetailsViewModel.checkProductInCartObservable.subscribe(onNext: {  [weak self] (resBool) in
             guard let self = self else {return}
-            print("\n\n\n\ncheckProductInCartObservable.subscribe")
             if resBool {
-                print("\n\n\n\ncheckProductInCartObservable.subscribe true\n\n\n\n")
                 self.addToCartButtonOutlet.tag = 1
                 self.addToCartButtonOutlet.setTitle("ADDED TO CART", for: .normal)
             } else {
-                print("\n\n\n\ncheckProductInCartObservable.subscribe false\n\n\n\n")
                 self.addToCartButtonOutlet.tag = 0
                 self.addToCartButtonOutlet.setTitle("ADD TO CART", for: .normal)
             }

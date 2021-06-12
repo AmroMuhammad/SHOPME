@@ -75,6 +75,10 @@ struct LocalProductDetails {
     let inventory_quantity: Int?
 }
 
+enum EntityName: String {
+    case FavoriteProducts
+    case CartProducts
+}
 
 //class FavoriteProduct {
 //
@@ -106,10 +110,7 @@ struct LocalProductDetails {
 //    }
 //}
 
-//enum EntityName: String {
-//    case FavoriteProducts
-//    case CartProducts
-//}
+
 
 
 /*

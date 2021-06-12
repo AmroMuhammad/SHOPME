@@ -122,33 +122,33 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
     
     
     
-    //----------------------------------------Favorite------------------------------------------------
+    //----------------------------------------check Local------------------------------------------------
     
     func checkIfFavorite(){
-        print("VM B4 checkIfFavorite \(productObject?.id)")
+        print("VM B4 checkIfFavorite \(String(describing: productObject?.id))")
         if let productObj = productObject{
-            localManager.checkFavProduct(userEmail: getUserEmail(), productId: productObj.id) { (resBool) in
+            localManager.checkProduct(entityName: .FavoriteProducts, userEmail: getUserEmail(), productId: productObj.id) { [weak self] (_, resBool) in
+                guard let self = self else {return}
                 self.checkProductInFavoriteSubject.onNext(resBool)
             }
         }
     }
     
     func checkIfCart(){
-        print("VM B4 checkIfCart \(productObject?.id)")
+        print("VM B4 checkIfCart \(String(describing: productObject?.id))")
         if let productObj = productObject{
-            localManager.checkCartProduct(userEmail: getUserEmail(), productId: productObj.id) { (cartProduct) in
-                if cartProduct != nil {
+            localManager.checkProduct(entityName: .CartProducts, userEmail: getUserEmail(), productId: productObj.id) { [weak self] (product, resBool) in
+                guard let self = self else {return}
+                if product != nil {
                     print("VM checkIfCart Found Successfully ")
-                    self.checkProductInCartSubject.onNext(true)
-                    self.checkProductInCartWithObjectSubject.onNext(cartProduct)
-                } else {
-                    self.checkProductInCartSubject.onNext(false)
+                    self.checkProductInCartWithObjectSubject.onNext(product)
                 }
+                self.checkProductInCartSubject.onNext(resBool)
             }
         }
     }
     
-    
+    //----------------------------------------Favorite------------------------------------------------
     func addTofavorite(){
         var res = true
         
