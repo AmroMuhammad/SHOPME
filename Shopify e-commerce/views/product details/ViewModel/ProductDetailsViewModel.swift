@@ -141,6 +141,8 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
                     print("VM checkIfCart Found Successfully ")
                     self.checkProductInCartSubject.onNext(true)
                     self.checkProductInCartWithObjectSubject.onNext(cartProduct)
+                } else {
+                    self.checkProductInCartSubject.onNext(false)
                 }
             }
         }
