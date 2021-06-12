@@ -82,6 +82,7 @@ struct Constants {
       static let receiptProductCell = "receiptProductCollectionViewCell"
       static let couponsStateCell = "couponsStateCollectionViewCell"
       static let availableCouponCell = "availableCouponTableViewCell"
+      static let NotAvailableCell = "NotAvailableTableViewCell"
       static let moveFromBagToWishMsg = "Are you sure, you want to move these items from bag to wish list?"
       static let deleteFromBagMsg = "Are you sure, you want to delete these items from bag?"
       static let addToBagFromWishMsg = "Are you sure you want to add these items to bag ? "

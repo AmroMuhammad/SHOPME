@@ -38,6 +38,8 @@
 		436A2A0D267409240044B5DA /* couponsStateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436A2A0B267409240044B5DA /* couponsStateCollectionViewCell.swift */; };
 		436A2A1026745AD50044B5DA /* availableCouponTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436A2A0F26745AD50044B5DA /* availableCouponTableViewCell.swift */; };
 		436A2A1426748E810044B5DA /* applyCouponViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436A2A1326748E810044B5DA /* applyCouponViewModel.swift */; };
+		436A2A172674BB480044B5DA /* NotAvailableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436A2A152674BB480044B5DA /* NotAvailableTableViewCell.swift */; };
+		436A2A182674BB480044B5DA /* NotAvailableTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 436A2A162674BB480044B5DA /* NotAvailableTableViewCell.xib */; };
 		438DED8C265CCCCA002717CD /* shopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DED8B265CCCCA002717CD /* shopViewController.swift */; };
 		438DED8F265CCD26002717CD /* shopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DED8E265CCD26002717CD /* shopViewModel.swift */; };
 		439BB315265E6990001F1A1D /* AllProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439BB314265E6990001F1A1D /* AllProduct.swift */; };
@@ -137,6 +139,8 @@
 		436A2A0B267409240044B5DA /* couponsStateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = couponsStateCollectionViewCell.swift; sourceTree = "<group>"; };
 		436A2A0F26745AD50044B5DA /* availableCouponTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = availableCouponTableViewCell.swift; sourceTree = "<group>"; };
 		436A2A1326748E810044B5DA /* applyCouponViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = applyCouponViewModel.swift; sourceTree = "<group>"; };
+		436A2A152674BB480044B5DA /* NotAvailableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotAvailableTableViewCell.swift; sourceTree = "<group>"; };
+		436A2A162674BB480044B5DA /* NotAvailableTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotAvailableTableViewCell.xib; sourceTree = "<group>"; };
 		438DED8B265CCCCA002717CD /* shopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shopViewController.swift; sourceTree = "<group>"; };
 		438DED8E265CCD26002717CD /* shopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shopViewModel.swift; sourceTree = "<group>"; };
 		439BB314265E6990001F1A1D /* AllProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProduct.swift; sourceTree = "<group>"; };
@@ -374,6 +378,8 @@
 				436A2A052673FD150044B5DA /* applyCouponsViewController.swift */,
 				436A2A0B267409240044B5DA /* couponsStateCollectionViewCell.swift */,
 				436A2A0F26745AD50044B5DA /* availableCouponTableViewCell.swift */,
+				436A2A152674BB480044B5DA /* NotAvailableTableViewCell.swift */,
+				436A2A162674BB480044B5DA /* NotAvailableTableViewCell.xib */,
 			);
 			path = applyCoupon;
 			sourceTree = "<group>";
@@ -814,6 +820,7 @@
 				436913382671987400BA0632 /* mainCategoriesCollectionViewCell.xib in Resources */,
 				C2A61CF9265633220047C648 /* LaunchScreen.storyboard in Resources */,
 				C2A61CF6265633220047C648 /* Assets.xcassets in Resources */,
+				436A2A182674BB480044B5DA /* NotAvailableTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -973,6 +980,7 @@
 				ED53D1CE266BC954002E6083 /* MeViewModel.swift in Sources */,
 				ED76EF7E2669C3B600F32C7B /* RegisterCustomer.swift in Sources */,
 				C26E7C2D26664714000CB417 /* BaseViewControllerContract.swift in Sources */,
+				436A2A172674BB480044B5DA /* NotAvailableTableViewCell.swift in Sources */,
 				C2A61CEC265633200047C648 /* SceneDelegate.swift in Sources */,
 				C2A8A235266757E700D9CBBA /* SearchProductViewController.swift in Sources */,
 				C27423E9265AF4FE002D304B /* ShopifyAPI.swift in Sources */,

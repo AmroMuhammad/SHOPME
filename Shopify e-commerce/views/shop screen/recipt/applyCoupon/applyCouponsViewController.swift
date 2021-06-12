@@ -20,18 +20,43 @@ class applyCouponsViewController: UIViewController {
     
     var applyCouponViewModelObj: applyCouponViewModel?
     
+    @IBOutlet weak var notAvailableCouponView: UIView!
+    @IBOutlet weak var notAvailableTableView: UITableView!
+    @IBOutlet weak var availableCouponView: UIView!
     @IBOutlet weak var availableCoupon: UITableView!
     @IBOutlet weak var alertLabel: UILabel!
     @IBOutlet weak var couponStateCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let notAvailableNibCell = UINib(nibName: Constants.NotAvailableCell, bundle: nil)
+        notAvailableTableView.register( notAvailableNibCell, forCellReuseIdentifier: Constants.NotAvailableCell)
+        
         applyCouponViewModelObj = applyCouponViewModel()
         availableCoupon.delegate = self
+        notAvailableTableView.delegate = self
         couponStateCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
         couponStateCollectionView.delegate = self
         Observable.just(["Available","Not Available"]).bind(to: couponStateCollectionView.rx.items(cellIdentifier: Constants.couponsStateCell)){row,item,cell in
             (cell as? couponsStateCollectionViewCell )?.lbl.text = item
+        }.disposed(by: disposeBag)
+        
+        applyCouponViewModelObj?.notAvailableCouponsDrive.drive(onNext: {[weak self] (val) in
+            Observable.just(val).bind(to: self!.notAvailableTableView.rx.items(cellIdentifier: Constants.NotAvailableCell)){row,item,cell in
+                  (cell as? NotAvailableTableViewCell )?.discountCode.text = "Code: " + item.code!
+                (cell as? NotAvailableTableViewCell )?.productType.text = ". For " + item.productType! + " products"
+           }.disposed(by: self!.disposeBag)
+            }).disposed(by: disposeBag)
+        
+        couponStateCollectionView.rx.itemSelected.subscribe{[weak self](IndexPath) in
+            if( IndexPath.element![1] == 0){
+                self!.availableCouponView.isHidden = false
+                self!.notAvailableCouponView.isHidden = true
+            }else{
+               self!.availableCouponView.isHidden = true
+               self!.notAvailableCouponView.isHidden = false
+            }
         }.disposed(by: disposeBag)
        
         couponStateCollectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .centeredVertically)
@@ -55,7 +80,7 @@ class applyCouponsViewController: UIViewController {
         applyCouponViewModelObj?.availableCouponsDrive.drive(onNext: {[weak self] (val) in
             Observable.just(val).bind(to: self!.availableCoupon.rx.items(cellIdentifier: Constants.availableCouponCell)){row,item,cell in
                 (cell as? availableCouponTableViewCell )?.discountCode.text = "Code: " + item.code!
-                (cell as? availableCouponTableViewCell )?.productType.text = item.productType
+                (cell as? availableCouponTableViewCell )?.productType.text = ". For " + item.productType! + " products"
             }.disposed(by: self!.disposeBag)
         }).disposed(by: disposeBag)
         
@@ -71,7 +96,7 @@ class applyCouponsViewController: UIViewController {
         self.alertLabel.textAlignment = .left
         self.alertLabel.attributedText = completeText
         
-        applyCouponViewModelObj!.getAvailableAndUnavailableCoupons(productType: ["Women","Kids","Men"])
+        applyCouponViewModelObj!.getAvailableAndUnavailableCoupons(productType: ["Women","Kids"])
                
     }
     

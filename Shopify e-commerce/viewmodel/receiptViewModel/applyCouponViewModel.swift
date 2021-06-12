@@ -16,9 +16,9 @@ struct Coupon {
 }
 
 class applyCouponViewModel {
-    var Women = Coupon(code: "WOMENSALES10OFF", productType: ". For Women products")
-    var Men = Coupon(code: "MENSALES10OFF", productType: ". For Men products")
-    var Kids = Coupon(code: "KIDSSALES10OFF", productType: ". For Kids products")
+    var Women = Coupon(code: "WOMENSALES10OFF", productType: "Women")
+    var Men = Coupon(code: "MENSALES10OFF", productType: "Men")
+    var Kids = Coupon(code: "KIDSSALES10OFF", productType: "Kids")
     var availableCoupons : [Coupon] = []
     var notAvailableCoupons : [Coupon] = []
     let defaults = UserDefaults.standard
