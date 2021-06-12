@@ -36,6 +36,18 @@ struct Constants {
     static let allProductsPath = "products.json"
     static let sortList = ["Price: High to low","Price: Low to High"]
     static let filterList = ["T-Shirts","Shoes","Accessories"]
+    static let putCustomerPath = "customers/"
+    static let postCustomerPath = "customers.json"
+    static let isLoggedInUserDefaults = "isLoggedIn"
+    static let firstNameUserDefaults = "firstName"
+    static let lastNameUserDefaults = "lastName"
+    static let emailUserDefaults = "email"
+    static let idUserDefaults = "userID"
+    static let cityUserDefaults = "city"
+    static let countryUserDefaults = "country"
+    static let currencies = ["EGP","USD"]
+    static let currencyUserDefaults = "currency"
+    static let getCustomerPath = "customers/"
 
 
 

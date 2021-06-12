@@ -13,5 +13,5 @@ import RxCocoa
 protocol ViewModelType {
     func fetchData()
     var errorObservable: Observable<Bool> {get}
-    var LoadingObservable: Observable<Bool> {get}
+    var loadingObservable: Observable<Bool> {get}
 }
