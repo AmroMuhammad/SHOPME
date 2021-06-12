@@ -18,7 +18,12 @@ class RightNavBarView: UIView {
     
     var quantity: String!{
         didSet{
-            quantityLabrl.text = quantity
+            if quantity == "0"{
+                quantityViewContainer.isHidden = true
+            } else {
+                quantityViewContainer.isHidden = false
+                quantityLabrl.text = quantity
+            }
         }
     }
     
