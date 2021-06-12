@@ -11,6 +11,10 @@ import RxSwift
 
 class ProductDetailsViewModel: ProductDetailsViewModelType {
     
+    private var productObject: ProductDetails?
+    private var productMainCategory: String = ""
+    
+    
     var imagesObservable: Observable<[ProductDetailsImage]>
     var colorsObservable: Observable<[UIColor]>
     var sizesObservable: Observable<[String]>
@@ -27,12 +31,13 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
     private var productVendorSubject = PublishSubject<String>()
     private var productDescriptionSubject = PublishSubject<String>()
     
-    var quantutyObservable: Observable<Int>
-    private var quantitySubject = PublishSubject<Int>()
-    
-    private var productObject: ProductDetails?
-    private var productMainCategory: String = ""
-    
+    var quantutyObservable: Observable<String>
+    private var quantitySubject = PublishSubject<String>()
+    var currencyObservable: Observable<String>
+    private var currencySubject = PublishSubject<String>()
+    var userCityObservable: Observable<String>
+    private var userCitySubject = PublishSubject<String>()
+
     var favoriteProductsObservable: Observable<[LocalProductDetails]>
     private var favoriteProductsSubject = PublishSubject<[LocalProductDetails]>()
     var cartProductsObservable: Observable<[LocalProductDetails]>
@@ -64,6 +69,8 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
         productVendorObservable = productVendorSubject.asObservable()
         productDescriptionObservable = productDescriptionSubject.asObservable()
         quantutyObservable = quantitySubject.asObservable()
+        currencyObservable = currencySubject.asObservable()
+        userCityObservable = userCitySubject.asObservable()
         
         favoriteProductsObservable = favoriteProductsSubject.asObservable()
         cartProductsObservable = cartProductsSubject.asObservable()
@@ -80,18 +87,9 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
         localManager = LocalManagerHelper.localSharedInstance
     }
     
-    func getLocalData() {
-        //
-        
-        //get deliver city name from local
-
-        //get currency from local
-    }
     
-    func getUserEmail() -> String {
-        //get email from UserDefaults
-        return "ahm@d.com"
-    }
+    
+    
     func getMainCategory() -> String {
         return productMainCategory
     }
@@ -104,6 +102,25 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
         }
         return 0
     }
+    
+    //----------------------------------------User Defaults------------------------------------------------
+    func getLocalData() {
+        
+        //get deliver city name from local
+        userCitySubject.onNext("Ghana")
+
+        //get currency from local
+        currencySubject.onNext("EG")
+        
+        
+    }
+    
+    func getUserEmail() -> String {
+        //get email from UserDefaults
+        return "ahm@d.com"
+    }
+    
+    
     
     //----------------------------------------Favorite------------------------------------------------
     
@@ -278,7 +295,7 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
                     allQuantity += item.quantity ?? 0
                 }
             }
-            self.quantitySubject.onNext(allQuantity)
+            self.quantitySubject.onNext(String(allQuantity))
         }
     }
     func mapFromColor(color: UIColor?) -> String {
