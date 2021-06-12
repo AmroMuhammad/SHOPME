@@ -41,7 +41,11 @@ class SettingsViewController: UIViewController {
         
         meViewModel.errorObservable.subscribe(onNext: { (message, boolValue) in
             if(boolValue){
-                Support.notifyUser(title: "Error", body: message, context: self)
+                if(message.contains("networkLayer")){
+                    Support.notifyUser(title: "Error", body: "No Internet Connection", context: self)
+                }else{
+                    Support.notifyUser(title: "Error", body: message, context: self)
+                }
             }
             }).disposed(by: disposeBag)
         

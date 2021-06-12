@@ -82,19 +82,58 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Euo-hd-xfR">
+                                <rect key="frame" x="130" y="128" width="284" height="685"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noitem" translatesAutoresizingMaskIntoConstraints="NO" id="gjB-JY-4l6">
+                                        <rect key="frame" x="0.0" y="0.0" width="284" height="685"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="gjB-JY-4l6" firstAttribute="top" secondItem="Euo-hd-xfR" secondAttribute="top" id="7in-G1-2tK"/>
+                                    <constraint firstAttribute="bottom" secondItem="gjB-JY-4l6" secondAttribute="bottom" id="81I-cW-rxq"/>
+                                    <constraint firstAttribute="trailing" secondItem="gjB-JY-4l6" secondAttribute="trailing" id="MJT-Xh-adD"/>
+                                    <constraint firstItem="gjB-JY-4l6" firstAttribute="leading" secondItem="Euo-hd-xfR" secondAttribute="leading" id="Q8E-YJ-xTT"/>
+                                </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6zw-6l-3d4">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1111" translatesAutoresizingMaskIntoConstraints="NO" id="yg5-Cl-9Ty">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="yg5-Cl-9Ty" firstAttribute="leading" secondItem="6zw-6l-3d4" secondAttribute="leading" id="6TT-81-kXE"/>
+                                    <constraint firstAttribute="bottom" secondItem="yg5-Cl-9Ty" secondAttribute="bottom" id="Ln3-0m-5ft"/>
+                                    <constraint firstItem="yg5-Cl-9Ty" firstAttribute="top" secondItem="6zw-6l-3d4" secondAttribute="top" id="VU1-ZB-pCV"/>
+                                    <constraint firstAttribute="trailing" secondItem="yg5-Cl-9Ty" secondAttribute="trailing" id="Xxj-Qm-sxD"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="Idk-Lh-PQM" firstAttribute="trailing" secondItem="Euo-hd-xfR" secondAttribute="trailing" id="24D-IR-rsh"/>
                             <constraint firstItem="Idk-Lh-PQM" firstAttribute="bottom" secondItem="9jT-P1-IKo" secondAttribute="bottom" id="AC0-Ne-SLr"/>
+                            <constraint firstItem="Euo-hd-xfR" firstAttribute="top" secondItem="k9c-XD-9RC" secondAttribute="bottom" id="ASd-Vl-amF"/>
+                            <constraint firstItem="Euo-hd-xfR" firstAttribute="leading" secondItem="9jT-P1-IKo" secondAttribute="trailing" id="D9W-i3-0SL"/>
                             <constraint firstItem="8Mc-DP-z8u" firstAttribute="top" secondItem="k9c-XD-9RC" secondAttribute="bottom" constant="3" id="Gti-Em-N7u"/>
+                            <constraint firstItem="6zw-6l-3d4" firstAttribute="top" secondItem="Idk-Lh-PQM" secondAttribute="top" id="KMH-7E-EMF"/>
                             <constraint firstItem="9jT-P1-IKo" firstAttribute="leading" secondItem="Idk-Lh-PQM" secondAttribute="leading" id="Ot9-Xs-Kd0"/>
                             <constraint firstItem="Idk-Lh-PQM" firstAttribute="bottom" secondItem="8Mc-DP-z8u" secondAttribute="bottom" id="OxX-d5-hcc"/>
                             <constraint firstItem="k9c-XD-9RC" firstAttribute="leading" secondItem="Idk-Lh-PQM" secondAttribute="leading" id="RhH-fo-AdJ"/>
                             <constraint firstItem="k9c-XD-9RC" firstAttribute="top" secondItem="Idk-Lh-PQM" secondAttribute="top" id="Wkc-PI-oJn"/>
+                            <constraint firstItem="Idk-Lh-PQM" firstAttribute="bottom" secondItem="6zw-6l-3d4" secondAttribute="bottom" id="Ydy-zp-oYT"/>
                             <constraint firstItem="8Mc-DP-z8u" firstAttribute="trailing" secondItem="Idk-Lh-PQM" secondAttribute="trailing" constant="-5" id="ZRY-J9-f0A"/>
+                            <constraint firstItem="Idk-Lh-PQM" firstAttribute="bottom" secondItem="Euo-hd-xfR" secondAttribute="bottom" id="fua-pL-W7A"/>
                             <constraint firstItem="8Mc-DP-z8u" firstAttribute="leading" secondItem="9jT-P1-IKo" secondAttribute="trailing" constant="3" id="n0S-dz-Uiq"/>
+                            <constraint firstItem="Idk-Lh-PQM" firstAttribute="trailing" secondItem="6zw-6l-3d4" secondAttribute="trailing" id="unx-uK-XEU"/>
                             <constraint firstItem="9jT-P1-IKo" firstAttribute="top" secondItem="k9c-XD-9RC" secondAttribute="bottom" id="uou-ma-922"/>
                             <constraint firstItem="Idk-Lh-PQM" firstAttribute="trailing" secondItem="k9c-XD-9RC" secondAttribute="trailing" id="xPi-pf-Zqz"/>
+                            <constraint firstItem="6zw-6l-3d4" firstAttribute="leading" secondItem="Idk-Lh-PQM" secondAttribute="leading" id="zRy-8V-VJe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Idk-Lh-PQM"/>
                     </view>
@@ -124,6 +163,8 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="mainCategoryCollectionView" destination="k9c-XD-9RC" id="VUp-5R-DDv"/>
+                        <outlet property="noConnectionImage" destination="6zw-6l-3d4" id="jvd-X3-aTU"/>
+                        <outlet property="noItemsView" destination="Euo-hd-xfR" id="nW8-Nf-W9y"/>
                         <outlet property="productsCollectionView" destination="8Mc-DP-z8u" id="NrZ-Be-H13"/>
                         <outlet property="subCategoryCollectionView" destination="9jT-P1-IKo" id="v6O-rM-Vr7"/>
                     </connections>
@@ -184,6 +225,21 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ej2-TV-1JY">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1111" translatesAutoresizingMaskIntoConstraints="NO" id="lMS-Or-sGz">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="lMS-Or-sGz" secondAttribute="trailing" id="5fr-HH-rtd"/>
+                                    <constraint firstItem="lMS-Or-sGz" firstAttribute="top" secondItem="Ej2-TV-1JY" secondAttribute="top" id="67c-Da-rsV"/>
+                                    <constraint firstItem="lMS-Or-sGz" firstAttribute="leading" secondItem="Ej2-TV-1JY" secondAttribute="leading" id="ML9-ek-MGL"/>
+                                    <constraint firstAttribute="bottom" secondItem="lMS-Or-sGz" secondAttribute="bottom" id="OsA-lm-3Gw"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -192,6 +248,10 @@
                             <constraint firstItem="sKx-MK-g1U" firstAttribute="trailing" secondItem="vgM-KA-amL" secondAttribute="trailing" id="KB9-v6-YA8"/>
                             <constraint firstItem="sKx-MK-g1U" firstAttribute="leading" secondItem="vgM-KA-amL" secondAttribute="leading" id="RTs-PZ-H5C"/>
                             <constraint firstItem="u7p-0K-dIo" firstAttribute="top" secondItem="sKx-MK-g1U" secondAttribute="bottom" id="TOD-gI-W2C"/>
+                            <constraint firstItem="vgM-KA-amL" firstAttribute="trailing" secondItem="Ej2-TV-1JY" secondAttribute="trailing" id="VCO-06-D4f"/>
+                            <constraint firstItem="Ej2-TV-1JY" firstAttribute="leading" secondItem="vgM-KA-amL" secondAttribute="leading" id="VCf-LT-Ot6"/>
+                            <constraint firstItem="vgM-KA-amL" firstAttribute="bottom" secondItem="Ej2-TV-1JY" secondAttribute="bottom" id="aWP-bx-o2x"/>
+                            <constraint firstItem="Ej2-TV-1JY" firstAttribute="top" secondItem="vgM-KA-amL" secondAttribute="top" id="bvT-Np-uHr"/>
                             <constraint firstItem="sKx-MK-g1U" firstAttribute="top" secondItem="vgM-KA-amL" secondAttribute="top" id="hew-k5-pXM"/>
                             <constraint firstItem="vgM-KA-amL" firstAttribute="trailing" secondItem="u7p-0K-dIo" secondAttribute="trailing" constant="5" id="tXs-Zw-tC2"/>
                         </constraints>
@@ -202,6 +262,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="filterButton" destination="jK4-QM-etS" id="az4-03-b65"/>
+                        <outlet property="noInternetView" destination="Ej2-TV-1JY" id="YMs-Hg-QMZ"/>
                         <outlet property="searchCollectionVIew" destination="u7p-0K-dIo" id="QH2-eT-OrR"/>
                         <outlet property="sortButton" destination="zqr-UQ-BF0" id="nzY-yz-gBU"/>
                         <outlet property="toolbar" destination="sKx-MK-g1U" id="EC2-FB-rtQ"/>
@@ -209,7 +270,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WHy-YG-dAt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1930" y="86"/>
+            <point key="canvasLocation" x="1928.985507246377" y="85.714285714285708"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5gG-Ly-P4S">
@@ -231,8 +292,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="1111" width="347" height="484"/>
         <image name="bag.fill" catalog="system" width="128" height="128"/>
         <image name="cart.fill" catalog="system" width="128" height="102"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
+        <image name="noitem" width="125" height="100"/>
     </resources>
 </document>

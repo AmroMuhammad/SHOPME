@@ -16,6 +16,7 @@ class CategoryViewModel : CategoryViewModelContract{
     var searchDataObservable: Observable<[CategoryProduct]>
     var errorObservable: Observable<Bool>
     var loadingObservable: Observable<Bool>
+    var noItemsObservable: Observable<Bool>
     
     private var shopifyAPI:CategoryAPIContract!
     var data:[CategoryProduct]?
@@ -28,12 +29,15 @@ class CategoryViewModel : CategoryViewModelContract{
     
     private var errorsubject = PublishSubject<Bool>()
     private var loadingsubject = PublishSubject<Bool>()
+    private var noItemSubject = PublishSubject<Bool>()
+
 
     init() {
         mainCatDataObservable = mainCatDatasubject.asObservable()
         subCatDataObservable = subCatDatasubject.asObservable()
         productDataObservable = productDatasubject.asObservable()
         searchDataObservable = searchDatasubject.asObservable()
+        noItemsObservable = noItemSubject.asObservable()
 
         errorObservable = errorsubject.asObservable()
         loadingObservable = loadingsubject.asObservable()
@@ -52,16 +56,22 @@ class CategoryViewModel : CategoryViewModelContract{
         shopifyAPI.getCategoryProducts(catType: mainCat) {[weak self] (result) in
             switch result{
             case .success(let cat):
+                self?.errorsubject.onNext(false)
                 self?.data = cat?.products
                 let filteredData = self?.data?.filter({(catItem) -> Bool in
                     catItem.productType.capitalized == subCat.capitalized
                 })
+                if(filteredData?.isEmpty ?? true){
+                    self?.noItemSubject.onNext(true)
+                }else{
+                    self?.noItemSubject.onNext(false)
+                }
                 self?.productDatasubject.onNext(filteredData ?? [])
                 self?.data = filteredData
                 self?.loadingsubject.onNext(false)
-            case .failure(let error):
+            case .failure(_):
                 self?.loadingsubject.onNext(false)
-                self?.errorsubject.onError(error)
+                self?.errorsubject.onNext(true)
             }
         }
     }

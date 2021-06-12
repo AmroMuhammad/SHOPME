@@ -12,8 +12,10 @@ import RxCocoa
 
 class CategoryViewController: UIViewController {
     @IBOutlet private weak var mainCategoryCollectionView: UICollectionView!
-    @IBOutlet weak var subCategoryCollectionView: UICollectionView!
-    @IBOutlet weak var productsCollectionView: UICollectionView!
+    @IBOutlet private weak var subCategoryCollectionView: UICollectionView!
+    @IBOutlet private weak var productsCollectionView: UICollectionView!
+    @IBOutlet private weak var noItemsView: UIView!
+    @IBOutlet private weak var noConnectionImage: UIView!
     
     private var categoryViewModel:CategoryViewModelContract!
     private var disposeBag:DisposeBag!
@@ -88,9 +90,26 @@ class CategoryViewController: UIViewController {
         }).disposed(by: disposeBag)
         
         //listen while getting data
-        categoryViewModel.errorObservable.subscribe(onError: {[weak self] (error) in
-            self?.hideLoading()
-            //self?.noConnectionImage.isHidden = false
+        categoryViewModel.errorObservable.subscribe(onNext: {[weak self] (boolValue) in
+            switch boolValue{
+            case true:
+                self?.hideLoading()
+                Support.notifyUser(title: "Error", body: "No Internet Connection", context: self!)
+                self?.noConnectionImage.isHidden = false
+            case false:
+                self?.noConnectionImage.isHidden = true
+            }
+            }).disposed(by: disposeBag)
+        
+        categoryViewModel.noItemsObservable.subscribe(onNext: {[weak self] (boolValue) in
+            switch boolValue{
+            case true:
+                self?.noItemsView.isHidden = false
+                print(".>>>>>>>>>>>>")
+            case false:
+                self?.noItemsView.isHidden = true
+                print("<<<<<<<<<<<<<")
+            }
             }).disposed(by: disposeBag)
         
         categoryViewModel.loadingObservable.subscribe(onNext: {[weak self] (value) in
@@ -113,15 +132,24 @@ class CategoryViewController: UIViewController {
     }
     
     @IBAction func favButtonPressed(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "shop", bundle: nil)
-        let wishVC = storyboard.instantiateViewController(identifier: "wishListViewController")
-        self.navigationController?.pushViewController(wishVC, animated: true)
+        if(UserData.sharedInstance.isLoggedIn()){
+            let storyboard = UIStoryboard(name: "shop", bundle: nil)
+            let wishVC = storyboard.instantiateViewController(identifier: "wishListViewController")
+            self.navigationController?.pushViewController(wishVC, animated: true)
+        }else{
+            Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List", context: self)
+        }
+        
     }
     
     @IBAction func cartButtonPressed(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "shop", bundle: nil)
+        if(UserData.sharedInstance.isLoggedIn()){
+            let storyboard = UIStoryboard(name: "shop", bundle: nil)
             let favVC = storyboard.instantiateViewController(identifier: "cartViewController")
             self.navigationController?.pushViewController(favVC, animated: true)
+        }else{
+            Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Cart", context: self)
+        }
     }
     
 }

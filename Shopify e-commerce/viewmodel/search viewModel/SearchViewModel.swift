@@ -62,6 +62,7 @@ class SearchViewModel : SearchViewModelContract{
         shopifyAPI.getAllProducts {[weak self] (result) in
             switch result{
             case .success(let products):
+                self?.errorsubject.onNext(false)
                 self?.data = products?.products
                 self?.searchedData = self?.data
                 self?.sortedData = self?.data
@@ -71,7 +72,7 @@ class SearchViewModel : SearchViewModelContract{
                 self?.Loadingsubject.onNext(false)
             case .failure(let error):
                 self?.Loadingsubject.onNext(false)
-                self?.errorsubject.onError(error)
+                self?.errorsubject.onNext(true)
             }
         }
     }
