@@ -30,6 +30,13 @@
 		43691332266ECFAB00BA0632 /* cartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43691331266ECFAB00BA0632 /* cartViewModel.swift */; };
 		436913372671987400BA0632 /* mainCategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436913352671987400BA0632 /* mainCategoriesCollectionViewCell.swift */; };
 		436913382671987400BA0632 /* mainCategoriesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 436913362671987400BA0632 /* mainCategoriesCollectionViewCell.xib */; };
+		436A29FD2672F82C0044B5DA /* receiptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436A29FC2672F82C0044B5DA /* receiptViewController.swift */; };
+		436A2A002672FAB60044B5DA /* receiptProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436A29FE2672FAB60044B5DA /* receiptProductCollectionViewCell.swift */; };
+		436A2A012672FAB60044B5DA /* receiptProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 436A29FF2672FAB60044B5DA /* receiptProductCollectionViewCell.xib */; };
+		436A2A0426735E910044B5DA /* receiptViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436A2A0326735E910044B5DA /* receiptViewModel.swift */; };
+		436A2A062673FD150044B5DA /* applyCouponsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436A2A052673FD150044B5DA /* applyCouponsViewController.swift */; };
+		436A2A0D267409240044B5DA /* couponsStateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436A2A0B267409240044B5DA /* couponsStateCollectionViewCell.swift */; };
+		436A2A1026745AD50044B5DA /* availableCouponTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436A2A0F26745AD50044B5DA /* availableCouponTableViewCell.swift */; };
 		438DED8C265CCCCA002717CD /* shopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DED8B265CCCCA002717CD /* shopViewController.swift */; };
 		438DED8F265CCD26002717CD /* shopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DED8E265CCD26002717CD /* shopViewModel.swift */; };
 		439BB315265E6990001F1A1D /* AllProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439BB314265E6990001F1A1D /* AllProduct.swift */; };
@@ -121,6 +128,13 @@
 		43691331266ECFAB00BA0632 /* cartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cartViewModel.swift; sourceTree = "<group>"; };
 		436913352671987400BA0632 /* mainCategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainCategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		436913362671987400BA0632 /* mainCategoriesCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = mainCategoriesCollectionViewCell.xib; sourceTree = "<group>"; };
+		436A29FC2672F82C0044B5DA /* receiptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = receiptViewController.swift; sourceTree = "<group>"; };
+		436A29FE2672FAB60044B5DA /* receiptProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = receiptProductCollectionViewCell.swift; sourceTree = "<group>"; };
+		436A29FF2672FAB60044B5DA /* receiptProductCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = receiptProductCollectionViewCell.xib; sourceTree = "<group>"; };
+		436A2A0326735E910044B5DA /* receiptViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = receiptViewModel.swift; sourceTree = "<group>"; };
+		436A2A052673FD150044B5DA /* applyCouponsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = applyCouponsViewController.swift; sourceTree = "<group>"; };
+		436A2A0B267409240044B5DA /* couponsStateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = couponsStateCollectionViewCell.swift; sourceTree = "<group>"; };
+		436A2A0F26745AD50044B5DA /* availableCouponTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = availableCouponTableViewCell.swift; sourceTree = "<group>"; };
 		438DED8B265CCCCA002717CD /* shopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shopViewController.swift; sourceTree = "<group>"; };
 		438DED8E265CCD26002717CD /* shopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shopViewModel.swift; sourceTree = "<group>"; };
 		439BB314265E6990001F1A1D /* AllProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProduct.swift; sourceTree = "<group>"; };
@@ -334,6 +348,43 @@
 			path = shopCell;
 			sourceTree = "<group>";
 		};
+		4369133B2671ADC300BA0632 /* recipt */ = {
+			isa = PBXGroup;
+			children = (
+				436A2A1226748A570044B5DA /* orderConfirmation */,
+				436A2A1126748A260044B5DA /* applyCoupon */,
+			);
+			path = recipt;
+			sourceTree = "<group>";
+		};
+		436A2A0226735E6E0044B5DA /* receiptViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				436A2A0326735E910044B5DA /* receiptViewModel.swift */,
+			);
+			path = receiptViewModel;
+			sourceTree = "<group>";
+		};
+		436A2A1126748A260044B5DA /* applyCoupon */ = {
+			isa = PBXGroup;
+			children = (
+				436A2A052673FD150044B5DA /* applyCouponsViewController.swift */,
+				436A2A0B267409240044B5DA /* couponsStateCollectionViewCell.swift */,
+				436A2A0F26745AD50044B5DA /* availableCouponTableViewCell.swift */,
+			);
+			path = applyCoupon;
+			sourceTree = "<group>";
+		};
+		436A2A1226748A570044B5DA /* orderConfirmation */ = {
+			isa = PBXGroup;
+			children = (
+				436A29FC2672F82C0044B5DA /* receiptViewController.swift */,
+				436A29FE2672FAB60044B5DA /* receiptProductCollectionViewCell.swift */,
+				436A29FF2672FAB60044B5DA /* receiptProductCollectionViewCell.xib */,
+			);
+			path = orderConfirmation;
+			sourceTree = "<group>";
+		};
 		438DED8D265CCCEE002717CD /* shop */ = {
 			isa = PBXGroup;
 			children = (
@@ -404,6 +455,7 @@
 		C27423E2265AEE0A002D304B /* shop screen */ = {
 			isa = PBXGroup;
 			children = (
+				4369133B2671ADC300BA0632 /* recipt */,
 				4366FD10266D53F8006E4D1B /* shopAndAds */,
 				4366FD0F266D53A4006E4D1B /* shoppingBag */,
 				4366FD0E266D5397006E4D1B /* wishList */,
@@ -543,6 +595,7 @@
 			isa = PBXGroup;
 			children = (
 				ED53D1CD266BC954002E6083 /* MeViewModel.swift */,
+				436A2A0226735E6E0044B5DA /* receiptViewModel */,
 				43691330266ECF8300BA0632 /* cart viewModel */,
 				4369132D266ECF1800BA0632 /* wishList viewModel */,
 				C2A8A236266774FC00D9CBBA /* search viewModel */,
@@ -751,6 +804,7 @@
 				C234155A266BB34F00D2AB67 /* Main.storyboard in Resources */,
 				0D14F118266C4930006AD092 /* ImageCollectionViewCell.xib in Resources */,
 				C27423E1265AED36002D304B /* meScreen.storyboard in Resources */,
+				436A2A012672FAB60044B5DA /* receiptProductCollectionViewCell.xib in Resources */,
 				C2E83A5A265CF13900A2CD95 /* SubCategoryCollectionViewCell.xib in Resources */,
 				0D090F212666151600E74B52 /* productDetails.storyboard in Resources */,
 				0D14F11D266C4B61006AD092 /* SizeCollectionViewCell.xib in Resources */,
@@ -884,6 +938,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				436A2A1026745AD50044B5DA /* availableCouponTableViewCell.swift in Sources */,
 				C2A8A2382667754D00D9CBBA /* SearchViewModel.swift in Sources */,
 				C2A61D20265637530047C648 /* TargetType.swift in Sources */,
 				ED00A30E265BC1D70017B055 /* MeViewController.swift in Sources */,
@@ -893,6 +948,8 @@
 				C2E83A54265CE24500A2CD95 /* BaseViewModel.swift in Sources */,
 				C2E83A59265CF13900A2CD95 /* SubCategoryCollectionViewCell.swift in Sources */,
 				431C85A4266AF1C300CB6886 /* discountCode.swift in Sources */,
+				436A29FD2672F82C0044B5DA /* receiptViewController.swift in Sources */,
+				436A2A0D267409240044B5DA /* couponsStateCollectionViewCell.swift in Sources */,
 				0D14F11C266C4B61006AD092 /* SizeCollectionViewCell.swift in Sources */,
 				439BB317265E81FB001F1A1D /* productProtocol.swift in Sources */,
 				C27423E7265AF11A002D304B /* ApplicationNetworking.swift in Sources */,
@@ -925,6 +982,7 @@
 				0D9E50EA266CC14600017EE6 /* LocalManager.swift in Sources */,
 				C20420EB265DB20600F4A70B /* ProductsCollectionViewCell.swift in Sources */,
 				C2A61CF4265633200047C648 /* Shopify_e_commerce.xcdatamodeld in Sources */,
+				436A2A002672FAB60044B5DA /* receiptProductCollectionViewCell.swift in Sources */,
 				C26E7C2B26662FB2000CB417 /* CategoryAPIContract.swift in Sources */,
 				C2E83A48265C37E900A2CD95 /* CategoryViewController.swift in Sources */,
 				4369132F266ECF7700BA0632 /* wishListViewModel.swift in Sources */,
@@ -936,7 +994,9 @@
 				ED00A310265CB5970017B055 /* SettingsViewController.swift in Sources */,
 				43691332266ECFAB00BA0632 /* cartViewModel.swift in Sources */,
 				431C85AD266AF1FE00CB6886 /* wishListViewController.swift in Sources */,
+				436A2A062673FD150044B5DA /* applyCouponsViewController.swift in Sources */,
 				C234155C266BB68B00D2AB67 /* ProductDetailsModel.swift in Sources */,
+				436A2A0426735E910044B5DA /* receiptViewModel.swift in Sources */,
 				431C85AD266AF1FE00CB6886 /* wishListViewController.swift in Sources */,
 				0D864DA6266565F5008474FE /* ProductDetailsTableViewController.swift in Sources */,
 			);

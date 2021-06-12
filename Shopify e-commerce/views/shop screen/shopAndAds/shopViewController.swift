@@ -248,10 +248,6 @@ extension shopViewController :  UICollectionViewDelegateFlowLayout {
                 return CGSize(width: 128, height: 128)
             }
         }
-
-//        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//            return 0
-//        }
     
 }
 
