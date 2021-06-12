@@ -12,6 +12,8 @@ import RxSwift
 class CardViewController: UIViewController {
     var cartViewModelObj : cartViewModelType!
     var disposeBag = DisposeBag()
+    var allCartProduct : [CartProduct]?
+   
     @IBOutlet weak var cartTableView: UITableView!
     @IBOutlet weak var noItemImg: UIImageView!
     @IBOutlet weak var totalPrice: UILabel!
@@ -35,13 +37,14 @@ class CardViewController: UIViewController {
                let barButton = UIBarButtonItem(customView: button)
                self.navigationItem.rightBarButtonItem = barButton
         
-      //   val  = ["marwa" , "asmaa"]
         cartViewModelObj.totalPriceDrive.drive(onNext: {[weak self] (val) in
             self!.totalPrice.text = "\(val)"
         }).disposed(by: disposeBag)
         
         
         cartViewModelObj.dataDrive.drive(onNext: {[weak self] (val) in
+           
+            self!.allCartProduct = val
             if(val.count == 0){
                 self!.cartEmpty()
             }else{
@@ -86,11 +89,14 @@ class CardViewController: UIViewController {
         self.cartTableView.isHidden = false
         self.lastView.isHidden = false
         self.noItemImg.isHidden = true
-        print("it not is empty ................")
+        print("it is not empty ................")
     }
    
     @IBAction func checkoutBtn(_ sender: Any) {
-        
+        let receiptViewController = storyboard?.instantiateViewController(identifier: Constants.receiptVC) as! receiptViewController
+        receiptViewController.allCartProductForReceipt = allCartProduct
+        receiptViewController.totalCartPrice = totalPrice.text
+        navigationController?.pushViewController(receiptViewController, animated: true)
     }
 }
 
