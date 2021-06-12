@@ -64,5 +64,5 @@ protocol receiptViewModelType {
      
 }
 protocol applyCouponDelegate {
-    func applyCoupon(coupone : String)
+    func applyCoupon(coupone : String , productType : String)
 }

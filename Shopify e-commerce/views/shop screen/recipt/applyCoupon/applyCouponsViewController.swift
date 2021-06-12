@@ -19,7 +19,9 @@ class applyCouponsViewController: UIViewController {
     var discountDelegate : applyCouponDelegate?
     
     var applyCouponViewModelObj: applyCouponViewModel?
-    
+    var productTypeArray = ["Women","Kids"]
+    @IBOutlet weak var emptyMsg: UILabel!
+    @IBOutlet weak var emptyImg: UIImageView!
     @IBOutlet weak var notAvailableCouponView: UIView!
     @IBOutlet weak var notAvailableTableView: UITableView!
     @IBOutlet weak var availableCouponView: UIView!
@@ -43,11 +45,12 @@ class applyCouponsViewController: UIViewController {
         }.disposed(by: disposeBag)
         
         applyCouponViewModelObj?.notAvailableCouponsDrive.drive(onNext: {[weak self] (val) in
+                  print("Not empty")
             Observable.just(val).bind(to: self!.notAvailableTableView.rx.items(cellIdentifier: Constants.NotAvailableCell)){row,item,cell in
                   (cell as? NotAvailableTableViewCell )?.discountCode.text = "Code: " + item.code!
                 (cell as? NotAvailableTableViewCell )?.productType.text = ". For " + item.productType! + " products"
-           }.disposed(by: self!.disposeBag)
-            }).disposed(by: disposeBag)
+             }.disposed(by: self!.disposeBag)
+      }).disposed(by: disposeBag)
         
         couponStateCollectionView.rx.itemSelected.subscribe{[weak self](IndexPath) in
             if( IndexPath.element![1] == 0){
@@ -73,15 +76,27 @@ class applyCouponsViewController: UIViewController {
                 //  self!.selectedIndex = IndexPath.element![1]
             let cell = self?.availableCoupon.cellForRow(at: IndexPath.element!) as? availableCouponTableViewCell
             cell?.isSelected = true
-            self!.discountDelegate?.applyCoupon(coupone: "-US$10.00")
             self!.navigationController?.popViewController(animated: true)
+        }.disposed(by: disposeBag)
+          
+        availableCoupon.rx.modelSelected(Coupon.self).subscribe{[weak self](item) in
+            self!.discountDelegate?.applyCoupon(coupone: "-US$10.00" , productType : (item.element?.productType)!)
         }.disposed(by: disposeBag)
        
         applyCouponViewModelObj?.availableCouponsDrive.drive(onNext: {[weak self] (val) in
+//            if(val.count == 0){
+//                print("empty")
+//                self!.emptyImg.isHidden = false
+//                self!.emptyMsg.isHidden = false
+//            }else{
+//                 print("Not empty")
+//                self!.emptyImg.isHidden = true
+//                self!.emptyMsg.isHidden = true
             Observable.just(val).bind(to: self!.availableCoupon.rx.items(cellIdentifier: Constants.availableCouponCell)){row,item,cell in
                 (cell as? availableCouponTableViewCell )?.discountCode.text = "Code: " + item.code!
                 (cell as? availableCouponTableViewCell )?.productType.text = ". For " + item.productType! + " products"
             }.disposed(by: self!.disposeBag)
+    //    }
         }).disposed(by: disposeBag)
         
         let imageAttachment = NSTextAttachment()
@@ -96,7 +111,7 @@ class applyCouponsViewController: UIViewController {
         self.alertLabel.textAlignment = .left
         self.alertLabel.attributedText = completeText
         
-        applyCouponViewModelObj!.getAvailableAndUnavailableCoupons(productType: ["Women","Kids"])
+        applyCouponViewModelObj!.getAvailableAndUnavailableCoupons(productType: productTypeArray)
                
     }
     

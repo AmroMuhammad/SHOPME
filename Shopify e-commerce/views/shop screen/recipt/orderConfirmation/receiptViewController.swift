@@ -15,7 +15,7 @@ class receiptViewController: UITableViewController {
     var allCartProductForReceipt : [CartProduct]?
     var totalCartPrice : String?
     var receiptViewModelObj : receiptViewModelType!
-   
+    var couponProductType : String?
     
     @IBOutlet weak var finalDiscount: UILabel!
     @IBOutlet weak var receiptProductCollectionView: UICollectionView!
@@ -63,14 +63,18 @@ class receiptViewController: UITableViewController {
 
     @IBAction func placeOrderBtn(_ sender: Any) {
         
+        if let couponType = couponProductType{
+            UserDefaults.standard.set(false, forKey: couponType)
+        }
     }
 }
 
 extension receiptViewController : applyCouponDelegate {
-    func applyCoupon(coupone: String) {
+    func applyCoupon(coupone: String , productType :String) {
         self.discount.text = coupone
         self.finalDiscount.text = coupone
         totalPrice.text = "US$\(Double(totalCartPrice!)! + 25.00 - 10.00)"
+        couponProductType = productType
     }
     
 }
