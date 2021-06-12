@@ -37,6 +37,8 @@ class ProductDetailsTableViewController: UITableViewController {
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var descriptionTextView: UITextView!
     
+    @IBOutlet weak var cartRightNavBar: RightNavBarView!
+    
     private var imagesSubject = PublishSubject<[ProductDetailsImage]>()
 
 
@@ -187,8 +189,16 @@ class ProductDetailsTableViewController: UITableViewController {
             }
         }).disposed(by: disposeBag)
         
+        productDetailsViewModel.quantutyObservable.subscribe(onNext: { [weak self] (quant) in
+            self?.cartRightNavBar.quantity = "\(quant)"
+        }).disposed(by: disposeBag)
+        
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        productDetailsViewModel.getCartQuantity()
+    }
+    
     func descriptionTextViewInit() {
 //        descriptionTextView.translatesAutoresizingMaskIntoConstraints = true
         descriptionTextView.sizeToFit()
@@ -209,6 +219,13 @@ class ProductDetailsTableViewController: UITableViewController {
             print("Handle Ok logic here")
         }))
         self.present(alertController, animated: true, completion:nil)
+    }
+    
+    @IBAction func navToCart(_ sender: UIButton) {
+        print("\n\n\nBUTTON navToCart\n\n\n")
+        let storyBoard = UIStoryboard(name: "shop", bundle: nil)
+        let cartVC = storyBoard.instantiateViewController(withIdentifier: Constants.cartVC) as! CardViewController
+        navigationController?.pushViewController(cartVC, animated: true)
     }
     
     @IBAction func favoriteButtonPressed(_ sender: UIButton) {

@@ -27,6 +27,9 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
     private var productVendorSubject = PublishSubject<String>()
     private var productDescriptionSubject = PublishSubject<String>()
     
+    var quantutyObservable: Observable<Int>
+    private var quantitySubject = PublishSubject<Int>()
+    
     private var productObject: ProductDetails?
     private var productMainCategory: String = ""
     
@@ -60,7 +63,7 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
         productPriceObservable = productPriceSubject.asObservable()
         productVendorObservable = productVendorSubject.asObservable()
         productDescriptionObservable = productDescriptionSubject.asObservable()
-        
+        quantutyObservable = quantitySubject.asObservable()
         
         favoriteProductsObservable = favoriteProductsSubject.asObservable()
         cartProductsObservable = cartProductsSubject.asObservable()
@@ -256,17 +259,28 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
         }
     }
     
-    func getAllCartProducts() {
-        
-        localManager.getAllCartProducts(userEmail: getUserEmail()) { (res) in
-            if let res = res {
-                self.cartProductsSubject.onNext(res)
-            } else {
-                self.showErrorSubject.onNext("arr is NIL")
+//    func getAllCartProducts() {
+//
+//        localManager.getAllCartProducts(userEmail: getUserEmail()) { (res) in
+//            if let res = res {
+//                self.cartProductsSubject.onNext(res)
+//            } else {
+//                self.showErrorSubject.onNext("arr is NIL")
+//            }
+//        }
+//    }
+    func getCartQuantity() {
+        localManager.getAllCartProducts(userEmail: getUserEmail()) { [weak self] (localProductsArr) in
+            guard let self = self else {return}
+            var allQuantity = 0
+            if let localArr = localProductsArr {
+                for item in localArr {
+                    allQuantity += item.quantity ?? 0
+                }
             }
+            self.quantitySubject.onNext(allQuantity)
         }
     }
-    
     func mapFromColor(color: UIColor?) -> String {
         var clr: String = ""
         print("from COLOR MAPPINGGGGGGG")

@@ -20,6 +20,7 @@ class shopViewController: UIViewController {
     @IBOutlet weak var connectionImg: UIImageView!
     @IBOutlet weak var gifimage: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var cartRightNavBar: RightNavBarView!
     var categories = ["Women" , "Men" , "Kids"] // edit this after merge
     var selectedIndex = 0
     var selectedIndexPath = IndexPath(item: 0, section: 0)
@@ -29,6 +30,10 @@ class shopViewController: UIViewController {
         super.viewDidLoad()
         indecator = UIActivityIndicatorView(style: .large)
         shopProductViewModel = shopViewModel()
+        
+        shopProductViewModel.quantutyObservable.subscribe(onNext: { [weak self] (quant) in
+            self?.cartRightNavBar.quantity = "\(quant)"
+        }).disposed(by: disposeBag)
 
         shopProductViewModel.discountCodeDrive.drive(onNext: {[weak self] (discountCodeVal) in
             var  i : Int?
@@ -132,6 +137,9 @@ class shopViewController: UIViewController {
         }).disposed(by: disposeBag)
         
    }
+    override func viewWillAppear(_ animated: Bool) {
+        shopProductViewModel.getCartQuantity()
+    }
     @IBAction func wishListBtn(_ sender: Any) {
            let wishListViewController = storyboard?.instantiateViewController(identifier: Constants.wishListVC) as! wishListViewController
            navigationController?.pushViewController(wishListViewController, animated: true)
