@@ -16,7 +16,7 @@ class CategoryViewController: UIViewController {
     @IBOutlet private weak var productsCollectionView: UICollectionView!
     @IBOutlet private weak var noItemsView: UIView!
     @IBOutlet private weak var noConnectionImage: UIView!
-    @IBOutlet weak var rightNavBarView: RightNavBarView!
+    @IBOutlet private weak var rightNavBarView: RightNavBarView!
     
     private var categoryViewModel:CategoryViewModelContract!
     private var disposeBag:DisposeBag!

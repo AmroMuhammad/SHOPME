@@ -109,7 +109,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R5e-mg-tSq">
                                                     <rect key="frame" x="207" y="0.0" width="207" height="41"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iJc-Fj-OVZ" customClass="CosmosView" customModule="Cosmos">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iJc-Fj-OVZ" customClass="CosmosView" customModule="Cosmos">
                                                             <rect key="frame" x="0.0" y="10.5" width="207" height="20"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="textSize">

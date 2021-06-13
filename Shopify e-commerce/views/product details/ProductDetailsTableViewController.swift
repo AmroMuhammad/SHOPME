@@ -16,6 +16,8 @@ class ProductDetailsTableViewController: UITableViewController {
     
     private var productDetailsViewModel: ProductDetailsViewModel!
     private var disposeBag: DisposeBag!
+    private var activityView: UIActivityIndicatorView!
+    private var customView: UIView!
     
     var productId: String!
     var productMainCategory: String?
@@ -42,11 +44,14 @@ class ProductDetailsTableViewController: UITableViewController {
     @IBOutlet weak private var favoriteButtonOutlet: UIButton!
     @IBOutlet weak private var addToCartButtonOutlet: UIButton! // change text clr to green if added??
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         productDetailsViewModel = ProductDetailsViewModel()
         disposeBag = DisposeBag()
+        activityView = UIActivityIndicatorView(style: .large)
+        customView = UIView()
         
         sliderCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
         colorsCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
@@ -57,6 +62,7 @@ class ProductDetailsTableViewController: UITableViewController {
         subscribtion()
         ratingViewInit()
         descriptionTextViewInit()
+        noConnivtivityViewInit() //lazy?
         
         productDetailsViewModel.getProductDetails(id: productId, mainCategory: productMainCategory)
         productDetailsViewModel.getLocalData()
@@ -86,7 +92,7 @@ class ProductDetailsTableViewController: UITableViewController {
                 sender.tag = 1
             } else {
                 sender.setImage(UIImage(systemName: "heart"), for: .normal)
-                productDetailsViewModel.removefromFavorite(productId: productId)
+                productDetailsViewModel.removefromFavorite()
                 sender.tag = 0
             }
         }else{
@@ -272,6 +278,34 @@ extension ProductDetailsTableViewController {
                 self.addToCartButtonOutlet.setTitle("ADD TO CART", for: .normal)
             }
         }).disposed(by: disposeBag)
+        
+        productDetailsViewModel.showLoadingObservable.subscribe(onNext: { [weak self] (resBool) in
+            guard let self = self else {return}
+            if resBool {
+                self.showLoading()
+            } else {
+                self.hideLoading()
+            }
+        }).disposed(by: disposeBag)
+        
+        productDetailsViewModel.showErrorObservable.subscribe(onNext: { [weak self] (errArr) in
+            guard let self = self else {return}
+            self.showAlert(title: errArr[0], msg: errArr[1])
+        }).disposed(by: disposeBag)
+        
+        productDetailsViewModel.showToastObservable.subscribe(onNext: { [weak self] (msg) in
+            guard let self = self else {return}
+            self.showToast(message: msg, font: UIFont(name: "HelveticaNeue-ThinItalic", size: 15) ?? UIFont())
+            }).disposed(by: disposeBag)
+        
+        productDetailsViewModel.connectivityObservable.subscribe(onNext: { [weak self] (resBool) in
+            guard let self = self else {return}
+            if resBool {
+                self.hideNoConnivtivityView()
+            } else {
+                self.showNoConnivtivityView()
+            }
+        }).disposed(by: disposeBag)
     }
     
     private func descriptionTextViewInit() {
@@ -288,11 +322,41 @@ extension ProductDetailsTableViewController {
         ratingViewContainer.settings.textMargin = 7.0
     }
     
-    func showAlert(title: String, msg: String){
+    private func showAlert(title: String, msg: String){
         let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
-            print("Handle Ok logic here")
-        }))
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alertController, animated: true, completion:nil)
     }
+    
+    private func showLoading() {
+        activityView!.center = self.view.center
+        self.view.addSubview(activityView!)
+        activityView!.startAnimating()
+    }
+    
+    private func hideLoading() {
+        activityView!.stopAnimating()
+    }
+    
+    private func showNoConnivtivityView() {
+        self.view.addSubview(customView)
+//        self.navigationController?.view.addSubview(customView)
+    }
+    
+    private func hideNoConnivtivityView() {
+        customView.removeFromSuperview()
+    }
+    
+    private func noConnivtivityViewInit(){
+        customView.frame = CGRect.init(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        customView.backgroundColor = UIColor.white
+        customView.center = self.view.center
+        let img = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))
+        img.image = UIImage(named: "1111")
+        img.center = customView.center
+        customView.addSubview(img)
+    }
+//    func checkConnectivity() {
+//
+//    }
 }
