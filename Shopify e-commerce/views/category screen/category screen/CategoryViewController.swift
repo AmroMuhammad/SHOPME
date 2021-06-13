@@ -12,8 +12,10 @@ import RxCocoa
 
 class CategoryViewController: UIViewController {
     @IBOutlet private weak var mainCategoryCollectionView: UICollectionView!
-    @IBOutlet weak var subCategoryCollectionView: UICollectionView!
-    @IBOutlet weak var productsCollectionView: UICollectionView!
+    @IBOutlet private weak var subCategoryCollectionView: UICollectionView!
+    @IBOutlet private weak var productsCollectionView: UICollectionView!
+    @IBOutlet private weak var noItemsView: UIView!
+    @IBOutlet private weak var noConnectionImage: UIView!
     
     private var categoryViewModel:CategoryViewModelContract!
     private var disposeBag:DisposeBag!
@@ -39,6 +41,12 @@ class CategoryViewController: UIViewController {
         activityView = UIActivityIndicatorView(style: .large)
         categoryViewModel = CategoryViewModel()
         disposeBag = DisposeBag()
+        
+        //swipe to refresh
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipe(_:)))
+        swipe.direction = .down
+        swipe.numberOfTouchesRequired = 1
+        noConnectionImage.addGestureRecognizer(swipe)
         
         //setting delegates
         mainCategoryCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
@@ -84,16 +92,34 @@ class CategoryViewController: UIViewController {
             let storyBoard : UIStoryboard = UIStoryboard(name: "productDetails", bundle:nil)
             let productDetailsVC = storyBoard.instantiateViewController(identifier: Constants.productDetailsVC) as! ProductDetailsTableViewController
             productDetailsVC.productId = "\(productItem.id)"
+            productDetailsVC.productMainCategory = self?.mainCat
             self?.navigationController?.pushViewController(productDetailsVC, animated: true)
         }).disposed(by: disposeBag)
         
         //listen while getting data
-        categoryViewModel.errorObservable.subscribe(onError: {[weak self] (error) in
-            self?.hideLoading()
-            //self?.noConnectionImage.isHidden = false
+        categoryViewModel.errorObservable.subscribe(onNext: {[weak self] (boolValue) in
+            switch boolValue{
+            case true:
+                self?.hideLoading()
+                self?.showToast(message: "Please swipe to refresh", font: UIFont(name: "HelveticaNeue-ThinItalic", size: 15) ?? UIFont())
+                self?.noConnectionImage.isHidden = false
+            case false:
+                self?.noConnectionImage.isHidden = true
+            }
             }).disposed(by: disposeBag)
         
-        categoryViewModel.LoadingObservable.subscribe(onNext: {[weak self] (value) in
+        categoryViewModel.noItemsObservable.subscribe(onNext: {[weak self] (boolValue) in
+            switch boolValue{
+            case true:
+                self?.noItemsView.isHidden = false
+                print(".>>>>>>>>>>>>")
+            case false:
+                self?.noItemsView.isHidden = true
+                print("<<<<<<<<<<<<<")
+            }
+            }).disposed(by: disposeBag)
+        
+        categoryViewModel.loadingObservable.subscribe(onNext: {[weak self] (value) in
             switch value{
             case true:
                 self?.showLoading()
@@ -106,10 +132,35 @@ class CategoryViewController: UIViewController {
         categoryViewModel.fetchCatProducts(mainCat: mainCat, subCat: subCat)
     }
     
+    @objc func handleSwipe(_ sender: UITapGestureRecognizer? = nil) {
+        categoryViewModel.fetchCatProducts(mainCat: mainCat, subCat: subCat)
+    }
+    
     @IBAction func searchButtonClicked(_ sender: Any) {
         let searchViewController = storyboard?.instantiateViewController(identifier: Constants.searchViewController) as! SearchProductViewController
         searchViewController.productList = categoryViewModel.data
         navigationController?.pushViewController(searchViewController, animated: true)
+    }
+    
+    @IBAction func favButtonPressed(_ sender: Any) {
+        if(UserData.sharedInstance.isLoggedIn()){
+            let storyboard = UIStoryboard(name: "shop", bundle: nil)
+            let wishVC = storyboard.instantiateViewController(identifier: "wishListViewController")
+            self.navigationController?.pushViewController(wishVC, animated: true)
+        }else{
+            Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List", context: self)
+        }
+        
+    }
+    
+    @IBAction func cartButtonPressed(_ sender: Any) {
+        if(UserData.sharedInstance.isLoggedIn()){
+            let storyboard = UIStoryboard(name: "shop", bundle: nil)
+            let favVC = storyboard.instantiateViewController(identifier: "cartViewController")
+            self.navigationController?.pushViewController(favVC, animated: true)
+        }else{
+            Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Cart", context: self)
+        }
     }
     
 }

@@ -18,6 +18,20 @@ struct Constants {
     static let sizeCell = "SizeCollectionViewCell"
     static let productDetailsVC = "ProductDetailsTableViewController"
     
+    static let favoriteCoraDataEntity = "FavoriteProducts"
+    static let cartCoraDataEntity = "CartProducts"
+    static let productIdCoraDataAtt = "productId"
+    static let userEmailCoraDataAtt = "userEmail"
+    static let mainCategoryCoraDataAtt = "mainCategory"
+    static let productImageCoraDataAtt = "productImage"
+    static let productPriceCoraDataAtt = "productPrice"
+    static let quantityCoraDataAtt = "quantity"
+    static let selectedColorCoraDataAtt = "selectedColor"
+    static let selectedSizeCoraDataAtt = "selectedSize"
+    static let titleCoraDataAtt = "title"
+    static let invQuantCoraDataAtt = "inventory_quantity"
+    
+    
     
     //end
     
@@ -36,6 +50,20 @@ struct Constants {
     static let allProductsPath = "products.json"
     static let sortList = ["Price: High to low","Price: Low to High"]
     static let filterList = ["T-Shirts","Shoes","Accessories"]
+    static let putCustomerPath = "customers/"
+    static let postCustomerPath = "customers.json"
+    static let isLoggedInUserDefaults = "isLoggedIn"
+    static let firstNameUserDefaults = "firstName"
+    static let lastNameUserDefaults = "lastName"
+    static let emailUserDefaults = "email"
+    static let idUserDefaults = "userID"
+    static let cityUserDefaults = "city"
+    static let countryUserDefaults = "country"
+    static let currencies = ["EGP","USD"]
+    static let currencyUserDefaults = "currency"
+    static let getCustomerPath = "customers/"
+    static let backendURL = "https://shopify-iti41.herokuapp.com/"
+
 
 
 
@@ -71,11 +99,18 @@ struct Constants {
       static let menGif = "https://media.giphy.com/media/26vUCw2Wsa4N3ezsc/giphy.gif"
       static let kidsGif = "https://media.giphy.com/media/l3q2rCBSrr6D7XKLK/giphy.gif"
       static let shopCell = "shopCollectionViewCell"
-      static let menuCell = "CollectionViewCell"
+      static let menuCell = "mainCategoriesCollectionViewCell"
       static let wishListCell = "wishListCollectionViewCell"
       static let cartTableCell = "cartTableViewCell"
+      static let receiptCell = "receiptTableViewCell"
       static let wishListVC = "wishListViewController"
       static let cartVC = "cartViewController"
+      static let receiptVC = "receiptViewController"
+      static let applyCoupons = "applyCouponsViewController"
+      static let receiptProductCell = "receiptProductCollectionViewCell"
+      static let couponsStateCell = "couponsStateCollectionViewCell"
+      static let availableCouponCell = "availableCouponTableViewCell"
+      static let NotAvailableCell = "NotAvailableTableViewCell"
       static let moveFromBagToWishMsg = "Are you sure, you want to move these items from bag to wish list?"
       static let deleteFromBagMsg = "Are you sure, you want to delete these items from bag?"
       static let addToBagFromWishMsg = "Are you sure you want to add these items to bag ? "

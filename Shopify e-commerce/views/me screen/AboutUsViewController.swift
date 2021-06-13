@@ -7,24 +7,51 @@
 //
 
 import UIKit
-
-class AboutUsViewController: UIViewController {
-
+import WebKit
+class AboutUsViewController: UIViewController{
+    @IBOutlet weak var webView: WKWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        webView.isHidden = true
+        }
 
-        // Do any additional setup after loading the view.
+
+    @IBAction func linkedInButtonClicked(_ sender: UIButton) {
+        var myURL:URL!
+        switch sender.tag {
+        case 1:
+            myURL = URL(string: "https://www.linkedin.com/in/ahmedamr77/")
+            print("1")
+        case 2:
+            myURL = URL(string: "https://www.linkedin.com/in/amr-muhammad/")
+        case 3:
+            myURL = URL(string: "https://www.linkedin.com/in/ayman-omara/")
+        default:
+            myURL = URL(string: "https://www.linkedin.com/in/marwa-shanab/")
+            
+        }
+        let myRequest = URLRequest(url: myURL!)
+        webView.isHidden = false
+        webView.load(myRequest)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func githubButtonClicked(_ sender: UIButton) {
+        var myURL:URL!
+        switch sender.tag {
+        case 1:
+            myURL = URL(string: "https://github.com/AhmedAmr77")
+            print("1")
+        case 2:
+            myURL = URL(string: "https://github.com/AmroMuhammad")
+        case 3:
+            myURL = URL(string: "https://github.com/AymanOmara")
+        default:
+            myURL = URL(string: "https://github.com/MarwaEbrahem")
+            
+        }
+        let myRequest = URLRequest(url: myURL!)
+        webView.isHidden = false
+        webView.load(myRequest)
     }
-    */
-
+    
 }

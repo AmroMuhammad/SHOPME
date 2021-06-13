@@ -13,7 +13,7 @@ class wishListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var productPrice: UILabel!
     @IBOutlet weak var productImg: UIImageView!
     var delegate: CollectionViewCellDelegate?
-    var productItem : FavoriteProduct?
+    var productItem : LocalProductDetails?
     override func awakeFromNib() {
         super.awakeFromNib()
        // layoutMargins = UIEdgeInsets(top: 100, left: 100, bottom: 100, right: 100)
@@ -32,7 +32,7 @@ class wishListCollectionViewCell: UICollectionViewCell {
 
            contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 5, bottom: 0, right: 5))
        }
-    var cellProduct :FavoriteProduct! {
+    var cellProduct :LocalProductDetails! {
         didSet{
             checkImageData(imageData: cellProduct.productImageData)
             productPrice.text = cellProduct.productPrice

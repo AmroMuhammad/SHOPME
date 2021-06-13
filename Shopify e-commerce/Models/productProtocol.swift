@@ -9,6 +9,8 @@
 import Foundation
 import RxCocoa
 import RxSwift
+import Stripe
+
 protocol allProductProtocol {
     func getAllWomanProductData(completion : @escaping (Result<AllProduct?, NSError > ) -> Void)
     func getAllMenProductData(completion : @escaping (Result<AllProduct?, NSError > ) -> Void)
@@ -26,35 +28,49 @@ protocol shopViewModelType : viewModelType {
     var connectivityDriver: Driver<Bool> {get}
     var dataDrive : Driver<[Product]> {get}
     var  discountCodeDrive : Driver<[DiscountCodeElement]> {get}
+    var quantutyObservable: Observable<Int> {get}
+    func getCartQuantity() 
     func fetchWomenData()
     func fetchMenData()
     func fetchKidsData()
     func fetchDiscountCodeData()
 }
 protocol CollectionViewCellDelegate{
-    func showAlert(msg : String ,  product : FavoriteProduct)
-    func showMovingAlert(msg: String ,  product : FavoriteProduct)
+    func showAlert(msg : String ,  product : LocalProductDetails)
+    func showMovingAlert(msg: String ,  product : LocalProductDetails)
 }
 
 protocol TableViewCellDelegate {
-    func showAlert(msg: String, product:CartProduct , completion: @escaping (Int) -> Void)
-    func showMovingAlert(msg: String , product:CartProduct)
-    func updateCoreDate(product:CartProduct)
+    func showAlert(msg: String, product:LocalProductDetails , completion: @escaping (Int) -> Void)
+    func showMovingAlert(msg: String , product:LocalProductDetails)
+    func updateCoreDate(product:LocalProductDetails)
     
 }
 
 protocol wishListViewModelType {
-     var dataDrive : Driver<[FavoriteProduct]> {get}
+     var dataDrive : Driver<[LocalProductDetails]> {get}
      func getwishListData()
-     func addToCart( product : FavoriteProduct)
-     func deleteWishListData( product : FavoriteProduct)
+     func addToCart( product : LocalProductDetails)
+     func deleteWishListData( product : LocalProductDetails)
 }
 protocol cartViewModelType {
      var totalPriceDrive: Driver<Double>{get}
-     var dataDrive : Driver<[CartProduct]> {get}
+     var dataDrive : Driver<[LocalProductDetails]> {get}
      func getCartData()
-     func moveToWishList(product:CartProduct)
-     func deleteCartData(product: CartProduct)
-     func changeProductNumber(product: CartProduct)
+     func moveToWishList(product:LocalProductDetails)
+     func deleteCartData(product: LocalProductDetails)
+     func changeProductNumber(product: LocalProductDetails)
      
+}
+protocol receiptViewModelType {
+     var itemNumDrive: Driver<Int>{get}
+     func getItemNum(products: [LocalProductDetails])
+    func fetchData(paymentTextField:STPPaymentCardTextField,viewController:UIViewController)
+    var errorObservable:Observable<String>{get}
+    var loadingObservable:Observable<Bool>{get}
+    var dataObservable:Observable<String>{get}
+
+}
+protocol applyCouponDelegate {
+    func applyCoupon(coupone : String , productType : String)
 }

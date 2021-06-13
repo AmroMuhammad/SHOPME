@@ -31,11 +31,34 @@ extension UIImageView{
 
 
 
+
+
 // MARK: Ahmed Section
 
 //end
 
 // MARK: Amr Section
+
+extension UIViewController {
+
+func showToast(message : String, font: UIFont) {
+
+    let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-125, width: 150, height: 35))
+    toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+    toastLabel.textColor = UIColor.white
+    toastLabel.font = font
+    toastLabel.textAlignment = .center;
+    toastLabel.text = message
+    toastLabel.alpha = 1.0
+    toastLabel.layer.cornerRadius = 10;
+    toastLabel.clipsToBounds  =  true
+    self.view.addSubview(toastLabel)
+    UIView.animate(withDuration: 5.0, delay: 0.4, options: .curveEaseOut, animations: {
+         toastLabel.alpha = 0.0
+    }, completion: {(isCompleted) in
+        toastLabel.removeFromSuperview()
+    })
+} }
 
 //end
 
@@ -44,7 +67,7 @@ extension UIImageView{
 class Support {
     static func notifyUser(title:String,body:String,context:UIViewController)->Void{
         let alert = UIAlertController(title: title, message: body, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
         context.present(alert, animated: true, completion: nil)
         
     }

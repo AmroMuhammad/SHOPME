@@ -23,7 +23,7 @@ class ProductsCollectionViewCell: UICollectionViewCell {
     
     var allProductObject:SearchProduct!{
         didSet{
-            productNameLabel.text = allProductObject.variants[0].price
+            productNameLabel.text = allProductObject.variants[0].price + " " + UserData.sharedInstance.getCurrency()
             productImage.sd_setImage(with: URL(string: allProductObject.image.src), placeholderImage: UIImage(named: "placeholder"))
         }
     }
