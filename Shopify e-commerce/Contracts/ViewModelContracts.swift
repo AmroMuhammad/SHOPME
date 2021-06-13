@@ -16,6 +16,8 @@ protocol CategoryViewModelContract:ViewModelType{
     var data:[CategoryProduct]? {get}
     func fetchCatProducts(mainCat:String,subCat:String)
     var noItemsObservable: Observable<Bool> {get}
+    var quantutyObservable: Observable<String> {get}
+    func getCartQuantity()
 
 }
 

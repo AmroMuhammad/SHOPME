@@ -17,15 +17,16 @@ class CategoryViewModel : CategoryViewModelContract{
     var errorObservable: Observable<Bool>
     var loadingObservable: Observable<Bool>
     var noItemsObservable: Observable<Bool>
+    var quantutyObservable: Observable<String>
     
     private var shopifyAPI:CategoryAPIContract!
+    private var localManager: LocalManagerHelper!
     var data:[CategoryProduct]?
     private var mainCatDatasubject = PublishSubject<[String]>()
     private var subCatDatasubject = PublishSubject<[String]>()
     private var productDatasubject = PublishSubject<[CategoryProduct]>()
     private var searchDatasubject = PublishSubject<[CategoryProduct]>()
-
-
+    private var quantitySubject = PublishSubject<String>()
     
     private var errorsubject = PublishSubject<Bool>()
     private var loadingsubject = PublishSubject<Bool>()
@@ -38,11 +39,13 @@ class CategoryViewModel : CategoryViewModelContract{
         productDataObservable = productDatasubject.asObservable()
         searchDataObservable = searchDatasubject.asObservable()
         noItemsObservable = noItemSubject.asObservable()
-
+        quantutyObservable = quantitySubject.asObservable()
+        
         errorObservable = errorsubject.asObservable()
         loadingObservable = loadingsubject.asObservable()
         
         shopifyAPI = ShopifyAPI.shared
+        localManager = LocalManagerHelper.localSharedInstance
     }
     
     func fetchData() {
@@ -76,4 +79,20 @@ class CategoryViewModel : CategoryViewModelContract{
         }
     }
     
+    func getCartQuantity() {
+        localManager.getAllCartProducts(userEmail: getUserEmail()) { [weak self] (localProductsArr) in
+            guard let self = self else {return}
+            var allQuantity = 0
+            if let localArr = localProductsArr {
+                for item in localArr {
+                    allQuantity += item.quantity ?? 0
+                }
+            }
+            self.quantitySubject.onNext(String(allQuantity))
+        }
+    }
+    
+    func getUserEmail() -> String{
+        return UserData.sharedInstance.getUserFromUserDefaults().email ?? ""
+    }
 }
