@@ -14,9 +14,8 @@ class MeViewModel : MeViewModelContract{
     private var errorSubject = PublishSubject<(String,Bool)>()
     private var loadingSubject = PublishSubject<Bool>()
     private var signedInSubject = PublishSubject<Bool>()
-    private var favouriteSubject = PublishSubject<[LocalProductDetails]>()
-    private var wishListSubject = PublishSubject<[LocalProductDetails]>()
-
+    private var localSubject = PublishSubject<[LocalProductDetails]>()
+    
     private var data:[Customer]!
     private var shopifyAPI:ShopifyAPI!
     private var userData:UserData!
@@ -25,15 +24,13 @@ class MeViewModel : MeViewModelContract{
     var errorObservable: Observable<(String, Bool)>
     var loadingObservable: Observable<Bool>
     var signedInObservable: Observable<Bool>
-    var favouriteObservable: Observable<[LocalProductDetails]>
-    var wishlistObservable: Observable<[LocalProductDetails]>
+    var localObservable: Observable<[LocalProductDetails]>
     
     init() {
         errorObservable = errorSubject.asObservable()
         loadingObservable = loadingSubject.asObservable()
         signedInObservable = signedInSubject.asObservable()
-        favouriteObservable = favouriteSubject.asObservable()
-        wishlistObservable = wishListSubject.asObservable()
+        localObservable = localSubject.asObservable()
 
         shopifyAPI = ShopifyAPI.shared
         userData = UserData.sharedInstance
@@ -69,17 +66,16 @@ class MeViewModel : MeViewModelContract{
     
     func fetchLocalData(type:String) {
         let email = userData.getUserFromUserDefaults().email ?? ""
-//        let email = "ahm@d.com"
         if(type == "favourite"){
             localManager.getAllProductsFromFavorite(userEmail: email) {[weak self] (result) in
                 if let res = result {
                     if(res.count > 4){
-                        self?.favouriteSubject.onNext(Array(res[0...3]))
+                        self?.localSubject.onNext(Array(res[0...3]))
                     }else{
-                        self?.favouriteSubject.onNext(res)
+                        self?.localSubject.onNext(res)
                     }
                 } else {
-                    self?.errorSubject.onNext(("No favorite items Found", true))
+                    self?.errorSubject.onNext(("noItems", true))
                 }
             }
         }else{
@@ -87,12 +83,12 @@ class MeViewModel : MeViewModelContract{
 
                 if let res = result {
                     if(res.count > 4){
-                        self?.wishListSubject.onNext(Array(res[0...3]))
+                        self?.localSubject.onNext(Array(res[0...3]))
                     }else{
-                        self?.wishListSubject.onNext(res)
+                        self?.localSubject.onNext(res)
                     }
                 } else {
-                    self?.errorSubject.onNext(("No cart items Found", true))
+                    self?.errorSubject.onNext(("noItems", true))
                 }
             }
         }

@@ -412,24 +412,38 @@ For any information you can contact any team member from below Links</string>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t4X-b6-5n3">
+                                <rect key="frame" x="0.0" y="463" width="414" height="350"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noitem" translatesAutoresizingMaskIntoConstraints="NO" id="975-HW-pcL">
+                                        <rect key="frame" x="144.66666666666666" y="125" width="124.99999999999997" height="100"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="975-HW-pcL" firstAttribute="centerY" secondItem="t4X-b6-5n3" secondAttribute="centerY" id="H4o-eZ-GEX"/>
+                                    <constraint firstItem="975-HW-pcL" firstAttribute="centerX" secondItem="t4X-b6-5n3" secondAttribute="centerX" id="uP3-Q1-L1g"/>
+                                </constraints>
+                            </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="05f-pz-Xgv">
-                                <rect key="frame" x="123.66666666666669" y="432" width="167" height="32"/>
+                                <rect key="frame" x="138.66666666666666" y="432" width="136.99999999999997" height="32"/>
                                 <segments>
-                                    <segment title="Whish List"/>
+                                    <segment title="Wishlist"/>
                                     <segment title="Bag"/>
                                 </segments>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="t4X-b6-5n3" firstAttribute="leading" secondItem="2TO-ZJ-wRi" secondAttribute="leading" id="19M-zq-kcM"/>
                             <constraint firstItem="2TO-ZJ-wRi" firstAttribute="bottom" secondItem="csi-Sk-Jwy" secondAttribute="bottom" id="1UX-49-zwC"/>
                             <constraint firstItem="csi-Sk-Jwy" firstAttribute="trailing" secondItem="2TO-ZJ-wRi" secondAttribute="trailing" id="4d8-aB-2G0"/>
                             <constraint firstItem="Wdr-Vw-anx" firstAttribute="top" secondItem="lTi-M7-nHp" secondAttribute="bottom" constant="8" id="6uu-W7-g6I"/>
                             <constraint firstItem="05f-pz-Xgv" firstAttribute="centerX" secondItem="MRc-ss-7vG" secondAttribute="centerX" id="CIa-jL-CtT"/>
                             <constraint firstItem="csi-Sk-Jwy" firstAttribute="top" secondItem="05f-pz-Xgv" secondAttribute="bottom" constant="10" id="EPn-4B-iIk"/>
-                            <constraint firstItem="05f-pz-Xgv" firstAttribute="centerX" secondItem="2TO-ZJ-wRi" secondAttribute="centerX" id="L15-4Z-imd"/>
                             <constraint firstItem="2TO-ZJ-wRi" firstAttribute="bottom" secondItem="Z2e-mk-NR9" secondAttribute="bottom" id="M6y-uh-IOg"/>
                             <constraint firstItem="Z2e-mk-NR9" firstAttribute="leading" secondItem="2TO-ZJ-wRi" secondAttribute="leading" id="NxH-lo-U1d"/>
+                            <constraint firstItem="t4X-b6-5n3" firstAttribute="top" secondItem="05f-pz-Xgv" secondAttribute="bottom" id="RWF-1f-fh2"/>
                             <constraint firstItem="Wdr-Vw-anx" firstAttribute="centerY" secondItem="MRc-ss-7vG" secondAttribute="centerY" constant="-51" id="Sxr-ub-o48"/>
                             <constraint firstItem="csi-Sk-Jwy" firstAttribute="leading" secondItem="2TO-ZJ-wRi" secondAttribute="leading" id="T4M-jX-rOF"/>
                             <constraint firstItem="csi-Sk-Jwy" firstAttribute="trailing" secondItem="2TO-ZJ-wRi" secondAttribute="trailing" id="UPg-g5-QMR"/>
@@ -438,8 +452,10 @@ For any information you can contact any team member from below Links</string>
                             <constraint firstItem="05f-pz-Xgv" firstAttribute="top" secondItem="Wdr-Vw-anx" secondAttribute="bottom" constant="20" id="bnD-W2-JJX"/>
                             <constraint firstItem="lTi-M7-nHp" firstAttribute="top" secondItem="MRc-ss-7vG" secondAttribute="top" constant="110" id="brt-9Q-EEd"/>
                             <constraint firstItem="2TO-ZJ-wRi" firstAttribute="trailing" secondItem="Z2e-mk-NR9" secondAttribute="trailing" id="dTj-qq-aGC"/>
+                            <constraint firstItem="t4X-b6-5n3" firstAttribute="trailing" secondItem="2TO-ZJ-wRi" secondAttribute="trailing" id="mLK-rI-LGk"/>
                             <constraint firstItem="csi-Sk-Jwy" firstAttribute="leading" secondItem="2TO-ZJ-wRi" secondAttribute="leading" id="o41-aj-2eV"/>
                             <constraint firstItem="Z2e-mk-NR9" firstAttribute="top" secondItem="05f-pz-Xgv" secondAttribute="bottom" constant="10" id="oRl-3e-dOn"/>
+                            <constraint firstItem="t4X-b6-5n3" firstAttribute="bottom" secondItem="2TO-ZJ-wRi" secondAttribute="bottom" id="pms-a4-OQw"/>
                             <constraint firstItem="lTi-M7-nHp" firstAttribute="leading" secondItem="2TO-ZJ-wRi" secondAttribute="leading" constant="91" id="ts3-Ez-L06"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2TO-ZJ-wRi"/>
@@ -456,6 +472,7 @@ For any information you can contact any team member from below Links</string>
                     <connections>
                         <outlet property="emailTextField" destination="YKY-ak-nwk" id="1bF-LI-4eA"/>
                         <outlet property="isLoggedTableViewView" destination="Z2e-mk-NR9" id="IUl-pU-ood"/>
+                        <outlet property="isNoItemView" destination="t4X-b6-5n3" id="ctn-O7-Ulu"/>
                         <outlet property="passwordTextField" destination="rQU-wz-hMD" id="FqE-3L-nz8"/>
                         <outlet property="register" destination="Wdr-Vw-anx" id="ndU-Mf-dkg"/>
                         <outlet property="segmentControl" destination="05f-pz-Xgv" id="JCJ-Wg-MpH"/>
@@ -688,6 +705,7 @@ For any information you can contact any team member from below Links</string>
     <resources>
         <image name="github" width="100" height="101.66666412353516"/>
         <image name="linkedin" width="73" height="76.666664123535156"/>
+        <image name="noitem" width="125" height="100"/>
         <image name="person.circle.fill" catalog="system" width="128" height="121"/>
         <image name="wrench.fill" catalog="system" width="128" height="120"/>
     </resources>

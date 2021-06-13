@@ -19,7 +19,8 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var isLoggedTableViewView: UIView!
-
+    @IBOutlet weak var isNoItemView: UIView!
+    
     private var activityView:UIActivityIndicatorView!
     private var disposeBag:DisposeBag!
     private var meViewModel:MeViewModel!
@@ -34,12 +35,18 @@ class SettingsViewController: UIViewController {
         disposeBag = DisposeBag()
         activityView = UIActivityIndicatorView(style: .large)
         
-        meViewModel.errorObservable.subscribe(onNext: { (message, boolValue) in
+        meViewModel.errorObservable.subscribe(onNext: {[weak self] (message, boolValue) in
             if(boolValue){
                 if(message.contains("networkLayer")){
-                    Support.notifyUser(title: "Error", body: "No Internet Connection", context: self)
+                    Support.notifyUser(title: "Error", body: "No Internet Connection", context: self!)
                 }else{
-                    Support.notifyUser(title: "Error", body: message, context: self)
+                    if(message.contains("noItems")){
+                        self?.isNoItemView.isHidden = false
+                    }else{
+                        Support.notifyUser(title: "Error", body: message, context: self!)
+                        self?.isNoItemView.isHidden = true
+
+                    }
                 }
             }
             }).disposed(by: disposeBag)
@@ -84,32 +91,21 @@ class SettingsViewController: UIViewController {
             }
             }).disposed(by: disposeBag)
         
-        meViewModel.favouriteObservable.bind(to: tableview.rx.items(cellIdentifier: "localCell")){row,item,cell in
+        meViewModel.localObservable.bind(to: tableview.rx.items(cellIdentifier: "localCell")){[weak self] row,item,cell in
+            self?.isNoItemView.isHidden = true
             if(row == 3){
-                self.tableview.tableFooterView = button
+                self?.tableview.tableFooterView = button
                 cell.textLabel?.text = item.title
                 button.tag = 1
                 cell.imageView?.image = UIImage(data: item.productImageData)
             }else{
                 cell.textLabel?.text = item.title
-                self.tableview.tableFooterView = nil
+                self?.tableview.tableFooterView = nil
                 cell.imageView?.image = UIImage(data: item.productImageData)
             }
         }.disposed(by: disposeBag)
         
-//        meViewModel.wishlistObservable.bind(to: tableview.rx.items(cellIdentifier: "localCell")){row,item,cell in
-//            if(row == 3){
-//                self.tableview.tableFooterView = button
-//                cell.textLabel?.text = item.title
-//                cell.imageView?.image = UIImage(data: item.productImageData)
-//                button.tag = 2
-//            }else{
-//                cell.textLabel?.text = item.title
-//                cell.imageView?.image = UIImage(data: item.productImageData)
-//                self.tableview.tableFooterView = nil
-//            }
-//        }.disposed(by: disposeBag)
-        
+
         tableview.rx.modelSelected(LocalProductDetails.self).subscribe(onNext: {[weak self] (cartProduct) in
             let storyBoard : UIStoryboard = UIStoryboard(name: "productDetails", bundle:nil)
             let productDetailsVC = storyBoard.instantiateViewController(identifier: Constants.productDetailsVC) as! ProductDetailsTableViewController
@@ -117,14 +113,7 @@ class SettingsViewController: UIViewController {
             productDetailsVC.productMainCategory = "\(cartProduct.mainCategory!)"
             self?.navigationController?.pushViewController(productDetailsVC, animated: true)
         }).disposed(by: disposeBag)
-        
-        tableview.rx.modelSelected(LocalProductDetails.self).subscribe(onNext: {[weak self] (favProduct) in
-            let storyBoard : UIStoryboard = UIStoryboard(name: "productDetails", bundle:nil)
-            let productDetailsVC = storyBoard.instantiateViewController(identifier: Constants.productDetailsVC) as! ProductDetailsTableViewController
-            productDetailsVC.productId = "\(favProduct.productId)"
-            productDetailsVC.productMainCategory = "\(favProduct.mainCategory!)"
-            self?.navigationController?.pushViewController(productDetailsVC, animated: true)
-        }).disposed(by: disposeBag)
+
     }
     
     @objc func moreButtonClicked(_ sender: UIButton) {
@@ -146,6 +135,9 @@ class SettingsViewController: UIViewController {
             print("Logged Off")
             showLoginView()
         }
+        meViewModel.fetchLocalData(type: "favourite")
+        segmentControl.selectedSegmentIndex = 0
+        
     }
     
     func showLoginView(){
