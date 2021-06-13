@@ -42,6 +42,12 @@ class CategoryViewController: UIViewController {
         categoryViewModel = CategoryViewModel()
         disposeBag = DisposeBag()
         
+        //swipe to refresh
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipe(_:)))
+        swipe.direction = .down
+        swipe.numberOfTouchesRequired = 1
+        noConnectionImage.addGestureRecognizer(swipe)
+        
         //setting delegates
         mainCategoryCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
         subCategoryCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
@@ -95,7 +101,7 @@ class CategoryViewController: UIViewController {
             switch boolValue{
             case true:
                 self?.hideLoading()
-                Support.notifyUser(title: "Error", body: "No Internet Connection", context: self!)
+                self?.showToast(message: "Please swipe to refresh", font: UIFont(name: "HelveticaNeue-ThinItalic", size: 15) ?? UIFont())
                 self?.noConnectionImage.isHidden = false
             case false:
                 self?.noConnectionImage.isHidden = true
@@ -123,6 +129,10 @@ class CategoryViewController: UIViewController {
         }).disposed(by: disposeBag)
 
         categoryViewModel.fetchData()
+        categoryViewModel.fetchCatProducts(mainCat: mainCat, subCat: subCat)
+    }
+    
+    @objc func handleSwipe(_ sender: UITapGestureRecognizer? = nil) {
         categoryViewModel.fetchCatProducts(mainCat: mainCat, subCat: subCat)
     }
     
