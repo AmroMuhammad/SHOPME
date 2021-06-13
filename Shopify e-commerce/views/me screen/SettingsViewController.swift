@@ -154,7 +154,9 @@ class SettingsViewController: UIViewController {
         emailTextField.text = ""
         passwordTextField.text = ""
         meViewModel.fetchLocalData(type: "favourite")
+        tableview.reloadData()
         isLoggedTableViewView.isHidden = true
+        
     }
     
     @IBAction func settingsButtonPressed(_ sender: Any) {
