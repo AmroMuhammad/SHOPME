@@ -9,6 +9,8 @@
 import Foundation
 import RxCocoa
 import RxSwift
+import Stripe
+
 protocol allProductProtocol {
     func getAllWomanProductData(completion : @escaping (Result<AllProduct?, NSError > ) -> Void)
     func getAllMenProductData(completion : @escaping (Result<AllProduct?, NSError > ) -> Void)
@@ -63,7 +65,11 @@ protocol cartViewModelType {
 protocol receiptViewModelType {
      var itemNumDrive: Driver<Int>{get}
      func getItemNum(products: [LocalProductDetails])
-     
+    func fetchData(paymentTextField:STPPaymentCardTextField,viewController:UIViewController)
+    var errorObservable:Observable<String>{get}
+    var loadingObservable:Observable<Bool>{get}
+    var dataObservable:Observable<String>{get}
+
 }
 protocol applyCouponDelegate {
     func applyCoupon(coupone : String , productType : String)

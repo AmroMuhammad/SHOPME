@@ -8,6 +8,8 @@
 
 import Foundation
 import Alamofire
+import Stripe
+
 class ShopifyAPI : BaseAPI<ApplicationNetworking>{
     
     static let shared = ShopifyAPI()
@@ -226,7 +228,21 @@ extension ShopifyAPI : allProductProtocol{
             completion(result)
         }
     }
-    
-    
+}
+
+extension ShopifyAPI : PaymentAPIContract{
+    func createPaymentIntent(completion: @escaping STPJSONResponseCompletionBlock){
+        var url = URL(string: Constants.backendURL)!
+        url.appendPathComponent("create_payment_intent")
+        
+        AF.request(url, method: .post, parameters: [:]).validate(statusCode: 200..<300).responseJSON { (response) in
+            switch(response.result){
+            case .success(let json):
+                completion(json as! [String:Any],nil)
+            case .failure(let error):
+                completion(nil,error)
+            }
+        }
+    }
 }
 //end
