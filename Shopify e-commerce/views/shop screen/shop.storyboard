@@ -606,6 +606,10 @@
                                                         <constraint firstAttribute="height" constant="25" id="k7e-tv-AH0"/>
                                                     </constraints>
                                                 </imageView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dL8-I4-71b">
+                                                    <rect key="frame" x="40" y="99" width="334" height="36"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="l1r-Wt-E5U" firstAttribute="top" secondItem="flE-ny-HHZ" secondAttribute="bottom" constant="20.5" id="1Gq-qH-1Yb"/>
@@ -613,10 +617,15 @@
                                                 <constraint firstItem="HuD-0k-6dl" firstAttribute="centerY" secondItem="l1r-Wt-E5U" secondAttribute="centerY" id="Auk-xE-qgD"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="HuD-0k-6dl" secondAttribute="trailing" constant="69" id="Em6-wS-bJy"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="flE-ny-HHZ" secondAttribute="trailing" constant="130" id="Iwx-C0-Eai"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="dL8-I4-71b" secondAttribute="bottom" constant="5" id="LSy-kc-gl0"/>
                                                 <constraint firstItem="l1r-Wt-E5U" firstAttribute="leading" secondItem="pwo-3d-26F" secondAttribute="leadingMargin" constant="11" id="PV5-Eg-WYb"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="dL8-I4-71b" secondAttribute="trailing" constant="20" id="Qsi-Ff-r0D"/>
                                                 <constraint firstItem="flE-ny-HHZ" firstAttribute="leading" secondItem="pwo-3d-26F" secondAttribute="leadingMargin" constant="11" id="TFH-Id-nsB"/>
+                                                <constraint firstItem="dL8-I4-71b" firstAttribute="top" secondItem="HuD-0k-6dl" secondAttribute="bottom" constant="5" id="c7Y-EG-UDa"/>
                                                 <constraint firstItem="HuD-0k-6dl" firstAttribute="top" secondItem="flE-ny-HHZ" secondAttribute="bottom" constant="10.5" id="dTs-tn-pQp"/>
+                                                <constraint firstItem="dL8-I4-71b" firstAttribute="centerX" secondItem="pwo-3d-26F" secondAttribute="centerX" id="r1X-vc-zgW"/>
                                                 <constraint firstItem="HuD-0k-6dl" firstAttribute="leading" secondItem="l1r-Wt-E5U" secondAttribute="trailing" constant="14" id="xMQ-e0-VAT"/>
+                                                <constraint firstItem="dL8-I4-71b" firstAttribute="leading" secondItem="pwo-3d-26F" secondAttribute="leadingMargin" constant="20" id="ysS-Ql-XJU"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -864,7 +873,8 @@
                         <outlet property="discount" destination="3RG-t1-EBE" id="ggT-yw-LEs"/>
                         <outlet property="finalDiscount" destination="9GB-jm-y8J" id="Qhl-jw-Nar"/>
                         <outlet property="itemNumber" destination="2Hl-F4-JOD" id="9nG-za-blo"/>
-                        <outlet property="paymentCell" destination="oDk-SN-p7q" id="Pug-9L-ufj"/>
+                        <outlet property="paymentCardView" destination="dL8-I4-71b" id="trd-FF-exR"/>
+                        <outlet property="placeOrderButton" destination="xMB-Vk-Q0L" id="zfJ-Rb-qAN"/>
                         <outlet property="receiptProductCollectionView" destination="lSb-ou-nVs" id="k5O-Bn-a7s"/>
                         <outlet property="secondCell" destination="gU0-wY-2gm" id="wdi-G3-GgO"/>
                         <outlet property="totalPrice" destination="EJt-nE-hO0" id="mhU-V8-Z5F"/>

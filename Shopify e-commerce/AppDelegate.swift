@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Stripe
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if(!Connectivity.isConnectedToInternet){
             UserData.sharedInstance.deleteUserDefaults()
         }
+        Stripe.setDefaultPublishableKey("pk_test_51J1GuRIMrMhMt5HIY4jINDGzt4Bp38VD7HnSkIzLmBAkBU3BEUjJoswc21pqpn4jd0ktegX22Is0E1R6DS3nZjfQ000dovGHSJ")
         return true
     }
 

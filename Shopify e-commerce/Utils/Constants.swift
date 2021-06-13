@@ -62,6 +62,8 @@ struct Constants {
     static let currencies = ["EGP","USD"]
     static let currencyUserDefaults = "currency"
     static let getCustomerPath = "customers/"
+    static let backendURL = "https://shopify-iti41.herokuapp.com/"
+
 
 
 

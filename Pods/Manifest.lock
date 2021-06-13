@@ -11,6 +11,7 @@ PODS:
   - SDWebImage (5.10.4):
     - SDWebImage/Core (= 5.10.4)
   - SDWebImage/Core (5.10.4)
+  - Stripe (19.4.1)
 
 DEPENDENCIES:
   - Alamofire (~> 5.2)
@@ -19,6 +20,7 @@ DEPENDENCIES:
   - RxCocoa (= 6.1.0)
   - RxSwift (= 6.1.0)
   - SDWebImage
+  - Stripe
 
 SPEC REPOS:
   trunk:
@@ -29,6 +31,7 @@ SPEC REPOS:
     - RxRelay
     - RxSwift
     - SDWebImage
+    - Stripe
 
 SPEC CHECKSUMS:
   Alamofire: bfbc4c2fe5909b1d94fb4ef2277c6b3727ef5dae
@@ -38,7 +41,8 @@ SPEC CHECKSUMS:
   RxRelay: 483e1a19fad961b41f0b0c0bee506f46c1ae14fe
   RxSwift: a834e5c538e89eca0cae86f403f4fbf0336786ce
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
+  Stripe: 5914399ac5878056b985d56b409cb4bb1e7fc7e8
 
-PODFILE CHECKSUM: cac5cfad616d4350529ce6b0425c37df61f2f11f
+PODFILE CHECKSUM: b6e6288d798ec41e9de429dbc4a7becfa92d1c52
 
 COCOAPODS: 1.10.1
