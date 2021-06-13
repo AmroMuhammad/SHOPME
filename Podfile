@@ -16,6 +16,7 @@ target 'Shopify e-commerce' do
   # Alamofire
   pod 'Alamofire', '~> 5.2'
 
+pod 'Stripe'
 
   
   # SDWebImage
