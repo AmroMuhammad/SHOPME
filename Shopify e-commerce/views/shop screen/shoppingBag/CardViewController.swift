@@ -23,7 +23,7 @@ class CardViewController: UIViewController {
         super.viewDidLoad()
         currency = UserDefaults.standard.string(forKey: Constants.currencyUserDefaults)
         cartViewModelObj = cartViewModel()
-        lastView.layer.cornerRadius = 30
+       // lastView.layer.cornerRadius = 30
         lastView.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOffset = CGSize(width: 10,height: 10)
         view.layer.shadowRadius = 5

@@ -14,28 +14,32 @@ class wishListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var productImg: UIImageView!
     var delegate: CollectionViewCellDelegate?
     var productItem : LocalProductDetails?
+    var currency : String?
     override func awakeFromNib() {
         super.awakeFromNib()
        // layoutMargins = UIEdgeInsets(top: 100, left: 100, bottom: 100, right: 100)
         productImg.layer.shadowColor = UIColor.black.cgColor
         productImg.layer.borderWidth = 1.0
         productImg.layer.borderColor = UIColor.gray.cgColor
-        //productImg.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowColor = UIColor.gray.cgColor
         productImg.layer.cornerRadius = 20
-//        productImg.layer.shadowOffset = CGSize(width: 0, height: 0)
-//        productImg.layer.shadowRadius = 5.0
-//        productImg.layer.shadowOpacity = 1
+        self.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.layer.shadowRadius = 5.0
+        self.layer.shadowOpacity = 1
         productImg.layer.masksToBounds = true
+        self.layer.masksToBounds = true
+        self.layer.cornerRadius = 20
+        currency = UserDefaults.standard.string(forKey: Constants.currencyUserDefaults)
     }
     override func layoutSubviews() {
            super.layoutSubviews()
 
-           contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 5, bottom: 0, right: 5))
+//           contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 5, bottom: 0, right: 5))
        }
     var cellProduct :LocalProductDetails! {
         didSet{
             checkImageData(imageData: cellProduct.productImageData)
-            productPrice.text = cellProduct.productPrice
+            productPrice.text = cellProduct.productPrice! + " " + currency!
             productItem = cellProduct
         }
     }

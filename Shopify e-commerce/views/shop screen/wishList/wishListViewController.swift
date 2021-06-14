@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 class wishListViewController: UIViewController {
     var wishListViewModelObj : wishListViewModelType!
-    @IBOutlet weak var toolBar: UIToolbar!
+   //@IBOutlet weak var toolBar: UIToolbar!
     private let disposeBag = DisposeBag()
     @IBOutlet weak var noItemImg: UIImageView!
     @IBOutlet weak var wishListCollectionView: UICollectionView!
@@ -81,12 +81,12 @@ class wishListViewController: UIViewController {
     func wishListEmpty() {
         print("it is empty ................")
         self.wishListCollectionView.isHidden = true
-        self.toolBar.isHidden = true
+      //  self.toolBar.isHidden = true
         self.noItemImg.isHidden = false
     }
    func wishListNotEmpty() {
        self.wishListCollectionView.isHidden = false
-       self.toolBar.isHidden = false
+     //  self.toolBar.isHidden = false
        self.noItemImg.isHidden = true
        print("it not is empty ................")
    }
