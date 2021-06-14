@@ -126,8 +126,8 @@ class shopViewController: UIViewController {
         shopProductViewModel.connectivityDriver.drive(onNext: { [weak self](result) in
             if(result){
                 self!.connectionImg.isHidden = false
-                print("no internet connection")
-                self!.showAlert(msg: "No Internet Connection")
+                self?.showToast(message: "Please check your connection then swipe down to refresh", font: UIFont(name: "HelveticaNeue-ThinItalic", size: 15) ?? UIFont())
+               // self!.showAlert(msg: "No Internet Connection")
             }
             else{
                  self!.connectionImg.isHidden = true
