@@ -61,12 +61,6 @@ class CardViewController: UIViewController {
             Observable.just(val).bind(to: self!.cartTableView.rx.items(cellIdentifier: Constants.cartTableCell)){row,item,cell in
             (cell as? TableViewCell)?.delegate = self
                 (cell as? TableViewCell)?.cellCartProduct = item
-                   cell.layer.cornerRadius = 30
-                   cell.layer.shadowColor = UIColor.black.cgColor
-                   cell.layer.shadowOffset = CGSize(width: 0, height: 0)
-                   cell.layer.shadowRadius = 30
-                   cell.layer.shadowOpacity = 5
-                   cell.layer.masksToBounds = true
             }.disposed(by: self!.disposeBag)
         }
         }).disposed(by: disposeBag)

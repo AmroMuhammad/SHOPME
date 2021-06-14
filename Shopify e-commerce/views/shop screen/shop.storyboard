@@ -812,10 +812,10 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="US$148.89" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJt-nE-hO0">
-                                                            <rect key="frame" x="275" y="25" width="129" height="46"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="US$148.89" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJt-nE-hO0">
+                                                            <rect key="frame" x="254" y="25" width="150" height="46"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="129" id="4DX-xi-98g"/>
+                                                                <constraint firstAttribute="width" constant="150" id="4DX-xi-98g"/>
                                                                 <constraint firstAttribute="height" constant="46" id="Hcg-0k-vtU"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
