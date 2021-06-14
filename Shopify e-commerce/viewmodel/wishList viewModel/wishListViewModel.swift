@@ -10,12 +10,15 @@ import Foundation
 import RxSwift
 import RxCocoa
 class wishListViewModel : wishListViewModelType{
+    var errorDrive: Driver<Bool>
+    var errorSubject = PublishSubject<Bool>()
     var disposeBag = DisposeBag()
     var dataDrive: Driver<[LocalProductDetails]>
     var dataSubject = PublishSubject<[LocalProductDetails]>()
     var coreDataobj = LocalManagerHelper.localSharedInstance
     init() {
            dataDrive = dataSubject.asDriver(onErrorJustReturn: [] )
+           errorDrive = errorSubject.asDriver(onErrorJustReturn: false)
     }
     func getwishListData() {
         let email = UserDefaults.standard.string(forKey: Constants.emailUserDefaults) ?? ""
@@ -25,6 +28,7 @@ class wishListViewModel : wishListViewModelType{
                 print("the count is equal : \(res.count)")
             } else {
                 print("erroooooooooooooooooooor")
+                 self!.errorSubject.onNext(true)
             }
         }
     }

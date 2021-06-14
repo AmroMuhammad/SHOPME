@@ -102,7 +102,9 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="diccountTitle" destination="kEW-0c-BKF" id="Tbe-fu-QpG"/>
                 <outlet property="discountCode" destination="vX4-XQ-EPL" id="1m3-D6-DyG"/>
+                <outlet property="discountDescription" destination="GxQ-rQ-MiX" id="rsm-rv-1Na"/>
                 <outlet property="problemMsg" destination="2e8-JT-3en" id="48R-w0-92p"/>
                 <outlet property="productType" destination="yDn-uS-YF0" id="VcV-M1-sWe"/>
             </connections>

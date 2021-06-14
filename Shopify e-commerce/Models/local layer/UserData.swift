@@ -75,7 +75,9 @@ class UserData {
     func getCurrency()->String{
         return userDefaults.value(forKey: Constants.currencyUserDefaults) as! String
     }
-    
+    func returnCurrency() -> String {
+        return userDefaults.string(forKey: Constants.currencyUserDefaults)!
+    }
     
     
 }

@@ -21,12 +21,15 @@ class applyCouponsViewController: UIViewController {
     var applyCouponViewModelObj: applyCouponViewModel?
     var productTypeArray = ["Women","Kids"]
     @IBOutlet weak var emptyMsg: UILabel!
+    @IBOutlet weak var availableEmptyMsg: UILabel!
+    @IBOutlet weak var availableEmptyImg: UIImageView!
     @IBOutlet weak var emptyImg: UIImageView!
     @IBOutlet weak var notAvailableCouponView: UIView!
     @IBOutlet weak var notAvailableTableView: UITableView!
     @IBOutlet weak var availableCouponView: UIView!
     @IBOutlet weak var availableCoupon: UITableView!
     @IBOutlet weak var alertLabel: UILabel!
+    @IBOutlet weak var chooseCouponLabel: UILabel!
     @IBOutlet weak var couponStateCollectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -39,13 +42,35 @@ class applyCouponsViewController: UIViewController {
         availableCoupon.delegate = self
         notAvailableTableView.delegate = self
         couponStateCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        // availableCoupon.rx.setDelegate(self).disposed(by: disposeBag)
+       //  notAvailableTableView.rx.setDelegate(self).disposed(by: disposeBag)
         couponStateCollectionView.delegate = self
         Observable.just(["Available","Not Available"]).bind(to: couponStateCollectionView.rx.items(cellIdentifier: Constants.couponsStateCell)){row,item,cell in
             (cell as? couponsStateCollectionViewCell )?.lbl.text = item
         }.disposed(by: disposeBag)
         
+        applyCouponViewModelObj?.noFindItemsNotAvailableDriver.drive(onNext: { (val) in
+            if(val){
+                print("not available empty")
+                self.emptyImg.isHidden = false
+                self.emptyMsg.isHidden = false
+            }
+        }).disposed(by: disposeBag)
+        
+        applyCouponViewModelObj?.noFindItemsAvailableDriver.drive(onNext: { (val) in
+            if(val){
+                print("available empty")
+                self.availableEmptyMsg.isHidden = false
+                self.availableEmptyImg.isHidden = false
+                self.alertLabel.isHidden = true
+                self.chooseCouponLabel.isHidden = true
+            }
+        }).disposed(by: disposeBag)
+        
         applyCouponViewModelObj?.notAvailableCouponsDrive.drive(onNext: {[weak self] (val) in
-                  print("Not empty")
+
+            self?.emptyImg.isHidden = true
+            self?.emptyMsg.isHidden = true
             Observable.just(val).bind(to: self!.notAvailableTableView.rx.items(cellIdentifier: Constants.NotAvailableCell)){row,item,cell in
                   (cell as? NotAvailableTableViewCell )?.discountCode.text = "Code: " + item.code!
                 (cell as? NotAvailableTableViewCell )?.productType.text = ". For " + item.productType! + " products"
@@ -80,23 +105,20 @@ class applyCouponsViewController: UIViewController {
         }.disposed(by: disposeBag)
           
         availableCoupon.rx.modelSelected(Coupon.self).subscribe{[weak self](item) in
-            self!.discountDelegate?.applyCoupon(coupone: "-US$10.00" , productType : (item.element?.productType)!)
+            self!.discountDelegate?.applyCoupon(coupone: "10.00" , productType : (item.element?.productType)!)
         }.disposed(by: disposeBag)
        
         applyCouponViewModelObj?.availableCouponsDrive.drive(onNext: {[weak self] (val) in
-//            if(val.count == 0){
-//                print("empty")
-//                self!.emptyImg.isHidden = false
-//                self!.emptyMsg.isHidden = false
-//            }else{
-//                 print("Not empty")
-//                self!.emptyImg.isHidden = true
-//                self!.emptyMsg.isHidden = true
+            self?.availableEmptyMsg.isHidden = true
+            self?.availableEmptyImg.isHidden = true
+            self?.alertLabel.isHidden = false
+            self?.chooseCouponLabel.isHidden = false
+
             Observable.just(val).bind(to: self!.availableCoupon.rx.items(cellIdentifier: Constants.availableCouponCell)){row,item,cell in
                 (cell as? availableCouponTableViewCell )?.discountCode.text = "Code: " + item.code!
                 (cell as? availableCouponTableViewCell )?.productType.text = ". For " + item.productType! + " products"
             }.disposed(by: self!.disposeBag)
-    //    }
+        //}
         }).disposed(by: disposeBag)
         
         let imageAttachment = NSTextAttachment()

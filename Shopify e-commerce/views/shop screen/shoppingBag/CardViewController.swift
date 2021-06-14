@@ -13,15 +13,17 @@ class CardViewController: UIViewController {
     var cartViewModelObj : cartViewModelType!
     var disposeBag = DisposeBag()
     var allCartProduct : [LocalProductDetails]?
-   
+    var totalPriceForReceipt : String?
+    var currency : String?
     @IBOutlet weak var cartTableView: UITableView!
     @IBOutlet weak var noItemImg: UIImageView!
     @IBOutlet weak var totalPrice: UILabel!
     @IBOutlet weak var lastView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        currency = UserDefaults.standard.string(forKey: Constants.currencyUserDefaults)
         cartViewModelObj = cartViewModel()
-        lastView.layer.cornerRadius = 30
+       // lastView.layer.cornerRadius = 30
         lastView.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOffset = CGSize(width: 10,height: 10)
         view.layer.shadowRadius = 5
@@ -38,10 +40,15 @@ class CardViewController: UIViewController {
                self.navigationItem.rightBarButtonItem = barButton
         
         cartViewModelObj.totalPriceDrive.drive(onNext: {[weak self] (val) in
-            self!.totalPrice.text = "\(val)"
+            self!.totalPrice.text = "\(val) " + self!.currency!
+            self!.totalPriceForReceipt = "\(val)"
         }).disposed(by: disposeBag)
         
-        
+        cartViewModelObj.errorDrive.drive(onNext: {[weak self] (val) in
+            if(val){
+              self!.cartEmpty()
+            }
+        }).disposed(by: disposeBag)
         cartViewModelObj.dataDrive.drive(onNext: {[weak self] (val) in
            
             self!.allCartProduct = val
@@ -54,12 +61,6 @@ class CardViewController: UIViewController {
             Observable.just(val).bind(to: self!.cartTableView.rx.items(cellIdentifier: Constants.cartTableCell)){row,item,cell in
             (cell as? TableViewCell)?.delegate = self
                 (cell as? TableViewCell)?.cellCartProduct = item
-                   cell.layer.cornerRadius = 30
-                   cell.layer.shadowColor = UIColor.black.cgColor
-                   cell.layer.shadowOffset = CGSize(width: 0, height: 0)
-                   cell.layer.shadowRadius = 30
-                   cell.layer.shadowOpacity = 5
-                   cell.layer.masksToBounds = true
             }.disposed(by: self!.disposeBag)
         }
         }).disposed(by: disposeBag)
@@ -109,13 +110,18 @@ class CardViewController: UIViewController {
     @IBAction func checkoutBtn(_ sender: Any) {
         let receiptViewController = storyboard?.instantiateViewController(identifier: Constants.receiptVC) as! receiptViewController
         receiptViewController.allCartProductForReceipt = allCartProduct
-        receiptViewController.totalCartPrice = totalPrice.text
+        receiptViewController.totalCartPrice = totalPriceForReceipt
         navigationController?.pushViewController(receiptViewController, animated: true)
     }
 }
 
 
 extension CardViewController: TableViewCellDelegate {
+    
+    func ShowMaximumAlert(msg: String){
+        Support.notifyUser(title: "Sorry", body: msg, context: self)
+    }
+    
     func updateCoreDate(product: LocalProductDetails) {
         cartViewModelObj.changeProductNumber(product: product)
     }
