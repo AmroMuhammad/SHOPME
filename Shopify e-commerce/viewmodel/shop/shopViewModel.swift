@@ -50,7 +50,8 @@ class shopViewModel  : shopViewModelType{
                 self?.dataSubject.onNext(data?.products ?? [])
             case .failure(_):
                 self?.loadingSubject.onNext(false)
-                self?.errorSubject.onNext(Constants.genericError)
+              //  self?.errorSubject.onNext(Constants.genericError)
+                self?.connectivitySubject.onNext(true)
             }
         }
 
@@ -71,7 +72,8 @@ class shopViewModel  : shopViewModelType{
                         self?.dataSubject.onNext(data?.products ?? [])
                     case .failure(_):
                         self?.loadingSubject.onNext(false)
-                        self?.errorSubject.onNext(Constants.genericError)
+                        //self?.errorSubject.onNext(Constants.genericError)
+                        self?.connectivitySubject.onNext(true)
                     }
                 }
 
@@ -93,7 +95,8 @@ class shopViewModel  : shopViewModelType{
                         self?.dataSubject.onNext(data?.products ?? [])
                     case .failure(_):
                         self?.loadingSubject.onNext(false)
-                        self?.errorSubject.onNext(Constants.genericError)
+                        //self?.errorSubject.onNext(Constants.genericError)
+                        self?.connectivitySubject.onNext(true)
                     }
                 }
 
@@ -111,7 +114,8 @@ class shopViewModel  : shopViewModelType{
             case .success(let data):
                 self!.discountCodeSubject.onNext(data?.discountCodes ?? [] )
             case .failure(_):
-                self?.errorSubject.onNext(Constants.genericError)
+              //  self?.errorSubject.onNext(Constants.genericError)
+                self?.connectivitySubject.onNext(true)
             }
         }
     }
