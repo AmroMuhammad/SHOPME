@@ -14,7 +14,6 @@ class shopViewController: UIViewController {
     var shopProductViewModel : shopViewModelType!
     private let disposeBag = DisposeBag()
     var indecator : UIActivityIndicatorView?
-    let refreshControl = UIRefreshControl()
     @IBOutlet weak var gifBtnOutlet: UIButton!
     @IBOutlet weak var shopCollectionView: UICollectionView!
     @IBOutlet weak var ads: UILabel!

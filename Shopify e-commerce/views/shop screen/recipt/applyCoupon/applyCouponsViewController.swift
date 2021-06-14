@@ -68,28 +68,20 @@ class applyCouponsViewController: UIViewController {
         }).disposed(by: disposeBag)
         
         applyCouponViewModelObj?.notAvailableCouponsDrive.drive(onNext: {[weak self] (val) in
-//            if(val.count == 0){
-//                print(" empty")
-//            }else{
-//                  print("Not empty")
-//               // self!.notAvailableTableView.delegate = nil
-//               // self!.notAvailableTableView.dataSource = nil
+
             self?.emptyImg.isHidden = true
             self?.emptyMsg.isHidden = true
             Observable.just(val).bind(to: self!.notAvailableTableView.rx.items(cellIdentifier: Constants.NotAvailableCell)){row,item,cell in
                   (cell as? NotAvailableTableViewCell )?.discountCode.text = "Code: " + item.code!
                 (cell as? NotAvailableTableViewCell )?.productType.text = ". For " + item.productType! + " products"
              }.disposed(by: self!.disposeBag)
-         //   }
       }).disposed(by: disposeBag)
         
         couponStateCollectionView.rx.itemSelected.subscribe{[weak self](IndexPath) in
             if( IndexPath.element![1] == 0){
-                //self?.applyCouponViewModelObj!.getAvailableCoupons(products: self!.productTypeArray)
                 self!.availableCouponView.isHidden = false
                 self!.notAvailableCouponView.isHidden = true
             }else{
-              // self?.applyCouponViewModelObj!.getNotAvailableCoupons(products: self!.productTypeArray)
                self!.availableCouponView.isHidden = true
                self!.notAvailableCouponView.isHidden = false
             }
@@ -121,16 +113,7 @@ class applyCouponsViewController: UIViewController {
             self?.availableEmptyImg.isHidden = true
             self?.alertLabel.isHidden = false
             self?.chooseCouponLabel.isHidden = false
-//            if(val.count == 0){
-//                print("available empty")
-//               // self!.emptyImg.isHidden = false
-//               // self!.emptyMsg.isHidden = false
-//            }else{
-//              //  self!.availableCoupon.delegate = nil
-//              //  self!.availableCoupon.dataSource = nil
-//                 print("available Not empty")
-//               // self!.emptyImg.isHidden = true
-//               // self!.emptyMsg.isHidden = true
+
             Observable.just(val).bind(to: self!.availableCoupon.rx.items(cellIdentifier: Constants.availableCouponCell)){row,item,cell in
                 (cell as? availableCouponTableViewCell )?.discountCode.text = "Code: " + item.code!
                 (cell as? availableCouponTableViewCell )?.productType.text = ". For " + item.productType! + " products"
