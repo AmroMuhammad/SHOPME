@@ -315,7 +315,7 @@ class LocalManagerHelper {
         completion(true)
     }
     
-    func updateCartProduct(localProductDetails: LocalProductDetails, completion: @escaping (Bool) -> Void){
+    func updateCartProduct(type: UpdateType, localProductDetails: LocalProductDetails, completion: @escaping (Bool) -> Void){
         let appDelegte = UIApplication.shared.delegate as? AppDelegate
         let context = appDelegte!.persistentContainer.viewContext
         let fetchReq = NSFetchRequest<NSManagedObject>(entityName: Constants.cartCoraDataEntity)
@@ -327,8 +327,13 @@ class LocalManagerHelper {
                         if let prodId = item.value(forKey: Constants.productIdCoraDataAtt){
                             if prodId as! Int == localProductDetails.productId{
                                 print("updateCartProduct - FOUNDDDDDDDDDD  UPDaTe")
-                                
-                                item.setValue(localProductDetails.quantity, forKey: Constants.quantityCoraDataAtt)
+                                switch type {
+                                    case .Quantity:
+                                        item.setValue(localProductDetails.quantity, forKey: Constants.quantityCoraDataAtt)
+                                    case .SizeColor:
+                                        item.setValue(localProductDetails.selectedSize, forKey: Constants.selectedSizeCoraDataAtt)
+                                        item.setValue(localProductDetails.selectedColor, forKey: Constants.selectedColorCoraDataAtt)
+                                }
                                 try context.save()
                                 print("updateCartProduct -  UPDaTe")
                                 completion(true)

@@ -85,7 +85,7 @@ class cartViewModel : cartViewModelType {
     }
     func changeProductNumber(product: LocalProductDetails){
         print("\(product.quantity ?? 0)")
-        coreDataobj.updateCartProduct(localProductDetails: product) {[weak self] (result) in
+        coreDataobj.updateCartProduct(type: .Quantity, localProductDetails: product) {[weak self] (result) in
              switch result{
                 case true:
                     self!.getCartData()

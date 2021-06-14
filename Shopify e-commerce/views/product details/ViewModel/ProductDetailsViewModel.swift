@@ -291,6 +291,24 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
         }
     }
 
+    func updateCartProduct(selectedSize: String?, selectedColor: UIColor?) {
+        if let productObj = productObject{
+            print("VM updateInCart id => \(productObj.id)")
+            
+            localManager.updateCartProduct(type: .SizeColor, localProductDetails: LocalProductDetails(productId: productObj.id, userEmail: getUserEmail(), title: productObj.title, productPrice: productObj.variants?[0].price, productImageData: Data(), quantity: 1, selectedSize: selectedSize, selectedColor: mapFromColor(color: selectedColor), mainCategory: getMainCategory(), inventory_quantity: getInventoryQuantityOfProductSize(productObject: productObj, selectedSize: selectedSize))) { [weak self] (resBool) in
+                guard let self = self else {return}
+                if resBool {
+                    self.showToastSubject.onNext("Data updated successfuly")
+                } else {
+                    self.showErrorSubject.onNext(["Oops :(", "We're sorry, but can't update this product. Please try again."])
+                }
+            }
+        } else {
+            print("VM addToCart => CAN NOT ADD TO CART !!!")
+            showErrorSubject.onNext(["Oops :(", "We're sorry, but can't add this product. Please try again."])
+        }
+    }
+    
     func getCartQuantity() {
         localManager.getAllCartProducts(userEmail: getUserEmail()) { [weak self] (localProductsArr) in
             guard let self = self else {return}

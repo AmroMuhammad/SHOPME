@@ -111,13 +111,19 @@ class ProductDetailsTableViewController: UITableViewController {
             return
         }
         if(UserData.sharedInstance.isLoggedIn()){
-            if sender.tag == 0 {
+            switch sender.tag {
+            case 0:
+                print("VC - Udpate - selectedSize => \(selectedSize) & selectedColor => \(selectedColor) ")
                 productDetailsViewModel.addToCart(selectedSize: selectedSize, selectedColor: selectedColor)
                 sender.setTitle("ADDED TO CART", for: .normal)
                 sender.tag = 1
                 productDetailsViewModel.getCartQuantity()
-            } else {
+            case 1:
                 showAlert(title: "Info", msg: "This product is alraedy added before!")
+            default:
+                productDetailsViewModel.updateCartProduct(selectedSize: selectedSize, selectedColor: selectedColor)
+                sender.tag = 1
+                sender.setTitle("ADDED TO CART", for: .normal)
             }
         }else{
             Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List :D", context: self)
@@ -241,11 +247,19 @@ extension ProductDetailsTableViewController {
         sizeCollectionView.rx.modelSelected(String.self).subscribe(onNext: {[weak self] (value) in
             guard let self = self else {return}
             self.selectedSize = value
+            if self.addToCartButtonOutlet.tag == 1 {
+                self.addToCartButtonOutlet.setTitle("UPDATE IN CART", for: .normal)
+                self.addToCartButtonOutlet.tag = 2
+            }
         }).disposed(by: disposeBag)
         
         colorsCollectionView.rx.modelSelected(UIColor.self).subscribe(onNext: {[weak self] (value) in
             guard let self = self else {return}
             self.selectedColor = value
+            if self.addToCartButtonOutlet.tag == 1 {
+                self.addToCartButtonOutlet.setTitle("UPDATE IN CART", for: .normal)
+                self.addToCartButtonOutlet.tag = 2
+            }
         }).disposed(by: disposeBag)
         
         //-------------------------------------------------------------------------------------------
