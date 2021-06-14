@@ -126,11 +126,11 @@
                                                         <rect key="frame" x="0.0" y="6" width="414" height="59"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Click on ads to get code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m9m-oQ-dch">
-                                                                <rect key="frame" x="173" y="15" width="233" height="28"/>
+                                                                <rect key="frame" x="188" y="15" width="218" height="28"/>
                                                                 <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="28" id="NvM-eQ-bAm"/>
-                                                                    <constraint firstAttribute="width" constant="233" id="UI2-Ia-3D1"/>
+                                                                    <constraint firstAttribute="width" constant="218" id="UI2-Ia-3D1"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -142,7 +142,7 @@
                                                                     <constraint firstAttribute="height" constant="43" id="CRu-iV-Ztt"/>
                                                                     <constraint firstAttribute="width" constant="165" id="JOx-Rb-bcT"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -157,7 +157,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="1" green="0.56018110213530936" blue="0.55480509106343501" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="1" green="0.67305259493856351" blue="0.54420608776777146" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="59" id="6zs-Za-AX0"/>
                                                             <constraint firstItem="m9m-oQ-dch" firstAttribute="top" secondItem="LUF-lr-Rsr" secondAttribute="top" constant="15" id="8cN-t7-cYw"/>
