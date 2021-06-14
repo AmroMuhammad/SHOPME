@@ -126,7 +126,9 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
         return userEmail
     }
     
-    
+    func isUserLoggedIn (completion: @escaping (Bool) -> Void) {
+        completion(userData.isLoggedIn())
+    }
     
     //----------------------------------------check Local------------------------------------------------
     

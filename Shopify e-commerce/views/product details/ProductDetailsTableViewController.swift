@@ -75,60 +75,68 @@ class ProductDetailsTableViewController: UITableViewController {
     
     
     @IBAction func navToCart(_ sender: UIButton) {
-        if(UserData.sharedInstance.isLoggedIn()){
-            let storyboard = UIStoryboard(name: "shop", bundle: nil)
-            let wishVC = storyboard.instantiateViewController(identifier: "cartViewController")
-            self.navigationController?.pushViewController(wishVC, animated: true)
-        }else{
-            Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List", context: self)
+        productDetailsViewModel.isUserLoggedIn { [weak self] (resBool) in
+            guard let self = self else {return}
+            if resBool {
+                let storyboard = UIStoryboard(name: "shop", bundle: nil)
+                let wishVC = storyboard.instantiateViewController(identifier: "cartViewController")
+                self.navigationController?.pushViewController(wishVC, animated: true)
+            } else {
+                Support.notifyUser(title: "Error", body: "Kindly Login to be able to go to Cart", context: self)
+            }
         }
     }
     
     @IBAction func favoriteButtonPressed(_ sender: UIButton) {
-        if(UserData.sharedInstance.isLoggedIn()){
-            if sender.tag == 0 {
-                sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                productDetailsViewModel.addTofavorite()
-                sender.tag = 1
+        productDetailsViewModel.isUserLoggedIn { [weak self] (resBool) in
+            guard let self = self else {return}
+            if resBool {
+                if sender.tag == 0 {
+                    sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                    self.productDetailsViewModel.addTofavorite()
+                    sender.tag = 1
+                } else {
+                    sender.setImage(UIImage(systemName: "heart"), for: .normal)
+                    self.productDetailsViewModel.removefromFavorite()
+                    sender.tag = 0
+                }
             } else {
-                sender.setImage(UIImage(systemName: "heart"), for: .normal)
-                productDetailsViewModel.removefromFavorite()
-                sender.tag = 0
+                Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List", context: self)
             }
-        }else{
-            Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List", context: self)
         }
-        
     }
     
     @IBAction func addToCartButtonPressed(_ sender: UIButton) {
-        if selectedColor == nil {
-            showAlert(title: "Missing", msg: "Please, select color!")
-            return
-        }
-        if selectedSize == nil {
-            showAlert(title: "Missing", msg: "Please, select size!")
-            return
-        }
-        if(UserData.sharedInstance.isLoggedIn()){
-            switch sender.tag {
-            case 0:
-                print("VC - Udpate - selectedSize => \(selectedSize) & selectedColor => \(selectedColor) ")
-                productDetailsViewModel.addToCart(selectedSize: selectedSize, selectedColor: selectedColor)
-                sender.setTitle("ADDED TO CART", for: .normal)
-                sender.tag = 1
-                productDetailsViewModel.getCartQuantity()
-            case 1:
-                showAlert(title: "Info", msg: "This product is alraedy added before!")
-            default:
-                productDetailsViewModel.updateCartProduct(selectedSize: selectedSize, selectedColor: selectedColor)
-                sender.tag = 1
-                sender.setTitle("ADDED TO CART", for: .normal)
+        productDetailsViewModel.isUserLoggedIn { [weak self] (resBool) in
+            guard let self = self else {return}
+            if resBool {
+                if self.selectedColor == nil {
+                    self.showAlert(title: "Missing", msg: "Please, select color!")
+                    return
+                }
+                if self.selectedSize == nil {
+                    self.showAlert(title: "Missing", msg: "Please, select size!")
+                    return
+                }
+                
+                switch sender.tag {
+                case 0:
+                    print("VC - Udpate - selectedSize => \(self.selectedSize) & selectedColor => \(self.selectedColor) ")
+                    self.productDetailsViewModel.addToCart(selectedSize: self.selectedSize, selectedColor: self.selectedColor)
+                    sender.setTitle("ADDED TO CART", for: .normal)
+                    sender.tag = 1
+                    self.productDetailsViewModel.getCartQuantity()
+                case 1:
+                    self.showAlert(title: "Info", msg: "This product is alraedy added before!")
+                default:
+                    self.productDetailsViewModel.updateCartProduct(selectedSize: self.selectedSize, selectedColor: self.selectedColor)
+                    sender.tag = 1
+                    sender.setTitle("ADDED TO CART", for: .normal)
+                }
+            } else {
+                Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List :D", context: self)
             }
-        }else{
-            Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List :D", context: self)
         }
-        
     }
     
     
@@ -157,8 +165,10 @@ class ProductDetailsTableViewController: UITableViewController {
             case 1,3:
                 val = 50.0
             case 4:
-                if !(UserData.sharedInstance.isLoggedIn()) {
-                    val = CGFloat.leastNonzeroMagnitude
+                productDetailsViewModel.isUserLoggedIn { (resBool) in
+                    if !resBool {
+                        val = CGFloat.leastNonzeroMagnitude
+                    }
                 }
             default:
                 val = 50.0 //CGFloat.leastNonzeroMagnitude
@@ -387,7 +397,4 @@ extension ProductDetailsTableViewController {
         img.center = customView.center
         customView.addSubview(img)
     }
-//    func checkConnectivity() {
-//
-//    }
 }
