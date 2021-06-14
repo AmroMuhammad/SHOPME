@@ -11,6 +11,7 @@ import SDWebImage
 class TableViewCell: UITableViewCell {
     var delegate: TableViewCellDelegate?
     var productItem : LocalProductDetails?
+    var currency : String?
     @IBOutlet weak var productImg: UIImageView!
     @IBOutlet weak var stepperValue: UILabel!
     @IBOutlet weak var stepper: UIStepper!
@@ -18,6 +19,7 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var productName: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+        currency = UserDefaults.standard.string(forKey: Constants.currencyUserDefaults)
        // layoutMargins = UIEdgeInsets(top: 100, left: 100, bottom: 100, right: 100)
         
        
@@ -43,7 +45,7 @@ class TableViewCell: UITableViewCell {
 //    }
     var cellCartProduct : LocalProductDetails! {
             didSet{
-                productPrice.text = cellCartProduct.productPrice
+                productPrice.text = cellCartProduct.productPrice! + " " + currency!
                 productName.text = cellCartProduct.title
                 stepperValue.text = "\(cellCartProduct.quantity ?? 1)"
                 checkImageData(imageData: cellCartProduct.productImageData)
@@ -78,10 +80,9 @@ class TableViewCell: UITableViewCell {
                 delegate?.updateCoreDate(product : productItem!)
                 stepperValue.text = String(result)
             } else {
-                delegate?.showAlert(msg: "Sorry, this quantity in NOT in the inventory quantity :(", product: productItem!, completion: { [weak self] (val) in
-                    (sender as! UIStepper).value -= 1.0
-                    self!.stepperValue.text = "\(result-1)"
-                })
+                delegate?.ShowMaximumAlert(msg: " You reached the maximum number available from these product :(")
+                (sender as! UIStepper).value -= 1.0
+                stepperValue.text = "\(result-1)"
             }
         }
         

@@ -27,15 +27,9 @@ class wishListViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = barButton
          wishListViewModelObj.dataDrive.drive(onNext: {[weak self] (val) in
             if(val.count == 0){
-                print("it is empty ................")
-                self!.wishListCollectionView.isHidden = true
-                self!.toolBar.isHidden = true
-                self!.noItemImg.isHidden = false
+                self?.wishListEmpty()
             }else{
-                self!.wishListCollectionView.isHidden = false
-                self!.toolBar.isHidden = false
-                self!.noItemImg.isHidden = true
-                print("it not is empty ................")
+                self?.wishListNotEmpty()
                 self!.wishListCollectionView.delegate = nil
                 self!.wishListCollectionView.dataSource = nil
             Observable.just(val).bind(to: self!.wishListCollectionView.rx.items(cellIdentifier: Constants.wishListCell)){row,item,cell in
@@ -51,6 +45,12 @@ class wishListViewController: UIViewController {
             }.disposed(by: self!.disposeBag)
         }
     }).disposed(by: disposeBag)
+        
+       wishListViewModelObj.errorDrive.drive(onNext: {[weak self] (val) in
+            if(val){
+                self!.wishListEmpty()
+            }
+        }).disposed(by: disposeBag)
         
         wishListCollectionView.rx.modelSelected(LocalProductDetails.self).subscribe(onNext: {[weak self] (productItem) in
             let storyBoard : UIStoryboard = UIStoryboard(name: "productDetails", bundle:nil)
@@ -78,7 +78,18 @@ class wishListViewController: UIViewController {
             navigationController?.pushViewController(cartViewController, animated: true)
         }
     }
-  
+    func wishListEmpty() {
+        print("it is empty ................")
+        self.wishListCollectionView.isHidden = true
+        self.toolBar.isHidden = true
+        self.noItemImg.isHidden = false
+    }
+   func wishListNotEmpty() {
+       self.wishListCollectionView.isHidden = false
+       self.toolBar.isHidden = false
+       self.noItemImg.isHidden = true
+       print("it not is empty ................")
+   }
   
 }
 

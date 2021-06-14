@@ -43,12 +43,14 @@ protocol CollectionViewCellDelegate{
 protocol TableViewCellDelegate {
     func showAlert(msg: String, product:LocalProductDetails , completion: @escaping (Int) -> Void)
     func showMovingAlert(msg: String , product:LocalProductDetails)
+    func ShowMaximumAlert(msg: String)
     func updateCoreDate(product:LocalProductDetails)
     
 }
 
 protocol wishListViewModelType {
      var dataDrive : Driver<[LocalProductDetails]> {get}
+     var errorDrive: Driver<Bool>{get}
      func getwishListData()
      func addToCart( product : LocalProductDetails)
      func deleteWishListData( product : LocalProductDetails)
@@ -56,6 +58,7 @@ protocol wishListViewModelType {
 protocol cartViewModelType {
      var totalPriceDrive: Driver<Double>{get}
      var dataDrive : Driver<[LocalProductDetails]> {get}
+     var errorDrive : Driver<Bool> {get}
      func getCartData()
      func moveToWishList(product:LocalProductDetails)
      func deleteCartData(product: LocalProductDetails)
@@ -63,12 +66,15 @@ protocol cartViewModelType {
      
 }
 protocol receiptViewModelType {
-     var itemNumDrive: Driver<Int>{get}
-     func getItemNum(products: [LocalProductDetails])
+    
+    func getItemNum(products: [LocalProductDetails])
+    func getAllProductType(products: [LocalProductDetails])
     func fetchData(paymentTextField:STPPaymentCardTextField,viewController:UIViewController)
     var errorObservable:Observable<String>{get}
     var loadingObservable:Observable<Bool>{get}
     var dataObservable:Observable<String>{get}
+    var itemNumDrive: Driver<Int>{get}
+    var allProductTypeDrive: Driver<[String]>{get}
 
 }
 protocol applyCouponDelegate {
