@@ -46,8 +46,8 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
 
     var checkProductInFavoriteObservable: Observable<Bool>
     private var checkProductInFavoriteSubject = PublishSubject<Bool>()
-    var checkProductInCartObservable: Observable<Bool>
-    private var checkProductInCartSubject = PublishSubject<Bool>()
+    var checkProductInCartObservable: Observable<(Bool, (String, Int), (UIColor, Int))>
+    private var checkProductInCartSubject = PublishSubject<(Bool, (String, Int), (UIColor, Int))>()
 //    var checkProductInCartWithObjectObservable: Observable<LocalProductDetails?>
 //    private var checkProductInCartWithObjectSubject = PublishSubject<LocalProductDetails?>()
     
@@ -152,12 +152,50 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
 //                self.showLoadingSubject.onNext(false)
                 if product != nil {
                     print("VM checkIfCart Found Successfully ")
-//                    self.checkProductInCartWithObjectSubject.onNext(product)
+                    self.checkProductInCartSubject.onNext((resBool, self.getSize(localProduct: product!), self.getColor(localProduct: product!)))
+                } else {
+                    self.checkProductInCartSubject.onNext((resBool, ("", 0), (UIColor.white, 0)))
                 }
-                self.checkProductInCartSubject.onNext(resBool)
             }
         }
 //        showLoadingSubject.onNext(false)
+    }
+    
+    private func getSize(localProduct: LocalProductDetails) -> (String, Int) {
+        
+        if let size = localProduct.selectedSize{
+            if let sizesArr = productObject?.options?[0].values {
+                var counter = 0
+                for item in sizesArr {
+                    if size == item {
+                        print("\n\n\nVM - getSize - \(size) & \(counter)\n\n")
+                        return (size, counter)
+                    }
+                    counter += 1
+                }
+            }
+        }
+        print("\n\n\nVM - getSize - NIL\n\n")
+        return ("", 0)
+    }
+    
+    private func getColor(localProduct: LocalProductDetails) -> (UIColor, Int) {
+        
+        if let color = localProduct.selectedColor{
+            if let colorsArr = productObject?.options?[1].values {
+                var counter = 0
+                for item in colorsArr {
+                    if color == item {
+                        print("\n\n\nVM - getSize - \(color) & \(counter)\n\n")
+                        
+                        return (mapToColors(colorsNames: [color])[0], counter)
+                    }
+                    counter += 1
+                }
+            }
+        }
+        print("\n\n\nVM - getColor - NIL\n\n")
+        return (UIColor.white, 0)
     }
     
     //----------------------------------------Favorite------------------------------------------------

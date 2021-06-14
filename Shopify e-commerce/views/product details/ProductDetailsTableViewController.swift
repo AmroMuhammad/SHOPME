@@ -268,14 +268,31 @@ extension ProductDetailsTableViewController {
             }
         }).disposed(by: disposeBag)
         
-        productDetailsViewModel.checkProductInCartObservable.subscribe(onNext: {  [weak self] (resBool) in
+        productDetailsViewModel.checkProductInCartObservable.subscribe(onNext: { [weak self] (resBool, size, color) in
             guard let self = self else {return}
             if resBool {
                 self.addToCartButtonOutlet.tag = 1
                 self.addToCartButtonOutlet.setTitle("ADDED TO CART", for: .normal)
+                
+                self.selectedSize = size.0
+                self.sizeCollectionView.selectItem(at: IndexPath(item: size.1, section: 0), animated: true, scrollPosition: .top)
+                self.selectedColor = color.0
+                self.colorsCollectionView.selectItem(at: IndexPath(item: color.1, section: 0), animated: true, scrollPosition: .top)
             } else {
                 self.addToCartButtonOutlet.tag = 0
                 self.addToCartButtonOutlet.setTitle("ADD TO CART", for: .normal)
+                self.selectedColor = nil
+                self.selectedSize = nil
+                if let indexes = self.sizeCollectionView.indexPathsForSelectedItems{
+                    if (indexes.count > 0){
+                        self.sizeCollectionView.deselectItem(at: indexes[0], animated: true)
+                    }
+                }
+                if let indexes = self.colorsCollectionView.indexPathsForSelectedItems{
+                    if (indexes.count > 0){
+                        self.colorsCollectionView.deselectItem(at: indexes[0], animated: true)
+                    }
+                }
             }
         }).disposed(by: disposeBag)
         
