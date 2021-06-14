@@ -25,6 +25,7 @@ class ColorViewCollectionViewCell: UICollectionViewCell {
                 
         self.layer.cornerRadius = 15.0
         self.layer.borderWidth = 1.0
+        self.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         
         self.lbl.layer.cornerRadius = 15
         self.lbl.layer.masksToBounds = true
@@ -35,7 +36,7 @@ class ColorViewCollectionViewCell: UICollectionViewCell {
         
     override var isSelected: Bool{
         didSet{
-            self.layer.borderWidth = isSelected ? 2.0 : 0.0
+            self.layer.borderWidth = isSelected ? 2.0 : 1.0
             self.layer.borderColor = isSelected ? UIColor.red.cgColor : #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         }
     }
