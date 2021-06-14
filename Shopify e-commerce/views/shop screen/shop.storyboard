@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yhx-rM-wBM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -315,7 +315,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9Ox-gn-C9S">
-                                <rect key="frame" x="20" y="106" width="374" height="790"/>
+                                <rect key="frame" x="20" y="54" width="374" height="808"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="u8E-7u-b7D">
                                     <size key="itemSize" width="179" height="211"/>
@@ -391,11 +391,11 @@
                         <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="gMs-5P-9dF" firstAttribute="leading" secondItem="BJY-G7-djZ" secondAttribute="leading" id="BzU-NW-DoC"/>
-                            <constraint firstItem="9Ox-gn-C9S" firstAttribute="top" secondItem="gMs-5P-9dF" secondAttribute="bottom" constant="-790" id="EDb-gn-ROe"/>
                             <constraint firstAttribute="trailing" secondItem="gMs-5P-9dF" secondAttribute="trailing" id="GcP-iU-2ac"/>
+                            <constraint firstItem="9Ox-gn-C9S" firstAttribute="top" secondItem="qHE-1G-j7p" secondAttribute="top" constant="10" id="H9e-E5-BCX"/>
                             <constraint firstAttribute="bottom" secondItem="gMs-5P-9dF" secondAttribute="bottom" id="TDM-no-8aX"/>
                             <constraint firstItem="9Ox-gn-C9S" firstAttribute="trailing" secondItem="qHE-1G-j7p" secondAttribute="trailing" constant="-20" id="UL7-1W-Wkf"/>
-                            <constraint firstAttribute="bottom" secondItem="9Ox-gn-C9S" secondAttribute="bottom" id="eb4-AB-1ln"/>
+                            <constraint firstItem="qHE-1G-j7p" firstAttribute="bottom" secondItem="9Ox-gn-C9S" secondAttribute="bottom" id="eb4-AB-1ln"/>
                             <constraint firstItem="9Ox-gn-C9S" firstAttribute="leading" secondItem="qHE-1G-j7p" secondAttribute="leading" constant="20" id="fwm-x9-SXu"/>
                             <constraint firstItem="gMs-5P-9dF" firstAttribute="top" secondItem="BJY-G7-djZ" secondAttribute="top" id="r1p-2U-IaU"/>
                         </constraints>
