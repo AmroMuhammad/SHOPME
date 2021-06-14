@@ -169,9 +169,6 @@
                                                             <constraint firstItem="KBa-uo-sQ9" firstAttribute="leading" secondItem="LUF-lr-Rsr" secondAttribute="leading" id="w5x-uV-vPy"/>
                                                         </constraints>
                                                     </view>
-                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="1111" translatesAutoresizingMaskIntoConstraints="NO" id="UKl-rF-niu">
-                                                        <rect key="frame" x="0.0" y="564" width="414" height="300"/>
-                                                    </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
@@ -205,20 +202,23 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="UKl-rF-niu" secondAttribute="bottom" constant="-2" id="BxY-NB-aww"/>
                                     <constraint firstAttribute="bottom" secondItem="vwT-3v-vWD" secondAttribute="bottom" id="Qos-EZ-Hr9"/>
-                                    <constraint firstAttribute="trailing" secondItem="UKl-rF-niu" secondAttribute="trailing" id="aV7-xz-oX2"/>
-                                    <constraint firstItem="UKl-rF-niu" firstAttribute="top" secondItem="gHQ-vI-IfY" secondAttribute="top" constant="72" id="p25-Mz-gWn"/>
-                                    <constraint firstItem="UKl-rF-niu" firstAttribute="leading" secondItem="gHQ-vI-IfY" secondAttribute="leading" id="xwm-UW-ghg"/>
                                 </constraints>
                             </view>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1111" translatesAutoresizingMaskIntoConstraints="NO" id="UKl-rF-niu">
+                                <rect key="frame" x="0.0" y="88" width="414" height="892"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="UKl-rF-niu" secondAttribute="bottom" id="2YY-Q8-jrg"/>
                             <constraint firstItem="Me8-Gc-FjH" firstAttribute="leading" secondItem="kv0-aZ-ZfE" secondAttribute="leading" constant="14" id="41l-oY-hsQ"/>
                             <constraint firstItem="gHQ-vI-IfY" firstAttribute="leading" secondItem="kv0-aZ-ZfE" secondAttribute="leading" id="5nE-Dz-Qut"/>
                             <constraint firstItem="gHQ-vI-IfY" firstAttribute="top" secondItem="Me8-Gc-FjH" secondAttribute="bottom" constant="8" id="7Bu-il-NMp"/>
+                            <constraint firstItem="UKl-rF-niu" firstAttribute="trailing" secondItem="kv0-aZ-ZfE" secondAttribute="trailing" id="9kE-66-gNE"/>
+                            <constraint firstItem="UKl-rF-niu" firstAttribute="leading" secondItem="kv0-aZ-ZfE" secondAttribute="leading" id="Ch9-nG-r4B"/>
                             <constraint firstItem="RA6-fv-YIu" firstAttribute="leading" secondItem="kv0-aZ-ZfE" secondAttribute="leading" id="Dqe-Wf-xQW"/>
+                            <constraint firstItem="UKl-rF-niu" firstAttribute="top" secondItem="kv0-aZ-ZfE" secondAttribute="top" id="Iw1-hh-vkQ"/>
                             <constraint firstItem="gHQ-vI-IfY" firstAttribute="top" secondItem="kv0-aZ-ZfE" secondAttribute="top" constant="60" id="OLO-AZ-uc1"/>
                             <constraint firstItem="Me8-Gc-FjH" firstAttribute="trailing" secondItem="kv0-aZ-ZfE" secondAttribute="trailing" constant="-14" id="QsN-Gr-kPe"/>
                             <constraint firstItem="kv0-aZ-ZfE" firstAttribute="trailing" secondItem="RA6-fv-YIu" secondAttribute="trailing" id="RQQ-BG-sph"/>

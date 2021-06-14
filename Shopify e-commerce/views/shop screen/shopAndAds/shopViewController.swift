@@ -14,6 +14,7 @@ class shopViewController: UIViewController {
     var shopProductViewModel : shopViewModelType!
     private let disposeBag = DisposeBag()
     var indecator : UIActivityIndicatorView?
+    let refreshControl = UIRefreshControl()
     @IBOutlet weak var gifBtnOutlet: UIButton!
     @IBOutlet weak var shopCollectionView: UICollectionView!
     @IBOutlet weak var ads: UILabel!
@@ -31,7 +32,8 @@ class shopViewController: UIViewController {
     var currency : String?
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        connectionImg.isUserInteractionEnabled = true
+
         indecator = UIActivityIndicatorView(style: .large)
         shopProductViewModel = shopViewModel()
         
@@ -43,6 +45,11 @@ class shopViewController: UIViewController {
         let mainCatNibCell = UINib(nibName: Constants.menuCell, bundle: nil)
         collectionView.register(mainCatNibCell, forCellWithReuseIdentifier: Constants.menuCell)
         collectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        
+        //swipe to refresh
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(self.swipe(_:)))
+        swipe.direction = .down
+        connectionImg.addGestureRecognizer(swipe)
 
           shopProductViewModel.discountCodeDrive.drive(onNext: {[weak self] (discountCodeVal) in
             var  i : Int?
@@ -164,7 +171,17 @@ class shopViewController: UIViewController {
         discountOffer.text = currency! + "10 OFF"
     }
     
-    
+    @objc func swipe(_ sender: UISwipeGestureRecognizer) {
+        connectionImg.isHidden = true
+        if(selectedIndex == 0){
+            shopProductViewModel.fetchWomenData()
+        }else if(selectedIndex == 1){
+            shopProductViewModel.fetchMenData()
+        }else{
+            shopProductViewModel.fetchKidsData()
+        }
+
+    }
     @IBAction func wishListBtn(_ sender: Any) {
         if(UserData.sharedInstance.isLoggedIn()){
             let storyboard = UIStoryboard(name: "shop", bundle: nil)
