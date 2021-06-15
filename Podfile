@@ -35,7 +35,7 @@ pod 'DropDown'
 ##
 
 #Marwa
-
+pod 'lottie-ios'
 ##
 
 
