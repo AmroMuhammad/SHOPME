@@ -21,13 +21,18 @@ class shopViewController: UIViewController {
     @IBOutlet weak var gifimage: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var cartRightNavBar: RightNavBarView!
+    @IBOutlet weak var discountOffer: UILabel!
+    @IBOutlet weak var subDiscountOffer: UILabel!
     var categories = ["Women" , "Men" , "Kids"] // edit this after merge
     var selectedIndex = 0
     var selectedIndexPath = IndexPath(item: 0, section: 0)
     var indicatorView = UIView()
     let indicatorHeight : CGFloat = 5
+    var currency : String?
     override func viewDidLoad() {
         super.viewDidLoad()
+        connectionImg.isUserInteractionEnabled = true
+
         indecator = UIActivityIndicatorView(style: .large)
         shopProductViewModel = shopViewModel()
         
@@ -39,6 +44,11 @@ class shopViewController: UIViewController {
         let mainCatNibCell = UINib(nibName: Constants.menuCell, bundle: nil)
         collectionView.register(mainCatNibCell, forCellWithReuseIdentifier: Constants.menuCell)
         collectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        
+        //swipe to refresh
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(self.swipe(_:)))
+        swipe.direction = .down
+        connectionImg.addGestureRecognizer(swipe)
 
           shopProductViewModel.discountCodeDrive.drive(onNext: {[weak self] (discountCodeVal) in
             var  i : Int?
@@ -82,13 +92,13 @@ class shopViewController: UIViewController {
             self!.shopCollectionView.dataSource = nil
             Observable.just(val).bind(to: self!.shopCollectionView.rx.items(cellIdentifier: Constants.shopCell)){row,item,cell in
                 (cell as? shopCollectionViewCell)?.cellProduct = item
-                cell.layer.cornerRadius = 30
-                cell.layer.borderWidth = 0.0
-                cell.layer.shadowColor = UIColor.gray.cgColor
-                cell.layer.shadowOffset = CGSize(width: 0, height: 0)
-                cell.layer.shadowRadius = 5.0
-                cell.layer.shadowOpacity = 1
-                cell.layer.masksToBounds = true
+                  cell.layer.borderWidth = 1
+                  cell.layer.borderColor = UIColor.gray.cgColor
+                  cell.layer.cornerRadius = 20
+//                  cell.layer.shadowOffset = CGSize(width: 0, height: 0)
+//                  cell.layer.shadowRadius = 2.0
+//                  cell.layer.shadowOpacity = 0.5
+                  cell.layer.masksToBounds = true
             }.disposed(by: self!.disposeBag)
          }).disposed(by: disposeBag)
        //end
@@ -116,8 +126,8 @@ class shopViewController: UIViewController {
         shopProductViewModel.connectivityDriver.drive(onNext: { [weak self](result) in
             if(result){
                 self!.connectionImg.isHidden = false
-                print("no internet connection")
-                self!.showAlert(msg: "No Internet Connection")
+                self?.showToast(message: "Please check your connection then swipe down to refresh", font: UIFont(name: "HelveticaNeue-ThinItalic", size: 15) ?? UIFont())
+               // self!.showAlert(msg: "No Internet Connection")
             }
             else{
                  self!.connectionImg.isHidden = true
@@ -155,9 +165,22 @@ class shopViewController: UIViewController {
    }
     override func viewWillAppear(_ animated: Bool) {
         shopProductViewModel.getCartQuantity()
+        currency = UserDefaults.standard.string(forKey: Constants.currencyUserDefaults)
+        subDiscountOffer.text = "Order 2 " + currency! + "+"
+        discountOffer.text = currency! + "10 OFF"
     }
     
-    
+    @objc func swipe(_ sender: UISwipeGestureRecognizer) {
+        connectionImg.isHidden = true
+        if(selectedIndex == 0){
+            shopProductViewModel.fetchWomenData()
+        }else if(selectedIndex == 1){
+            shopProductViewModel.fetchMenData()
+        }else{
+            shopProductViewModel.fetchKidsData()
+        }
+
+    }
     @IBAction func wishListBtn(_ sender: Any) {
         if(UserData.sharedInstance.isLoggedIn()){
             let storyboard = UIStoryboard(name: "shop", bundle: nil)
@@ -240,7 +263,7 @@ class shopViewController: UIViewController {
          gifBtnOutlet.isHidden = false
          self.ads.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
          self.ads.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-         self.ads.text = "- ADS -"
+         self.ads.text = "Click on ads to get code"
     }
     
     func showAlert(msg : String){

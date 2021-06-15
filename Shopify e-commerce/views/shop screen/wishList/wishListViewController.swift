@@ -9,15 +9,30 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import Lottie
+
 class wishListViewController: UIViewController {
     var wishListViewModelObj : wishListViewModelType!
-    @IBOutlet weak var toolBar: UIToolbar!
+   //@IBOutlet weak var toolBar: UIToolbar!
     private let disposeBag = DisposeBag()
-    @IBOutlet weak var noItemImg: UIImageView!
+    @IBOutlet weak var animationImgView: UIView!
     @IBOutlet weak var wishListCollectionView: UICollectionView!
+    
+    lazy var backgroundAnimationView: AnimationView = {
+        let animationView = AnimationView()
+        animationImgView.addSubview(animationView)
+        animationView.translatesAutoresizingMaskIntoConstraints = false
+        animationView.topAnchor.constraint(equalTo: animationImgView.topAnchor).isActive = true
+        animationView.rightAnchor.constraint(equalTo: animationImgView.rightAnchor).isActive = true
+        animationView.leftAnchor.constraint(equalTo: animationImgView.leftAnchor).isActive = true
+        animationView.bottomAnchor.constraint(equalTo: animationImgView.bottomAnchor).isActive = true
+        
+        return animationView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         wishListViewModelObj = wishListViewModel()
         let button: UIButton = UIButton(type: UIButton.ButtonType.custom)
         button.setImage(UIImage(named: "shopping"), for: [])
@@ -27,15 +42,9 @@ class wishListViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = barButton
          wishListViewModelObj.dataDrive.drive(onNext: {[weak self] (val) in
             if(val.count == 0){
-                print("it is empty ................")
-                self!.wishListCollectionView.isHidden = true
-                self!.toolBar.isHidden = true
-                self!.noItemImg.isHidden = false
+                self?.wishListEmpty()
             }else{
-                self!.wishListCollectionView.isHidden = false
-                self!.toolBar.isHidden = false
-                self!.noItemImg.isHidden = true
-                print("it not is empty ................")
+                self?.wishListNotEmpty()
                 self!.wishListCollectionView.delegate = nil
                 self!.wishListCollectionView.dataSource = nil
             Observable.just(val).bind(to: self!.wishListCollectionView.rx.items(cellIdentifier: Constants.wishListCell)){row,item,cell in
@@ -52,6 +61,12 @@ class wishListViewController: UIViewController {
         }
     }).disposed(by: disposeBag)
         
+       wishListViewModelObj.errorDrive.drive(onNext: {[weak self] (val) in
+            if(val){
+                self!.wishListEmpty()
+            }
+        }).disposed(by: disposeBag)
+        
         wishListCollectionView.rx.modelSelected(LocalProductDetails.self).subscribe(onNext: {[weak self] (productItem) in
             let storyBoard : UIStoryboard = UIStoryboard(name: "productDetails", bundle:nil)
             let productDetailsVC = storyBoard.instantiateViewController(identifier: Constants.productDetailsVC) as! ProductDetailsTableViewController
@@ -64,6 +79,7 @@ class wishListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         wishListViewModelObj.getwishListData()
+         playBackgroundAnimation()
     }
 
          
@@ -78,8 +94,29 @@ class wishListViewController: UIViewController {
             navigationController?.pushViewController(cartViewController, animated: true)
         }
     }
-  
-  
+    func wishListEmpty() {
+        print("it is empty ................")
+        self.wishListCollectionView.isHidden = true
+      //  self.toolBar.isHidden = true
+        self.animationImgView.isHidden = false
+    }
+   func wishListNotEmpty() {
+       self.wishListCollectionView.isHidden = false
+     //  self.toolBar.isHidden = false
+       self.animationImgView.isHidden = true
+       print("it not is empty ................")
+   }
+    
+    private func playBackgroundAnimation(){
+        let animation = Animation.named("3617-shopping-bag-error")
+        backgroundAnimationView.animation = animation
+       
+        backgroundAnimationView.play(fromProgress: 0,
+                           toProgress: 1,
+                           loopMode: LottieLoopMode.loop,
+                           completion: { (finished) in
+        })
+    }
 }
 
 

@@ -16,6 +16,7 @@ class CategoryViewController: UIViewController {
     @IBOutlet private weak var productsCollectionView: UICollectionView!
     @IBOutlet private weak var noItemsView: UIView!
     @IBOutlet private weak var noConnectionImage: UIView!
+    @IBOutlet private weak var rightNavBarView: RightNavBarView!
     
     private var categoryViewModel:CategoryViewModelContract!
     private var disposeBag:DisposeBag!
@@ -75,6 +76,8 @@ class CategoryViewController: UIViewController {
             castedCell.productObject = item
         }.disposed(by: disposeBag)
         
+        categoryViewModel.quantutyObservable.bind(to: rightNavBarView.rx.quantity).disposed(by: disposeBag)
+        
         //when item selected
         mainCategoryCollectionView.rx.modelSelected(String.self).subscribe(onNext: {[weak self] (value) in
             self?.subCategoryCollectionView.selectItem(at: selectedIndexPath, animated: true, scrollPosition: .top)
@@ -130,6 +133,10 @@ class CategoryViewController: UIViewController {
 
         categoryViewModel.fetchData()
         categoryViewModel.fetchCatProducts(mainCat: mainCat, subCat: subCat)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        categoryViewModel.getCartQuantity()
     }
     
     @objc func handleSwipe(_ sender: UITapGestureRecognizer? = nil) {

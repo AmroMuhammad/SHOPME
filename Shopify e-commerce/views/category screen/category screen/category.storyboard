@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nOw-vO-3gP">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -146,11 +146,32 @@
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem title="Item" image="cart.fill" catalog="system" id="kff-Pf-Lpg">
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <action selector="cartButtonPressed:" destination="90V-fO-bYd" id="zRv-S6-xZX"/>
-                                </connections>
+                            <barButtonItem style="plain" id="SbU-0f-8Fx">
+                                <view key="customView" contentMode="scaleToFill" id="Ab7-2s-3rp">
+                                    <rect key="frame" x="302" y="5.5" width="92" height="33"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WaU-VQ-ALW" customClass="RightNavBarView" customModule="Shopify_e_commerce" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="92" height="33"/>
+                                        </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jbb-TO-wR3">
+                                            <rect key="frame" x="0.0" y="0.0" width="92" height="33"/>
+                                            <connections>
+                                                <action selector="cartButtonPressed:" destination="90V-fO-bYd" eventType="touchUpInside" id="yhx-oA-9P2"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="jbb-TO-wR3" firstAttribute="leading" secondItem="Ab7-2s-3rp" secondAttribute="leading" id="66O-Jv-xB1"/>
+                                        <constraint firstItem="jbb-TO-wR3" firstAttribute="top" secondItem="Ab7-2s-3rp" secondAttribute="top" id="AWE-GZ-2Aa"/>
+                                        <constraint firstItem="WaU-VQ-ALW" firstAttribute="leading" secondItem="Ab7-2s-3rp" secondAttribute="leading" id="R0K-6R-uOm"/>
+                                        <constraint firstAttribute="trailing" secondItem="WaU-VQ-ALW" secondAttribute="trailing" id="TS9-8v-4UY"/>
+                                        <constraint firstAttribute="bottom" secondItem="jbb-TO-wR3" secondAttribute="bottom" id="dou-TH-WLL"/>
+                                        <constraint firstAttribute="trailing" secondItem="jbb-TO-wR3" secondAttribute="trailing" id="fje-4W-eCJ"/>
+                                        <constraint firstAttribute="bottom" secondItem="WaU-VQ-ALW" secondAttribute="bottom" id="k3B-Vr-RVr"/>
+                                        <constraint firstItem="WaU-VQ-ALW" firstAttribute="top" secondItem="Ab7-2s-3rp" secondAttribute="top" id="nin-NT-lU5"/>
+                                    </constraints>
+                                </view>
                             </barButtonItem>
                             <barButtonItem systemItem="search" id="txa-1z-q1Y">
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -166,6 +187,7 @@
                         <outlet property="noConnectionImage" destination="6zw-6l-3d4" id="jvd-X3-aTU"/>
                         <outlet property="noItemsView" destination="Euo-hd-xfR" id="nW8-Nf-W9y"/>
                         <outlet property="productsCollectionView" destination="8Mc-DP-z8u" id="NrZ-Be-H13"/>
+                        <outlet property="rightNavBarView" destination="WaU-VQ-ALW" id="p39-Yp-4hc"/>
                         <outlet property="subCategoryCollectionView" destination="9jT-P1-IKo" id="v6O-rM-Vr7"/>
                     </connections>
                 </viewController>
@@ -184,21 +206,21 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sKx-MK-g1U">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <items>
-                                    <barButtonItem title="Sort" id="zqr-UQ-BF0">
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <barButtonItem title="Sort " id="zqr-UQ-BF0">
+                                        <color key="tintColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="sortButtonClicked:" destination="VjQ-ZP-W0S" id="Luv-z4-1Bt"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="Filter" id="jK4-QM-etS">
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="filterButtonClicked:" destination="VjQ-ZP-W0S" id="XeS-4D-9mt"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="FNu-gW-leJ"/>
                                     <barButtonItem title="Clear" id="Cej-WB-Qh2">
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="clearButtonClicked:" destination="VjQ-ZP-W0S" id="hf3-cL-zJi"/>
                                         </connections>
@@ -294,7 +316,6 @@
     <resources>
         <image name="1111" width="347" height="484"/>
         <image name="bag.fill" catalog="system" width="128" height="128"/>
-        <image name="cart.fill" catalog="system" width="128" height="102"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="noitem" width="125" height="100"/>
     </resources>

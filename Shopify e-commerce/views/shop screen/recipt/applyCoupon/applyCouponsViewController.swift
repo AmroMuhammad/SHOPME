@@ -9,6 +9,7 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import Lottie
 
 class applyCouponsViewController: UIViewController {
     var disposeBag = DisposeBag()
@@ -17,20 +18,36 @@ class applyCouponsViewController: UIViewController {
     let indicatorHeight : CGFloat = 5
     var selectedIndex = 0
     var discountDelegate : applyCouponDelegate?
+    var NoavailableEmpty : Bool = false
+    var availableEmpty : Bool = false
     
     var applyCouponViewModelObj: applyCouponViewModel?
     var productTypeArray = ["Women","Kids"]
-    @IBOutlet weak var emptyMsg: UILabel!
-    @IBOutlet weak var emptyImg: UIImageView!
+    @IBOutlet weak var animationImgView: UIView!
     @IBOutlet weak var notAvailableCouponView: UIView!
     @IBOutlet weak var notAvailableTableView: UITableView!
     @IBOutlet weak var availableCouponView: UIView!
     @IBOutlet weak var availableCoupon: UITableView!
     @IBOutlet weak var alertLabel: UILabel!
+    @IBOutlet weak var chooseCouponLabel: UILabel!
     @IBOutlet weak var couponStateCollectionView: UICollectionView!
+    
+    lazy var backgroundAnimationView: AnimationView = {
+        let animationView = AnimationView()
+        animationImgView.addSubview(animationView)
+        animationView.translatesAutoresizingMaskIntoConstraints = false
+        animationView.topAnchor.constraint(equalTo: animationImgView.topAnchor).isActive = true
+        animationView.rightAnchor.constraint(equalTo: animationImgView.rightAnchor).isActive = true
+        animationView.leftAnchor.constraint(equalTo: animationImgView.leftAnchor).isActive = true
+        animationView.bottomAnchor.constraint(equalTo: animationImgView.bottomAnchor).isActive = true
+        
+        return animationView
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         let notAvailableNibCell = UINib(nibName: Constants.NotAvailableCell, bundle: nil)
         notAvailableTableView.register( notAvailableNibCell, forCellReuseIdentifier: Constants.NotAvailableCell)
@@ -39,13 +56,37 @@ class applyCouponsViewController: UIViewController {
         availableCoupon.delegate = self
         notAvailableTableView.delegate = self
         couponStateCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        // availableCoupon.rx.setDelegate(self).disposed(by: disposeBag)
+       //  notAvailableTableView.rx.setDelegate(self).disposed(by: disposeBag)
         couponStateCollectionView.delegate = self
         Observable.just(["Available","Not Available"]).bind(to: couponStateCollectionView.rx.items(cellIdentifier: Constants.couponsStateCell)){row,item,cell in
             (cell as? couponsStateCollectionViewCell )?.lbl.text = item
         }.disposed(by: disposeBag)
         
+        applyCouponViewModelObj?.noFindItemsNotAvailableDriver.drive(onNext: { (val) in
+            if(val){
+                self.NoavailableEmpty = true
+                print("not available empty")
+                self.animationImgView.isHidden = false
+                self.notAvailableCouponView.isHidden = true
+            }
+        }).disposed(by: disposeBag)
+        
+        applyCouponViewModelObj?.noFindItemsAvailableDriver.drive(onNext: { (val) in
+            if(val){
+              self.availableEmpty = true
+              print("available empty")
+              self.animationImgView.isHidden = false
+              self.availableCouponView.isHidden = true
+                
+            }
+        }).disposed(by: disposeBag)
+        
         applyCouponViewModelObj?.notAvailableCouponsDrive.drive(onNext: {[weak self] (val) in
-                  print("Not empty")
+
+            self?.animationImgView.isHidden = true
+            self?.notAvailableCouponView.isHidden = false
+            
             Observable.just(val).bind(to: self!.notAvailableTableView.rx.items(cellIdentifier: Constants.NotAvailableCell)){row,item,cell in
                   (cell as? NotAvailableTableViewCell )?.discountCode.text = "Code: " + item.code!
                 (cell as? NotAvailableTableViewCell )?.productType.text = ". For " + item.productType! + " products"
@@ -54,11 +95,24 @@ class applyCouponsViewController: UIViewController {
         
         couponStateCollectionView.rx.itemSelected.subscribe{[weak self](IndexPath) in
             if( IndexPath.element![1] == 0){
-                self!.availableCouponView.isHidden = false
                 self!.notAvailableCouponView.isHidden = true
+                if(self!.availableEmpty){
+                    self!.availableCouponView.isHidden = true
+                    self!.animationImgView.isHidden = false
+                }else{
+                    self!.availableCouponView.isHidden = false
+                    self!.animationImgView.isHidden = true
+                }
+                
             }else{
                self!.availableCouponView.isHidden = true
-               self!.notAvailableCouponView.isHidden = false
+                if(self!.NoavailableEmpty){
+                   self!.notAvailableCouponView.isHidden = true
+                   self!.animationImgView.isHidden = false
+               }else{
+                   self!.notAvailableCouponView.isHidden = false
+                   self!.animationImgView.isHidden = true
+               }
             }
         }.disposed(by: disposeBag)
        
@@ -73,30 +127,24 @@ class applyCouponsViewController: UIViewController {
         }.disposed(by: disposeBag)
         
         availableCoupon.rx.itemSelected.subscribe{[weak self](IndexPath) in
-                //  self!.selectedIndex = IndexPath.element![1]
             let cell = self?.availableCoupon.cellForRow(at: IndexPath.element!) as? availableCouponTableViewCell
             cell?.isSelected = true
             self!.navigationController?.popViewController(animated: true)
         }.disposed(by: disposeBag)
           
         availableCoupon.rx.modelSelected(Coupon.self).subscribe{[weak self](item) in
-            self!.discountDelegate?.applyCoupon(coupone: "-US$10.00" , productType : (item.element?.productType)!)
+            self!.discountDelegate?.applyCoupon(coupone: "10.00" , productType : (item.element?.productType)!)
         }.disposed(by: disposeBag)
        
         applyCouponViewModelObj?.availableCouponsDrive.drive(onNext: {[weak self] (val) in
-//            if(val.count == 0){
-//                print("empty")
-//                self!.emptyImg.isHidden = false
-//                self!.emptyMsg.isHidden = false
-//            }else{
-//                 print("Not empty")
-//                self!.emptyImg.isHidden = true
-//                self!.emptyMsg.isHidden = true
+            self?.animationImgView.isHidden = true
+            self?.availableCouponView.isHidden = false
+
             Observable.just(val).bind(to: self!.availableCoupon.rx.items(cellIdentifier: Constants.availableCouponCell)){row,item,cell in
                 (cell as? availableCouponTableViewCell )?.discountCode.text = "Code: " + item.code!
                 (cell as? availableCouponTableViewCell )?.productType.text = ". For " + item.productType! + " products"
             }.disposed(by: self!.disposeBag)
-    //    }
+        //}
         }).disposed(by: disposeBag)
         
         let imageAttachment = NSTextAttachment()
@@ -120,6 +168,28 @@ class applyCouponsViewController: UIViewController {
         UIView.animate(withDuration: 0.3) {
              self.indicatorView.frame = CGRect(x: desiredX, y: self.couponStateCollectionView.bounds.maxY - self.indicatorHeight, width: self.couponStateCollectionView.frame.width / CGFloat(2), height: self.indicatorHeight)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if(self.availableEmpty){
+            self.availableCouponView.isHidden = true
+            self.animationImgView.isHidden = false
+        }else{
+            self.availableCouponView.isHidden = false
+            self.animationImgView.isHidden = true
+        }
+        playBackgroundAnimation()
+    }
+    
+    private func playBackgroundAnimation(){
+        let animation = Animation.named("629-empty-box")
+        backgroundAnimationView.animation = animation
+       
+        backgroundAnimationView.play(fromProgress: 0,
+                           toProgress: 1,
+                           loopMode: LottieLoopMode.loop,
+                           completion: { (finished) in
+        })
     }
 
 }

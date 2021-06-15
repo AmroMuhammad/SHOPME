@@ -10,12 +10,17 @@ import UIKit
 
 class availableCouponTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var discountDescription: UILabel!
+    @IBOutlet weak var discountTitle: UILabel!
     @IBOutlet weak var productType: UILabel!
     @IBOutlet weak var discountCode: UILabel!
     @IBOutlet weak var checkImg: UIImageView!
+    var currency : String?
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        currency = UserDefaults.standard.string(forKey: Constants.currencyUserDefaults)
+        discountTitle.text = "10.00" + currency! + "OFF"
+        discountDescription.text = "Coupon requirements met, expect to save 10.00 " + currency!
     }
 
     override var isSelected: Bool {

@@ -26,9 +26,15 @@ class applyCouponViewModel {
     var availableCouponsSubject = PublishSubject<[Coupon]>()
     var notAvailableCouponsDrive: Driver<[Coupon]>
     var notAvailableCouponsSubject = PublishSubject<[Coupon]>()
+    var noFindItemsAvailableDriver: Driver<Bool>
+    var noFindItemsNotAvailableDriver: Driver<Bool>
+    var noFindItemsAvailableSubject = PublishSubject<Bool>()
+    var noFindItemsNotAvailableSubject = PublishSubject<Bool>()
       init() {
          availableCouponsDrive = availableCouponsSubject.asDriver(onErrorJustReturn: [] )
          notAvailableCouponsDrive = notAvailableCouponsSubject.asDriver(onErrorJustReturn: [] )
+         noFindItemsAvailableDriver = noFindItemsAvailableSubject.asDriver(onErrorJustReturn: false )
+         noFindItemsNotAvailableDriver = noFindItemsNotAvailableSubject.asDriver(onErrorJustReturn: false )
       }
     
     func getAvailableAndUnavailableCoupons(productType : [String]) {
@@ -59,9 +65,17 @@ class applyCouponViewModel {
             }
         }
         
-        notAvailableCouponsSubject.onNext(notAvailableCoupons)
-        availableCouponsSubject.onNext(availableCoupons)
-        
+        if(availableCoupons.count == 0){
+            noFindItemsAvailableSubject.onNext(true)
+        }else{
+          availableCouponsSubject.onNext(availableCoupons)
+        }
+        if(notAvailableCoupons.count == 0){
+            noFindItemsNotAvailableSubject.onNext(true)
+        }else{
+          notAvailableCouponsSubject.onNext(notAvailableCoupons)
+        }
+          
     }
     
 }

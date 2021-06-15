@@ -80,6 +80,11 @@ enum EntityName: String {
     case CartProducts
 }
 
+enum UpdateType: String {
+    case Quantity
+    case SizeColor
+}
+
 //class FavoriteProduct {
 //
 //    let productId: Int

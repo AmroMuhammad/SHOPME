@@ -16,6 +16,8 @@ class ProductDetailsTableViewController: UITableViewController {
     
     private var productDetailsViewModel: ProductDetailsViewModel!
     private var disposeBag: DisposeBag!
+    private var activityView: UIActivityIndicatorView!
+    private var customView: UIView!
     
     var productId: String!
     var productMainCategory: String?
@@ -42,11 +44,14 @@ class ProductDetailsTableViewController: UITableViewController {
     @IBOutlet weak private var favoriteButtonOutlet: UIButton!
     @IBOutlet weak private var addToCartButtonOutlet: UIButton! // change text clr to green if added??
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         productDetailsViewModel = ProductDetailsViewModel()
         disposeBag = DisposeBag()
+        activityView = UIActivityIndicatorView(style: .large)
+        customView = UIView()
         
         sliderCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
         colorsCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
@@ -57,6 +62,7 @@ class ProductDetailsTableViewController: UITableViewController {
         subscribtion()
         ratingViewInit()
         descriptionTextViewInit()
+        noConnivtivityViewInit() //lazy?
         
         productDetailsViewModel.getProductDetails(id: productId, mainCategory: productMainCategory)
         productDetailsViewModel.getLocalData()
@@ -69,54 +75,68 @@ class ProductDetailsTableViewController: UITableViewController {
     
     
     @IBAction func navToCart(_ sender: UIButton) {
-        if(UserData.sharedInstance.isLoggedIn()){
-            let storyboard = UIStoryboard(name: "shop", bundle: nil)
-            let wishVC = storyboard.instantiateViewController(identifier: "cartViewController")
-            self.navigationController?.pushViewController(wishVC, animated: true)
-        }else{
-            Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List", context: self)
+        productDetailsViewModel.isUserLoggedIn { [weak self] (resBool) in
+            guard let self = self else {return}
+            if resBool {
+                let storyboard = UIStoryboard(name: "shop", bundle: nil)
+                let wishVC = storyboard.instantiateViewController(identifier: "cartViewController")
+                self.navigationController?.pushViewController(wishVC, animated: true)
+            } else {
+                Support.notifyUser(title: "Error", body: "Kindly Login to be able to go to Cart", context: self)
+            }
         }
     }
     
     @IBAction func favoriteButtonPressed(_ sender: UIButton) {
-        if(UserData.sharedInstance.isLoggedIn()){
-            if sender.tag == 0 {
-                sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                productDetailsViewModel.addTofavorite()
-                sender.tag = 1
+        productDetailsViewModel.isUserLoggedIn { [weak self] (resBool) in
+            guard let self = self else {return}
+            if resBool {
+                if sender.tag == 0 {
+                    sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                    self.productDetailsViewModel.addTofavorite()
+                    sender.tag = 1
+                } else {
+                    sender.setImage(UIImage(systemName: "heart"), for: .normal)
+                    self.productDetailsViewModel.removefromFavorite()
+                    sender.tag = 0
+                }
             } else {
-                sender.setImage(UIImage(systemName: "heart"), for: .normal)
-                productDetailsViewModel.removefromFavorite(productId: productId)
-                sender.tag = 0
+                Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List", context: self)
             }
-        }else{
-            Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List", context: self)
         }
-        
     }
     
     @IBAction func addToCartButtonPressed(_ sender: UIButton) {
-        if selectedColor == nil {
-            showAlert(title: "Missing", msg: "Please, select color!")
-            return
-        }
-        if selectedSize == nil {
-            showAlert(title: "Missing", msg: "Please, select size!")
-            return
-        }
-        if(UserData.sharedInstance.isLoggedIn()){
-            if sender.tag == 0 {
-                productDetailsViewModel.addToCart(selectedSize: selectedSize, selectedColor: selectedColor)
-                sender.setTitle("ADDED TO CART", for: .normal)
-                sender.tag = 1
-                productDetailsViewModel.getCartQuantity()
+        productDetailsViewModel.isUserLoggedIn { [weak self] (resBool) in
+            guard let self = self else {return}
+            if resBool {
+                if self.selectedColor == nil {
+                    self.showAlert(title: "Missing", msg: "Please, select color!")
+                    return
+                }
+                if self.selectedSize == nil {
+                    self.showAlert(title: "Missing", msg: "Please, select size!")
+                    return
+                }
+                
+                switch sender.tag {
+                case 0:
+                    print("VC - Udpate - selectedSize => \(self.selectedSize) & selectedColor => \(self.selectedColor) ")
+                    self.productDetailsViewModel.addToCart(selectedSize: self.selectedSize, selectedColor: self.selectedColor)
+                    sender.setTitle("ADDED TO CART", for: .normal)
+                    sender.tag = 1
+                    self.productDetailsViewModel.getCartQuantity()
+                case 1:
+                    self.showAlert(title: "Info", msg: "This product is alraedy added before!")
+                default:
+                    self.productDetailsViewModel.updateCartProduct(selectedSize: self.selectedSize, selectedColor: self.selectedColor)
+                    sender.tag = 1
+                    sender.setTitle("ADDED TO CART", for: .normal)
+                }
             } else {
-                showAlert(title: "Info", msg: "This product is alraedy added before!")
+                Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List :D", context: self)
             }
-        }else{
-            Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List :D", context: self)
         }
-        
     }
     
     
@@ -145,8 +165,10 @@ class ProductDetailsTableViewController: UITableViewController {
             case 1,3:
                 val = 50.0
             case 4:
-                if !(UserData.sharedInstance.isLoggedIn()) {
-                    val = CGFloat.leastNonzeroMagnitude
+                productDetailsViewModel.isUserLoggedIn { (resBool) in
+                    if !resBool {
+                        val = CGFloat.leastNonzeroMagnitude
+                    }
                 }
             default:
                 val = 50.0 //CGFloat.leastNonzeroMagnitude
@@ -235,11 +257,19 @@ extension ProductDetailsTableViewController {
         sizeCollectionView.rx.modelSelected(String.self).subscribe(onNext: {[weak self] (value) in
             guard let self = self else {return}
             self.selectedSize = value
+            if self.addToCartButtonOutlet.tag == 1 {
+                self.addToCartButtonOutlet.setTitle("UPDATE IN CART", for: .normal)
+                self.addToCartButtonOutlet.tag = 2
+            }
         }).disposed(by: disposeBag)
         
         colorsCollectionView.rx.modelSelected(UIColor.self).subscribe(onNext: {[weak self] (value) in
             guard let self = self else {return}
             self.selectedColor = value
+            if self.addToCartButtonOutlet.tag == 1 {
+                self.addToCartButtonOutlet.setTitle("UPDATE IN CART", for: .normal)
+                self.addToCartButtonOutlet.tag = 2
+            }
         }).disposed(by: disposeBag)
         
         //-------------------------------------------------------------------------------------------
@@ -262,14 +292,59 @@ extension ProductDetailsTableViewController {
             }
         }).disposed(by: disposeBag)
         
-        productDetailsViewModel.checkProductInCartObservable.subscribe(onNext: {  [weak self] (resBool) in
+        productDetailsViewModel.checkProductInCartObservable.subscribe(onNext: { [weak self] (resBool, size, color) in
             guard let self = self else {return}
             if resBool {
                 self.addToCartButtonOutlet.tag = 1
                 self.addToCartButtonOutlet.setTitle("ADDED TO CART", for: .normal)
+                
+                self.selectedSize = size.0
+                self.sizeCollectionView.selectItem(at: IndexPath(item: size.1, section: 0), animated: true, scrollPosition: .top)
+                self.selectedColor = color.0
+                self.colorsCollectionView.selectItem(at: IndexPath(item: color.1, section: 0), animated: true, scrollPosition: .top)
             } else {
                 self.addToCartButtonOutlet.tag = 0
                 self.addToCartButtonOutlet.setTitle("ADD TO CART", for: .normal)
+                self.selectedColor = nil
+                self.selectedSize = nil
+                if let indexes = self.sizeCollectionView.indexPathsForSelectedItems{
+                    if (indexes.count > 0){
+                        self.sizeCollectionView.deselectItem(at: indexes[0], animated: true)
+                    }
+                }
+                if let indexes = self.colorsCollectionView.indexPathsForSelectedItems{
+                    if (indexes.count > 0){
+                        self.colorsCollectionView.deselectItem(at: indexes[0], animated: true)
+                    }
+                }
+            }
+        }).disposed(by: disposeBag)
+        
+        productDetailsViewModel.showLoadingObservable.subscribe(onNext: { [weak self] (resBool) in
+            guard let self = self else {return}
+            if resBool {
+                self.showLoading()
+            } else {
+                self.hideLoading()
+            }
+        }).disposed(by: disposeBag)
+        
+        productDetailsViewModel.showErrorObservable.subscribe(onNext: { [weak self] (errArr) in
+            guard let self = self else {return}
+            self.showAlert(title: errArr[0], msg: errArr[1])
+        }).disposed(by: disposeBag)
+        
+        productDetailsViewModel.showToastObservable.subscribe(onNext: { [weak self] (msg) in
+            guard let self = self else {return}
+            self.showToast(message: msg, font: UIFont(name: "HelveticaNeue-ThinItalic", size: 15) ?? UIFont())
+            }).disposed(by: disposeBag)
+        
+        productDetailsViewModel.connectivityObservable.subscribe(onNext: { [weak self] (resBool) in
+            guard let self = self else {return}
+            if resBool {
+                self.hideNoConnivtivityView()
+            } else {
+                self.showNoConnivtivityView()
             }
         }).disposed(by: disposeBag)
     }
@@ -288,11 +363,38 @@ extension ProductDetailsTableViewController {
         ratingViewContainer.settings.textMargin = 7.0
     }
     
-    func showAlert(title: String, msg: String){
+    private func showAlert(title: String, msg: String){
         let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
-            print("Handle Ok logic here")
-        }))
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alertController, animated: true, completion:nil)
+    }
+    
+    private func showLoading() {
+        activityView!.center = self.view.center
+        self.view.addSubview(activityView!)
+        activityView!.startAnimating()
+    }
+    
+    private func hideLoading() {
+        activityView!.stopAnimating()
+    }
+    
+    private func showNoConnivtivityView() {
+        self.view.addSubview(customView)
+//        self.navigationController?.view.addSubview(customView)
+    }
+    
+    private func hideNoConnivtivityView() {
+        customView.removeFromSuperview()
+    }
+    
+    private func noConnivtivityViewInit(){
+        customView.frame = CGRect.init(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        customView.backgroundColor = UIColor.white
+        customView.center = self.view.center
+        let img = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))
+        img.image = UIImage(named: "1111")
+        img.center = customView.center
+        customView.addSubview(img)
     }
 }

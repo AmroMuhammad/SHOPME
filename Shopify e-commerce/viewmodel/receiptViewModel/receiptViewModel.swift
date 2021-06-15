@@ -15,11 +15,11 @@ class receiptViewModel : receiptViewModelType {
     var errorObservable:Observable<String>
     var loadingObservable:Observable<Bool>
     var dataObservable:Observable<String>
-
-    
     var itemNumDrive: Driver<Int>
+    var allProductTypeDrive: Driver<[String]>
     var disposeBag = DisposeBag()
-    var itemNumSubject = PublishSubject<Int>()
+    private var itemNumSubject = PublishSubject<Int>()
+    private var allProductTypeSubject = PublishSubject<[String]>()
     private var shopifyAPI:PaymentAPIContract
     private var errorSubject = PublishSubject<String>()
     private var dataSubject = PublishSubject<String>()
@@ -27,7 +27,8 @@ class receiptViewModel : receiptViewModelType {
 
     
     init() {
-       itemNumDrive = itemNumSubject.asDriver(onErrorJustReturn: 0 )
+        itemNumDrive = itemNumSubject.asDriver(onErrorJustReturn: 0 )
+        allProductTypeDrive = allProductTypeSubject.asDriver(onErrorJustReturn: [] )
         shopifyAPI = ShopifyAPI.shared
         loadingObservable = loadingSubject.asObservable()
         dataObservable = dataSubject.asObservable()
@@ -44,6 +45,15 @@ class receiptViewModel : receiptViewModelType {
         itemNumSubject.onNext(totalItemNum)
     }
     
+    func getAllProductType(products: [LocalProductDetails]) {
+        var AllProductType : [String] = []
+        var count = 0
+        while count < products.count {
+            AllProductType.append(products[count].mainCategory!)
+            count += 1
+        }
+        allProductTypeSubject.onNext(AllProductType)
+    }
     func fetchData(paymentTextField:STPPaymentCardTextField,viewController:UIViewController) {
         loadingSubject.onNext(true)
         shopifyAPI.createPaymentIntent {[weak self] (paymentIntentResponse, error) in

@@ -10,9 +10,11 @@ import Foundation
 import RxSwift
 import RxCocoa
 class cartViewModel : cartViewModelType {
+    var errorDrive: Driver<Bool>
     var disposeBag = DisposeBag()
     var dataDrive: Driver<[LocalProductDetails]>
     var dataSubject = PublishSubject<[LocalProductDetails]>()
+    var errorSubject = PublishSubject<Bool>()
     var totalPriceDrive: Driver<Double>
     var totalPriceSubject = PublishSubject<Double>()
     var coreDataobj = LocalManagerHelper.localSharedInstance
@@ -22,6 +24,7 @@ class cartViewModel : cartViewModelType {
     
     init() {
         dataDrive = dataSubject.asDriver(onErrorJustReturn: [] )
+        errorDrive = errorSubject.asDriver(onErrorJustReturn: false)
         totalPriceDrive = totalPriceSubject.asDriver(onErrorJustReturn: 0.0 )
     }
     func getCartData() {
@@ -34,6 +37,7 @@ class cartViewModel : cartViewModelType {
                 print("the count is equal : \(res.count)")
             } else {
                 print("erroooooooooooooooooooor")
+                self!.errorSubject.onNext(true)
                 
             }
         }
@@ -85,7 +89,7 @@ class cartViewModel : cartViewModelType {
     }
     func changeProductNumber(product: LocalProductDetails){
         print("\(product.quantity ?? 0)")
-        coreDataobj.updateCartProduct(localProductDetails: product) {[weak self] (result) in
+        coreDataobj.updateCartProduct(type: .Quantity, localProductDetails: product) {[weak self] (result) in
              switch result{
                 case true:
                     self!.getCartData()

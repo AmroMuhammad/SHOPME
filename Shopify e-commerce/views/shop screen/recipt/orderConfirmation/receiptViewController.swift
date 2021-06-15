@@ -17,10 +17,11 @@ class receiptViewController: UITableViewController {
     var totalCartPrice : String?
     var receiptViewModelObj : receiptViewModelType!
     var couponProductType : String?
+    var currency : String?
     private var paymentTextField:STPPaymentCardTextField!
     private var activityView:UIActivityIndicatorView!
-
-
+    var productCategory : [String]?
+    @IBOutlet weak var shippingFee: UILabel!
     @IBOutlet weak var paymentCardView: UIView!
     @IBOutlet private weak var finalDiscount: UILabel!
     @IBOutlet private weak var receiptProductCollectionView: UICollectionView!
@@ -34,6 +35,9 @@ class receiptViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        currency = UserDefaults.standard.string(forKey: Constants.currencyUserDefaults)
+        finalDiscount.text = "-0.0 " + currency!
+        shippingFee.text = "25.00 " + currency!
         paymentTextField = STPPaymentCardTextField(frame: CGRect(x: 0, y: 0, width: paymentCardView.frame.width, height: paymentCardView.frame.height))
         
         activityView = UIActivityIndicatorView(style: .large)
@@ -54,8 +58,8 @@ class receiptViewController: UITableViewController {
             self!.itemNumber.text = "\(val) items"
         }).disposed(by: disposeBag)
       
-        SubTotalPrice.text = "US$"+totalCartPrice!
-        totalPrice.text = "US$\(Double(totalCartPrice!)! + 25.00)"
+        SubTotalPrice.text = totalCartPrice! + " " + currency!
+        totalPrice.text = "\(Double(totalCartPrice!)! + 25.00) " + currency!
         Observable.just(allCartProductForReceipt!).bind(to: receiptProductCollectionView.rx.items(cellIdentifier: Constants.receiptProductCell)){row,item,cell in
             (cell as? receiptProductCollectionViewCell )?.cellProduct = item
         }.disposed(by: disposeBag)
@@ -89,6 +93,11 @@ class receiptViewController: UITableViewController {
                 self?.showErrorMessage(title: "Payment Status", errorMessage: "Payment paid successfully")
             }
             }).disposed(by: disposeBag)
+        receiptViewModelObj.allProductTypeDrive.drive(onNext: { [weak self](productTypeArray) in
+            self?.productCategory = productTypeArray
+        }).disposed(by: disposeBag)
+        
+        receiptViewModelObj.getAllProductType(products: allCartProductForReceipt!)
 
    }
     
@@ -117,19 +126,21 @@ class receiptViewController: UITableViewController {
       @objc func applyCouponClicked(_ sender: Any) {
         let applyCouponViewController = storyboard?.instantiateViewController(identifier: Constants.applyCoupons) as! applyCouponsViewController
         applyCouponViewController.discountDelegate = self
+        applyCouponViewController.productTypeArray = productCategory ?? []
           navigationController?.pushViewController(applyCouponViewController, animated: true)
       }
 
     @IBAction func placeOrderBtn(_ sender: Any) {
         receiptViewModelObj.fetchData(paymentTextField: paymentTextField, viewController: self)
     }
+    
 }
 
 extension receiptViewController : applyCouponDelegate {
     func applyCoupon(coupone: String , productType :String) {
-        self.discount.text = coupone
-        self.finalDiscount.text = coupone
-        totalPrice.text = "US$\(Double(totalCartPrice!)! + 25.00 - 10.00)"
+        self.discount.text = "-" + coupone + " " + currency!
+        self.finalDiscount.text = "-" + coupone + " " + currency!
+        totalPrice.text = "\(Double(totalCartPrice!)! + 25.00 - 10.00) "  + currency!
         couponProductType = productType
     }
     

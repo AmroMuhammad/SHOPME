@@ -10,11 +10,17 @@ import UIKit
 
 class NotAvailableTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var discountDescription: UILabel!
+    @IBOutlet weak var diccountTitle: UILabel!
     @IBOutlet weak var productType: UILabel!
     @IBOutlet weak var discountCode: UILabel!
     @IBOutlet weak var problemMsg: UILabel!
+    var currency : String?
     override func awakeFromNib() {
         super.awakeFromNib()
+        currency = UserDefaults.standard.string(forKey: Constants.currencyUserDefaults)
+        diccountTitle.text = "10.00" + currency! + "OFF"
+        discountDescription.text = "Coupon requirements met, expect to save 10.00 " + currency!
         let imageAttachment = NSTextAttachment()
         imageAttachment.image = UIImage(named:"exclamation-mark")
         let imageOffsetY: CGFloat = -3.0
