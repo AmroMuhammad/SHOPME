@@ -12,6 +12,10 @@ import RxSwift
 import Lottie
 
 class wishListViewController: UIViewController {
+    
+    private var productId: Int!
+    private var productMainCategory: String?
+    
     var wishListViewModelObj : wishListViewModelType!
    //@IBOutlet weak var toolBar: UIToolbar!
     private let disposeBag = DisposeBag()
@@ -122,18 +126,9 @@ class wishListViewController: UIViewController {
 
 extension wishListViewController: CollectionViewCellDelegate{
     func showMovingAlert(msg: String , product : LocalProductDetails) {
-        let alertController = UIAlertController(title: "", message: msg, preferredStyle: UIAlertController.Style.alert)
-
-        alertController.addAction(UIAlertAction(title: "add", style: .default, handler: { [weak self](action: UIAlertAction!) in
-              print("Handle Ok logic here")
-            self!.wishListViewModelObj.addToCart(product : product)
-        }))
-
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-              print("Handle Cancel Logic here")
-        }))
-
-        present(alertController, animated: true, completion: nil)
+        productId = product.productId
+        productMainCategory = product.mainCategory
+        performSegue(withIdentifier: "ColorSizeSegue", sender: nil)
     }
     
     func showAlert(msg : String , product : LocalProductDetails) {
@@ -153,3 +148,44 @@ extension wishListViewController: CollectionViewCellDelegate{
     }
 
 }
+
+extension wishListViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let controller = segue.destination as? ColorSizeViewController {
+            if segue.identifier == "ColorSizeSegue" {
+                controller.productId = productId
+                controller.mainCategory = productMainCategory
+                controller.senderVC = self
+                controller.modalPresentationStyle = .custom
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+/*
+ func showMovingAlert(msg: String , product : LocalProductDetails) {
+         
+         productId = product.productId
+         productMainCategory = product.mainCategory
+         performSegue(withIdentifier: "ColorSizeSegue", sender: nil)
+
+ //        let alertController = UIAlertController(title: "", message: msg, preferredStyle: UIAlertController.Style.alert)
+ //        alertController.addAction(UIAlertAction(title: "add", style: .default, handler: { [weak self](action: UIAlertAction!) in
+ //              print("Handle Ok logic here")
+ //            self!.wishListViewModelObj.addToCart(product : product)
+ //        }))
+ //
+ //        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+ //              print("Handle Cancel Logic here")
+ //        }))
+ //
+ //        present(alertController, animated: true, completion: nil)
+     }
+ */
