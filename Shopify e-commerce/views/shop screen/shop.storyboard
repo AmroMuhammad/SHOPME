@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yhx-rM-wBM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -311,10 +311,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty" translatesAutoresizingMaskIntoConstraints="NO" id="gMs-5P-9dF">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                            </imageView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9Ox-gn-C9S">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1jT-ap-OfM">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9Ox-gn-C9S">
                                 <rect key="frame" x="20" y="54" width="374" height="808"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="u8E-7u-b7D">
@@ -390,20 +391,20 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="gMs-5P-9dF" firstAttribute="leading" secondItem="BJY-G7-djZ" secondAttribute="leading" id="BzU-NW-DoC"/>
-                            <constraint firstAttribute="trailing" secondItem="gMs-5P-9dF" secondAttribute="trailing" id="GcP-iU-2ac"/>
                             <constraint firstItem="9Ox-gn-C9S" firstAttribute="top" secondItem="qHE-1G-j7p" secondAttribute="top" constant="10" id="H9e-E5-BCX"/>
-                            <constraint firstAttribute="bottom" secondItem="gMs-5P-9dF" secondAttribute="bottom" id="TDM-no-8aX"/>
                             <constraint firstItem="9Ox-gn-C9S" firstAttribute="trailing" secondItem="qHE-1G-j7p" secondAttribute="trailing" constant="-20" id="UL7-1W-Wkf"/>
+                            <constraint firstItem="1jT-ap-OfM" firstAttribute="top" secondItem="qHE-1G-j7p" secondAttribute="top" id="VeK-1B-6Pv"/>
                             <constraint firstItem="qHE-1G-j7p" firstAttribute="bottom" secondItem="9Ox-gn-C9S" secondAttribute="bottom" id="eb4-AB-1ln"/>
+                            <constraint firstItem="1jT-ap-OfM" firstAttribute="leading" secondItem="qHE-1G-j7p" secondAttribute="leading" id="ehT-X8-nTA"/>
                             <constraint firstItem="9Ox-gn-C9S" firstAttribute="leading" secondItem="qHE-1G-j7p" secondAttribute="leading" constant="20" id="fwm-x9-SXu"/>
-                            <constraint firstItem="gMs-5P-9dF" firstAttribute="top" secondItem="BJY-G7-djZ" secondAttribute="top" id="r1p-2U-IaU"/>
+                            <constraint firstItem="qHE-1G-j7p" firstAttribute="bottom" secondItem="1jT-ap-OfM" secondAttribute="bottom" id="oYd-Gp-MXH"/>
+                            <constraint firstItem="qHE-1G-j7p" firstAttribute="trailing" secondItem="1jT-ap-OfM" secondAttribute="trailing" id="sdg-ko-noq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qHE-1G-j7p"/>
                     </view>
                     <navigationItem key="navigationItem" id="rj1-eN-hvn"/>
                     <connections>
-                        <outlet property="noItemImg" destination="gMs-5P-9dF" id="dw9-Sb-b8j"/>
+                        <outlet property="animationImgView" destination="1jT-ap-OfM" id="6IJ-5H-3mI"/>
                         <outlet property="wishListCollectionView" destination="9Ox-gn-C9S" id="ieZ-N9-6OQ"/>
                     </connections>
                 </viewController>
@@ -419,9 +420,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty-cart (1)" translatesAutoresizingMaskIntoConstraints="NO" id="kfc-HP-2sf">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                            </imageView>
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="De4-1l-JMD">
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="v9s-qI-Iaj">
                                 <rect key="frame" x="0.0" y="44" width="414" height="691"/>
                                 <color key="backgroundColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -567,12 +570,8 @@
                             <constraint firstItem="Asn-V0-ljB" firstAttribute="trailing" secondItem="hgz-fM-eWm" secondAttribute="trailing" id="3Sn-Fu-DlD"/>
                             <constraint firstItem="Asn-V0-ljB" firstAttribute="top" secondItem="v9s-qI-Iaj" secondAttribute="bottom" constant="-10" id="581-cS-Gn7"/>
                             <constraint firstItem="v9s-qI-Iaj" firstAttribute="trailing" secondItem="hgz-fM-eWm" secondAttribute="trailing" id="5B6-ji-8JP"/>
-                            <constraint firstAttribute="bottom" secondItem="kfc-HP-2sf" secondAttribute="bottom" id="7a9-hd-iHL"/>
-                            <constraint firstItem="kfc-HP-2sf" firstAttribute="top" secondItem="Tin-bz-R7U" secondAttribute="top" id="EZz-9b-3PK"/>
                             <constraint firstItem="hgz-fM-eWm" firstAttribute="bottom" secondItem="v9s-qI-Iaj" secondAttribute="bottom" constant="127" id="LAY-t9-ECW"/>
-                            <constraint firstItem="kfc-HP-2sf" firstAttribute="leading" secondItem="hgz-fM-eWm" secondAttribute="leading" id="U9y-jS-TL4"/>
                             <constraint firstAttribute="bottom" secondItem="Asn-V0-ljB" secondAttribute="bottom" id="Xab-MU-eoC"/>
-                            <constraint firstItem="kfc-HP-2sf" firstAttribute="trailing" secondItem="hgz-fM-eWm" secondAttribute="trailing" id="Zub-B8-bOt"/>
                             <constraint firstItem="v9s-qI-Iaj" firstAttribute="top" secondItem="hgz-fM-eWm" secondAttribute="top" id="n2z-6e-bmL"/>
                             <constraint firstItem="Asn-V0-ljB" firstAttribute="leading" secondItem="hgz-fM-eWm" secondAttribute="leading" id="rG6-hp-raY"/>
                             <constraint firstItem="v9s-qI-Iaj" firstAttribute="leading" secondItem="hgz-fM-eWm" secondAttribute="leading" id="wvt-Dr-WIk"/>
@@ -581,9 +580,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="BVH-41-hl3"/>
                     <connections>
+                        <outlet property="animationImgView" destination="De4-1l-JMD" id="PXh-5O-vtC"/>
                         <outlet property="cartTableView" destination="v9s-qI-Iaj" id="OVD-q2-nuN"/>
                         <outlet property="lastView" destination="Asn-V0-ljB" id="vMf-ND-JSA"/>
-                        <outlet property="noItemImg" destination="kfc-HP-2sf" id="qxA-sO-moj"/>
                         <outlet property="totalPrice" destination="Dr1-PY-T6Z" id="mMi-Gl-ucF"/>
                     </connections>
                 </viewController>
@@ -1211,8 +1210,6 @@
         <image name="add-to-favorites" width="512" height="512"/>
         <image name="delete" width="24" height="24"/>
         <image name="dry-clean" width="16" height="16"/>
-        <image name="empty" width="512" height="512"/>
-        <image name="empty-cart (1)" width="800" height="600"/>
         <image name="giphy" width="480" height="320"/>
         <image name="giphy-4" width="600" height="631"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>

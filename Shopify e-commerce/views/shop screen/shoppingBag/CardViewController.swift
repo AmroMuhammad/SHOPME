@@ -9,6 +9,8 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import Lottie
+
 class CardViewController: UIViewController {
     var cartViewModelObj : cartViewModelType!
     var disposeBag = DisposeBag()
@@ -16,11 +18,24 @@ class CardViewController: UIViewController {
     var totalPriceForReceipt : String?
     var currency : String?
     @IBOutlet weak var cartTableView: UITableView!
-    @IBOutlet weak var noItemImg: UIImageView!
     @IBOutlet weak var totalPrice: UILabel!
     @IBOutlet weak var lastView: UIView!
+    @IBOutlet weak var animationImgView: UIView!
+    
+    lazy var backgroundAnimationView: AnimationView = {
+              let animationView = AnimationView()
+              animationImgView.addSubview(animationView)
+              animationView.translatesAutoresizingMaskIntoConstraints = false
+              animationView.topAnchor.constraint(equalTo: animationImgView.topAnchor).isActive = true
+              animationView.rightAnchor.constraint(equalTo: animationImgView.rightAnchor).isActive = true
+              animationView.leftAnchor.constraint(equalTo: animationImgView.leftAnchor).isActive = true
+              animationView.bottomAnchor.constraint(equalTo: animationImgView.bottomAnchor).isActive = true
+              
+              return animationView
+          }()
     override func viewDidLoad() {
         super.viewDidLoad()
+     
         currency = UserDefaults.standard.string(forKey: Constants.currencyUserDefaults)
         cartViewModelObj = cartViewModel()
        // lastView.layer.cornerRadius = 30
@@ -77,6 +92,7 @@ class CardViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         cartViewModelObj.getCartData()
+           playBackgroundAnimation()
     }
     
     @objc func goToWishList() {
@@ -97,13 +113,13 @@ class CardViewController: UIViewController {
         print("it is empty ................")
         self.cartTableView.isHidden = true
         self.lastView.isHidden = true
-        self.noItemImg.isHidden = false
+        self.animationImgView.isHidden = false
     }
     
     func cartNotEmpty() {
         self.cartTableView.isHidden = false
         self.lastView.isHidden = false
-        self.noItemImg.isHidden = true
+        self.animationImgView.isHidden = true
         print("it is not empty ................")
     }
    
@@ -112,6 +128,16 @@ class CardViewController: UIViewController {
         receiptViewController.allCartProductForReceipt = allCartProduct
         receiptViewController.totalCartPrice = totalPriceForReceipt
         navigationController?.pushViewController(receiptViewController, animated: true)
+    }
+    private func playBackgroundAnimation(){
+        let animation = Animation.named("42176-empty-cart")
+        backgroundAnimationView.animation = animation
+       
+        backgroundAnimationView.play(fromProgress: 0,
+                           toProgress: 1,
+                           loopMode: LottieLoopMode.loop,
+                           completion: { (finished) in
+        })
     }
 }
 
