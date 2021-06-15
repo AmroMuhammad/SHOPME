@@ -40,12 +40,7 @@ class wishListViewController: UIViewController {
         super.viewDidLoad()
        
         wishListViewModelObj = wishListViewModel()
-//        let button: UIButton = UIButton(type: UIButton.ButtonType.custom)
-//        button.setImage(UIImage(named: "shopping"), for: [])
-//        button.addTarget(self, action: #selector(doToCart), for: UIControl.Event.touchUpInside)
-//        button.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
-//        let barButton = UIBarButtonItem(customView: button)
-//        self.navigationItem.rightBarButtonItem = barButton
+        
          wishListViewModelObj.dataDrive.drive(onNext: {[weak self] (val) in
             if(val.count == 0){
                 self?.wishListEmpty()
@@ -94,26 +89,20 @@ class wishListViewController: UIViewController {
          
     @IBAction func navigateToCart(_ sender: UIButton) {
         if(UserData.sharedInstance.isLoggedIn()){
-            let storyboard = UIStoryboard(name: "shop", bundle: nil)
-            let favVC = storyboard.instantiateViewController(identifier: "cartViewController")
-            self.navigationController?.pushViewController(favVC, animated: true)
+            if checkVC(addedVC: CardViewController.self) {
+                print("checkVC is NOT nil")
+                navigationController?.popViewController(animated: true)
+            } else {
+                print("checkVC is NIIIIIIIL")
+
+                let cartViewController = storyboard?.instantiateViewController(identifier: Constants.cartVC) as! CardViewController
+                navigationController?.pushViewController(cartViewController, animated: true)
+            }
         }else{
             Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Cart", context: self)
         }
     }
     
-    
-//    @objc func doToCart() {
-//        if checkVC(addedVC: CardViewController.self) {
-//            print("checkVC is NOT nil")
-//            navigationController?.popViewController(animated: true)
-//        } else {
-//            print("checkVC is NIIIIIIIL")
-//            
-//            let cartViewController = storyboard?.instantiateViewController(identifier: Constants.cartVC) as! CardViewController
-//            navigationController?.pushViewController(cartViewController, animated: true)
-//        }
-//    }
     func wishListEmpty() {
         print("it is empty ................")
         self.wishListCollectionView.isHidden = true
