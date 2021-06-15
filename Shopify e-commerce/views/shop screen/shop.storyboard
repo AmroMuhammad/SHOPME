@@ -312,11 +312,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1jT-ap-OfM">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9Ox-gn-C9S">
-                                <rect key="frame" x="20" y="54" width="374" height="808"/>
+                                <rect key="frame" x="20" y="98" width="374" height="764"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="u8E-7u-b7D">
                                     <size key="itemSize" width="179" height="211"/>
@@ -402,9 +402,41 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qHE-1G-j7p"/>
                     </view>
-                    <navigationItem key="navigationItem" id="rj1-eN-hvn"/>
+                    <navigationItem key="navigationItem" id="rj1-eN-hvn">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="0yS-1a-llb">
+                            <view key="customView" contentMode="scaleToFill" id="QGF-YV-Gcs">
+                                <rect key="frame" x="302" y="5.5" width="92" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NnZ-r8-dkn" customClass="RightNavBarView" customModule="Shopify_e_commerce" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="92" height="33"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nzG-lA-I8v">
+                                        <rect key="frame" x="0.0" y="0.0" width="92" height="33"/>
+                                        <connections>
+                                            <action selector="navigateToCart:" destination="nKI-Wq-Nl2" eventType="touchUpInside" id="tsm-If-Jcz"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="NnZ-r8-dkn" secondAttribute="bottom" id="2iw-fl-rc8"/>
+                                    <constraint firstItem="NnZ-r8-dkn" firstAttribute="leading" secondItem="QGF-YV-Gcs" secondAttribute="leading" id="84w-ac-CO4"/>
+                                    <constraint firstAttribute="trailing" secondItem="NnZ-r8-dkn" secondAttribute="trailing" id="MvU-E6-svR"/>
+                                    <constraint firstItem="nzG-lA-I8v" firstAttribute="leading" secondItem="QGF-YV-Gcs" secondAttribute="leading" id="YR5-P9-1mz"/>
+                                    <constraint firstItem="nzG-lA-I8v" firstAttribute="top" secondItem="QGF-YV-Gcs" secondAttribute="top" id="bKs-TQ-Nfy"/>
+                                    <constraint firstAttribute="trailing" secondItem="nzG-lA-I8v" secondAttribute="trailing" id="dMB-jr-ty1"/>
+                                    <constraint firstItem="NnZ-r8-dkn" firstAttribute="top" secondItem="QGF-YV-Gcs" secondAttribute="top" id="ng9-Ks-pr3"/>
+                                    <constraint firstAttribute="bottom" secondItem="nzG-lA-I8v" secondAttribute="bottom" id="pM2-pQ-eQT"/>
+                                </constraints>
+                            </view>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="animationImgView" destination="1jT-ap-OfM" id="6IJ-5H-3mI"/>
+                        <outlet property="cartNavBarView" destination="NnZ-r8-dkn" id="fo1-JY-p5t"/>
                         <outlet property="wishListCollectionView" destination="9Ox-gn-C9S" id="ieZ-N9-6OQ"/>
                         <segue destination="5Fg-tV-qCl" kind="presentation" identifier="ColorSizeSegue" id="lMX-Ql-4j4"/>
                     </connections>
