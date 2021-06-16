@@ -10,17 +10,17 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="receiptProductCollectionViewCell" customModule="Shopify_e_commerce" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="93" height="113"/>
+            <rect key="frame" x="0.0" y="0.0" width="65" height="90"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="93" height="113"/>
+                <rect key="frame" x="0.0" y="0.0" width="65" height="90"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="giphy-4" translatesAutoresizingMaskIntoConstraints="NO" id="snd-rW-j13">
-                        <rect key="frame" x="0.0" y="0.0" width="93" height="113"/>
+                        <rect key="frame" x="0.0" y="0.0" width="65" height="90"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Mu-KJ-7A1">
-                        <rect key="frame" x="68" y="5" width="20" height="20"/>
+                        <rect key="frame" x="40" y="5" width="20" height="20"/>
                         <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="Cko-NL-nky"/>
@@ -41,12 +41,12 @@
                 <constraint firstItem="snd-rW-j13" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="pkR-7a-kTy"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <size key="customSize" width="90" height="95"/>
+            <size key="customSize" width="65" height="90"/>
             <connections>
                 <outlet property="img" destination="snd-rW-j13" id="bTF-Re-Skc"/>
                 <outlet property="productNum" destination="8Mu-KJ-7A1" id="KUz-h3-8kX"/>
             </connections>
-            <point key="canvasLocation" x="155.79710144927537" y="136.94196428571428"/>
+            <point key="canvasLocation" x="139.85507246376812" y="135.9375"/>
         </collectionViewCell>
     </objects>
     <resources>

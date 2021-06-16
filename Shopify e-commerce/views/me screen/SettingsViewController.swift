@@ -13,7 +13,7 @@ class SettingsViewController: UIViewController {
     
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var signInOutlet: UIView!
-//    @IBOutlet weak var welcome: UILabel!
+    @IBOutlet weak var welcome: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var register: UIButton!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -29,7 +29,7 @@ class SettingsViewController: UIViewController {
   
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "ME"
+        self.navigationController?.title = "Settings"
         userData = UserData.sharedInstance
         meViewModel = MeViewModel()
         disposeBag = DisposeBag()
@@ -141,14 +141,14 @@ class SettingsViewController: UIViewController {
     }
     
     func showLoginView(){
-//        welcome.alpha = 0
+        welcome.alpha = 0
         signInOutlet.alpha = 1
         register.alpha = 1
         isLoggedTableViewView.isHidden = false
     }
     
     func showWelcomeView(){
-//        welcome.alpha = 1
+        welcome.alpha = 1
         signInOutlet.alpha = 0
         register.alpha = 0
         emailTextField.text = ""

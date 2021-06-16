@@ -5,17 +5,16 @@
 import UIKit
 import RxCocoa
 import RxSwift
-import TKFormTextField
 
 class RegisterViewController: UIViewController {
-    @IBOutlet private weak var city: TKFormTextField!
-    @IBOutlet private weak var country: TKFormTextField!
-    @IBOutlet private weak var firstName: TKFormTextField!
-    @IBOutlet private weak var lastName: TKFormTextField!
-    @IBOutlet private weak var email: TKFormTextField!
-    @IBOutlet private weak var phoneNumber: TKFormTextField!
-    @IBOutlet private weak var confPassword: TKFormTextField!
-    @IBOutlet private weak var password: TKFormTextField!
+    @IBOutlet private weak var city: UITextField!
+    @IBOutlet private weak var country: UITextField!
+    @IBOutlet private weak var firstName: UITextField!
+    @IBOutlet private weak var lastName: UITextField!
+    @IBOutlet private weak var email: UITextField!
+    @IBOutlet private weak var phoneNumber: UITextField!
+    @IBOutlet private weak var confPassword: UITextField!
+    @IBOutlet private weak var password: UITextField!
     private var activityView:UIActivityIndicatorView!
 
     
@@ -28,7 +27,7 @@ class RegisterViewController: UIViewController {
         disposeBag = DisposeBag()
         activityView = UIActivityIndicatorView(style: .large)
         
-        self.title = "Regestration"
+        self.navigationController?.title = "Regestration"
         registerViewModel = RegisterViewModel()
 
         registerViewModel.errorObservable.subscribe(onNext: { (message,boolResult) in
@@ -54,9 +53,8 @@ class RegisterViewController: UIViewController {
     }
     
     @IBAction func submit(_ sender: Any) {
-//        registerViewModel.validateRegisterdData(firstName: firstName.text!, lastName: lastName.text!, email: email.text!, phoneNumber: phoneNumber.text!, password: password.text!, confirmPassword: confPassword.text!, country: country.text!, city: city.text!)
+        registerViewModel.validateRegisterdData(firstName: firstName.text!, lastName: lastName.text!, email: email.text!, phoneNumber: phoneNumber.text!, password: password.text!, confirmPassword: confPassword.text!, country: country.text!, city: city.text!)
     
-        registerViewModel.validateRegisterdData(firstName: firstName.text!, lastName: lastName.text!, email: email.text!, phoneNumber: phoneNumber.text!, password: password.text!, confirmPassword: confPassword.text!, country: country.text!, city: city.text!,pn: phoneNumber, context: self,fname: firstName,lname: lastName,em: email,count: country,cit: city,con:confPassword,p: password)
     }
     
     func showLoading() {

@@ -8,7 +8,6 @@
 
 import UIKit
 import DropDown
-import StoreKit
 
 class MeViewController: UIViewController {
     
@@ -22,8 +21,7 @@ class MeViewController: UIViewController {
     var meViewModel = MeViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.navigationController?.title = "ME";
-        self.title = "Settings"
+        self.navigationController?.title = "ME";
         
         userData = UserData.sharedInstance
         currencyLabel.text = userData.getCurrency()
@@ -68,10 +66,6 @@ class MeViewController: UIViewController {
             signOut.alpha = 0
             editCustomerData.alpha = 0
         }
-    }
-    
-    @IBAction func rateUs(_ sender: Any) {
-        SKStoreReviewController.requestReview()
     }
     
     @IBAction func aboutUS(_ sender: Any) {

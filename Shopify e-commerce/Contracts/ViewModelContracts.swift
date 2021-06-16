@@ -8,7 +8,6 @@
 
 import Foundation
 import RxSwift
-import TKFormTextField
 
 protocol CategoryViewModelContract:ViewModelType{
     var mainCatDataObservable:Observable<[String]> {get}
@@ -32,8 +31,7 @@ protocol RegisterViewModelContract{
     var loadingObservable: Observable<Bool> {get}
     var doneObservable: Observable<Bool>{get}
     func postData(newCustomer:RegisterCustomer)
-//    func validateRegisterdData(firstName:String,lastName:String,email:String,phoneNumber:String,password:String,confirmPassword:String,country:String,city:String)
-    func validateRegisterdData(firstName:String,lastName:String,email:String,phoneNumber:String,password:String,confirmPassword:String,country:String,city:String,pn: TKFormTextField,context:UIViewController,fname: TKFormTextField,lname: TKFormTextField,em: TKFormTextField,count: TKFormTextField,cit: TKFormTextField,con:TKFormTextField,p:TKFormTextField)
+    func validateRegisterdData(firstName:String,lastName:String,email:String,phoneNumber:String,password:String,confirmPassword:String,country:String,city:String)
 }
 
 protocol MeViewModelContract{
@@ -53,7 +51,6 @@ protocol EditViewModelContract{
     var loadingObservable: Observable<Bool> {get}
     func fetchData()
     func postData(newCustomer:RegisterCustomer)
-//    func validateData(firstName:String,lastName:String,email:String,phoneNumber:String,country:String,city:String)
-    func validateData(firstName:String,lastName:String,email:String,phoneNumber:String,country:String,city:String,fname: TKFormTextField,lname: TKFormTextField,em: TKFormTextField,count: TKFormTextField,cit: TKFormTextField,po:TKFormTextField)
+    func validateData(firstName:String,lastName:String,email:String,phoneNumber:String,country:String,city:String)
 }
 

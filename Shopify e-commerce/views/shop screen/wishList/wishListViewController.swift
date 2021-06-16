@@ -12,17 +12,11 @@ import RxSwift
 import Lottie
 
 class wishListViewController: UIViewController {
-    
-    private var productId: Int!
-    private var productMainCategory: String?
-    
     var wishListViewModelObj : wishListViewModelType!
    //@IBOutlet weak var toolBar: UIToolbar!
     private let disposeBag = DisposeBag()
     @IBOutlet weak var animationImgView: UIView!
     @IBOutlet weak var wishListCollectionView: UICollectionView!
-    
-    @IBOutlet weak var cartNavBarView: RightNavBarView!
     
     lazy var backgroundAnimationView: AnimationView = {
         let animationView = AnimationView()
@@ -40,7 +34,12 @@ class wishListViewController: UIViewController {
         super.viewDidLoad()
        
         wishListViewModelObj = wishListViewModel()
-        
+        let button: UIButton = UIButton(type: UIButton.ButtonType.custom)
+        button.setImage(UIImage(named: "shopping"), for: [])
+        button.addTarget(self, action: #selector(doToCart), for: UIControl.Event.touchUpInside)
+        button.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
+        let barButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = barButton
          wishListViewModelObj.dataDrive.drive(onNext: {[weak self] (val) in
             if(val.count == 0){
                 self?.wishListEmpty()
@@ -75,34 +74,26 @@ class wishListViewController: UIViewController {
             self?.navigationController?.pushViewController(productDetailsVC, animated: true)
         }).disposed(by: disposeBag)
         
-        wishListViewModelObj.quantutyObservable.bind(to: cartNavBarView.rx.quantity).disposed(by: disposeBag)
-        
 //        wishListViewModelObj.getwishListData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        wishListViewModelObj.getCartQuantity()
         wishListViewModelObj.getwishListData()
          playBackgroundAnimation()
     }
 
          
-    @IBAction func navigateToCart(_ sender: UIButton) {
-        if(UserData.sharedInstance.isLoggedIn()){
-            if checkVC(addedVC: CardViewController.self) {
-                print("checkVC is NOT nil")
-                navigationController?.popViewController(animated: true)
-            } else {
-                print("checkVC is NIIIIIIIL")
-
-                let cartViewController = storyboard?.instantiateViewController(identifier: Constants.cartVC) as! CardViewController
-                navigationController?.pushViewController(cartViewController, animated: true)
-            }
-        }else{
-            Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Cart", context: self)
+    @objc func doToCart() {
+        if checkVC(addedVC: CardViewController.self) {
+            print("checkVC is NOT nil")
+            navigationController?.popViewController(animated: true)
+        } else {
+            print("checkVC is NIIIIIIIL")
+            
+            let cartViewController = storyboard?.instantiateViewController(identifier: Constants.cartVC) as! CardViewController
+            navigationController?.pushViewController(cartViewController, animated: true)
         }
     }
-    
     func wishListEmpty() {
         print("it is empty ................")
         self.wishListCollectionView.isHidden = true
@@ -131,9 +122,18 @@ class wishListViewController: UIViewController {
 
 extension wishListViewController: CollectionViewCellDelegate{
     func showMovingAlert(msg: String , product : LocalProductDetails) {
-        productId = product.productId
-        productMainCategory = product.mainCategory
-        performSegue(withIdentifier: "ColorSizeSegue", sender: nil)
+        let alertController = UIAlertController(title: "", message: msg, preferredStyle: UIAlertController.Style.alert)
+
+        alertController.addAction(UIAlertAction(title: "add", style: .default, handler: { [weak self](action: UIAlertAction!) in
+              print("Handle Ok logic here")
+            self!.wishListViewModelObj.addToCart(product : product)
+        }))
+
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+              print("Handle Cancel Logic here")
+        }))
+
+        present(alertController, animated: true, completion: nil)
     }
     
     func showAlert(msg : String , product : LocalProductDetails) {
@@ -153,44 +153,3 @@ extension wishListViewController: CollectionViewCellDelegate{
     }
 
 }
-
-extension wishListViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let controller = segue.destination as? ColorSizeViewController {
-            if segue.identifier == "ColorSizeSegue" {
-                controller.productId = productId
-                controller.mainCategory = productMainCategory
-                controller.senderVC = self
-                controller.modalPresentationStyle = .custom
-            }
-        }
-    }
-}
-
-
-
-
-
-
-
-
-/*
- func showMovingAlert(msg: String , product : LocalProductDetails) {
-         
-         productId = product.productId
-         productMainCategory = product.mainCategory
-         performSegue(withIdentifier: "ColorSizeSegue", sender: nil)
-
- //        let alertController = UIAlertController(title: "", message: msg, preferredStyle: UIAlertController.Style.alert)
- //        alertController.addAction(UIAlertAction(title: "add", style: .default, handler: { [weak self](action: UIAlertAction!) in
- //              print("Handle Ok logic here")
- //            self!.wishListViewModelObj.addToCart(product : product)
- //        }))
- //
- //        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
- //              print("Handle Cancel Logic here")
- //        }))
- //
- //        present(alertController, animated: true, completion: nil)
-     }
- */
