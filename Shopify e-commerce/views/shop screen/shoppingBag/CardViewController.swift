@@ -124,10 +124,13 @@ class CardViewController: UIViewController {
     }
    
     @IBAction func checkoutBtn(_ sender: Any) {
-        let receiptViewController = storyboard?.instantiateViewController(identifier: Constants.receiptVC) as! receiptViewController
-        receiptViewController.allCartProductForReceipt = allCartProduct
-        receiptViewController.totalCartPrice = totalPriceForReceipt
-        navigationController?.pushViewController(receiptViewController, animated: true)
+//         let receiptViewController = storyboard?.instantiateViewController(identifier: Constants.receiptVC) as! receiptViewController
+//         receiptViewController.allCartProductForReceipt = allCartProduct
+//         receiptViewController.totalCartPrice = totalPriceForReceipt
+        let addressViewController = storyboard?.instantiateViewController(identifier: Constants.addressVC) as! addressViewController
+        addressViewController.allCartProduct = allCartProduct
+        addressViewController.totalPriceForReceipt = totalPriceForReceipt
+         navigationController?.pushViewController(addressViewController, animated: true)
     }
     private func playBackgroundAnimation(){
         let animation = Animation.named("42176-empty-cart")
