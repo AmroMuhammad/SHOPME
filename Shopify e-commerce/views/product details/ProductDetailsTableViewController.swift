@@ -166,8 +166,11 @@ class ProductDetailsTableViewController: UITableViewController {
                 val = 50.0
             case 4:
                 productDetailsViewModel.isUserLoggedIn { (resBool) in
-                    if !resBool {
-                        val = CGFloat.leastNonzeroMagnitude
+                    print("\n\n\nPDVC - heightForRowAt - is LoggedIn => \(resBool)")
+                    if resBool {
+                        val = 50.0
+                    } else {
+                       val = CGFloat.leastNonzeroMagnitude
                     }
                 }
             default:

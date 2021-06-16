@@ -16,9 +16,12 @@ class wishListViewModel : wishListViewModelType{
     var dataDrive: Driver<[LocalProductDetails]>
     var dataSubject = PublishSubject<[LocalProductDetails]>()
     var coreDataobj = LocalManagerHelper.localSharedInstance
+    var quantutyObservable: Observable<String>
+    private var quantitySubject = PublishSubject<String>()
     init() {
            dataDrive = dataSubject.asDriver(onErrorJustReturn: [] )
            errorDrive = errorSubject.asDriver(onErrorJustReturn: false)
+        quantutyObservable = quantitySubject.asObservable()
     }
     func getwishListData() {
         let email = UserDefaults.standard.string(forKey: Constants.emailUserDefaults) ?? ""
@@ -58,6 +61,22 @@ class wishListViewModel : wishListViewModelType{
                         
         }
        
+    }
+    func getCartQuantity() {
+        coreDataobj.getAllCartProducts(userEmail: getUserEmail()) { [weak self] (localProductsArr) in
+            guard let self = self else {return}
+            var allQuantity = 0
+            if let localArr = localProductsArr {
+                for item in localArr {
+                    allQuantity += item.quantity ?? 0
+                }
+            }
+            self.quantitySubject.onNext(String(allQuantity))
+        }
+    }
+    
+    func getUserEmail() -> String{
+        return UserData.sharedInstance.getUserFromUserDefaults().email ?? ""
     }
     
 }

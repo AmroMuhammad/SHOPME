@@ -51,9 +51,11 @@ protocol TableViewCellDelegate {
 protocol wishListViewModelType {
      var dataDrive : Driver<[LocalProductDetails]> {get}
      var errorDrive: Driver<Bool>{get}
+    var quantutyObservable: Observable<String> {get}
      func getwishListData()
      func addToCart( product : LocalProductDetails)
      func deleteWishListData( product : LocalProductDetails)
+    func getCartQuantity()
 }
 protocol cartViewModelType {
      var totalPriceDrive: Driver<Double>{get}
