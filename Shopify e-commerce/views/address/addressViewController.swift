@@ -44,19 +44,13 @@ class addressViewController: UIViewController {
                               if(addressDetails!.count > 0){
                                   (cell as? addressTableViewCell )?.addressLabel.text = addressDetails![0]
                                   (cell as? addressTableViewCell )?.countryAndCity.text = addressDetails![1] + "," + addressDetails![2]
+                                  (cell as? addressTableViewCell )?.accessoryType = .disclosureIndicator
                               }
                               
                           }.disposed(by: self!.disposeBag)
                           
                       }).disposed(by: disposeBag)
                        
-//                       addressTableView.rx.itemSelected.subscribe{ (IndexPath) in
-//                          let receiptViewController = self.storyboard?.instantiateViewController(identifier: Constants.receiptVC) as! receiptViewController
-//                          receiptViewController.allCartProductForReceipt = self.allCartProduct
-//                          receiptViewController.totalCartPrice = self.totalPriceForReceipt
-//                        
-//                          self.navigationController?.pushViewController(receiptViewController, animated: true)
-//                       }.disposed(by: disposeBag)
         
              addressTableView.rx.modelSelected(String.self).subscribe{(item) in
                 let receiptViewController = self.storyboard?.instantiateViewController(identifier: Constants.receiptVC) as! receiptViewController
