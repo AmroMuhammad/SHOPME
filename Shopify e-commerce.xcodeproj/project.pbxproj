@@ -30,6 +30,7 @@
 		43665B7F267998720089B556 /* addressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43665B7E267998720089B556 /* addressViewController.swift */; };
 		43665B82267998960089B556 /* addAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43665B81267998960089B556 /* addAddressViewController.swift */; };
 		43665B84267998C10089B556 /* addressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43665B83267998C10089B556 /* addressTableViewCell.swift */; };
+		43665B872679B8A30089B556 /* addressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43665B862679B8A30089B556 /* addressViewModel.swift */; };
 		4366FD0B266C8890006E4D1B /* wishListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4366FD0A266C8890006E4D1B /* wishListCollectionViewCell.swift */; };
 		4366FD0D266C9F5E006E4D1B /* cartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4366FD0C266C9F5E006E4D1B /* cartTableViewCell.swift */; };
 		4369132F266ECF7700BA0632 /* wishListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4369132E266ECF7700BA0632 /* wishListViewModel.swift */; };
@@ -142,6 +143,7 @@
 		43665B7E267998720089B556 /* addressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addressViewController.swift; sourceTree = "<group>"; };
 		43665B81267998960089B556 /* addAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addAddressViewController.swift; sourceTree = "<group>"; };
 		43665B83267998C10089B556 /* addressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addressTableViewCell.swift; sourceTree = "<group>"; };
+		43665B862679B8A30089B556 /* addressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addressViewModel.swift; sourceTree = "<group>"; };
 		4366FD0A266C8890006E4D1B /* wishListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wishListCollectionViewCell.swift; sourceTree = "<group>"; };
 		4366FD0C266C9F5E006E4D1B /* cartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cartTableViewCell.swift; sourceTree = "<group>"; };
 		4369132E266ECF7700BA0632 /* wishListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wishListViewModel.swift; sourceTree = "<group>"; };
@@ -333,6 +335,14 @@
 				43665B83267998C10089B556 /* addressTableViewCell.swift */,
 			);
 			path = address;
+			sourceTree = "<group>";
+		};
+		43665B852679B8790089B556 /* addressViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				43665B862679B8A30089B556 /* addressViewModel.swift */,
+			);
+			path = addressViewModel;
 			sourceTree = "<group>";
 		};
 		4366FD0E266D5397006E4D1B /* wishList */ = {
@@ -649,6 +659,7 @@
 		C2A61D27265638C20047C648 /* viewmodel */ = {
 			isa = PBXGroup;
 			children = (
+				43665B852679B8790089B556 /* addressViewModel */,
 				ED53D1CD266BC954002E6083 /* MeViewModel.swift */,
 				436A2A0226735E6E0044B5DA /* receiptViewModel */,
 				C25212FA26721A8C0028E57C /* RegisterViewModel.swift */,
@@ -1005,6 +1016,7 @@
 				C2A8A2382667754D00D9CBBA /* SearchViewModel.swift in Sources */,
 				C2A61D20265637530047C648 /* TargetType.swift in Sources */,
 				ED00A30E265BC1D70017B055 /* MeViewController.swift in Sources */,
+				43665B872679B8A30089B556 /* addressViewModel.swift in Sources */,
 				0DF91A13267498F400E7D6B7 /* RightNavBarView.swift in Sources */,
 				ED440F7D266301A400B31D23 /* UserData.swift in Sources */,
 				C2E83A4D265CAA9000A2CD95 /* MainCategoryCollectionViewCell.swift in Sources */,

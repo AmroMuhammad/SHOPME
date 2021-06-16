@@ -7,15 +7,18 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class addressTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var zipCode: UILabel!
+    var disposBag = DisposeBag()
+ 
     @IBOutlet weak var countryAndCity: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -82,3 +82,10 @@ protocol receiptViewModelType {
 protocol applyCouponDelegate {
     func applyCoupon(coupone : String , productType : String)
 }
+protocol addressViewModelType {
+    var userDefaultAddressDriver: Driver<[String]> {get}
+    var addressDetailsDriver: Driver<[String]> {get}
+    func getUserDefaultAddress()
+    func getAddressDetails(address : String)-> [String]
+    func splitUserDefaultAddress(userAddresses : String)
+}
