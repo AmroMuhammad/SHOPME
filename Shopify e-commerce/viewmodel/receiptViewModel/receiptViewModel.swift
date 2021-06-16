@@ -99,7 +99,7 @@ class receiptViewModel : receiptViewModelType {
     func saveOrder(totalPrice:String){
         let orderid = orderID()
         for item in data {
-            let order = Order(productId: item.productId, userEmail: UserData.sharedInstance.getUserFromUserDefaults().email!, title: item.title!, productPrice: item.productPrice!, productImage: "", quantity: "\(item.quantity!)", totalPrice: totalPrice, creationDate: getDate(), orderId: orderid)
+            let order = Order(productId: item.productId, userEmail: UserData.sharedInstance.getUserFromUserDefaults().email!, title: item.title!, productPrice: item.productPrice!, productImage: item.productImageData, quantity: "\(item.quantity!)", totalPrice: totalPrice, creationDate: getDate(), orderId: orderid)
             
             localManager.addOrder(order: order) { (value) in
                 switch value{

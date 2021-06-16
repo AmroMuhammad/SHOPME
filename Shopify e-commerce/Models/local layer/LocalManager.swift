@@ -457,7 +457,7 @@ class LocalManagerHelper {
                 if let uEmail = item.value(forKey: Constants.userEmailCoraDataAtt){
                     if userEmail == uEmail as! String {
                         let productId = item.value(forKey: Constants.productIdCoraDataAtt) as? Int ?? 0
-                        let img = item.value(forKey: Constants.productImageCoraDataAtt) as? String ?? ""
+                        let img = item.value(forKey: Constants.productImageCoraDataAtt) as? Data ?? Data()
                         let price = item.value(forKey: Constants.productPriceCoraDataAtt) as? String ?? ""
                         let title = item.value(forKey: Constants.titleCoraDataAtt) as? String ?? ""
                         let quant = item.value(forKey: Constants.quantityCoraDataAtt) as? String ?? ""
@@ -496,7 +496,7 @@ class LocalManagerHelper {
                 if let ordId = item.value(forKey: Constants.orderIdCoraDataAtt){
                     if orderId == ordId as! Int {
                         let userEmail = item.value(forKey: Constants.userEmailCoraDataAtt) as? String ?? ""
-                        let img = item.value(forKey: Constants.productImageCoraDataAtt) as? String ?? ""
+                        let img = item.value(forKey: Constants.productImageCoraDataAtt) as? Data ?? Data()
                         let price = item.value(forKey: Constants.productPriceCoraDataAtt) as? String ?? ""
                         let title = item.value(forKey: Constants.titleCoraDataAtt) as? String ?? ""
                         let quant = item.value(forKey: Constants.quantityCoraDataAtt) as? String ?? ""

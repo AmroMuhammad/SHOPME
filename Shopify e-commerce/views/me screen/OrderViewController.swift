@@ -39,7 +39,8 @@ class OrderViewController: UIViewController, UITableViewDelegate,UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SingleOrderTableViewCell", for: indexPath) as! SingleOrderTableViewCell
-        cell.itemImage.sd_setImage(with: URL(string: ordersData[indexPath.row].productImage), placeholderImage: UIImage(named: "placeholder"))
+        cell.itemImage.image = UIImage(data: ordersData[indexPath.row].productImage)
+//        cell.itemImage.sd_setImage(with: URL(string: ordersData[indexPath.row].productImage), placeholderImage: UIImage(named: "placeholder"))
         cell.titleLabel.text = ordersData[indexPath.row].title
         cell.priceLabel.text = "Price: " + ordersData[indexPath.row].productPrice + " " + userData.getCurrency()
         cell.quantityLabel.text = "Quantity: " + ordersData[indexPath.row].quantity

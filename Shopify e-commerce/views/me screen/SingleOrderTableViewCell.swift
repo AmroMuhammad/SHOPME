@@ -13,10 +13,13 @@ class SingleOrderTableViewCell: UITableViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var quantityLabel: UILabel!
     @IBOutlet weak var itemImage: UIImageView!
+    @IBOutlet weak var imageContainerView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        imageContainerView.layer.cornerRadius = 15
+        imageContainerView.layer.borderWidth = 1
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

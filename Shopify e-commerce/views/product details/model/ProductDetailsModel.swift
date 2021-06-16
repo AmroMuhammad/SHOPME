@@ -80,7 +80,7 @@ struct Order {
     let userEmail: String
     let title: String
     let productPrice: String
-    let productImage: String
+    let productImage: Data
     let quantity: String
     let totalPrice: String
     let creationDate: String
