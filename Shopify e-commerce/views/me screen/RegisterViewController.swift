@@ -16,6 +16,7 @@ class RegisterViewController: UIViewController {
     @IBOutlet private weak var phoneNumber: TKFormTextField!
     @IBOutlet private weak var confPassword: TKFormTextField!
     @IBOutlet private weak var password: TKFormTextField!
+    @IBOutlet weak var address: TKFormTextField!
     private var activityView:UIActivityIndicatorView!
 
     
@@ -56,7 +57,7 @@ class RegisterViewController: UIViewController {
     @IBAction func submit(_ sender: Any) {
 //        registerViewModel.validateRegisterdData(firstName: firstName.text!, lastName: lastName.text!, email: email.text!, phoneNumber: phoneNumber.text!, password: password.text!, confirmPassword: confPassword.text!, country: country.text!, city: city.text!)
     
-        registerViewModel.validateRegisterdData(firstName: firstName.text!, lastName: lastName.text!, email: email.text!, phoneNumber: phoneNumber.text!, password: password.text!, confirmPassword: confPassword.text!, country: country.text!, city: city.text!,pn: phoneNumber, context: self,fname: firstName,lname: lastName,em: email,count: country,cit: city,con:confPassword,p: password)
+        registerViewModel.validateRegisterdData(firstName: firstName.text!, lastName: lastName.text!, email: email.text!, phoneNumber: phoneNumber.text!, password: password.text!, confirmPassword: confPassword.text!, country: country.text!, city: city.text!,address: address.text!,pn: phoneNumber, context: self,fname: firstName,lname: lastName,em: email,count: country,cit: city,con:confPassword,p: password, addressTxtField: address)
     }
     
     func showLoading() {

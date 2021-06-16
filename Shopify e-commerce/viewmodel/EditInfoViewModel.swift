@@ -92,14 +92,15 @@ class EditInfoViewModel: EditViewModelContract{
 //        postData(newCustomer: newCustomer)
 //
 //    }
-    func validateData(firstName: String, lastName: String, email: String, phoneNumber: String, country: String, city: String, fname: TKFormTextField, lname: TKFormTextField, em: TKFormTextField, count: TKFormTextField, cit: TKFormTextField, po: TKFormTextField) {
-            if(firstName.isEmpty || lastName.isEmpty || email.isEmpty || phoneNumber.isEmpty || country.isEmpty || city.isEmpty){
+    func validateData(firstName:String,lastName:String,email:String,phoneNumber:String,country:String,city:String,address:String,fname: TKFormTextField,lname: TKFormTextField,em: TKFormTextField,count: TKFormTextField,cit: TKFormTextField,po:TKFormTextField,addressTxtField:TKFormTextField) {
+        if(firstName.isEmpty || lastName.isEmpty || email.isEmpty || phoneNumber.isEmpty || country.isEmpty || city.isEmpty || address.isEmpty){
                 po.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
                 fname.addTarget(self, action: #selector(updateError), for: .allEvents)
                 em.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
                 lname.addTarget(self, action: #selector(updateError), for: .allEvents)
                 count.addTarget(self, action: #selector(updateError), for: .allEvents)
                 cit.addTarget(self, action: #selector(updateError), for: .allEvents)
+                addressTxtField.addTarget(self, action: #selector(updateError), for: .allEvents)
 
                 //errorSubject.onNext(("Please enter all fields", true))
                 return
@@ -126,7 +127,7 @@ class EditInfoViewModel: EditViewModelContract{
                 //errorSubject.onNext(("Please enter valid country and city", true))
                 return
             }
-            let newCustomer = RegisterCustomer(customer: Customer(id: nil, email: email, firstName: firstName, lastName: lastName, phone: "+2"+phoneNumber, tags: data.tags,addresses: [Address(id: nil, customerID: nil, city: city, country: country)]))
+        let newCustomer = RegisterCustomer(customer: Customer(id: nil, email: email, firstName: firstName, lastName: lastName, phone: "+2"+phoneNumber, tags: data.tags,addresses: [Address(id: nil, customerID: nil, city: city, country: country, address1: address)]))
             postData(newCustomer: newCustomer)
             
         }

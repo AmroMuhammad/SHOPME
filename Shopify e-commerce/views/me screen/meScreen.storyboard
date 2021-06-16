@@ -404,13 +404,20 @@ For any information you can contact any team member from below Links</string>
                                     <action selector="submit:" destination="Kpi-nP-gr7" eventType="touchUpInside" id="0VP-pz-Fg5"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GIf-RS-8SE" customClass="TKFormTextField" customModule="TKFormTextField">
+                                <rect key="frame" x="40" y="539" width="334" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88235294819999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="VVC-9p-tfW" firstAttribute="top" secondItem="MoN-kB-ST8" secondAttribute="bottom" constant="15" id="0zj-8x-lyj"/>
+                            <constraint firstItem="yKF-ks-jMi" firstAttribute="trailing" secondItem="GIf-RS-8SE" secondAttribute="trailing" constant="40" id="4k2-Z8-OL1"/>
                             <constraint firstItem="xAn-18-Q8j" firstAttribute="centerX" secondItem="ZoK-jK-abP" secondAttribute="centerX" id="Acb-F0-ggY"/>
                             <constraint firstItem="dYV-YE-KXJ" firstAttribute="centerX" secondItem="ZoK-jK-abP" secondAttribute="centerX" id="Bid-pn-ODA"/>
                             <constraint firstItem="Rvn-Y3-XMw" firstAttribute="centerX" secondItem="ZoK-jK-abP" secondAttribute="centerX" id="Cho-De-yst"/>
+                            <constraint firstItem="GIf-RS-8SE" firstAttribute="top" secondItem="WP9-NZ-8lr" secondAttribute="bottom" constant="15" id="DFU-3f-0Q8"/>
                             <constraint firstItem="dYV-YE-KXJ" firstAttribute="top" secondItem="lkM-Me-yzt" secondAttribute="bottom" constant="45" id="EId-8H-10Q"/>
                             <constraint firstItem="Y8r-aI-Xeu" firstAttribute="width" secondItem="ZoK-jK-abP" secondAttribute="width" multiplier="0.811594" id="FNz-hr-bJ6"/>
                             <constraint firstItem="WP9-NZ-8lr" firstAttribute="top" secondItem="MP2-9O-N8t" secondAttribute="bottom" constant="15" id="HPr-yM-6zJ"/>
@@ -422,6 +429,7 @@ For any information you can contact any team member from below Links</string>
                             <constraint firstItem="Rvn-Y3-XMw" firstAttribute="width" secondItem="ZoK-jK-abP" secondAttribute="width" multiplier="0.166667" id="Sl7-DU-gAB"/>
                             <constraint firstItem="h6b-9K-7b5" firstAttribute="centerX" secondItem="ZoK-jK-abP" secondAttribute="centerX" id="YQN-Al-1PB"/>
                             <constraint firstItem="MoN-kB-ST8" firstAttribute="width" secondItem="ZoK-jK-abP" secondAttribute="width" multiplier="0.811594" id="ail-5g-z6X"/>
+                            <constraint firstItem="GIf-RS-8SE" firstAttribute="leading" secondItem="yKF-ks-jMi" secondAttribute="leading" constant="40" id="b7L-kh-DDI"/>
                             <constraint firstItem="Y8r-aI-Xeu" firstAttribute="top" secondItem="dYV-YE-KXJ" secondAttribute="bottom" constant="15" id="bsm-UL-e8P"/>
                             <constraint firstItem="lkM-Me-yzt" firstAttribute="top" secondItem="yKF-ks-jMi" secondAttribute="top" constant="38" id="cpN-ef-Z9l"/>
                             <constraint firstItem="xAn-18-Q8j" firstAttribute="width" secondItem="ZoK-jK-abP" secondAttribute="width" multiplier="0.811594" id="dJd-Rf-fTd"/>
@@ -442,6 +450,7 @@ For any information you can contact any team member from below Links</string>
                     </view>
                     <navigationItem key="navigationItem" id="6jX-wu-BYB"/>
                     <connections>
+                        <outlet property="address" destination="GIf-RS-8SE" id="7OS-xP-frY"/>
                         <outlet property="city" destination="WP9-NZ-8lr" id="iw8-Pl-j8B"/>
                         <outlet property="confPassword" destination="xAn-18-Q8j" id="bZM-Vm-2FV"/>
                         <outlet property="country" destination="MP2-9O-N8t" id="U4b-Kk-nS1"/>
@@ -464,46 +473,28 @@ For any information you can contact any team member from below Links</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Edit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mEV-jv-nKz">
-                                <rect key="frame" x="146" y="117" width="123" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zVI-3z-bRe" customClass="TKFormTextField" customModule="TKFormTextField">
-                                <rect key="frame" x="28.666666666666657" y="210" width="357" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zVI-3z-bRe" customClass="TKFormTextField" customModule="TKFormTextField">
+                                <rect key="frame" x="30" y="94" width="354" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ea3-cw-OUN" customClass="TKFormTextField" customModule="TKFormTextField">
-                                <rect key="frame" x="28.666666666666657" y="259" width="357" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ea3-cw-OUN" customClass="TKFormTextField" customModule="TKFormTextField">
+                                <rect key="frame" x="30" y="148" width="354" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2WH-Wn-niH" customClass="TKFormTextField" customModule="TKFormTextField">
-                                <rect key="frame" x="29.666666666666657" y="301" width="355" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="phone number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g0F-l0-myX" customClass="TKFormTextField" customModule="TKFormTextField">
-                                <rect key="frame" x="29.666666666666657" y="343" width="355" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="phone number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g0F-l0-myX" customClass="TKFormTextField" customModule="TKFormTextField">
+                                <rect key="frame" x="30" y="256" width="354" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="tel"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="country" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LmY-M1-35q" customClass="TKFormTextField" customModule="TKFormTextField">
-                                <rect key="frame" x="29.666666666666657" y="385" width="355" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="country" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LmY-M1-35q" customClass="TKFormTextField" customModule="TKFormTextField">
+                                <rect key="frame" x="30" y="310" width="354" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="quV-3M-Sm7">
-                                <rect key="frame" x="145.66666666666666" y="602.66666666666663" width="122.99999999999997" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="quV-3M-Sm7">
+                                <rect key="frame" x="145" y="552" width="124" height="30"/>
                                 <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="submit">
@@ -513,18 +504,54 @@ For any information you can contact any team member from below Links</string>
                                     <action selector="submit:" destination="Z0V-Qu-Sgl" eventType="touchUpInside" id="dHc-HN-IBb"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="city" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dWt-Oq-g5p" customClass="TKFormTextField" customModule="TKFormTextField">
-                                <rect key="frame" x="29.666666666666657" y="427" width="355" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="city" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dWt-Oq-g5p" customClass="TKFormTextField" customModule="TKFormTextField">
+                                <rect key="frame" x="30" y="364" width="354" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JcE-Eg-KuS" customClass="TKFormTextField" customModule="TKFormTextField">
+                                <rect key="frame" x="30" y="418" width="354" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2WH-Wn-niH" customClass="TKFormTextField" customModule="TKFormTextField">
+                                <rect key="frame" x="30" y="202" width="354" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88235294819999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="ea3-cw-OUN" firstAttribute="leading" secondItem="5Fp-gA-6f8" secondAttribute="leading" constant="30" id="0nn-HV-eDW"/>
+                            <constraint firstItem="g0F-l0-myX" firstAttribute="leading" secondItem="5Fp-gA-6f8" secondAttribute="leading" constant="30" id="1Ie-AV-XoG"/>
+                            <constraint firstItem="5Fp-gA-6f8" firstAttribute="trailing" secondItem="quV-3M-Sm7" secondAttribute="trailing" constant="145" id="3Zg-BX-Glm"/>
+                            <constraint firstItem="quV-3M-Sm7" firstAttribute="leading" secondItem="5Fp-gA-6f8" secondAttribute="leading" constant="145" id="4Ia-Eg-ZpL"/>
+                            <constraint firstItem="dWt-Oq-g5p" firstAttribute="leading" secondItem="5Fp-gA-6f8" secondAttribute="leading" constant="30" id="7CX-Mp-AXh"/>
+                            <constraint firstItem="2WH-Wn-niH" firstAttribute="top" secondItem="ea3-cw-OUN" secondAttribute="bottom" constant="20" id="7Id-XM-5HS"/>
+                            <constraint firstItem="5Fp-gA-6f8" firstAttribute="trailing" secondItem="2WH-Wn-niH" secondAttribute="trailing" constant="30" id="ExX-ix-UgD"/>
+                            <constraint firstItem="LmY-M1-35q" firstAttribute="top" secondItem="g0F-l0-myX" secondAttribute="bottom" constant="20" id="FkM-nD-gem"/>
+                            <constraint firstItem="JcE-Eg-KuS" firstAttribute="leading" secondItem="5Fp-gA-6f8" secondAttribute="leading" constant="30" id="GdT-gL-2Dd"/>
+                            <constraint firstItem="ea3-cw-OUN" firstAttribute="top" secondItem="zVI-3z-bRe" secondAttribute="bottom" constant="20" id="JEr-tL-9Y3"/>
+                            <constraint firstItem="dWt-Oq-g5p" firstAttribute="top" secondItem="LmY-M1-35q" secondAttribute="bottom" constant="20" id="JxR-BZ-ey4"/>
+                            <constraint firstItem="5Fp-gA-6f8" firstAttribute="trailing" secondItem="JcE-Eg-KuS" secondAttribute="trailing" constant="30" id="KHh-JU-0qR"/>
+                            <constraint firstItem="zVI-3z-bRe" firstAttribute="leading" secondItem="5Fp-gA-6f8" secondAttribute="leading" constant="30" id="Lsv-QK-wJy"/>
+                            <constraint firstItem="JcE-Eg-KuS" firstAttribute="top" secondItem="dWt-Oq-g5p" secondAttribute="bottom" constant="20" id="W1R-h9-DHC"/>
+                            <constraint firstItem="5Fp-gA-6f8" firstAttribute="trailing" secondItem="ea3-cw-OUN" secondAttribute="trailing" constant="30" id="YYK-zw-qtr"/>
+                            <constraint firstItem="5Fp-gA-6f8" firstAttribute="trailing" secondItem="LmY-M1-35q" secondAttribute="trailing" constant="30" id="bY8-Om-bpQ"/>
+                            <constraint firstItem="5Fp-gA-6f8" firstAttribute="trailing" secondItem="g0F-l0-myX" secondAttribute="trailing" constant="30" id="cXX-Il-GeW"/>
+                            <constraint firstItem="g0F-l0-myX" firstAttribute="top" secondItem="2WH-Wn-niH" secondAttribute="bottom" constant="20" id="km0-pl-mk0"/>
+                            <constraint firstItem="zVI-3z-bRe" firstAttribute="top" secondItem="5Fp-gA-6f8" secondAttribute="top" constant="50" id="lNB-Ws-Vip"/>
+                            <constraint firstItem="2WH-Wn-niH" firstAttribute="leading" secondItem="5Fp-gA-6f8" secondAttribute="leading" constant="30" id="qXI-AQ-bzF"/>
+                            <constraint firstItem="5Fp-gA-6f8" firstAttribute="trailing" secondItem="dWt-Oq-g5p" secondAttribute="trailing" constant="30" id="t2j-tT-Rhy"/>
+                            <constraint firstItem="quV-3M-Sm7" firstAttribute="top" secondItem="JcE-Eg-KuS" secondAttribute="bottom" constant="100" id="wWD-9b-Hok"/>
+                            <constraint firstItem="5Fp-gA-6f8" firstAttribute="trailing" secondItem="zVI-3z-bRe" secondAttribute="trailing" constant="30" id="wzD-F2-wqe"/>
+                            <constraint firstItem="LmY-M1-35q" firstAttribute="leading" secondItem="5Fp-gA-6f8" secondAttribute="leading" constant="30" id="zHO-py-NBe"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="5Fp-gA-6f8"/>
                     </view>
                     <navigationItem key="navigationItem" id="e8h-gg-oMO"/>
                     <connections>
+                        <outlet property="addressTxtField" destination="JcE-Eg-KuS" id="GZe-SZ-kRy"/>
                         <outlet property="city" destination="dWt-Oq-g5p" id="zo9-CN-RMT"/>
                         <outlet property="countrry" destination="LmY-M1-35q" id="yfU-P8-1OI"/>
                         <outlet property="email" destination="2WH-Wn-niH" id="d99-A2-Ykr"/>
@@ -830,8 +857,8 @@ For any information you can contact any team member from below Links</string>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZx-1w-iqN">
-                                        <rect key="frame" x="118" y="33" width="173" height="20"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZx-1w-iqN">
+                                        <rect key="frame" x="20" y="33" width="369" height="20"/>
                                         <fontDescription key="fontDescription" name="HoeflerText-Italic" family="Hoefler Text" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -839,12 +866,12 @@ For any information you can contact any team member from below Links</string>
                                 </subviews>
                                 <color key="backgroundColor" red="0.92928040030000003" green="0.92796784639999996" blue="0.88209182019999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="xZx-1w-iqN" secondAttribute="trailing" constant="118" id="3Oy-nQ-JmI"/>
+                                    <constraint firstAttribute="trailing" secondItem="xZx-1w-iqN" secondAttribute="trailing" constant="20" id="3Oy-nQ-JmI"/>
                                     <constraint firstItem="RHY-NU-TYR" firstAttribute="leading" secondItem="9SB-Sf-M3V" secondAttribute="leading" id="8Oe-EP-HPk"/>
                                     <constraint firstItem="xZx-1w-iqN" firstAttribute="top" secondItem="9SB-Sf-M3V" secondAttribute="top" constant="33" id="Vx5-eB-7sZ"/>
                                     <constraint firstAttribute="trailing" secondItem="RHY-NU-TYR" secondAttribute="trailing" id="kxh-kO-ObR"/>
                                     <constraint firstAttribute="bottom" secondItem="RHY-NU-TYR" secondAttribute="bottom" id="xYd-AG-zd9"/>
-                                    <constraint firstItem="xZx-1w-iqN" firstAttribute="leading" secondItem="9SB-Sf-M3V" secondAttribute="leading" constant="118" id="xhh-ML-Y6d"/>
+                                    <constraint firstItem="xZx-1w-iqN" firstAttribute="leading" secondItem="9SB-Sf-M3V" secondAttribute="leading" constant="20" id="xhh-ML-Y6d"/>
                                     <constraint firstItem="RHY-NU-TYR" firstAttribute="top" secondItem="xZx-1w-iqN" secondAttribute="bottom" constant="22.000000000000014" id="ykE-NI-JWD"/>
                                 </constraints>
                             </view>

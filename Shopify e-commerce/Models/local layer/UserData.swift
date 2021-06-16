@@ -23,9 +23,11 @@ class UserData {
         if(!customer.addresses!.isEmpty){
             userDefaults.set(customer.addresses?[0]!.city!, forKey: Constants.cityUserDefaults)
             userDefaults.set(customer.addresses?[0]!.country!, forKey: Constants.countryUserDefaults)
+            userDefaults.set(customer.addresses?[0]!.address1!, forKey: Constants.addressUserDefaults)
         }else{
             userDefaults.set("No Country", forKey: Constants.cityUserDefaults)
             userDefaults.set("No City", forKey: Constants.countryUserDefaults)
+            userDefaults.set("No Address", forKey: Constants.addressUserDefaults)
         }
     }
     
@@ -49,7 +51,8 @@ class UserData {
         let id = userDefaults.value(forKey: Constants.idUserDefaults) as? Int
         let country = userDefaults.value(forKey: Constants.countryUserDefaults) as? String
         let city = userDefaults.value(forKey: Constants.cityUserDefaults) as? String
-        return Customer(id: id, email: email, firstName: firstName, lastName: lastName, phone: nil, tags: nil, addresses: [Address(id: nil, customerID: nil, city: city, country: country)])
+        let address = userDefaults.value(forKey: Constants.addressUserDefaults) as? String
+        return Customer(id: id, email: email, firstName: firstName, lastName: lastName, phone: nil, tags: nil, addresses: [Address(id: nil, customerID: nil, city: city, country: country, address1: address)])
     }
     
     func deleteUserDefaults(){
@@ -60,6 +63,7 @@ class UserData {
         userDefaults.set("", forKey: Constants.lastNameUserDefaults)
         userDefaults.set("", forKey: Constants.cityUserDefaults)
         userDefaults.set("", forKey: Constants.countryUserDefaults)
+        userDefaults.set("", forKey: Constants.addressUserDefaults)
     }
     
     func setInitialCurrency(){
@@ -79,5 +83,15 @@ class UserData {
         return userDefaults.string(forKey: Constants.currencyUserDefaults)!
     }
     
+    func getAddress()->String{
+        let add = userDefaults.value(forKey: Constants.addressUserDefaults) as? String ?? "No address"
+        let city = ", " + ((userDefaults.value(forKey: Constants.cityUserDefaults) as? String) ?? "No City")
+        let country = ", " + ((userDefaults.value(forKey: Constants.countryUserDefaults) as? String) ?? "No Country")
+        return add + city + country
+    }
+    
+    func setAddress(newAddress: String){
+        userDefaults.set(newAddress, forKey: Constants.addressUserDefaults)
+    }
     
 }

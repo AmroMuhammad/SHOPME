@@ -33,7 +33,7 @@ protocol RegisterViewModelContract{
     var doneObservable: Observable<Bool>{get}
     func postData(newCustomer:RegisterCustomer)
 //    func validateRegisterdData(firstName:String,lastName:String,email:String,phoneNumber:String,password:String,confirmPassword:String,country:String,city:String)
-    func validateRegisterdData(firstName:String,lastName:String,email:String,phoneNumber:String,password:String,confirmPassword:String,country:String,city:String,pn: TKFormTextField,context:UIViewController,fname: TKFormTextField,lname: TKFormTextField,em: TKFormTextField,count: TKFormTextField,cit: TKFormTextField,con:TKFormTextField,p:TKFormTextField)
+        func validateRegisterdData(firstName:String,lastName:String,email:String,phoneNumber:String,password:String,confirmPassword:String,country:String,city:String,address:String,pn: TKFormTextField,context:UIViewController,fname: TKFormTextField,lname: TKFormTextField,em: TKFormTextField,count: TKFormTextField,cit: TKFormTextField,con:TKFormTextField,p:TKFormTextField,addressTxtField:TKFormTextField)
 }
 
 protocol MeViewModelContract{
@@ -55,6 +55,6 @@ protocol EditViewModelContract{
     func fetchData()
     func postData(newCustomer:RegisterCustomer)
 //    func validateData(firstName:String,lastName:String,email:String,phoneNumber:String,country:String,city:String)
-    func validateData(firstName:String,lastName:String,email:String,phoneNumber:String,country:String,city:String,fname: TKFormTextField,lname: TKFormTextField,em: TKFormTextField,count: TKFormTextField,cit: TKFormTextField,po:TKFormTextField)
+    func validateData(firstName:String,lastName:String,email:String,phoneNumber:String,country:String,city:String,address:String,fname: TKFormTextField,lname: TKFormTextField,em: TKFormTextField,count: TKFormTextField,cit: TKFormTextField,po:TKFormTextField,addressTxtField:TKFormTextField)
 }
 

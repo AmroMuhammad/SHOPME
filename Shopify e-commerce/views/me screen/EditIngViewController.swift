@@ -14,6 +14,7 @@ import TKFormTextField
 class EditIngViewController: UIViewController {
     
     
+    @IBOutlet weak var addressTxtField: TKFormTextField!
     @IBOutlet weak var firstName: TKFormTextField!
     @IBOutlet weak var secondName: TKFormTextField!
     @IBOutlet weak var email: TKFormTextField!
@@ -58,7 +59,7 @@ class EditIngViewController: UIViewController {
 
     @IBAction func submit(_ sender: UIButton) {
 //        editViewModel.validateData(firstName: firstName.text!, lastName: secondName.text!, email: email.text!, phoneNumber: phoneNumber.text!, country: countrry.text!, city: city.text!)
-        editViewModel.validateData(firstName: firstName.text!, lastName: secondName.text!, email: email.text!, phoneNumber: phoneNumber.text!, country: countrry.text!, city: city.text!,fname: firstName,lname:secondName,em:email,count: countrry,cit:city,po:phoneNumber)
+        editViewModel.validateData(firstName: firstName.text!, lastName: secondName.text!, email: email.text!, phoneNumber: phoneNumber.text!, country: countrry.text!, city: city.text!,address: addressTxtField.text! ,fname: firstName,lname:secondName,em:email,count: countrry,cit:city,po:phoneNumber, addressTxtField: addressTxtField)
         
     }
     
@@ -70,9 +71,11 @@ class EditIngViewController: UIViewController {
         if(!customer.addresses!.isEmpty){
             countrry.text = customer.addresses?[0]?.country ?? ""
             city.text = customer.addresses?[0]?.city ?? ""
+            addressTxtField.text = customer.addresses?[0]?.address1 ?? ""
         }else{
             countrry.text = ""
             city.text = ""
+            addressTxtField.text = ""
         }
     }
     

@@ -65,7 +65,7 @@ class RegisterViewModel:RegisterViewModelContract{
         @objc func cityError(textField: TKFormTextField) {
             //var phone = textField.text
             if(textField.text == ""){
-                textField.error = "all faild are required"
+                textField.error = "all fields are required"
             }
             else{
                 textField.error = nil
@@ -77,7 +77,7 @@ class RegisterViewModel:RegisterViewModelContract{
         @objc func updateError(textField: TKFormTextField) {
             //var phone = textField.text
             if(textField.text == ""){
-                textField.error = "all faild are required"
+                textField.error = "all fields are required"
             }
             else{
                 textField.error = nil
@@ -159,11 +159,11 @@ class RegisterViewModel:RegisterViewModelContract{
 //        let newCustomer = RegisterCustomer(customer: Customer(id: nil, email: email, firstName: firstName, lastName: lastName, phone: "+2"+phoneNumber, tags: password,addresses: [Address(id: nil, customerID: nil, city: city, country: country)]))
 //        postData(newCustomer: newCustomer)
 //    }
-    func validateRegisterdData(firstName:String,lastName:String,email:String,phoneNumber:String,password:String,confirmPassword:String,country:String,city:String,pn: TKFormTextField,context:UIViewController,fname: TKFormTextField,lname: TKFormTextField,em: TKFormTextField,count: TKFormTextField,cit: TKFormTextField,con:TKFormTextField,p:TKFormTextField){
+    func validateRegisterdData(firstName:String,lastName:String,email:String,phoneNumber:String,password:String,confirmPassword:String,country:String,city:String,address:String,pn: TKFormTextField,context:UIViewController,fname: TKFormTextField,lname: TKFormTextField,em: TKFormTextField,count: TKFormTextField,cit: TKFormTextField,con:TKFormTextField,p:TKFormTextField,addressTxtField:TKFormTextField){
         
         
         
-        if(firstName.isEmpty || lastName.isEmpty || email.isEmpty || phoneNumber.isEmpty || password.isEmpty || confirmPassword.isEmpty || country.isEmpty || city.isEmpty){
+        if(firstName.isEmpty || lastName.isEmpty || email.isEmpty || phoneNumber.isEmpty || password.isEmpty || confirmPassword.isEmpty || country.isEmpty || city.isEmpty || address.isEmpty){
             em.error = "error"
            // pn.errorLabel.text = "please enter all"
           // pn.error = "please enter all"
@@ -175,6 +175,8 @@ class RegisterViewModel:RegisterViewModelContract{
             cit.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
             p.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
             con.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
+            addressTxtField.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
+
           //  errorSubject.onNext(("Please enter all fields", true))
             return
         }
@@ -209,7 +211,7 @@ class RegisterViewModel:RegisterViewModelContract{
             //errorSubject.onNext(("Please enter valid country and city", true))
             return
         }
-        let newCustomer = RegisterCustomer(customer: Customer(id: nil, email: email, firstName: firstName, lastName: lastName, phone: "+2"+phoneNumber, tags: password,addresses: [Address(id: nil, customerID: nil, city: city, country: country)]))
+        let newCustomer = RegisterCustomer(customer: Customer(id: nil, email: email, firstName: firstName, lastName: lastName, phone: "+2"+phoneNumber, tags: password,addresses: [Address(id: nil, customerID: nil, city: city, country: country, address1: address)]))
         postData(newCustomer: newCustomer)
     }
     
