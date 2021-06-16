@@ -18,9 +18,12 @@ class receiptViewController: UITableViewController {
     var receiptViewModelObj : receiptViewModelType!
     var couponProductType : String?
     var currency : String?
+    var address  = ""
     private var paymentTextField:STPPaymentCardTextField!
     private var activityView:UIActivityIndicatorView!
     var productCategory : [String]?
+    @IBOutlet weak var payByCard: UIButton!
+    @IBOutlet weak var payByCash: UIButton!
     @IBOutlet weak var shippingFee: UILabel!
     @IBOutlet weak var paymentCardView: UIView!
     @IBOutlet private weak var finalDiscount: UILabel!
@@ -31,10 +34,13 @@ class receiptViewController: UITableViewController {
     @IBOutlet private weak var totalPrice: UILabel!
     @IBOutlet private weak var discount: UILabel!
     @IBOutlet weak var placeOrderButton: UIButton!
+    @IBOutlet weak var addressData: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        payByCash.isSelected = true
+        payByCard.isSelected = false
+        paymentCardView.isHidden = true
         currency = UserDefaults.standard.string(forKey: Constants.currencyUserDefaults)
         finalDiscount.text = "-0.0 " + currency!
         shippingFee.text = "25.00 " + currency!
@@ -98,9 +104,32 @@ class receiptViewController: UITableViewController {
         }).disposed(by: disposeBag)
         
         receiptViewModelObj.getAllProductType(products: allCartProductForReceipt!)
+        
+        let imageAttachment = NSTextAttachment()
+        imageAttachment.image = UIImage(named:"home-address")
+        let imageOffsetY: CGFloat = -5.0
+        imageAttachment.bounds = CGRect(x: 2, y: imageOffsetY, width: imageAttachment.image!.size.width, height: imageAttachment.image!.size.height)
+        let attachmentString = NSAttributedString(attachment: imageAttachment)
+        let completeText = NSMutableAttributedString(string: "")
+        completeText.append(attachmentString)
+        let textAfterIcon = NSAttributedString(string: "  " + address)
+        completeText.append(textAfterIcon)
+        self.addressData.textAlignment = .left
+        self.addressData.attributedText = completeText
 
    }
     
+    @IBAction func payCash(_ sender: UIButton) {
+        sender.isSelected = true
+        payByCard.isSelected = false
+        paymentCardView.isHidden = true
+    }
+    
+    @IBAction func payCard(_ sender: UIButton) {
+       sender.isSelected = true
+       payByCash.isSelected = false
+        paymentCardView.isHidden = false
+    }
     func showErrorMessage(title:String,errorMessage: String) {
         let alertController = UIAlertController(title: title, message: errorMessage, preferredStyle: .alert)
         
@@ -131,7 +160,16 @@ class receiptViewController: UITableViewController {
       }
 
     @IBAction func placeOrderBtn(_ sender: Any) {
-        receiptViewModelObj.fetchData(paymentTextField: paymentTextField, viewController: self)
+        if(payByCard.isSelected == true){
+           receiptViewModelObj.fetchData(paymentTextField: paymentTextField, viewController: self)
+        }else{
+            if let couponType = self.couponProductType{
+                UserDefaults.standard.set(false, forKey: couponType)
+            }
+            LocalManagerHelper.localSharedInstance.deleteAllProductFromCart(userEmail: UserData.sharedInstance.getUserFromUserDefaults().email ?? "") { (_) in
+                self.showErrorMessage(title: "Payment Status", errorMessage: "Payment will be completed upon delivery")
+            }
+        }
     }
     
 }

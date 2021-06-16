@@ -51,9 +51,11 @@ protocol TableViewCellDelegate {
 protocol wishListViewModelType {
      var dataDrive : Driver<[LocalProductDetails]> {get}
      var errorDrive: Driver<Bool>{get}
+    var quantutyObservable: Observable<String> {get}
      func getwishListData()
      func addToCart( product : LocalProductDetails)
      func deleteWishListData( product : LocalProductDetails)
+    func getCartQuantity()
 }
 protocol cartViewModelType {
      var totalPriceDrive: Driver<Double>{get}
@@ -79,4 +81,13 @@ protocol receiptViewModelType {
 }
 protocol applyCouponDelegate {
     func applyCoupon(coupone : String , productType : String)
+}
+protocol addressViewModelType {
+    var userDefaultAddressDriver: Driver<[String]> {get}
+    var addressDetailsDriver: Driver<[String]> {get}
+    var addressDataDriver: Driver<String> {get}
+    func getUserDefaultAddress()
+    func getAddressDetails(address : String)-> [String]
+    func splitUserDefaultAddress(userAddresses : String)
+    func storeAddressInUserDefault(addressAdded : String)
 }
