@@ -18,17 +18,21 @@ class addressViewModel : addressViewModelType{
     var userDefaultAddressSubject = PublishSubject<[String]>()
     var addressDetailsDriver: Driver<[String]>
     var addressDetailsSubject = PublishSubject<[String]>()
+    var addressDataDriver: Driver<String>
+    var addressDataSubject = PublishSubject<String>()
     
       init() {
          userDefaultAddressDriver = userDefaultAddressSubject.asDriver(onErrorJustReturn: [] )
          addressDetailsDriver = addressDetailsSubject.asDriver(onErrorJustReturn: [] )
+         addressDataDriver = addressDataSubject.asDriver(onErrorJustReturn: "" )
       }
     
     
     
     func getUserDefaultAddress(){
-       let result = "6 october street , damietta , egypt # el shikh zayeed , ismailia , egypt" // get this value from user default
-       splitUserDefaultAddress(userAddresses: result)
+        let result = UserDefaults.standard.string(forKey: "address") // get this value from user default
+        addressDataSubject.onNext(result ?? "")
+        splitUserDefaultAddress(userAddresses: result!)
     }
     
     func splitUserDefaultAddress(userAddresses : String){
@@ -41,6 +45,11 @@ class addressViewModel : addressViewModelType{
         return addressArray
 //        addressDetailsSubject.onNext(addressArray)
 //          print("addressDetails from view model: \(addressArray)")
+    }
+    
+    func storeAddressInUserDefault(addressAdded : String){
+        UserDefaults.standard.set(addressAdded, forKey: "address")
+      //  function to store in userDefault
     }
     
 }

@@ -1129,6 +1129,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ute-HB-Isf"/>
                     </view>
+                    <connections>
+                        <outlet property="addressLabel" destination="GfX-Ko-tqH" id="Gxm-S9-AAD"/>
+                        <outlet property="cityLabel" destination="qAM-W9-qo3" id="ybi-h8-fh8"/>
+                        <outlet property="countryLabel" destination="Y8A-GH-fOH" id="dg4-wx-oOP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YPh-aM-z8p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
