@@ -130,7 +130,7 @@ class CardViewController: UIViewController {
         let addressViewController = storyboard?.instantiateViewController(identifier: Constants.addressVC) as! addressViewController
         addressViewController.allCartProduct = allCartProduct
         addressViewController.totalPriceForReceipt = totalPriceForReceipt
-        UserDefaults.standard.set("6 october street , damietta , egypt # el shikh zayeed , ismailia , egypt", forKey: "address")
+        UserDefaults.standard.set("6 october street , damietta , egypt ", forKey: "address")
          navigationController?.pushViewController(addressViewController, animated: true)
     }
     private func playBackgroundAnimation(){

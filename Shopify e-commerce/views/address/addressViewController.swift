@@ -50,11 +50,11 @@ class addressViewController: UIViewController {
                           
                       }).disposed(by: disposeBag)
                        
-                       addressTableView.rx.itemSelected.subscribe{[weak self](IndexPath) in
-                          let receiptViewController = self!.storyboard?.instantiateViewController(identifier: Constants.receiptVC) as! receiptViewController
-                          receiptViewController.allCartProductForReceipt = self!.allCartProduct
-                          receiptViewController.totalCartPrice = self!.totalPriceForReceipt
-                          self!.navigationController?.pushViewController(receiptViewController, animated: true)
+                       addressTableView.rx.itemSelected.subscribe{ (IndexPath) in
+                          let receiptViewController = self.storyboard?.instantiateViewController(identifier: Constants.receiptVC) as! receiptViewController
+                          receiptViewController.allCartProductForReceipt = self.allCartProduct
+                          receiptViewController.totalCartPrice = self.totalPriceForReceipt
+                          self.navigationController?.pushViewController(receiptViewController, animated: true)
                        }.disposed(by: disposeBag)
                       
                       addressViewModelObj?.getUserDefaultAddress()
