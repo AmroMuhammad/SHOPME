@@ -11,7 +11,6 @@ import RxCocoa
 
 class SettingsViewController: UIViewController {
     
-    @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var signInOutlet: UIView!
 //    @IBOutlet weak var welcome: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
@@ -20,6 +19,9 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var isLoggedTableViewView: UIView!
     @IBOutlet weak var isNoItemView: UIView!
+    @IBOutlet weak var welcomeView: UIView!
+    @IBOutlet weak var orderTableView: UITableView!
+    @IBOutlet weak var welcomeLabel: UILabel!
     
     private var activityView:UIActivityIndicatorView!
     private var disposeBag:DisposeBag!
@@ -78,31 +80,24 @@ class SettingsViewController: UIViewController {
         registerGesture.numberOfTapsRequired = 1
         register.addGestureRecognizer(registerGesture)
         
-        segmentControl.rx.selectedSegmentIndex.subscribe(onNext: {[weak self] index in
-            if(self?.userData.isLoggedIn() ?? false){
-                switch (index){
-                case 0:
-                    self?.meViewModel.fetchLocalData(type: "favourite")
-                case 1:
-                    self?.meViewModel.fetchLocalData(type: "wishlist")
-                default:
-                    break
-                }
-            }
-            }).disposed(by: disposeBag)
-        
         meViewModel.localObservable.bind(to: tableview.rx.items(cellIdentifier: "localCell")){[weak self] row,item,cell in
             self?.isNoItemView.isHidden = true
             if(row == 3){
                 self?.tableview.tableFooterView = button
                 cell.textLabel?.text = item.title
-                button.tag = 1
                 cell.imageView?.image = UIImage(data: item.productImageData)
             }else{
                 cell.textLabel?.text = item.title
                 self?.tableview.tableFooterView = nil
                 cell.imageView?.image = UIImage(data: item.productImageData)
             }
+        }.disposed(by: disposeBag)
+        
+        meViewModel.ordersObservable.bind(to: orderTableView.rx.items(cellIdentifier: "OrderTableViewCell")){row,item,cell in
+            let castedCell = cell as! OrderTableViewCell
+            castedCell.orderPriceLabel.text = "Price: " + item.totalPrice
+            castedCell.orderDateLabel.text = "Created At: " + item.creationDate
+            castedCell.accessoryType = .disclosureIndicator
         }.disposed(by: disposeBag)
         
 
@@ -113,18 +108,20 @@ class SettingsViewController: UIViewController {
             productDetailsVC.productMainCategory = "\(cartProduct.mainCategory!)"
             self?.navigationController?.pushViewController(productDetailsVC, animated: true)
         }).disposed(by: disposeBag)
-
+        
+        orderTableView.rx.modelSelected(Order.self).subscribe(onNext: {[weak self] (orderItem) in
+            let orderVC = self?.storyboard?.instantiateViewController(identifier: "OrderViewController") as! OrderViewController
+            orderVC.orderID = orderItem.orderId
+            self?.present(orderVC, animated: true, completion: nil)
+        }).disposed(by: disposeBag)
+        
+        
     }
     
     @objc func moreButtonClicked(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "shop", bundle: nil)
-        if(sender.tag == 1){
             let favVC = storyboard.instantiateViewController(identifier: "wishListViewController")
             self.navigationController?.pushViewController(favVC, animated: true)
-        }else{
-            let wishVC = storyboard.instantiateViewController(identifier: "cartViewController")
-            self.navigationController?.pushViewController(wishVC, animated: true)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -135,28 +132,28 @@ class SettingsViewController: UIViewController {
             print("Logged Off")
             showLoginView()
         }
-        meViewModel.fetchLocalData(type: "favourite")
-        segmentControl.selectedSegmentIndex = 0
-        
+        meViewModel.fetchLocalData()
+        meViewModel.fetchOrders()
     }
     
     func showLoginView(){
-//        welcome.alpha = 0
+        welcomeView.isHidden = true
         signInOutlet.alpha = 1
         register.alpha = 1
         isLoggedTableViewView.isHidden = false
     }
     
     func showWelcomeView(){
-//        welcome.alpha = 1
+        welcomeView.isHidden = false
         signInOutlet.alpha = 0
         register.alpha = 0
         emailTextField.text = ""
         passwordTextField.text = ""
-        meViewModel.fetchLocalData(type: "favourite")
+        meViewModel.fetchLocalData()
         tableview.reloadData()
         isLoggedTableViewView.isHidden = true
-        
+        meViewModel.fetchOrders()
+        welcomeLabel.text = "Welcome, " + userData.getUserFromUserDefaults().firstName! + " " + userData.getUserFromUserDefaults().lastName!
     }
     
     @IBAction func settingsButtonPressed(_ sender: Any) {

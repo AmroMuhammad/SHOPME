@@ -44,7 +44,7 @@ protocol MeViewModelContract{
     var ordersObservable:Observable<[Order]> {get}
     func validateRegisterdData(email:String,password:String)
     func fetchData(email: String, password: String)
-    func fetchLocalData(type:String)
+    func fetchLocalData()
 }
 
 

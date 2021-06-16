@@ -67,9 +67,8 @@ class MeViewModel : MeViewModelContract{
         }
     }
     
-    func fetchLocalData(type:String) {
+    func fetchLocalData() {
         let email = userData.getUserFromUserDefaults().email ?? ""
-        if(type == "favourite"){
             localManager.getAllProductsFromFavorite(userEmail: email) {[weak self] (result) in
                 if let res = result {
                     if(res.count > 4){
@@ -81,19 +80,12 @@ class MeViewModel : MeViewModelContract{
                     self?.errorSubject.onNext(("noItems", true))
                 }
             }
-        }else{
-            localManager.getAllCartProducts(userEmail: email) {[weak self] (result) in
-
-                if let res = result {
-                    if(res.count > 4){
-                        self?.localSubject.onNext(Array(res[0...3]))
-                    }else{
-                        self?.localSubject.onNext(res)
-                    }
-                } else {
-                    self?.errorSubject.onNext(("noItems", true))
-                }
-            }
+    }
+    
+    func fetchOrders(){
+        let email = userData.getUserFromUserDefaults().email ?? ""
+        localManager.getAllOrdersByEmail(userEmail: email) {[weak self] (result) in
+            self?.orderSubject.onNext(result ?? [])
         }
     }
     
