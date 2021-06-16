@@ -25,7 +25,7 @@ class ColorSizeViewController: UIViewController, UICollectionViewDelegate {
     private var selectedColor: UIColor?
     
     
-    @IBOutlet weak var containerView: UIView!                           //remove this
+    @IBOutlet weak var containerView: UIView!
     
     @IBOutlet weak var imagesCollectionView: UICollectionView!
     @IBOutlet weak var productTitle: UILabel!
@@ -45,6 +45,7 @@ class ColorSizeViewController: UIViewController, UICollectionViewDelegate {
         activityView = UIActivityIndicatorView(style: .large)
         
         containerView.layer.cornerRadius = 13
+        containerView.layer.borderWidth = 3
         
         imagesCollectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: Constants.imageCell)
         colorsCollectionView.register(ColorViewCollectionViewCell.self, forCellWithReuseIdentifier: Constants.colorCell)
