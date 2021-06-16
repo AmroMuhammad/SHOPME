@@ -260,28 +260,28 @@ For any information you can contact any team member from below Links</string>
                                                     <rect key="frame" x="153.66666666666663" y="12.666666666666664" width="235.33333333333337" height="100"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M8B-7F-3a7">
-                                                            <rect key="frame" x="0.0" y="0.0" width="235.33333333333334" height="30"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="235.33333333333334" height="45"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y3m-EE-S2f">
-                                                            <rect key="frame" x="0.0" y="37" width="235.33333333333334" height="30"/>
+                                                            <rect key="frame" x="0.0" y="52.000000000000007" width="235.33333333333334" height="19.999999999999993"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mkr-jW-s8S">
-                                                            <rect key="frame" x="0.0" y="70" width="235.33333333333334" height="30"/>
+                                                            <rect key="frame" x="0.0" y="80" width="235.33333333333334" height="20"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="Mkr-jW-s8S" firstAttribute="height" secondItem="WSI-rs-8rd" secondAttribute="height" multiplier="0.3" id="WAX-p4-U1d"/>
-                                                        <constraint firstItem="M8B-7F-3a7" firstAttribute="height" secondItem="WSI-rs-8rd" secondAttribute="height" multiplier="0.3" id="h9t-2v-mVM"/>
-                                                        <constraint firstItem="y3m-EE-S2f" firstAttribute="height" secondItem="WSI-rs-8rd" secondAttribute="height" multiplier="0.3" id="qKk-h6-jfP"/>
+                                                        <constraint firstItem="Mkr-jW-s8S" firstAttribute="height" secondItem="WSI-rs-8rd" secondAttribute="height" multiplier="0.2" id="WAX-p4-U1d"/>
+                                                        <constraint firstItem="M8B-7F-3a7" firstAttribute="height" secondItem="WSI-rs-8rd" secondAttribute="height" multiplier="0.45" id="h9t-2v-mVM"/>
+                                                        <constraint firstItem="y3m-EE-S2f" firstAttribute="height" secondItem="WSI-rs-8rd" secondAttribute="height" multiplier="0.2" id="qKk-h6-jfP"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
