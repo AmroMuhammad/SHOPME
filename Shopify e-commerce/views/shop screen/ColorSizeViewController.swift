@@ -28,6 +28,8 @@ class ColorSizeViewController: UIViewController, UICollectionViewDelegate {
     @IBOutlet weak var containerView: UIView!
     
     @IBOutlet weak var imagesCollectionView: UICollectionView!
+    @IBOutlet weak var imageCellContainerView: UIView!
+    
     @IBOutlet weak var productTitle: UILabel!
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
@@ -111,12 +113,12 @@ extension ColorSizeViewController: UICollectionViewDelegateFlowLayout {
         
         switch collectionView.tag {
         case 1:
-            return CGSize(width: size.width, height: (size.height))
+            return CGSize(width: size.width * 0.75, height: (size.height))
         case 2:
-            return CGSize(width: (size.width - 30) / 8, height: (size.height - 30) )
+            return CGSize(width: (size.width - 30) / 8, height: (size.height) )
             
         default:
-            return CGSize(width: (size.width - 30) / 4, height: (size.height - 30) )
+            return CGSize(width: (size.width - 30), height: (size.height) )
         }
     }
     
