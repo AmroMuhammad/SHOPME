@@ -9,16 +9,17 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import TKFormTextField
 
 class EditIngViewController: UIViewController {
     
     
-    @IBOutlet weak var firstName: UITextField!
-    @IBOutlet weak var secondName: UITextField!
-    @IBOutlet weak var email: UITextField!
-    @IBOutlet weak var phoneNumber: UITextField!
-    @IBOutlet weak var countrry: UITextField!
-    @IBOutlet weak var city: UITextField!
+    @IBOutlet weak var firstName: TKFormTextField!
+    @IBOutlet weak var secondName: TKFormTextField!
+    @IBOutlet weak var email: TKFormTextField!
+    @IBOutlet weak var phoneNumber: TKFormTextField!
+    @IBOutlet weak var countrry: TKFormTextField!
+    @IBOutlet weak var city: TKFormTextField!
     private var disposeBag:DisposeBag!
     private var editViewModel:EditInfoViewModel!
     private var activityView:UIActivityIndicatorView!
@@ -56,7 +57,8 @@ class EditIngViewController: UIViewController {
     
 
     @IBAction func submit(_ sender: UIButton) {
-        editViewModel.validateData(firstName: firstName.text!, lastName: secondName.text!, email: email.text!, phoneNumber: phoneNumber.text!, country: countrry.text!, city: city.text!)
+//        editViewModel.validateData(firstName: firstName.text!, lastName: secondName.text!, email: email.text!, phoneNumber: phoneNumber.text!, country: countrry.text!, city: city.text!)
+        editViewModel.validateData(firstName: firstName.text!, lastName: secondName.text!, email: email.text!, phoneNumber: phoneNumber.text!, country: countrry.text!, city: city.text!,fname: firstName,lname:secondName,em:email,count: countrry,cit:city,po:phoneNumber)
         
     }
     
