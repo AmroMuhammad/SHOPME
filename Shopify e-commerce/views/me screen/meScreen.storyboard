@@ -346,12 +346,6 @@ For any information you can contact any team member from below Links</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Registertion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lkM-Me-yzt">
-                                <rect key="frame" x="161" y="82" width="92" height="20"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dYV-YE-KXJ" customClass="TKFormTextField" customModule="TKFormTextField">
                                 <rect key="frame" x="39" y="147" width="336" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -414,11 +408,11 @@ For any information you can contact any team member from below Links</string>
                         <constraints>
                             <constraint firstItem="VVC-9p-tfW" firstAttribute="top" secondItem="MoN-kB-ST8" secondAttribute="bottom" constant="15" id="0zj-8x-lyj"/>
                             <constraint firstItem="yKF-ks-jMi" firstAttribute="trailing" secondItem="GIf-RS-8SE" secondAttribute="trailing" constant="40" id="4k2-Z8-OL1"/>
+                            <constraint firstItem="dYV-YE-KXJ" firstAttribute="top" secondItem="yKF-ks-jMi" secondAttribute="top" constant="103" id="8sZ-Gt-PMH"/>
                             <constraint firstItem="xAn-18-Q8j" firstAttribute="centerX" secondItem="ZoK-jK-abP" secondAttribute="centerX" id="Acb-F0-ggY"/>
                             <constraint firstItem="dYV-YE-KXJ" firstAttribute="centerX" secondItem="ZoK-jK-abP" secondAttribute="centerX" id="Bid-pn-ODA"/>
                             <constraint firstItem="Rvn-Y3-XMw" firstAttribute="centerX" secondItem="ZoK-jK-abP" secondAttribute="centerX" id="Cho-De-yst"/>
                             <constraint firstItem="GIf-RS-8SE" firstAttribute="top" secondItem="WP9-NZ-8lr" secondAttribute="bottom" constant="15" id="DFU-3f-0Q8"/>
-                            <constraint firstItem="dYV-YE-KXJ" firstAttribute="top" secondItem="lkM-Me-yzt" secondAttribute="bottom" constant="45" id="EId-8H-10Q"/>
                             <constraint firstItem="Y8r-aI-Xeu" firstAttribute="width" secondItem="ZoK-jK-abP" secondAttribute="width" multiplier="0.811594" id="FNz-hr-bJ6"/>
                             <constraint firstItem="WP9-NZ-8lr" firstAttribute="top" secondItem="MP2-9O-N8t" secondAttribute="bottom" constant="15" id="HPr-yM-6zJ"/>
                             <constraint firstItem="MP2-9O-N8t" firstAttribute="centerX" secondItem="ZoK-jK-abP" secondAttribute="centerX" id="Kvz-AP-LLt"/>
@@ -431,9 +425,7 @@ For any information you can contact any team member from below Links</string>
                             <constraint firstItem="MoN-kB-ST8" firstAttribute="width" secondItem="ZoK-jK-abP" secondAttribute="width" multiplier="0.811594" id="ail-5g-z6X"/>
                             <constraint firstItem="GIf-RS-8SE" firstAttribute="leading" secondItem="yKF-ks-jMi" secondAttribute="leading" constant="40" id="b7L-kh-DDI"/>
                             <constraint firstItem="Y8r-aI-Xeu" firstAttribute="top" secondItem="dYV-YE-KXJ" secondAttribute="bottom" constant="15" id="bsm-UL-e8P"/>
-                            <constraint firstItem="lkM-Me-yzt" firstAttribute="top" secondItem="yKF-ks-jMi" secondAttribute="top" constant="38" id="cpN-ef-Z9l"/>
                             <constraint firstItem="xAn-18-Q8j" firstAttribute="width" secondItem="ZoK-jK-abP" secondAttribute="width" multiplier="0.811594" id="dJd-Rf-fTd"/>
-                            <constraint firstItem="lkM-Me-yzt" firstAttribute="centerX" secondItem="ZoK-jK-abP" secondAttribute="centerX" id="ePH-eG-wyj"/>
                             <constraint firstItem="VVC-9p-tfW" firstAttribute="centerX" secondItem="ZoK-jK-abP" secondAttribute="centerX" id="gCD-Oq-yKj"/>
                             <constraint firstItem="Rvn-Y3-XMw" firstAttribute="height" secondItem="ZoK-jK-abP" secondAttribute="height" multiplier="0.0613839" id="gZD-NC-vxf"/>
                             <constraint firstItem="MP2-9O-N8t" firstAttribute="width" secondItem="ZoK-jK-abP" secondAttribute="width" multiplier="0.811594" id="lEf-tg-jbK"/>
@@ -903,7 +895,7 @@ For any information you can contact any team member from below Links</string>
                     </view>
                     <tabBarItem key="tabBarItem" title="ME" image="person.circle.fill" catalog="system" id="a7G-fg-tMb"/>
                     <navigationItem key="navigationItem" id="M0x-Je-WR5">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="wrench.fill" catalog="system" id="yK1-pz-6Ke">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="settings" id="yK1-pz-6Ke">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="settingsButtonPressed:" destination="YUP-63-4Ih" id="qnk-cp-zXZ"/>
@@ -936,6 +928,6 @@ For any information you can contact any team member from below Links</string>
         <image name="noitem" width="125" height="100"/>
         <image name="person.circle.fill" catalog="system" width="128" height="121"/>
         <image name="placeholder" width="225" height="124"/>
-        <image name="wrench.fill" catalog="system" width="128" height="120"/>
+        <image name="settings" width="24" height="24"/>
     </resources>
 </document>
