@@ -43,19 +43,29 @@ class addressViewController: UIViewController {
                               print("addressDetails : \(addressDetails ?? [])")
                               if(addressDetails!.count > 0){
                                   (cell as? addressTableViewCell )?.addressLabel.text = addressDetails![0]
-                                  (cell as? addressTableViewCell )?.countryAndCity.text = addressDetails![1] + " " + addressDetails![2]
+                                  (cell as? addressTableViewCell )?.countryAndCity.text = addressDetails![1] + "," + addressDetails![2]
                               }
                               
                           }.disposed(by: self!.disposeBag)
                           
                       }).disposed(by: disposeBag)
                        
-                       addressTableView.rx.itemSelected.subscribe{ (IndexPath) in
-                          let receiptViewController = self.storyboard?.instantiateViewController(identifier: Constants.receiptVC) as! receiptViewController
-                          receiptViewController.allCartProductForReceipt = self.allCartProduct
-                          receiptViewController.totalCartPrice = self.totalPriceForReceipt
-                          self.navigationController?.pushViewController(receiptViewController, animated: true)
-                       }.disposed(by: disposeBag)
+//                       addressTableView.rx.itemSelected.subscribe{ (IndexPath) in
+//                          let receiptViewController = self.storyboard?.instantiateViewController(identifier: Constants.receiptVC) as! receiptViewController
+//                          receiptViewController.allCartProductForReceipt = self.allCartProduct
+//                          receiptViewController.totalCartPrice = self.totalPriceForReceipt
+//                        
+//                          self.navigationController?.pushViewController(receiptViewController, animated: true)
+//                       }.disposed(by: disposeBag)
+        
+             addressTableView.rx.modelSelected(String.self).subscribe{(item) in
+                let receiptViewController = self.storyboard?.instantiateViewController(identifier: Constants.receiptVC) as! receiptViewController
+                  receiptViewController.allCartProductForReceipt = self.allCartProduct
+                  receiptViewController.totalCartPrice = self.totalPriceForReceipt
+                let addressDetails = self.addressViewModelObj?.getAddressDetails(address: item.element!)
+                receiptViewController.address = addressDetails![0]
+                  self.navigationController?.pushViewController(receiptViewController, animated: true)
+               }.disposed(by: disposeBag)
                       
                       addressViewModelObj?.getUserDefaultAddress()
         
@@ -80,7 +90,7 @@ class addressViewController: UIViewController {
 extension addressViewController :   UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 105
+        return 108
         
     }
     
