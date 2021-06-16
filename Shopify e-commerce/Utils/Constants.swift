@@ -20,6 +20,7 @@ struct Constants {
     
     static let favoriteCoraDataEntity = "FavoriteProducts"
     static let cartCoraDataEntity = "CartProducts"
+    static let ordersCoraDataEntity = "Orders"
     static let productIdCoraDataAtt = "productId"
     static let userEmailCoraDataAtt = "userEmail"
     static let mainCategoryCoraDataAtt = "mainCategory"
@@ -30,6 +31,9 @@ struct Constants {
     static let selectedSizeCoraDataAtt = "selectedSize"
     static let titleCoraDataAtt = "title"
     static let invQuantCoraDataAtt = "inventory_quantity"
+    static let totalPriceCoraDataAtt = "totalPrice"
+    static let orderIdCoraDataAtt = "orderId"
+    static let creationDateCoraDataAtt = "creationDate"
     
     
     
