@@ -131,9 +131,8 @@ class receiptViewController: UITableViewController {
       }
 
     @IBAction func placeOrderBtn(_ sender: Any) {
-        receiptViewModelObj.fetchData(paymentTextField: paymentTextField, viewController: self)
+        receiptViewModelObj.fetchData(paymentTextField: paymentTextField, viewController: self,totalPrice: totalPrice.text!)
     }
-    
 }
 
 extension receiptViewController : applyCouponDelegate {

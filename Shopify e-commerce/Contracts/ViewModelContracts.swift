@@ -41,6 +41,7 @@ protocol MeViewModelContract{
     var loadingObservable: Observable<Bool> {get}
     var localObservable: Observable<[LocalProductDetails]> {get}
     var signedInObservable: Observable<Bool> {get}
+    var ordersObservable:Observable<[Order]> {get}
     func validateRegisterdData(email:String,password:String)
     func fetchData(email: String, password: String)
     func fetchLocalData(type:String)

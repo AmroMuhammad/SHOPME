@@ -71,7 +71,7 @@ protocol receiptViewModelType {
     
     func getItemNum(products: [LocalProductDetails])
     func getAllProductType(products: [LocalProductDetails])
-    func fetchData(paymentTextField:STPPaymentCardTextField,viewController:UIViewController)
+    func fetchData(paymentTextField:STPPaymentCardTextField,viewController:UIViewController,totalPrice:String)
     var errorObservable:Observable<String>{get}
     var loadingObservable:Observable<Bool>{get}
     var dataObservable:Observable<String>{get}

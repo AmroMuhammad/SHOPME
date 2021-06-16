@@ -15,7 +15,8 @@ class MeViewModel : MeViewModelContract{
     private var loadingSubject = PublishSubject<Bool>()
     private var signedInSubject = PublishSubject<Bool>()
     private var localSubject = PublishSubject<[LocalProductDetails]>()
-    
+    private var orderSubject = PublishSubject<[Order]>()
+
     private var data:[Customer]!
     private var shopifyAPI:ShopifyAPI!
     private var userData:UserData!
@@ -25,12 +26,14 @@ class MeViewModel : MeViewModelContract{
     var loadingObservable: Observable<Bool>
     var signedInObservable: Observable<Bool>
     var localObservable: Observable<[LocalProductDetails]>
+    var ordersObservable:Observable<[Order]>
     
     init() {
         errorObservable = errorSubject.asObservable()
         loadingObservable = loadingSubject.asObservable()
         signedInObservable = signedInSubject.asObservable()
         localObservable = localSubject.asObservable()
+        ordersObservable = orderSubject.asObservable()
 
         shopifyAPI = ShopifyAPI.shared
         userData = UserData.sharedInstance

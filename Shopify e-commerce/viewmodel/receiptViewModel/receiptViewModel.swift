@@ -25,6 +25,8 @@ class receiptViewModel : receiptViewModelType {
     private var dataSubject = PublishSubject<String>()
     private var loadingSubject = PublishSubject<Bool>()
 
+    private var data:[LocalProductDetails]!
+    private var localManager:LocalManagerHelper
     
     init() {
         itemNumDrive = itemNumSubject.asDriver(onErrorJustReturn: 0 )
@@ -33,6 +35,7 @@ class receiptViewModel : receiptViewModelType {
         loadingObservable = loadingSubject.asObservable()
         dataObservable = dataSubject.asObservable()
         errorObservable = errorSubject.asObservable()
+        localManager = LocalManagerHelper.localSharedInstance
     }
     
     func getItemNum(products: [LocalProductDetails]) {
@@ -46,6 +49,7 @@ class receiptViewModel : receiptViewModelType {
     }
     
     func getAllProductType(products: [LocalProductDetails]) {
+        data = products
         var AllProductType : [String] = []
         var count = 0
         while count < products.count {
@@ -54,7 +58,7 @@ class receiptViewModel : receiptViewModelType {
         }
         allProductTypeSubject.onNext(AllProductType)
     }
-    func fetchData(paymentTextField:STPPaymentCardTextField,viewController:UIViewController) {
+    func fetchData(paymentTextField:STPPaymentCardTextField,viewController:UIViewController,totalPrice:String){
         loadingSubject.onNext(true)
         shopifyAPI.createPaymentIntent {[weak self] (paymentIntentResponse, error) in
             if let error = error {
@@ -79,6 +83,7 @@ class receiptViewModel : receiptViewModelType {
                     switch(status){
                     case .succeeded:
                         self?.dataSubject.onNext("succeeded")
+                        self?.saveOrder(totalPrice: totalPrice)
                     case .canceled:
                         self?.errorSubject.onNext("Process cancelled")
                     case .failed:
@@ -90,6 +95,41 @@ class receiptViewModel : receiptViewModelType {
             }
         }
     }
+    
+    func saveOrder(totalPrice:String){
+        let orderid = orderID()
+        for item in data {
+            let order = Order(productId: item.productId, userEmail: UserData.sharedInstance.getUserFromUserDefaults().email!, title: item.title!, productPrice: item.productPrice!, productImage: "", quantity: "\(item.quantity ?? 1)", totalPrice: totalPrice, creationDate: getDate(), orderId: orderid)
+            
+            localManager.addOrder(order: order) { (value) in
+                switch value{
+                case true:
+                    print("order added successfully")
+                case false:
+                    print("order not added")
+                }
+            }
+        }
+    }
+    
+    private func getDate()->String{
+     let time = Date()
+     let timeFormatter = DateFormatter()
+     timeFormatter.dateFormat = "dd-MMM-yyyy HH:mm a"
+     let stringDate = timeFormatter.string(from: time)
+     return stringDate
+    }
+    
+    private func orderID() -> Int {
+        var result = 0
+        var pow = 1
+        for _ in 0..<11 {
+            pow *= 10
+            result += (Int.random(in: 1...9)*pow)
+        }
+        return result
+    }
+
 
     
 }
