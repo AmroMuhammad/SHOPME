@@ -364,97 +364,78 @@ For any information you can contact any team member from below Links</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dYV-YE-KXJ" customClass="TKFormTextField" customModule="TKFormTextField">
-                                <rect key="frame" x="39" y="147" width="336" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y8r-aI-Xeu" customClass="TKFormTextField" customModule="TKFormTextField">
-                                <rect key="frame" x="39" y="196" width="336" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MoN-kB-ST8" customClass="TKFormTextField" customModule="TKFormTextField">
-                                <rect key="frame" x="39" y="245" width="336" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" textContentType="email"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VVC-9p-tfW" customClass="TKFormTextField" customModule="TKFormTextField">
-                                <rect key="frame" x="39" y="294" width="336" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" textContentType="tel"/>
-                                <connections>
-                                    <outlet property="delegate" destination="Kpi-nP-gr7" id="2XJ-O8-fWD"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h6b-9K-7b5" customClass="TKFormTextField" customModule="TKFormTextField">
-                                <rect key="frame" x="39" y="343" width="336" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xAn-18-Q8j" customClass="TKFormTextField" customModule="TKFormTextField">
-                                <rect key="frame" x="39" y="392" width="336" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Country" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MP2-9O-N8t" customClass="TKFormTextField" customModule="TKFormTextField">
-                                <rect key="frame" x="39" y="441" width="336" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WP9-NZ-8lr" customClass="TKFormTextField" customModule="TKFormTextField">
-                                <rect key="frame" x="39" y="490" width="336" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rvn-Y3-XMw">
-                                <rect key="frame" x="172.66666666666666" y="744" width="69" height="55"/>
-                                <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="submit"/>
-                                <connections>
-                                    <action selector="submit:" destination="Kpi-nP-gr7" eventType="touchUpInside" id="0VP-pz-Fg5"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GIf-RS-8SE" customClass="TKFormTextField" customModule="TKFormTextField">
-                                <rect key="frame" x="40" y="539" width="334" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="WfS-YP-xnM">
+                                <rect key="frame" x="41.333333333333343" y="134.33333333333331" width="331.33333333333326" height="627.33333333333348"/>
+                                <subviews>
+                                    <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dYV-YE-KXJ" customClass="TKFormTextField" customModule="TKFormTextField">
+                                        <rect key="frame" x="0.0" y="0.0" width="331.33333333333331" height="43.333333333333336"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y8r-aI-Xeu" customClass="TKFormTextField" customModule="TKFormTextField">
+                                        <rect key="frame" x="0.0" y="58.333333333333314" width="331.33333333333331" height="43.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MoN-kB-ST8" customClass="TKFormTextField" customModule="TKFormTextField">
+                                        <rect key="frame" x="0.0" y="116.66666666666667" width="331.33333333333331" height="43.666666666666671"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" textContentType="email"/>
+                                    </textField>
+                                    <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VVC-9p-tfW" customClass="TKFormTextField" customModule="TKFormTextField">
+                                        <rect key="frame" x="0.0" y="175.33333333333334" width="331.33333333333331" height="43.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" textContentType="tel"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="Kpi-nP-gr7" id="2XJ-O8-fWD"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h6b-9K-7b5" customClass="TKFormTextField" customModule="TKFormTextField">
+                                        <rect key="frame" x="0.0" y="233.66666666666666" width="331.33333333333331" height="43.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                    </textField>
+                                    <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xAn-18-Q8j" customClass="TKFormTextField" customModule="TKFormTextField">
+                                        <rect key="frame" x="0.0" y="292" width="331.33333333333331" height="43.333333333333314"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                    </textField>
+                                    <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Country" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MP2-9O-N8t" customClass="TKFormTextField" customModule="TKFormTextField">
+                                        <rect key="frame" x="0.0" y="350.33333333333337" width="331.33333333333331" height="43.333333333333314"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WP9-NZ-8lr" customClass="TKFormTextField" customModule="TKFormTextField">
+                                        <rect key="frame" x="0.0" y="408.66666666666663" width="331.33333333333331" height="43.333333333333314"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GIf-RS-8SE" customClass="TKFormTextField" customModule="TKFormTextField">
+                                        <rect key="frame" x="0.0" y="467" width="331.33333333333331" height="43.666666666666686"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nbm-Dy-pbO">
+                                        <rect key="frame" x="0.0" y="525.66666666666663" width="331.33333333333331" height="43.333333333333371"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rvn-Y3-XMw">
+                                        <rect key="frame" x="0.0" y="584" width="331.33333333333331" height="43.333333333333371"/>
+                                        <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="submit"/>
+                                        <connections>
+                                            <action selector="submit:" destination="Kpi-nP-gr7" eventType="touchUpInside" id="0VP-pz-Fg5"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88235294819999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="VVC-9p-tfW" firstAttribute="top" secondItem="MoN-kB-ST8" secondAttribute="bottom" constant="15" id="0zj-8x-lyj"/>
-                            <constraint firstItem="yKF-ks-jMi" firstAttribute="trailing" secondItem="GIf-RS-8SE" secondAttribute="trailing" constant="40" id="4k2-Z8-OL1"/>
-                            <constraint firstItem="dYV-YE-KXJ" firstAttribute="top" secondItem="yKF-ks-jMi" secondAttribute="top" constant="103" id="8sZ-Gt-PMH"/>
-                            <constraint firstItem="xAn-18-Q8j" firstAttribute="centerX" secondItem="ZoK-jK-abP" secondAttribute="centerX" id="Acb-F0-ggY"/>
-                            <constraint firstItem="dYV-YE-KXJ" firstAttribute="centerX" secondItem="ZoK-jK-abP" secondAttribute="centerX" id="Bid-pn-ODA"/>
-                            <constraint firstItem="Rvn-Y3-XMw" firstAttribute="centerX" secondItem="ZoK-jK-abP" secondAttribute="centerX" id="Cho-De-yst"/>
-                            <constraint firstItem="GIf-RS-8SE" firstAttribute="top" secondItem="WP9-NZ-8lr" secondAttribute="bottom" constant="15" id="DFU-3f-0Q8"/>
-                            <constraint firstItem="Y8r-aI-Xeu" firstAttribute="width" secondItem="ZoK-jK-abP" secondAttribute="width" multiplier="0.811594" id="FNz-hr-bJ6"/>
-                            <constraint firstItem="WP9-NZ-8lr" firstAttribute="top" secondItem="MP2-9O-N8t" secondAttribute="bottom" constant="15" id="HPr-yM-6zJ"/>
-                            <constraint firstItem="MP2-9O-N8t" firstAttribute="centerX" secondItem="ZoK-jK-abP" secondAttribute="centerX" id="Kvz-AP-LLt"/>
-                            <constraint firstItem="dYV-YE-KXJ" firstAttribute="width" secondItem="ZoK-jK-abP" secondAttribute="width" multiplier="0.811594" id="MPN-Hv-Gmo"/>
-                            <constraint firstItem="yKF-ks-jMi" firstAttribute="bottom" secondItem="Rvn-Y3-XMw" secondAttribute="bottom" constant="63" id="Nxp-eV-goY"/>
-                            <constraint firstItem="h6b-9K-7b5" firstAttribute="width" secondItem="ZoK-jK-abP" secondAttribute="width" multiplier="0.811594" id="RBz-RY-eHx"/>
-                            <constraint firstItem="MoN-kB-ST8" firstAttribute="centerX" secondItem="ZoK-jK-abP" secondAttribute="centerX" id="RhL-OM-6bq"/>
-                            <constraint firstItem="Rvn-Y3-XMw" firstAttribute="width" secondItem="ZoK-jK-abP" secondAttribute="width" multiplier="0.166667" id="Sl7-DU-gAB"/>
-                            <constraint firstItem="h6b-9K-7b5" firstAttribute="centerX" secondItem="ZoK-jK-abP" secondAttribute="centerX" id="YQN-Al-1PB"/>
-                            <constraint firstItem="MoN-kB-ST8" firstAttribute="width" secondItem="ZoK-jK-abP" secondAttribute="width" multiplier="0.811594" id="ail-5g-z6X"/>
-                            <constraint firstItem="GIf-RS-8SE" firstAttribute="leading" secondItem="yKF-ks-jMi" secondAttribute="leading" constant="40" id="b7L-kh-DDI"/>
-                            <constraint firstItem="Y8r-aI-Xeu" firstAttribute="top" secondItem="dYV-YE-KXJ" secondAttribute="bottom" constant="15" id="bsm-UL-e8P"/>
-                            <constraint firstItem="xAn-18-Q8j" firstAttribute="width" secondItem="ZoK-jK-abP" secondAttribute="width" multiplier="0.811594" id="dJd-Rf-fTd"/>
-                            <constraint firstItem="VVC-9p-tfW" firstAttribute="centerX" secondItem="ZoK-jK-abP" secondAttribute="centerX" id="gCD-Oq-yKj"/>
-                            <constraint firstItem="Rvn-Y3-XMw" firstAttribute="height" secondItem="ZoK-jK-abP" secondAttribute="height" multiplier="0.0613839" id="gZD-NC-vxf"/>
-                            <constraint firstItem="MP2-9O-N8t" firstAttribute="width" secondItem="ZoK-jK-abP" secondAttribute="width" multiplier="0.811594" id="lEf-tg-jbK"/>
-                            <constraint firstItem="h6b-9K-7b5" firstAttribute="top" secondItem="VVC-9p-tfW" secondAttribute="bottom" constant="15" id="mee-Y6-xaG"/>
-                            <constraint firstItem="MoN-kB-ST8" firstAttribute="top" secondItem="Y8r-aI-Xeu" secondAttribute="bottom" constant="15" id="n8k-Lo-nTZ"/>
-                            <constraint firstItem="VVC-9p-tfW" firstAttribute="width" secondItem="ZoK-jK-abP" secondAttribute="width" multiplier="0.811594" id="o7E-O0-KEE"/>
-                            <constraint firstItem="WP9-NZ-8lr" firstAttribute="width" secondItem="ZoK-jK-abP" secondAttribute="width" multiplier="0.811594" id="oFA-yK-kuP"/>
-                            <constraint firstItem="MP2-9O-N8t" firstAttribute="top" secondItem="xAn-18-Q8j" secondAttribute="bottom" constant="15" id="oxh-El-Bfd"/>
-                            <constraint firstItem="WP9-NZ-8lr" firstAttribute="centerX" secondItem="ZoK-jK-abP" secondAttribute="centerX" id="rEI-wv-WWX"/>
-                            <constraint firstItem="xAn-18-Q8j" firstAttribute="top" secondItem="h6b-9K-7b5" secondAttribute="bottom" constant="15" id="vCP-0s-qd1"/>
-                            <constraint firstItem="Y8r-aI-Xeu" firstAttribute="centerX" secondItem="ZoK-jK-abP" secondAttribute="centerX" id="wz4-d9-Lnf"/>
+                            <constraint firstItem="WfS-YP-xnM" firstAttribute="centerY" secondItem="ZoK-jK-abP" secondAttribute="centerY" id="0KJ-mx-kWB"/>
+                            <constraint firstItem="WfS-YP-xnM" firstAttribute="centerX" secondItem="ZoK-jK-abP" secondAttribute="centerX" id="FcC-Ub-sO7"/>
+                            <constraint firstItem="WfS-YP-xnM" firstAttribute="width" secondItem="ZoK-jK-abP" secondAttribute="width" multiplier="0.8" id="MVM-wP-2H1"/>
+                            <constraint firstItem="WfS-YP-xnM" firstAttribute="height" secondItem="ZoK-jK-abP" secondAttribute="height" multiplier="0.7" id="lEG-Ea-YU7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yKF-ks-jMi"/>
                     </view>

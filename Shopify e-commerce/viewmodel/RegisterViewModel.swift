@@ -77,7 +77,7 @@ class RegisterViewModel:RegisterViewModelContract{
         @objc func updateError(textField: TKFormTextField) {
             //var phone = textField.text
             if(textField.text == ""){
-                textField.error = "all fields are required"
+                textField.error = "This field is required"
             }
             else{
                 textField.error = nil
@@ -161,25 +161,62 @@ class RegisterViewModel:RegisterViewModelContract{
 //    }
     func validateRegisterdData(firstName:String,lastName:String,email:String,phoneNumber:String,password:String,confirmPassword:String,country:String,city:String,address:String,pn: TKFormTextField,context:UIViewController,fname: TKFormTextField,lname: TKFormTextField,em: TKFormTextField,count: TKFormTextField,cit: TKFormTextField,con:TKFormTextField,p:TKFormTextField,addressTxtField:TKFormTextField){
         
+        if(firstName.isEmpty) {
+                    fname.error = "Please, write first name!"
+                    fname.addTarget(self, action: #selector(updateError), for: .allEvents)
+                    return
+                }
+                if(lastName.isEmpty) {
+                    lname.error = "Please, write last name!"
+                    return
+                }
+                if(email.isEmpty) {
+                    em.error = "Please, write email!"
+                    return
+                }
+                if(phoneNumber.isEmpty) {
+                    pn.error = "Please, write phone number!"
+                    return
+                }
+                if(password.isEmpty) {
+                    p.error = "Please, write password!"
+                    return
+                }
+                if(confirmPassword.isEmpty) {
+                    con.error = "Please, write confirm password!"
+                    return
+                }
+                if(country.isEmpty) {
+                    count.error = "Please, write country!"
+                    return
+                }
+                if(city.isEmpty) {
+                    cit.error = "Please, write city!"
+                    return
+                }
+                if(address.isEmpty) {
+                    addressTxtField.error = "Please, write address!"
+                    return
+                }
+                
+        //        if(firstName.isEmpty || lastName.isEmpty || email.isEmpty || phoneNumber.isEmpty || password.isEmpty || confirmPassword.isEmpty || country.isEmpty || city.isEmpty || address.isEmpty){
+        //            em.error = "error"
+        //           // pn.errorLabel.text = "please enter all"
+        //          // pn.error = "please enter all"
+        //            pn.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
+        //            fname.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
+        //            em.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
+        //            lname.addTarget(self, action: #selector(updateError), for: .allEvents)
+        //            count.addTarget(self, action: #selector(updateError), for: .allEvents)
+        //            cit.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
+        //            p.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
+        //            con.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
+        //            addressTxtField.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
+        //
+        //          //  errorSubject.onNext(("Please enter all fields", true))
+        //            return
+        //        }
         
-        
-        if(firstName.isEmpty || lastName.isEmpty || email.isEmpty || phoneNumber.isEmpty || password.isEmpty || confirmPassword.isEmpty || country.isEmpty || city.isEmpty || address.isEmpty){
-            em.error = "error"
-           // pn.errorLabel.text = "please enter all"
-          // pn.error = "please enter all"
-            pn.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
-            fname.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
-            em.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
-            lname.addTarget(self, action: #selector(updateError), for: .allEvents)
-            count.addTarget(self, action: #selector(updateError), for: .allEvents)
-            cit.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
-            p.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
-            con.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
-            addressTxtField.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
-
-          //  errorSubject.onNext(("Please enter all fields", true))
-            return
-        }
         if(!nameRegexCheck(text: firstName) || !nameRegexCheck(text: lastName)){
             lname.addTarget(self, action: #selector(nameerror), for: .allEvents)
             fname.addTarget(self, action: #selector(nameerror), for: .allEvents)
@@ -212,6 +249,11 @@ class RegisterViewModel:RegisterViewModelContract{
             return
         }
         let newCustomer = RegisterCustomer(customer: Customer(id: nil, email: email, firstName: firstName, lastName: lastName, phone: "+2"+phoneNumber, tags: password,addresses: [Address(id: nil, customerID: nil, city: city, country: country, address1: address)]))
+        postData(newCustomer: newCustomer)
+    }
+    
+    func registerCustomer(customer: Customer){
+        let newCustomer = RegisterCustomer(customer: customer)
         postData(newCustomer: newCustomer)
     }
     
