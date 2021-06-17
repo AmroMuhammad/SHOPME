@@ -52,6 +52,8 @@ protocol wishListViewModelType {
      var dataDrive : Driver<[LocalProductDetails]> {get}
      var errorDrive: Driver<Bool>{get}
     var quantutyObservable: Observable<String> {get}
+    var checkProductInCartObservable: Observable<(Bool)> {get}
+    func checkIfCart(productId: Int)
      func getwishListData()
      func addToCart( product : LocalProductDetails)
      func deleteWishListData( product : LocalProductDetails)

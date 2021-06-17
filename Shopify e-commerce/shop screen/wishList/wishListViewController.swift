@@ -15,6 +15,7 @@ class wishListViewController: UIViewController {
     
     private var productId: Int!
     private var productMainCategory: String?
+    private var localProduct : LocalProductDetails!
     
     var wishListViewModelObj : wishListViewModelType!
    //@IBOutlet weak var toolBar: UIToolbar!
@@ -76,7 +77,22 @@ class wishListViewController: UIViewController {
         }).disposed(by: disposeBag)
         
         wishListViewModelObj.quantutyObservable.bind(to: cartNavBarView.rx.quantity).disposed(by: disposeBag)
+        wishListViewModelObj.checkProductInCartObservable.subscribe(onNext: { (resBool) in
+            if (resBool){
+                let alertController = UIAlertController(title: "", message: "Sorry, This product is already in cart!", preferredStyle: UIAlertController.Style.alert)
+                  alertController.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action: UIAlertAction!) in
+                        print("Handle Cancel Logic here")
+                  }))
+                self.present(alertController, animated: true, completion: nil)
+            } else {
+                self.productMainCategory = self.localProduct.mainCategory
+                self.performSegue(withIdentifier: "ColorSizeSegue", sender: nil)
+            }
+        }).disposed(by: disposeBag)
         
+        /*
+         
+         */
 //        wishListViewModelObj.getwishListData()
     }
     
@@ -131,9 +147,11 @@ class wishListViewController: UIViewController {
 
 extension wishListViewController: CollectionViewCellDelegate{
     func showMovingAlert(msg: String , product : LocalProductDetails) {
+        localProduct = product
         productId = product.productId
-        productMainCategory = product.mainCategory
-        performSegue(withIdentifier: "ColorSizeSegue", sender: nil)
+        wishListViewModelObj.checkIfCart(productId: productId)
+        
+        
     }
     
     func showAlert(msg : String , product : LocalProductDetails) {

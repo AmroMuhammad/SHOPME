@@ -18,10 +18,14 @@ class wishListViewModel : wishListViewModelType{
     var coreDataobj = LocalManagerHelper.localSharedInstance
     var quantutyObservable: Observable<String>
     private var quantitySubject = PublishSubject<String>()
+    var checkProductInCartObservable: Observable<(Bool)>
+    private var checkProductInCartSubject = PublishSubject<(Bool)>()
+
     init() {
            dataDrive = dataSubject.asDriver(onErrorJustReturn: [] )
            errorDrive = errorSubject.asDriver(onErrorJustReturn: false)
         quantutyObservable = quantitySubject.asObservable()
+        checkProductInCartObservable = checkProductInCartSubject.asObservable()
     }
     func getwishListData() {
         let email = UserDefaults.standard.string(forKey: Constants.emailUserDefaults) ?? ""
@@ -79,4 +83,17 @@ class wishListViewModel : wishListViewModelType{
         return UserData.sharedInstance.getUserFromUserDefaults().email ?? ""
     }
     
+  
+    func checkIfCart(productId: Int){
+        print("VM B4 checkIfCart \(String(describing: productId))")
+        coreDataobj.checkProduct(entityName: .CartProducts, userEmail: getUserEmail(), productId: productId) { [weak self] (product, resBool) in
+            guard let self = self else {return}
+//            if resBool {
+                print("VM checkIfCart Found Successfully ")
+                self.checkProductInCartSubject.onNext(resBool)
+//            }
+            
+        }
+        
+    }
 }

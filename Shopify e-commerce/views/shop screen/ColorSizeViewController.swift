@@ -13,7 +13,7 @@ import RxCocoa
 class ColorSizeViewController: UIViewController, UICollectionViewDelegate {
 
 
-    weak var senderVC: UIViewController!
+    weak var senderVC: wishListViewController!
     var productId: Int!
     var mainCategory: String?
     
@@ -97,7 +97,20 @@ class ColorSizeViewController: UIViewController, UICollectionViewDelegate {
     
     
     @IBAction func addPressed(_ sender: UIButton) {
+        
+        if self.selectedColor == nil {
+            self.showAlert(title: "Missing", msg: "Please, select color!")
+            return
+        }
+        if self.selectedSize == nil {
+            self.showAlert(title: "Missing", msg: "Please, select size!")
+            return
+        }
+        
+        print("VC - Udpate - selectedSize => \(self.selectedSize) & selectedColor => \(self.selectedColor) ")
+                   
         productDetailsViewModel.addToCart(selectedSize:selectedSize, selectedColor: selectedColor)
+        senderVC.wishListViewModelObj.getCartQuantity()
         dismiss(animated: true)
     }
     
@@ -115,10 +128,10 @@ extension ColorSizeViewController: UICollectionViewDelegateFlowLayout {
         case 1:
             return CGSize(width: size.width * 0.75, height: (size.height))
         case 2:
-            return CGSize(width: (size.width - 30) / 8, height: (size.height) )
+            return CGSize(width: (size.width) / 8, height: (size.height) )
             
         default:
-            return CGSize(width: (size.width - 30), height: (size.height) )
+            return CGSize(width: (size.width) / 4, height: (size.height) )
         }
     }
     
@@ -126,9 +139,11 @@ extension ColorSizeViewController: UICollectionViewDelegateFlowLayout {
         
         switch collectionView.tag {
         case 1:
-            return 0.0
+            return 10.0
+        case 2:
+            return 10.0
         default:
-            return 15.0
+            return 0.0
         }
     }
 }
@@ -156,6 +171,8 @@ extension ColorSizeViewController {
         
         productDetailsViewModel.imagesObservable.bind(to: imagesCollectionView.rx.items(cellIdentifier: Constants.imageCell)){row, item, cell in
             let imgCell = cell as! ImageCollectionViewCell
+            imgCell.layer.borderWidth = 1
+            imgCell.layer.cornerRadius = 10
             imgCell.productImgObj = item
         }.disposed(by: disposeBag)
         
