@@ -150,7 +150,6 @@ class SettingsViewController: UIViewController {
         emailTextField.text = ""
         passwordTextField.text = ""
         meViewModel.fetchLocalData()
-        tableview.reloadData()
         isLoggedTableViewView.isHidden = true
         meViewModel.fetchOrders()
         welcomeLabel.text = "Welcome, " + userData.getUserFromUserDefaults().firstName! + " " + userData.getUserFromUserDefaults().lastName!

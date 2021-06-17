@@ -83,9 +83,18 @@ class MeViewModel : MeViewModelContract{
     }
     
     func fetchOrders(){
+        var ordArray:[Order] = []
         let email = userData.getUserFromUserDefaults().email ?? ""
         localManager.getAllOrdersByEmail(userEmail: email) {[weak self] (result) in
-            self?.orderSubject.onNext(result ?? [])
+            guard let result = result else{return}
+            for ord in result {
+                if(ordArray.contains(where: { (order) -> Bool in
+                    order.orderId == ord.orderId
+                })){}else{
+                    ordArray.append(ord)
+                }
+            }
+            self?.orderSubject.onNext(ordArray)
         }
     }
     
@@ -95,6 +104,8 @@ class MeViewModel : MeViewModelContract{
                 loadingSubject.onNext(false)
                 signedInSubject.onNext(true)
                 userData.saveUserDefaults(customer: customer)
+                fetchLocalData()
+                fetchOrders()
                 return
             }
         }
@@ -115,6 +126,8 @@ class MeViewModel : MeViewModelContract{
     
     func signOutUser() -> Void {
         userData.deleteUserDefaults()
+        orderSubject.onNext([])
+        localSubject.onNext([])
     }
     
     
