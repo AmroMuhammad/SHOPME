@@ -52,6 +52,8 @@ protocol wishListViewModelType {
      var dataDrive : Driver<[LocalProductDetails]> {get}
      var errorDrive: Driver<Bool>{get}
     var quantutyObservable: Observable<String> {get}
+    var checkProductInCartObservable: Observable<(Bool)> {get}
+    func checkIfCart(productId: Int)
      func getwishListData()
      func addToCart( product : LocalProductDetails)
      func deleteWishListData( product : LocalProductDetails)
@@ -71,7 +73,7 @@ protocol receiptViewModelType {
     
     func getItemNum(products: [LocalProductDetails])
     func getAllProductType(products: [LocalProductDetails])
-    func fetchData(paymentTextField:STPPaymentCardTextField,viewController:UIViewController)
+    func fetchData(paymentTextField:STPPaymentCardTextField,viewController:UIViewController,totalPrice:String)
     var errorObservable:Observable<String>{get}
     var loadingObservable:Observable<Bool>{get}
     var dataObservable:Observable<String>{get}

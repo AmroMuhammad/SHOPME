@@ -33,7 +33,7 @@ protocol RegisterViewModelContract{
     var doneObservable: Observable<Bool>{get}
     func postData(newCustomer:RegisterCustomer)
 //    func validateRegisterdData(firstName:String,lastName:String,email:String,phoneNumber:String,password:String,confirmPassword:String,country:String,city:String)
-    func validateRegisterdData(firstName:String,lastName:String,email:String,phoneNumber:String,password:String,confirmPassword:String,country:String,city:String,pn: TKFormTextField,context:UIViewController,fname: TKFormTextField,lname: TKFormTextField,em: TKFormTextField,count: TKFormTextField,cit: TKFormTextField,con:TKFormTextField,p:TKFormTextField)
+        func validateRegisterdData(firstName:String,lastName:String,email:String,phoneNumber:String,password:String,confirmPassword:String,country:String,city:String,address:String,pn: TKFormTextField,context:UIViewController,fname: TKFormTextField,lname: TKFormTextField,em: TKFormTextField,count: TKFormTextField,cit: TKFormTextField,con:TKFormTextField,p:TKFormTextField,addressTxtField:TKFormTextField)
 }
 
 protocol MeViewModelContract{
@@ -41,9 +41,10 @@ protocol MeViewModelContract{
     var loadingObservable: Observable<Bool> {get}
     var localObservable: Observable<[LocalProductDetails]> {get}
     var signedInObservable: Observable<Bool> {get}
+    var ordersObservable:Observable<[Order]> {get}
     func validateRegisterdData(email:String,password:String)
     func fetchData(email: String, password: String)
-    func fetchLocalData(type:String)
+    func fetchLocalData()
 }
 
 
@@ -54,6 +55,6 @@ protocol EditViewModelContract{
     func fetchData()
     func postData(newCustomer:RegisterCustomer)
 //    func validateData(firstName:String,lastName:String,email:String,phoneNumber:String,country:String,city:String)
-    func validateData(firstName:String,lastName:String,email:String,phoneNumber:String,country:String,city:String,fname: TKFormTextField,lname: TKFormTextField,em: TKFormTextField,count: TKFormTextField,cit: TKFormTextField,po:TKFormTextField)
+    func validateData(firstName:String,lastName:String,email:String,phoneNumber:String,country:String,city:String,address:String,fname: TKFormTextField,lname: TKFormTextField,em: TKFormTextField,count: TKFormTextField,cit: TKFormTextField,po:TKFormTextField,addressTxtField:TKFormTextField)
 }
 

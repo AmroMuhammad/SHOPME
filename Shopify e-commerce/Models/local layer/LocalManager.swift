@@ -408,4 +408,189 @@ class LocalManagerHelper {
             completion(localProductDetails)
         }
     }
+    
+    //--------------------------------------------------------Order-----------------------------------------------------------
+    
+    func addOrder(order: Order, completion: @escaping (Bool) -> Void){
+        
+        print("addOrder - start adding to Local")
+        let appDelegte = UIApplication.shared.delegate as? AppDelegate
+        let context = appDelegte!.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: Constants.ordersCoraDataEntity, in: context)
+        let productMngObj = NSManagedObject(entity: entity!, insertInto: context)
+        
+        print("addOrder - PUT ID => \(order.productId)")
+        print("addOrder - PUT img => \(String(describing: order.productImage))")
+        print("addOrder - PUT title => \(String(describing: order.title))")
+        
+        productMngObj.setValue(order.userEmail, forKey: Constants.userEmailCoraDataAtt)
+        productMngObj.setValue(order.productId, forKey: Constants.productIdCoraDataAtt)
+        productMngObj.setValue(order.productImage, forKey: Constants.productImageCoraDataAtt)
+        productMngObj.setValue(order.productPrice, forKey: Constants.productPriceCoraDataAtt)
+        productMngObj.setValue(order.title, forKey: Constants.titleCoraDataAtt)
+        productMngObj.setValue(order.totalPrice, forKey: Constants.totalPriceCoraDataAtt)
+        productMngObj.setValue(order.creationDate, forKey: Constants.creationDateCoraDataAtt)
+        productMngObj.setValue(order.quantity, forKey: Constants.quantityCoraDataAtt)
+        productMngObj.setValue(order.orderId, forKey: Constants.orderIdCoraDataAtt)
+
+        do{
+            try context.save()
+            print("\naddOrder - DataAddedToLocal")
+        } catch {
+            print("addOrder - CATCH WHEN SAVE")
+            completion(false)
+        }
+        print("\naddOrder - DataSavedCART")
+        completion(true)
+        
+    }
+    
+    func getAllOrdersByEmail(userEmail: String, completion: @escaping ([Order]?) -> Void){
+        var ordersArr: [Order] = [Order]()
+        
+        let appDelegte = UIApplication.shared.delegate as? AppDelegate
+        let context = appDelegte!.persistentContainer.viewContext
+        let fetchReq = NSFetchRequest<NSManagedObject>(entityName: Constants.ordersCoraDataEntity)
+        do{
+            let orders = try context.fetch(fetchReq)
+            for item in orders {
+                if let uEmail = item.value(forKey: Constants.userEmailCoraDataAtt){
+                    if userEmail == uEmail as! String {
+                        let productId = item.value(forKey: Constants.productIdCoraDataAtt) as? Int ?? 0
+                        let img = item.value(forKey: Constants.productImageCoraDataAtt) as? Data ?? Data()
+                        let price = item.value(forKey: Constants.productPriceCoraDataAtt) as? String ?? ""
+                        let title = item.value(forKey: Constants.titleCoraDataAtt) as? String ?? ""
+                        let quant = item.value(forKey: Constants.quantityCoraDataAtt) as? String ?? ""
+                        let totalPrice = item.value(forKey: Constants.totalPriceCoraDataAtt) as? String ?? ""
+                        let creationDate = item.value(forKey: Constants.creationDateCoraDataAtt) as? String ?? ""
+                        let orderId = item.value(forKey: Constants.orderIdCoraDataAtt) as? Int ?? 0
+                        
+                        ordersArr.append(Order(productId: productId, userEmail: userEmail, title: title, productPrice: price, productImage: img, quantity: quant, totalPrice: totalPrice, creationDate: creationDate, orderId: orderId))
+                    }
+                }
+            }
+        } catch {
+            print("getAllCartProducts - CAAAAAAAAATCHHHHHHH")
+            completion(nil)
+        }
+        print("getAllCartProducts - Finish Retrive")
+        
+        if ordersArr.isEmpty {
+            print("getAllCartProducts - Finish Retrive arr is empty")
+            completion(nil)
+        } else {
+            print("getAllCartProducts - Finish Retrive arr fully")
+            completion(ordersArr)
+        }
+    }
+    
+    func getAllOrdersByOrederId(orderId: Int, completion: @escaping ([Order]?) -> Void){
+        var ordersArr: [Order] = [Order]()
+        
+        let appDelegte = UIApplication.shared.delegate as? AppDelegate
+        let context = appDelegte!.persistentContainer.viewContext
+        let fetchReq = NSFetchRequest<NSManagedObject>(entityName: Constants.ordersCoraDataEntity)
+        do{
+            let orders = try context.fetch(fetchReq)
+            for item in orders {
+                if let ordId = item.value(forKey: Constants.orderIdCoraDataAtt){
+                    if orderId == ordId as! Int {
+                        let userEmail = item.value(forKey: Constants.userEmailCoraDataAtt) as? String ?? ""
+                        let img = item.value(forKey: Constants.productImageCoraDataAtt) as? Data ?? Data()
+                        let price = item.value(forKey: Constants.productPriceCoraDataAtt) as? String ?? ""
+                        let title = item.value(forKey: Constants.titleCoraDataAtt) as? String ?? ""
+                        let quant = item.value(forKey: Constants.quantityCoraDataAtt) as? String ?? ""
+                        let totalPrice = item.value(forKey: Constants.totalPriceCoraDataAtt) as? String ?? ""
+                        let creationDate = item.value(forKey: Constants.creationDateCoraDataAtt) as? String ?? ""
+                        let orderId = item.value(forKey: Constants.orderIdCoraDataAtt) as? Int ?? 0
+                        
+                        ordersArr.append(Order(productId: orderId, userEmail: userEmail, title: title, productPrice: price, productImage: img, quantity: quant, totalPrice: totalPrice, creationDate: creationDate, orderId: orderId))
+                    }
+                }
+            }
+        } catch {
+            print("getAllCartProducts - CAAAAAAAAATCHHHHHHH")
+            completion(nil)
+        }
+        print("getAllCartProducts - Finish Retrive")
+        
+        if ordersArr.isEmpty {
+            print("getAllCartProducts - Finish Retrive arr is empty")
+            completion(nil)
+        } else {
+            print("getAllCartProducts - Finish Retrive arr fully")
+            completion(ordersArr)
+        }
+    }
+    
+    
 }
+
+
+
+
+
+
+/*
+
+ //    func getAllOrders(getByType: GetOrderType, getByString: String, completion: @escaping ([Order]?) -> Void){
+ //        var ordersArr: [Order] = [Order]()
+ //
+ //        let appDelegte = UIApplication.shared.delegate as? AppDelegate
+ //        let context = appDelegte!.persistentContainer.viewContext
+ //        let fetchReq = NSFetchRequest<NSManagedObject>(entityName: Constants.ordersCoraDataEntity)
+ //        do{
+ //            let orders = try context.fetch(fetchReq)
+ //            for item in orders {
+ //
+ //
+ //                switch getByType {
+ //                case .UserEmail:
+ //                    if let uEmail = item.value(forKey: Constants.userEmailCoraDataAtt){
+ //                        if getByString == uEmail as! String {
+ //                            productMngObj.setValue(order.orderId, forKey: Constants.orderIdCoraDataAtt)
+ //
+ //                        }
+ //                    }
+ //                case .OrderID:
+ //                    if let orderId = item.value(forKey: Constants.orderIdCoraDataAtt){
+ //                        if getByString == orderId as! String {
+ //
+ //                        }
+ //                    }
+ //                }
+ //
+ //
+ //                if let uEmail = item.value(forKey: Constants.userEmailCoraDataAtt){
+ //                        let userEmail = item.value(forKey: Constants.userEmailCoraDataAtt) as? String ?? ""
+ //                        let productId = item.value(forKey: Constants.productIdCoraDataAtt) as? Int ?? 0
+ //                        let img = item.value(forKey: Constants.productImageCoraDataAtt) as? String ?? ""
+ //                        let price = item.value(forKey: Constants.productPriceCoraDataAtt) as? String ?? ""
+ //                        let title = item.value(forKey: Constants.titleCoraDataAtt) as? String ?? ""
+ //                        let quant = item.value(forKey: Constants.quantityCoraDataAtt) as? String ?? ""
+ //                        let totalPrice = item.value(forKey: Constants.totalPriceCoraDataAtt) as? String ?? ""
+ //                        let creationDate = item.value(forKey: Constants.creationDateCoraDataAtt) as? String ?? ""
+ //                        let orderId = item.value(forKey: Constants.orderIdCoraDataAtt) as? Int ?? 0
+ //
+ //                        ordersArr.append(Order(productId: productId, userEmail: userEmail, title: title, productPrice: price, productImage: img, quantity: quant, totalPrice: totalPrice, creationDate: creationDate, orderId: orderId))
+ //
+ //                } else {
+ //                    print("getAllCartProducts - Failed to get email")
+ //                }
+ //            }
+ //        } catch {
+ //            print("getAllCartProducts - CAAAAAAAAATCHHHHHHH")
+ //            completion(nil)
+ //        }
+ //        print("getAllCartProducts - Finish Retrive")
+ //
+ //        if localProductDetails.isEmpty {
+ //            print("getAllCartProducts - Finish Retrive arr is empty")
+ //            completion(nil)
+ //        } else {
+ //            print("getAllCartProducts - Finish Retrive arr fully")
+ //            completion(localProductDetails)
+ //        }
+ //    }
+     
+ */

@@ -15,7 +15,8 @@ class MeViewModel : MeViewModelContract{
     private var loadingSubject = PublishSubject<Bool>()
     private var signedInSubject = PublishSubject<Bool>()
     private var localSubject = PublishSubject<[LocalProductDetails]>()
-    
+    private var orderSubject = PublishSubject<[Order]>()
+
     private var data:[Customer]!
     private var shopifyAPI:ShopifyAPI!
     private var userData:UserData!
@@ -25,12 +26,14 @@ class MeViewModel : MeViewModelContract{
     var loadingObservable: Observable<Bool>
     var signedInObservable: Observable<Bool>
     var localObservable: Observable<[LocalProductDetails]>
+    var ordersObservable:Observable<[Order]>
     
     init() {
         errorObservable = errorSubject.asObservable()
         loadingObservable = loadingSubject.asObservable()
         signedInObservable = signedInSubject.asObservable()
         localObservable = localSubject.asObservable()
+        ordersObservable = orderSubject.asObservable()
 
         shopifyAPI = ShopifyAPI.shared
         userData = UserData.sharedInstance
@@ -64,9 +67,8 @@ class MeViewModel : MeViewModelContract{
         }
     }
     
-    func fetchLocalData(type:String) {
+    func fetchLocalData() {
         let email = userData.getUserFromUserDefaults().email ?? ""
-        if(type == "favourite"){
             localManager.getAllProductsFromFavorite(userEmail: email) {[weak self] (result) in
                 if let res = result {
                     if(res.count > 4){
@@ -78,19 +80,21 @@ class MeViewModel : MeViewModelContract{
                     self?.errorSubject.onNext(("noItems", true))
                 }
             }
-        }else{
-            localManager.getAllCartProducts(userEmail: email) {[weak self] (result) in
-
-                if let res = result {
-                    if(res.count > 4){
-                        self?.localSubject.onNext(Array(res[0...3]))
-                    }else{
-                        self?.localSubject.onNext(res)
-                    }
-                } else {
-                    self?.errorSubject.onNext(("noItems", true))
+    }
+    
+    func fetchOrders(){
+        var ordArray:[Order] = []
+        let email = userData.getUserFromUserDefaults().email ?? ""
+        localManager.getAllOrdersByEmail(userEmail: email) {[weak self] (result) in
+            guard let result = result else{return}
+            for ord in result {
+                if(ordArray.contains(where: { (order) -> Bool in
+                    order.orderId == ord.orderId
+                })){}else{
+                    ordArray.append(ord)
                 }
             }
+            self?.orderSubject.onNext(ordArray)
         }
     }
     
@@ -100,6 +104,8 @@ class MeViewModel : MeViewModelContract{
                 loadingSubject.onNext(false)
                 signedInSubject.onNext(true)
                 userData.saveUserDefaults(customer: customer)
+                fetchLocalData()
+                fetchOrders()
                 return
             }
         }
@@ -120,6 +126,8 @@ class MeViewModel : MeViewModelContract{
     
     func signOutUser() -> Void {
         userData.deleteUserDefaults()
+        orderSubject.onNext([])
+        localSubject.onNext([])
     }
     
     

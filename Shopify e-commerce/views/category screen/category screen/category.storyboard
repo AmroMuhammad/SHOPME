@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nOw-vO-3gP">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -206,13 +206,13 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sKx-MK-g1U">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <items>
-                                    <barButtonItem title="Sort " id="zqr-UQ-BF0">
+                                    <barButtonItem title="Sort " image="arrow.up.arrow.down" catalog="system" id="zqr-UQ-BF0">
                                         <color key="tintColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="sortButtonClicked:" destination="VjQ-ZP-W0S" id="Luv-z4-1Bt"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Filter" id="jK4-QM-etS">
+                                    <barButtonItem title="Filter" image="filter" id="jK4-QM-etS">
                                         <color key="tintColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="filterButtonClicked:" destination="VjQ-ZP-W0S" id="XeS-4D-9mt"/>
@@ -315,7 +315,9 @@
     </scenes>
     <resources>
         <image name="1111" width="347" height="484"/>
+        <image name="arrow.up.arrow.down" catalog="system" width="128" height="96"/>
         <image name="bag.fill" catalog="system" width="128" height="128"/>
+        <image name="filter" width="24" height="24"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="noitem" width="125" height="100"/>
     </resources>

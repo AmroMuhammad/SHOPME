@@ -75,6 +75,18 @@ struct LocalProductDetails {
     let inventory_quantity: Int?
 }
 
+struct Order {
+    let productId: Int
+    let userEmail: String
+    let title: String
+    let productPrice: String
+    let productImage: Data
+    let quantity: String
+    let totalPrice: String
+    let creationDate: String
+    let orderId: Int
+}
+
 enum EntityName: String {
     case FavoriteProducts
     case CartProducts
@@ -83,6 +95,11 @@ enum EntityName: String {
 enum UpdateType: String {
     case Quantity
     case SizeColor
+}
+
+enum GetOrderType: String {
+    case UserEmail
+    case OrderID
 }
 
 //class FavoriteProduct {

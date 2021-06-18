@@ -28,12 +28,12 @@ struct Customer: Codable {
 // MARK: - Address
 struct Address: Codable {
     let id, customerID: Int?
-    let city,country: String?
+    let city,country,address1: String?
 
     enum CodingKeys: String, CodingKey {
         case id
         case customerID = "customer_id"
-        case city, country
+        case city, country, address1
     }
 }
 

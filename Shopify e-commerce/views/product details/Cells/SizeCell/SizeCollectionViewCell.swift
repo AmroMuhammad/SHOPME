@@ -25,6 +25,8 @@ class SizeCollectionViewCell: UICollectionViewCell {
         self.sizeLabel.layer.masksToBounds = true
 //        unselectCell()
         self.layer.masksToBounds = false
+        sizeLabel.sizeToFit()
+//        sizeLabel.minimumScaleFactor = 0.5
     }
     
 //    override var isHighlighted: Bool{

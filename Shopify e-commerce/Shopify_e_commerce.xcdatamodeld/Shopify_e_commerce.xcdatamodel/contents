@@ -20,8 +20,20 @@
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="userEmail" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="Orders" representedClassName="Orders" syncable="YES" codeGenerationType="class">
+        <attribute name="creationDate" optional="YES" attributeType="String"/>
+        <attribute name="orderId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="productId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="productImage" optional="YES" attributeType="Binary"/>
+        <attribute name="productPrice" optional="YES" attributeType="String"/>
+        <attribute name="quantity" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="totalPrice" optional="YES" attributeType="String"/>
+        <attribute name="userEmail" optional="YES" attributeType="String"/>
+    </entity>
     <elements>
         <element name="CartProducts" positionX="-63" positionY="9" width="128" height="193"/>
         <element name="FavoriteProducts" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="Orders" positionX="-63" positionY="72" width="128" height="178"/>
     </elements>
 </model>

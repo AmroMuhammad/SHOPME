@@ -160,8 +160,9 @@ class receiptViewController: UITableViewController {
       }
 
     @IBAction func placeOrderBtn(_ sender: Any) {
+        receiptViewModelObj.fetchData(paymentTextField: paymentTextField, viewController: self,totalPrice: totalPrice.text!)
         if(payByCard.isSelected == true){
-           receiptViewModelObj.fetchData(paymentTextField: paymentTextField, viewController: self)
+            receiptViewModelObj.fetchData(paymentTextField: paymentTextField, viewController: self, totalPrice: totalPrice.text!)
         }else{
             if let couponType = self.couponProductType{
                 UserDefaults.standard.set(false, forKey: couponType)
@@ -171,7 +172,6 @@ class receiptViewController: UITableViewController {
             }
         }
     }
-    
 }
 
 extension receiptViewController : applyCouponDelegate {
