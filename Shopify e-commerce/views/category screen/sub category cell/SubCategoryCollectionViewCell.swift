@@ -11,18 +11,17 @@ import UIKit
 class SubCategoryCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var mainCategoryName: UILabel!
-    @IBOutlet weak var indicatorView: UIView!
     override var isHighlighted: Bool{
         didSet{
             mainCategoryName.textColor = isHighlighted ? UIColor.black : UIColor.gray
-            indicatorView.backgroundColor = isHighlighted ? UIColor.black : UIColor.white
+            mainCategoryName.backgroundColor = isHighlighted ? UIColor(named: "selectedBackground") : UIColor(named: "backgroundColor")
         }
     }
     
     override var isSelected: Bool{
         didSet{
             mainCategoryName.textColor = isSelected ? UIColor.black : UIColor.gray
-            indicatorView.backgroundColor = isSelected ? UIColor.black : UIColor.white
+            mainCategoryName.backgroundColor = isSelected ? UIColor(named: "selectedBackground") : UIColor(named: "backgroundColor")
 
         }
     }

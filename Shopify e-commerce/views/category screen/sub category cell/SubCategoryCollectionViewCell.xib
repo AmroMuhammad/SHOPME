@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,33 +17,23 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Accessories" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3wR-cM-oNz">
-                        <rect key="frame" x="0.0" y="0.0" width="121" height="30"/>
-                        <color key="backgroundColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <rect key="frame" x="0.0" y="0.0" width="126" height="30"/>
+                        <color key="backgroundColor" red="0.92928040030000003" green="0.92796784639999996" blue="0.88209182019999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0tk-pC-JzH">
-                        <rect key="frame" x="120" y="0.0" width="6" height="30"/>
-                        <color key="backgroundColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                    </view>
                 </subviews>
             </view>
-            <color key="backgroundColor" red="0.81588513370000004" green="0.81793820650000004" blue="0.78207613919999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="3wR-cM-oNz" secondAttribute="bottom" id="6Ky-0W-NPL"/>
-                <constraint firstAttribute="trailing" secondItem="3wR-cM-oNz" secondAttribute="trailing" constant="5" id="9HV-vK-GRJ"/>
-                <constraint firstAttribute="trailing" secondItem="0tk-pC-JzH" secondAttribute="trailing" id="9Wc-uL-TLS"/>
+                <constraint firstAttribute="trailing" secondItem="3wR-cM-oNz" secondAttribute="trailing" id="9HV-vK-GRJ"/>
                 <constraint firstItem="3wR-cM-oNz" firstAttribute="leading" secondItem="cur-Ub-vds" secondAttribute="leading" id="EOQ-zX-5yz"/>
-                <constraint firstItem="0tk-pC-JzH" firstAttribute="leading" secondItem="cur-Ub-vds" secondAttribute="leading" constant="120" id="Te8-oq-dS3"/>
-                <constraint firstItem="0tk-pC-JzH" firstAttribute="top" secondItem="cur-Ub-vds" secondAttribute="top" id="V77-HA-bFe"/>
                 <constraint firstItem="3wR-cM-oNz" firstAttribute="top" secondItem="cur-Ub-vds" secondAttribute="top" id="bdr-B3-f9l"/>
-                <constraint firstAttribute="bottom" secondItem="0tk-pC-JzH" secondAttribute="bottom" id="gMy-7w-gGo"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="TLe-ez-1Bt"/>
             <size key="customSize" width="126" height="33"/>
             <connections>
-                <outlet property="indicatorView" destination="0tk-pC-JzH" id="LLg-GZ-heb"/>
                 <outlet property="mainCategoryName" destination="3wR-cM-oNz" id="xir-la-iBk"/>
             </connections>
             <point key="canvasLocation" x="186.95652173913044" y="123.88392857142857"/>
