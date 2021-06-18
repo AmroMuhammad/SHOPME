@@ -120,12 +120,11 @@ class SearchViewModel : SearchViewModelContract{
     }
     
     func clearData(){
-        datasubject.onNext(data)
-        self.searchedData = self.data
-        self.sortedData = self.data
-        self.filteredData = self.data
+        if(isSorted){
+            datasubject.onNext(sortedData)
+        }else{
+            datasubject.onNext(searchedData)
+        }
         isfiltered = false
-        isSorted = false
-        
     }
 }
