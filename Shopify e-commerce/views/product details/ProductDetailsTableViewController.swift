@@ -14,7 +14,7 @@ import Cosmos
 
 class ProductDetailsTableViewController: UITableViewController {
     
-    private var productDetailsViewModel: ProductDetailsViewModel!
+    private var productDetailsViewModel: ProductDetailsViewModelType!
     private var disposeBag: DisposeBag!
     private var activityView: UIActivityIndicatorView!
     private var customView: UIView!
@@ -121,7 +121,7 @@ class ProductDetailsTableViewController: UITableViewController {
                 
                 switch sender.tag {
                 case 0:
-                    print("VC - Udpate - selectedSize => \(self.selectedSize) & selectedColor => \(self.selectedColor) ")
+                    print("VC - Udpate - selectedSize => \(String(describing: self.selectedSize)) & selectedColor => \(String(describing: self.selectedColor)) ")
                     self.productDetailsViewModel.addToCart(selectedSize: self.selectedSize, selectedColor: self.selectedColor)
                     sender.setTitle("ADDED TO CART", for: .normal)
                     sender.tag = 1

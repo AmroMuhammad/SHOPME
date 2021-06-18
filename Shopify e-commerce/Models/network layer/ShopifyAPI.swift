@@ -24,13 +24,6 @@ class ShopifyAPI : BaseAPI<ApplicationNetworking>{
     
     // MARK: Ahmed Section
     
-    // ADD   =>    extension ShopifyAPI: ProductDetailsAPIType
-    func getProductDetails(productId:String, completion: @escaping (Result<ProductDetailsModel?,NSError>) -> Void){
-        self.fetchData(target: .getProductDetails(id: productId), responseClass: ProductDetailsModel.self) { (result) in
-            completion(result)
-        }
-    }
-    
     //end
     
     // MARK: Amr Section
@@ -242,6 +235,16 @@ extension ShopifyAPI : PaymentAPIContract{
             case .failure(let error):
                 completion(nil,error)
             }
+        }
+    }
+}
+//end
+
+// MARK: Ahmed Section
+extension ShopifyAPI: ProductDetailsAPIType{
+    func getProductDetails(productId:String, completion: @escaping (Result<ProductDetailsModel?,NSError>) -> Void){
+        self.fetchData(target: .getProductDetails(id: productId), responseClass: ProductDetailsModel.self) { (result) in
+            completion(result)
         }
     }
 }
