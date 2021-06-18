@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yhx-rM-wBM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -366,7 +366,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" red="0.8351746202" green="0.83397072549999995" blue="0.79191869500000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="lU6-eG-HVX" secondAttribute="trailing" constant="13" id="6Tz-hy-q5D"/>
                                                 <constraint firstItem="agj-n8-D0O" firstAttribute="top" secondItem="LoV-cw-GDM" secondAttribute="top" constant="8" id="6bd-Vs-uSr"/>
@@ -857,7 +857,7 @@
                                                     </connections>
                                                 </stepper>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" red="0.8351746202" green="0.83397072549999995" blue="0.79191869500000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstItem="kqd-83-Pkl" firstAttribute="top" secondItem="HZO-Xt-Vgd" secondAttribute="bottom" constant="7.5" id="0RF-P2-84j"/>
                                                 <constraint firstItem="b5k-Wi-MOc" firstAttribute="top" secondItem="PvT-dp-SYp" secondAttribute="top" constant="16" id="3bP-CD-Ow3"/>
@@ -880,7 +880,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="kqd-83-Pkl" secondAttribute="trailing" constant="26" id="y7T-1H-erY"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="backgroundColor" red="0.92928040030000003" green="0.92796784639999996" blue="0.88209182019999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="productImg" destination="XJ0-el-ECb" id="9Dt-vB-Kcw"/>
                                             <outlet property="productName" destination="HZO-Xt-Vgd" id="RgY-XQ-If1"/>
@@ -1011,7 +1011,7 @@
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" red="0.8351746202" green="0.83397072549999995" blue="0.79191869500000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstItem="4vo-SW-gCt" firstAttribute="top" secondItem="BtZ-a8-OP9" secondAttribute="top" constant="11" id="501-IS-lnG"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="JzI-2M-3Xq" secondAttribute="trailing" constant="56" id="8e7-Ia-ybM"/>
@@ -1026,7 +1026,7 @@
                                                 <constraint firstItem="4vo-SW-gCt" firstAttribute="leading" secondItem="BtZ-a8-OP9" secondAttribute="leadingMargin" id="rND-dZ-g73"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="backgroundColor" red="0.8351746202" green="0.83397072549999995" blue="0.79191869500000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="addressLabel" destination="JzI-2M-3Xq" id="gt8-Gd-UsK"/>
                                             <outlet property="countryAndCity" destination="kGM-XT-0eG" id="PcR-Pj-bxq"/>
@@ -1036,7 +1036,7 @@
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="      Choose address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2x-wU-Voh">
                                 <rect key="frame" x="0.0" y="54" width="414" height="56"/>
-                                <color key="backgroundColor" red="0.81588513370000004" green="0.81793820650000004" blue="0.78207613919999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.92928040030000003" green="0.92796784639999996" blue="0.88209182019999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
