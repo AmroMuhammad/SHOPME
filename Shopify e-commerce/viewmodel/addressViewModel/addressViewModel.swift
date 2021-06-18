@@ -30,9 +30,9 @@ class addressViewModel : addressViewModelType{
     
     
     func getUserDefaultAddress(){
-        let result = UserDefaults.standard.string(forKey: "address") // get this value from user default
-        addressDataSubject.onNext(result ?? "")
-        splitUserDefaultAddress(userAddresses: result!)
+        let result = UserData.sharedInstance.getAddress() // get this value from user default
+        addressDataSubject.onNext(result)
+        splitUserDefaultAddress(userAddresses: result)
     }
     
     func splitUserDefaultAddress(userAddresses : String){
@@ -48,7 +48,7 @@ class addressViewModel : addressViewModelType{
     }
     
     func storeAddressInUserDefault(addressAdded : String){
-        UserDefaults.standard.set(addressAdded, forKey: "address")
+        UserData.sharedInstance.setAddress(newAddress: addressAdded)
       //  function to store in userDefault
     }
     

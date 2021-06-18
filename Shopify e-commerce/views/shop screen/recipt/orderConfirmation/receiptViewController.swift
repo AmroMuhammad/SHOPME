@@ -160,7 +160,6 @@ class receiptViewController: UITableViewController {
       }
 
     @IBAction func placeOrderBtn(_ sender: Any) {
-        receiptViewModelObj.fetchData(paymentTextField: paymentTextField, viewController: self,totalPrice: totalPrice.text!)
         if(payByCard.isSelected == true){
             receiptViewModelObj.fetchData(paymentTextField: paymentTextField, viewController: self, totalPrice: totalPrice.text!)
         }else{
@@ -170,6 +169,7 @@ class receiptViewController: UITableViewController {
             LocalManagerHelper.localSharedInstance.deleteAllProductFromCart(userEmail: UserData.sharedInstance.getUserFromUserDefaults().email ?? "") { (_) in
                 self.showErrorMessage(title: "Payment Status", errorMessage: "Payment will be completed upon delivery")
             }
+            receiptViewModelObj.saveOrder(totalPrice: totalPrice.text!)
         }
     }
 }

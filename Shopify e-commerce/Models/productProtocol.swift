@@ -79,6 +79,7 @@ protocol receiptViewModelType {
     var dataObservable:Observable<String>{get}
     var itemNumDrive: Driver<Int>{get}
     var allProductTypeDrive: Driver<[String]>{get}
+    func saveOrder(totalPrice:String)
 
 }
 protocol applyCouponDelegate {
