@@ -18,6 +18,8 @@ class EditInfoViewModel: EditViewModelContract{
     private var shopifyAPI:EditInfoAPIContract!
     private var id:Int!
     private var userData:UserData!
+    public  var animationObservable:Observable<(String,Bool)>?
+    public var animationSubject = PublishSubject<(String,Bool)>()
     
 
     var dataObservable: Observable<Customer>
@@ -31,6 +33,7 @@ class EditInfoViewModel: EditViewModelContract{
         shopifyAPI = ShopifyAPI.shared
         userData = UserData.sharedInstance
         id = userData.getUserFromUserDefaults().id
+        animationObservable = animationSubject.asObservable()
         
     }
     func fetchData() {
@@ -67,64 +70,30 @@ class EditInfoViewModel: EditViewModelContract{
         }
     }
     
-//    func validateData(firstName: String, lastName: String, email: String, phoneNumber: String, country: String, city: String) {
-//        if(firstName.isEmpty || lastName.isEmpty || email.isEmpty || phoneNumber.isEmpty || country.isEmpty || city.isEmpty){
-//            errorSubject.onNext(("Please enter all fields", true))
-//            return
-//        }
-//        if(!nameRegexCheck(text: firstName) || !nameRegexCheck(text: lastName)){
-//            errorSubject.onNext(("Please enter valid First Name and Last Name", true))
-//            return
-//        }
-//        if(!emailRegexCheck(text: email)){
-//            errorSubject.onNext(("Please enter valid Email", true))
-//            return
-//        }
-//        if(!phoneNumRegexCheck(text: phoneNumber)){
-//            errorSubject.onNext(("Please enter valid phone number", true))
-//            return
-//        }
-//        if(!nameRegexCheck(text: country) || !nameRegexCheck(text: city)){
-//            errorSubject.onNext(("Please enter valid country and city", true))
-//            return
-//        }
-//        let newCustomer = RegisterCustomer(customer: Customer(id: nil, email: email, firstName: firstName, lastName: lastName, phone: "+2"+phoneNumber, tags: data.tags,addresses: [Address(id: nil, customerID: nil, city: city, country: country)]))
-//        postData(newCustomer: newCustomer)
-//
-//    }
-    func validateData(firstName:String,lastName:String,email:String,phoneNumber:String,country:String,city:String,address:String,fname: TKFormTextField,lname: TKFormTextField,em: TKFormTextField,count: TKFormTextField,cit: TKFormTextField,po:TKFormTextField,addressTxtField:TKFormTextField) {
+    func validateData(firstName:String,lastName:String,email:String,phoneNumber:String,country:String,city:String,address:String) {
+        let array = [firstName,lastName,email,phoneNumber,country,address]
         if(firstName.isEmpty || lastName.isEmpty || email.isEmpty || phoneNumber.isEmpty || country.isEmpty || city.isEmpty || address.isEmpty){
-                po.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
-                fname.addTarget(self, action: #selector(updateError), for: .allEvents)
-                em.addTarget(self, action: #selector(updateError), for: .editingDidEnd)
-                lname.addTarget(self, action: #selector(updateError), for: .allEvents)
-                count.addTarget(self, action: #selector(updateError), for: .allEvents)
-                cit.addTarget(self, action: #selector(updateError), for: .allEvents)
-                addressTxtField.addTarget(self, action: #selector(updateError), for: .allEvents)
 
-                //errorSubject.onNext(("Please enter all fields", true))
+            //animationSubject.onNext(("all fields required",true))
+
                 return
             }
             if(!nameRegexCheck(text: firstName) || !nameRegexCheck(text: lastName)){
-                lname.addTarget(self, action: #selector(nameerror), for: .allEvents)
-                fname.addTarget(self, action: #selector(nameerror), for: .allEvents)
-                //errorSubject.onNext(("Please enter valid First Name and Last Name", true))
+                //animationSubject.onNext(("inavlid name",true))
                 return
             }
             if(!emailRegexCheck(text: email)){
-                em.addTarget(self, action: #selector(emailerror), for: .allEvents)
-    //            errorSubject.onNext(("Please enter valid Email", true))
+
+              //  animationSubject.onNext(("inavlid email",true))
                 return
             }
             if(!phoneNumRegexCheck(text: phoneNumber)){
-                po.addTarget(self, action: #selector(phoneerror), for: .allEvents)
-    //            errorSubject.onNext(("Please enter valid phone number", true))
+               // animationSubject.onNext(("inavlid phone number",true))
                 return
             }
             if(!nameRegexCheck(text: country) || !nameRegexCheck(text: city)){
-                count.addTarget(self, action: #selector(countryError), for: .allEvents)
-                cit.addTarget(self, action: #selector(cityError), for: .allEvents)
-                //errorSubject.onNext(("Please enter valid country and city", true))
+
+               // animationSubject.onNext(("inavlid data",true))
                 return
             }
         let newCustomer = RegisterCustomer(customer: Customer(id: nil, email: email, firstName: firstName, lastName: lastName, phone: "+2"+phoneNumber, tags: data.tags,addresses: [Address(id: nil, customerID: nil, city: city, country: country, address1: address)]))
@@ -164,76 +133,76 @@ class EditInfoViewModel: EditViewModelContract{
             return false
         }
     }
-    
-    @objc func countryError(textField: TKFormTextField) {
-            //var phone = textField.text
-            if(textField.text == ""){
-                textField.error = "all faild are required"
-            }
-            else{
-                textField.error = nil
-            }
-        
-        }
-        
-        @objc func cityError(textField: TKFormTextField) {
-            //var phone = textField.text
-            if(textField.text == ""){
-                textField.error = "all faild are required"
-            }
-            else{
-                textField.error = nil
-            }
-        
-        }
-        
-        
-        @objc func updateError(textField: TKFormTextField) {
-            //var phone = textField.text
-            if(textField.text == ""){
-                textField.error = "all faild are required"
-            }
-            else{
-                textField.error = nil
-            }
-        
-        }
-        @objc func nameerror(textField: TKFormTextField) {
-            //var phone = textField.text
-            if(!nameRegexCheck(text: textField.text!)){
-                textField.error = "please enter valid name"
-            }
-            else{
-                textField.error = nil
-            }
-        }
-        @objc func passerror(textField: TKFormTextField) {
+//
+//    @objc func countryError(textField: TKFormTextField) {
+//            //var phone = textField.text
+//            if(textField.text == ""){
+//                textField.error = "all faild are required"
+//            }
+//            else{
+//                textField.error = nil
+//            }
+//
+//        }
+//
+//        @objc func cityError(textField: TKFormTextField) {
+//            //var phone = textField.text
+//            if(textField.text == ""){
+//                textField.error = "all faild are required"
+//            }
+//            else{
+//                textField.error = nil
+//            }
+//
+//        }
+//
+//
+//        @objc func updateError(textField: TKFormTextField) {
+//            //var phone = textField.text
+//            if(textField.text == ""){
+//                textField.error = "all faild are required"
+//            }
+//            else{
+//                textField.error = nil
+//            }
+//
+//        }
+//        @objc func nameerror(textField: TKFormTextField) {
+//            //var phone = textField.text
+//            if(!nameRegexCheck(text: textField.text!)){
+//                textField.error = "please enter valid name"
+//            }
+//            else{
+//                textField.error = nil
+//            }
+//        }
+//        @objc func passerror(textField: TKFormTextField) {
+//
+//    //        if(str1 != str2){
+//    //            textField.error = "password not equal confirmation password"
+//    //        }
+//    //        else{
+//    //            textField.error = nil
+//    //        }
+//        }
+//        @objc func phoneerror(textField: TKFormTextField) {
+//
+//            if(!phoneNumRegexCheck(text: textField.text!)){
+//                textField.error = "please enter valid phone number"
+//            }
+//            else{
+//                textField.error = nil
+//            }
+//        }
             
-    //        if(str1 != str2){
-    //            textField.error = "password not equal confirmation password"
-    //        }
-    //        else{
-    //            textField.error = nil
-    //        }
-        }
-        @objc func phoneerror(textField: TKFormTextField) {
-            
-            if(!phoneNumRegexCheck(text: textField.text!)){
-                textField.error = "please enter valid phone number"
-            }
-            else{
-                textField.error = nil
-            }
-        }
-            
-            @objc func emailerror(textField: TKFormTextField) {
-                //var phone = textField.text
-                if(!emailRegexCheck(text: textField.text!)){
-                    textField.error = "please enter valid email"
-                }
-                else{
-                    textField.error = nil
-                }
+//            @objc func emailerror(textField: TKFormTextField) {
+//                //var phone = textField.text
+//                if(!emailRegexCheck(text: textField.text!)){
+//                    textField.error = "please enter valid email"
+//                }
+//                else{
+//                    textField.error = nil
+//                }
     //        guard let text = textField.text, !text.isEmpty else {
     //          textField.error = "Text is empty!" // to show error message in errorLabel
     //          return
@@ -241,4 +210,4 @@ class EditInfoViewModel: EditViewModelContract{
     //        textField.error = nil // to remove the error message
           }
     
-}
+

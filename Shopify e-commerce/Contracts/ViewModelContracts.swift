@@ -55,6 +55,6 @@ protocol EditViewModelContract{
     func fetchData()
     func postData(newCustomer:RegisterCustomer)
 //    func validateData(firstName:String,lastName:String,email:String,phoneNumber:String,country:String,city:String)
-    func validateData(firstName:String,lastName:String,email:String,phoneNumber:String,country:String,city:String,address:String,fname: TKFormTextField,lname: TKFormTextField,em: TKFormTextField,count: TKFormTextField,cit: TKFormTextField,po:TKFormTextField,addressTxtField:TKFormTextField)
+    func validateData(firstName:String,lastName:String,email:String,phoneNumber:String,country:String,city:String,address:String)
 }
 

@@ -12,6 +12,90 @@ import RxCocoa
 import TKFormTextField
 
 class EditIngViewController: UIViewController {
+    @IBAction func firstNameEnd(_ sender: Any) {
+        if(firstName.text == ""){
+            firstName.error = "all faild required"
+        }
+        else if(!editViewModel.nameRegexCheck(text: firstName.text!)){
+            firstName.error = "invalid name"
+        }
+        else{
+            firstName.error = nil
+        }
+    }
+    
+    
+    @IBAction func emailEnd(_ sender: Any) {
+        if(email.text == ""){
+            email.error = "all failds required"
+        }
+        else if(!editViewModel.emailRegexCheck(text: email.text!)){
+            email.error = "invalid email"
+        }
+        else{
+            email.error = nil
+        }
+    }
+    
+    
+    @IBAction func phoneEnd(_ sender: Any) {
+        if(phoneNumber.text == ""){
+            phoneNumber.error = "all faild required"
+            //        print("======================================")
+        }
+        else if(!editViewModel.phoneNumRegexCheck(text: city.text!)){
+            phoneNumber.error = "invalid phone number"
+        }
+        else{
+            phoneNumber.error = nil
+        }
+    }
+    
+    
+    @IBAction func addressEnd(_ sender: Any) {
+        if(addressTxtField.text == ""){
+            city.error = "all faild required"
+        }
+
+        else{
+            addressTxtField.error = nil
+        }
+        
+    }
+    @IBAction func cityEnd(_ sender: Any) {
+        if(city.text == ""){
+            city.error = "all faild required"
+        }
+        else if(!editViewModel.nameRegexCheck(text: city.text!)){
+            city.error = "invalid city name"
+        }
+        else{
+            city.error = nil
+        }
+    }
+    @IBAction func countryEnd(_ sender: Any) {
+        if(countrry.text == ""){
+            countrry.error = "all faild required"
+        }
+        else if(!editViewModel.nameRegexCheck(text: countrry.text!)){
+            countrry.error = "invalid countrry name"
+        }
+        else{
+            countrry.error = nil
+        }
+    }
+    @IBAction func lastNameEnd(_ sender: Any) {
+        if(secondName.text == ""){
+            secondName.error = "all failds required"
+        }
+        else if(!editViewModel.nameRegexCheck(text: secondName.text!)){
+            secondName.error = "invalid name"
+        }
+        else{
+            secondName.error = nil
+        }
+    }
+    
     
     
     @IBOutlet weak var addressTxtField: TKFormTextField!
@@ -24,42 +108,46 @@ class EditIngViewController: UIViewController {
     private var disposeBag:DisposeBag!
     private var editViewModel:EditInfoViewModel!
     private var activityView:UIActivityIndicatorView!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        firstName.title = "firstName"
+        secondName.title = "last name"
+        email.title = "email"
+        phoneNumber.title = "phoneNumber"
+        countrry.title = "countrry"
+        city.title = "city"
+        addressTxtField.title = "addressTxtField"
         disposeBag = DisposeBag()
         editViewModel = EditInfoViewModel()
-        
+
+
         activityView = UIActivityIndicatorView(style: .large)
         
-        editViewModel.errorObservable.subscribe(onNext: { (message,boolResult) in
-        if(boolResult){
-            Support.notifyUser(title: "Error", body: message, context: self)
-        }
-        }).disposed(by: disposeBag)
-        
         editViewModel.loadingObservable.subscribe(onNext: {[weak self] (result) in
-        switch result{
-        case true:
-            self?.showLoading()
-        case false:
-            self?.hideLoading()
-        }
+            switch result{
+            case true:
+                self?.showLoading()
+            case false:
+                self?.hideLoading()
+            }
         }).disposed(by: disposeBag)
         
         editViewModel.dataObservable.subscribe(onNext: {[weak self] (customer) in
             self?.setData(customer: customer)
-            },onCompleted: {
-                self.navigationController?.popViewController(animated: true)
+        },onCompleted: {
+            self.navigationController?.popViewController(animated: true)
         }).disposed(by: disposeBag)
         
         editViewModel.fetchData()
     }
     
-
+    
     @IBAction func submit(_ sender: UIButton) {
-//        editViewModel.validateData(firstName: firstName.text!, lastName: secondName.text!, email: email.text!, phoneNumber: phoneNumber.text!, country: countrry.text!, city: city.text!)
-        editViewModel.validateData(firstName: firstName.text!, lastName: secondName.text!, email: email.text!, phoneNumber: phoneNumber.text!, country: countrry.text!, city: city.text!,address: addressTxtField.text! ,fname: firstName,lname:secondName,em:email,count: countrry,cit:city,po:phoneNumber, addressTxtField: addressTxtField)
+        
+        editViewModel.validateData(firstName: firstName.text!, lastName: secondName.text!, email: email.text!, phoneNumber: phoneNumber.text!, country: countrry.text!, city: city.text!,address: addressTxtField.text!)
         
     }
     
