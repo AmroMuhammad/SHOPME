@@ -47,7 +47,7 @@ class ColorSizeViewController: UIViewController, UICollectionViewDelegate {
         activityView = UIActivityIndicatorView(style: .large)
         
         containerView.layer.cornerRadius = 13
-        containerView.layer.borderWidth = 3
+        containerView.layer.borderWidth = 1
         
         imagesCollectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: Constants.imageCell)
         colorsCollectionView.register(ColorViewCollectionViewCell.self, forCellWithReuseIdentifier: Constants.colorCell)
@@ -171,7 +171,7 @@ extension ColorSizeViewController {
         
         productDetailsViewModel.imagesObservable.bind(to: imagesCollectionView.rx.items(cellIdentifier: Constants.imageCell)){row, item, cell in
             let imgCell = cell as! ImageCollectionViewCell
-            imgCell.layer.borderWidth = 1
+            imgCell.layer.borderWidth = 0
             imgCell.layer.cornerRadius = 10
             imgCell.productImgObj = item
         }.disposed(by: disposeBag)

@@ -106,9 +106,9 @@ class receiptViewController: UITableViewController {
         receiptViewModelObj.getAllProductType(products: allCartProductForReceipt!)
         
         let imageAttachment = NSTextAttachment()
-        imageAttachment.image = UIImage(named:"home-address")
+        imageAttachment.image = UIImage(named:"location")
         let imageOffsetY: CGFloat = -5.0
-        imageAttachment.bounds = CGRect(x: 2, y: imageOffsetY, width: imageAttachment.image!.size.width, height: imageAttachment.image!.size.height)
+        imageAttachment.bounds = CGRect(x: 0, y: imageOffsetY, width: imageAttachment.image!.size.width, height: imageAttachment.image!.size.height)
         let attachmentString = NSAttributedString(attachment: imageAttachment)
         let completeText = NSMutableAttributedString(string: "")
         completeText.append(attachmentString)

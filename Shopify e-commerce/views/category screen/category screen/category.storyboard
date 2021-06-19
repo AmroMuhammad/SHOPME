@@ -17,10 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="k9c-XD-9RC">
-                                <rect key="frame" x="0.0" y="88" width="414" height="40"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="50"/>
+                                <color key="backgroundColor" red="0.92928040030000003" green="0.92796784639999996" blue="0.88209182019999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="quS-GR-Ea2"/>
+                                    <constraint firstAttribute="height" constant="50" id="quS-GR-Ea2"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="M8k-d4-bps">
                                     <size key="itemSize" width="128" height="128"/>
@@ -40,8 +40,8 @@
                                 </cells>
                             </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9jT-P1-IKo">
-                                <rect key="frame" x="0.0" y="128" width="130" height="685"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <rect key="frame" x="0.0" y="140" width="130" height="673"/>
+                                <color key="backgroundColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="130" id="XcW-3L-Tpw"/>
                                 </constraints>
@@ -63,8 +63,8 @@
                                 </cells>
                             </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="3" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8Mc-DP-z8u">
-                                <rect key="frame" x="133" y="131" width="276" height="682"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <rect key="frame" x="129" y="141" width="280" height="672"/>
+                                <color key="backgroundColor" red="0.8351746202" green="0.83397072549999995" blue="0.79191869500000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BPr-wa-bnw">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -83,14 +83,14 @@
                                 </cells>
                             </collectionView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Euo-hd-xfR">
-                                <rect key="frame" x="130" y="128" width="284" height="685"/>
+                                <rect key="frame" x="130" y="138" width="284" height="675"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noitem" translatesAutoresizingMaskIntoConstraints="NO" id="gjB-JY-4l6">
-                                        <rect key="frame" x="0.0" y="0.0" width="284" height="685"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="284" height="675"/>
+                                        <color key="backgroundColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="gjB-JY-4l6" firstAttribute="top" secondItem="Euo-hd-xfR" secondAttribute="top" id="7in-G1-2tK"/>
                                     <constraint firstAttribute="bottom" secondItem="gjB-JY-4l6" secondAttribute="bottom" id="81I-cW-rxq"/>
@@ -114,7 +114,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="Idk-Lh-PQM" firstAttribute="trailing" secondItem="Euo-hd-xfR" secondAttribute="trailing" id="24D-IR-rsh"/>
                             <constraint firstItem="Idk-Lh-PQM" firstAttribute="bottom" secondItem="9jT-P1-IKo" secondAttribute="bottom" id="AC0-Ne-SLr"/>
@@ -129,9 +129,9 @@
                             <constraint firstItem="Idk-Lh-PQM" firstAttribute="bottom" secondItem="6zw-6l-3d4" secondAttribute="bottom" id="Ydy-zp-oYT"/>
                             <constraint firstItem="8Mc-DP-z8u" firstAttribute="trailing" secondItem="Idk-Lh-PQM" secondAttribute="trailing" constant="-5" id="ZRY-J9-f0A"/>
                             <constraint firstItem="Idk-Lh-PQM" firstAttribute="bottom" secondItem="Euo-hd-xfR" secondAttribute="bottom" id="fua-pL-W7A"/>
-                            <constraint firstItem="8Mc-DP-z8u" firstAttribute="leading" secondItem="9jT-P1-IKo" secondAttribute="trailing" constant="3" id="n0S-dz-Uiq"/>
+                            <constraint firstItem="8Mc-DP-z8u" firstAttribute="leading" secondItem="9jT-P1-IKo" secondAttribute="trailing" constant="-1" id="n0S-dz-Uiq"/>
                             <constraint firstItem="Idk-Lh-PQM" firstAttribute="trailing" secondItem="6zw-6l-3d4" secondAttribute="trailing" id="unx-uK-XEU"/>
-                            <constraint firstItem="9jT-P1-IKo" firstAttribute="top" secondItem="k9c-XD-9RC" secondAttribute="bottom" id="uou-ma-922"/>
+                            <constraint firstItem="9jT-P1-IKo" firstAttribute="top" secondItem="k9c-XD-9RC" secondAttribute="bottom" constant="2" id="uou-ma-922"/>
                             <constraint firstItem="Idk-Lh-PQM" firstAttribute="trailing" secondItem="k9c-XD-9RC" secondAttribute="trailing" id="xPi-pf-Zqz"/>
                             <constraint firstItem="6zw-6l-3d4" firstAttribute="leading" secondItem="Idk-Lh-PQM" secondAttribute="leading" id="zRy-8V-VJe"/>
                         </constraints>
@@ -205,6 +205,7 @@
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sKx-MK-g1U">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <color key="backgroundColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <items>
                                     <barButtonItem title="Sort " image="arrow.up.arrow.down" catalog="system" id="zqr-UQ-BF0">
                                         <color key="tintColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -218,18 +219,12 @@
                                             <action selector="filterButtonClicked:" destination="VjQ-ZP-W0S" id="XeS-4D-9mt"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="FNu-gW-leJ"/>
-                                    <barButtonItem title="Clear" id="Cej-WB-Qh2">
-                                        <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <action selector="clearButtonClicked:" destination="VjQ-ZP-W0S" id="hf3-cL-zJi"/>
-                                        </connections>
-                                    </barButtonItem>
                                 </items>
+                                <color key="barTintColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </toolbar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="u7p-0K-dIo">
                                 <rect key="frame" x="5" y="44" width="404" height="681"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ELm-hu-Fym">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -263,7 +258,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="u7p-0K-dIo" firstAttribute="leading" secondItem="vgM-KA-amL" secondAttribute="leading" constant="5" id="EHe-GV-dE2"/>
                             <constraint firstItem="vgM-KA-amL" firstAttribute="bottom" secondItem="u7p-0K-dIo" secondAttribute="bottom" id="Gu9-hN-6th"/>
@@ -302,6 +297,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="q77-xG-I1W">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
