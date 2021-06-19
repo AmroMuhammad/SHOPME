@@ -2,17 +2,17 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yhx-rM-wBM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--SHOPIFY-->
+        <!--SHOPME-->
         <scene sceneID="9pt-iK-Cw8">
             <objects>
-                <viewController storyboardIdentifier="ShopViewController" id="QiX-ej-0JZ" customClass="shopViewController" customModule="Shopify_e_commerce" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShopViewController" id="QiX-ej-0JZ" customClass="shopViewController" customModule="ShopMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vYV-H5-Llf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="980"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -30,7 +30,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="mainCategoriesCollectionViewCell" id="O1u-69-Mf3" customClass="mainCategoriesCollectionViewCell" customModule="Shopify_e_commerce" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="mainCategoriesCollectionViewCell" id="O1u-69-Mf3" customClass="mainCategoriesCollectionViewCell" customModule="ShopMe" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1.5" width="94" height="49"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -61,7 +61,7 @@
                                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="shopCollectionViewCell" id="cdi-Ve-qew" customClass="shopCollectionViewCell" customModule="Shopify_e_commerce" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="shopCollectionViewCell" id="cdi-Ve-qew" customClass="shopCollectionViewCell" customModule="ShopMe" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="119" height="128"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="GVu-lu-Smk">
@@ -234,7 +234,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kv0-aZ-ZfE"/>
                     </view>
-                    <navigationItem key="navigationItem" title="SHOPIFY" id="M8O-pK-CGz">
+                    <navigationItem key="navigationItem" title="SHOPME" id="M8O-pK-CGz">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="suit.heart.fill" catalog="system" id="b5e-Yv-lZF">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -250,7 +250,7 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aYR-Ch-gVL">
                                             <rect key="frame" x="0.0" y="0.0" width="92" height="33"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i1H-mE-hbj" customClass="RightNavBarView" customModule="Shopify_e_commerce" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i1H-mE-hbj" customClass="RightNavBarView" customModule="ShopMe" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="92" height="33"/>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AU3-Qa-ykH">
@@ -309,7 +309,7 @@
         <!--Wish List View Controller-->
         <scene sceneID="Rkb-Hw-5k0">
             <objects>
-                <viewController storyboardIdentifier="wishListViewController" id="nKI-Wq-Nl2" customClass="wishListViewController" customModule="Shopify_e_commerce" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="wishListViewController" id="nKI-Wq-Nl2" customClass="wishListViewController" customModule="ShopMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BJY-G7-djZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -328,7 +328,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="wishListCollectionViewCell" id="oWZ-Y3-lin" customClass="wishListCollectionViewCell" customModule="Shopify_e_commerce" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="wishListCollectionViewCell" id="oWZ-Y3-lin" customClass="wishListCollectionViewCell" customModule="ShopMe" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="179" height="211"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="LoV-cw-GDM">
@@ -412,7 +412,7 @@
                                 <rect key="frame" x="302" y="5.5" width="92" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NnZ-r8-dkn" customClass="RightNavBarView" customModule="Shopify_e_commerce" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NnZ-r8-dkn" customClass="RightNavBarView" customModule="ShopMe" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="92" height="33"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                     </view>
@@ -453,7 +453,7 @@
         <!--Color Size View Controller-->
         <scene sceneID="6Wz-Lh-KkI">
             <objects>
-                <viewController storyboardIdentifier="ColorSizeViewController" id="5Fg-tV-qCl" customClass="ColorSizeViewController" customModule="Shopify_e_commerce" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ColorSizeViewController" id="5Fg-tV-qCl" customClass="ColorSizeViewController" customModule="ShopMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5cB-Dl-7fn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -790,7 +790,7 @@
         <!--Card View Controller-->
         <scene sceneID="Uu7-9H-tZK">
             <objects>
-                <viewController storyboardIdentifier="cartViewController" id="giQ-Sz-NVu" customClass="CardViewController" customModule="Shopify_e_commerce" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="cartViewController" id="giQ-Sz-NVu" customClass="CardViewController" customModule="ShopMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Tin-bz-R7U">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -803,7 +803,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="691"/>
                                 <color key="backgroundColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cartTableViewCell" rowHeight="169" id="3VZ-Up-WQ5" customClass="TableViewCell" customModule="Shopify_e_commerce" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cartTableViewCell" rowHeight="169" id="3VZ-Up-WQ5" customClass="TableViewCell" customModule="ShopMe" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="169"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3VZ-Up-WQ5" id="PvT-dp-SYp">
@@ -971,7 +971,7 @@
         <!--Address View Controller-->
         <scene sceneID="iRR-We-Gb5">
             <objects>
-                <viewController storyboardIdentifier="addressViewController" id="RGZ-xJ-Rdu" customClass="addressViewController" customModule="Shopify_e_commerce" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addressViewController" id="RGZ-xJ-Rdu" customClass="addressViewController" customModule="ShopMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Cne-or-rIw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -980,7 +980,7 @@
                                 <rect key="frame" x="0.0" y="121" width="414" height="684"/>
                                 <color key="backgroundColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addressTableViewCell" rowHeight="91" id="rXj-5X-21s" customClass="addressTableViewCell" customModule="Shopify_e_commerce" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addressTableViewCell" rowHeight="91" id="rXj-5X-21s" customClass="addressTableViewCell" customModule="ShopMe" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="91"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rXj-5X-21s" id="BtZ-a8-OP9">
@@ -1087,7 +1087,7 @@
         <!--Add Address View Controller-->
         <scene sceneID="6VL-ny-FN9">
             <objects>
-                <viewController id="toJ-Bn-tCk" customClass="addAddressViewController" customModule="Shopify_e_commerce" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="toJ-Bn-tCk" customClass="addAddressViewController" customModule="ShopMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gdt-Ja-nCn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1192,7 +1192,7 @@
         <!--Receipt View Controller-->
         <scene sceneID="erE-XV-AD6">
             <objects>
-                <tableViewController storyboardIdentifier="receiptViewController" id="a7l-1V-tBB" customClass="receiptViewController" customModule="Shopify_e_commerce" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="receiptViewController" id="a7l-1V-tBB" customClass="receiptViewController" customModule="ShopMe" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="h6E-cX-dpb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1336,7 +1336,7 @@
                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
-                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="receiptProductCollectionViewCell" id="e0o-pe-nQu" customClass="receiptProductCollectionViewCell" customModule="Shopify_e_commerce" customModuleProvider="target">
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="receiptProductCollectionViewCell" id="e0o-pe-nQu" customClass="receiptProductCollectionViewCell" customModule="ShopMe" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="6" width="93" height="113"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Txg-QM-jYD">
@@ -1580,7 +1580,7 @@
         <!--Apply Coupons View Controller-->
         <scene sceneID="Zs8-sX-d4x">
             <objects>
-                <viewController storyboardIdentifier="applyCouponsViewController" id="kej-dg-5kx" customClass="applyCouponsViewController" customModule="Shopify_e_commerce" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="applyCouponsViewController" id="kej-dg-5kx" customClass="applyCouponsViewController" customModule="ShopMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AKW-qA-GnQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1598,7 +1598,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="couponsStateCollectionViewCell" id="8Fk-xF-gxo" customClass="couponsStateCollectionViewCell" customModule="Shopify_e_commerce" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="couponsStateCollectionViewCell" id="8Fk-xF-gxo" customClass="couponsStateCollectionViewCell" customModule="ShopMe" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="-6.5" width="146" height="71"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="bVQ-JE-Npc">
@@ -1633,7 +1633,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="786"/>
                                         <color key="backgroundColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotAvailableTableViewCell" rowHeight="199" id="hTa-3z-sfB" customClass="NotAvailableTableViewCell" customModule="Shopify_e_commerce" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotAvailableTableViewCell" rowHeight="199" id="hTa-3z-sfB" customClass="NotAvailableTableViewCell" customModule="ShopMe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="414" height="199"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hTa-3z-sfB" id="e4j-O8-748">
@@ -1684,7 +1684,7 @@
                                         <rect key="frame" x="0.0" y="99" width="414" height="687"/>
                                         <color key="backgroundColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="availableCouponTableViewCell" rowHeight="208" id="Dot-v1-Cuj" customClass="availableCouponTableViewCell" customModule="Shopify_e_commerce" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="availableCouponTableViewCell" rowHeight="208" id="Dot-v1-Cuj" customClass="availableCouponTableViewCell" customModule="ShopMe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="414" height="208"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Dot-v1-Cuj" id="kes-Uj-ZCX">
