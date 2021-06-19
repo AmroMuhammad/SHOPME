@@ -23,7 +23,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="a20-JY-iAm" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ekU-LM-4qj"/>
                             <constraint firstItem="a20-JY-iAm" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="nuY-8C-fhP"/>

@@ -152,7 +152,9 @@ class SettingsViewController: UIViewController {
         meViewModel.fetchLocalData()
         isLoggedTableViewView.isHidden = true
         meViewModel.fetchOrders()
-        welcomeLabel.text = "Welcome, " + userData.getUserFromUserDefaults().firstName! + " " + userData.getUserFromUserDefaults().lastName!
+        let firstName = userData.getUserFromUserDefaults().firstName ?? " "
+        let lastName = userData.getUserFromUserDefaults().lastName ?? " "
+        welcomeLabel.text = "Welcome, " + firstName + " " + lastName
     }
     
     @IBAction func settingsButtonPressed(_ sender: Any) {

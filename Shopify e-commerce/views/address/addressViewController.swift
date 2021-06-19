@@ -44,7 +44,7 @@ class addressViewController: UIViewController {
                               if(addressDetails!.count > 0){
                                   (cell as? addressTableViewCell )?.addressLabel.text = addressDetails![0]
                                   (cell as? addressTableViewCell )?.countryAndCity.text = addressDetails![1] + "," + addressDetails![2]
-                                  (cell as? addressTableViewCell )?.accessoryType = .disclosureIndicator
+                                //  (cell as? addressTableViewCell )?.accessoryType = .disclosureIndicator
                               }
                               
                           }.disposed(by: self!.disposeBag)
@@ -84,7 +84,7 @@ class addressViewController: UIViewController {
 extension addressViewController :   UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 108
+        return 91
         
     }
     
