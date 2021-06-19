@@ -14,7 +14,7 @@ import Cosmos
 
 class ProductDetailsTableViewController: UITableViewController {
     
-    private var productDetailsViewModel: ProductDetailsViewModel!
+    private var productDetailsViewModel: ProductDetailsViewModelType!
     private var disposeBag: DisposeBag!
     private var activityView: UIActivityIndicatorView!
     private var customView: UIView!
@@ -134,7 +134,7 @@ class ProductDetailsTableViewController: UITableViewController {
                     sender.setTitle("ADDED TO CART", for: .normal)
                 }
             } else {
-                Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List :D", context: self)
+                Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List", context: self)
             }
         }
     }

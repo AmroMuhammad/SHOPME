@@ -93,14 +93,12 @@ class SearchProductViewController: UIViewController {
         
         filterDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
           print("Selected item: \(item) at index: \(index)")
-            self.searchViewModel.filterData(word: item)
-
+            if(index == 3){
+                self.searchViewModel.clearData()
+            }else{
+                self.searchViewModel.filterData(word: item)
+            }
         }
-    }
-    
-    @IBAction func clearButtonClicked(_ sender: Any) {
-        searchViewModel.clearData()
-        searchBar.text = ""
     }
     
     @IBAction func sortButtonClicked(_ sender: Any) {

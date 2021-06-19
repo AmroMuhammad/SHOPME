@@ -16,14 +16,14 @@ class MainCategoryCollectionViewCell: UICollectionViewCell {
     override var isHighlighted: Bool{
         didSet{
             mainCategoryName.textColor = isHighlighted ? UIColor.black : UIColor.gray
-            indicatorView.backgroundColor = isHighlighted ? UIColor.black : UIColor.white
+            indicatorView.backgroundColor = isHighlighted ? UIColor.black : UIColor(named: "backgroundColor")
         }
     }
     
     override var isSelected: Bool{
         didSet{
             mainCategoryName.textColor = isSelected ? UIColor.black : UIColor.gray
-            indicatorView.backgroundColor = isSelected ? UIColor.black : UIColor.white
+            indicatorView.backgroundColor = isSelected ? UIColor.black : UIColor(named: "backgroundColor")
 
         }
     }

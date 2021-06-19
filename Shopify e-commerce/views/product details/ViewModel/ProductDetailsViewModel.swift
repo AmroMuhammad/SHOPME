@@ -61,7 +61,7 @@ class ProductDetailsViewModel: ProductDetailsViewModelType {
     var connectivityObservable: Observable<Bool>
     private var connectivitySubject = PublishSubject<Bool>()
     
-    private var shopifyAPI: ShopifyAPI!
+    private var shopifyAPI: ProductDetailsAPIType!
     private var localManager: LocalManagerHelper!
     private var userData: UserData!
     
