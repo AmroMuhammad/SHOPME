@@ -95,6 +95,8 @@
 		C2E83A56265CE28900A2CD95 /* ViewModelContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E83A55265CE28900A2CD95 /* ViewModelContracts.swift */; };
 		C2E83A59265CF13900A2CD95 /* SubCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E83A57265CF13900A2CD95 /* SubCategoryCollectionViewCell.swift */; };
 		C2E83A5A265CF13900A2CD95 /* SubCategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2E83A58265CF13900A2CD95 /* SubCategoryCollectionViewCell.xib */; };
+		C2F83676267E8AFE008A6C7F /* CategoriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F83675267E8AFE008A6C7F /* CategoriesTests.swift */; };
+		C2F8367B267E8F3A008A6C7F /* MockCategoryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F8367A267E8F3A008A6C7F /* MockCategoryAPI.swift */; };
 		ED00A30E265BC1D70017B055 /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED00A30D265BC1D70017B055 /* MeViewController.swift */; };
 		ED00A310265CB5970017B055 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED00A30F265CB5970017B055 /* SettingsViewController.swift */; };
 		ED0D2A60266F49B5009A6026 /* EditIngViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0D2A5F266F49B5009A6026 /* EditIngViewController.swift */; };
@@ -223,6 +225,8 @@
 		C2E83A55265CE28900A2CD95 /* ViewModelContracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelContracts.swift; sourceTree = "<group>"; };
 		C2E83A57265CF13900A2CD95 /* SubCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		C2E83A58265CF13900A2CD95 /* SubCategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubCategoryCollectionViewCell.xib; sourceTree = "<group>"; };
+		C2F83675267E8AFE008A6C7F /* CategoriesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTests.swift; sourceTree = "<group>"; };
+		C2F8367A267E8F3A008A6C7F /* MockCategoryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCategoryAPI.swift; sourceTree = "<group>"; };
 		DFDB3EF6BD4C89226F7669A9 /* Pods-Shopify e-commerceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shopify e-commerceTests.debug.xcconfig"; path = "Target Support Files/Pods-Shopify e-commerceTests/Pods-Shopify e-commerceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED00A30D265BC1D70017B055 /* MeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
 		ED00A30F265CB5970017B055 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -620,6 +624,7 @@
 		C2A61D02265633230047C648 /* Shopify e-commerceTests */ = {
 			isa = PBXGroup;
 			children = (
+				C2F83674267E8AE2008A6C7F /* category tests */,
 				C2A61D03265633230047C648 /* Shopify_e_commerceTests.swift */,
 				C2A61D05265633230047C648 /* Info.plist */,
 			);
@@ -759,6 +764,23 @@
 				C26E7C2C26664714000CB417 /* BaseViewControllerContract.swift */,
 			);
 			path = Contracts;
+			sourceTree = "<group>";
+		};
+		C2F83674267E8AE2008A6C7F /* category tests */ = {
+			isa = PBXGroup;
+			children = (
+				C2F83679267E8F29008A6C7F /* Mock */,
+				C2F83675267E8AFE008A6C7F /* CategoriesTests.swift */,
+			);
+			path = "category tests";
+			sourceTree = "<group>";
+		};
+		C2F83679267E8F29008A6C7F /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				C2F8367A267E8F3A008A6C7F /* MockCategoryAPI.swift */,
+			);
+			path = Mock;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1104,6 +1126,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2A61D04265633230047C648 /* Shopify_e_commerceTests.swift in Sources */,
+				C2F8367B267E8F3A008A6C7F /* MockCategoryAPI.swift in Sources */,
+				C2F83676267E8AFE008A6C7F /* CategoriesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
