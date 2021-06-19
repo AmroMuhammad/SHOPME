@@ -221,7 +221,7 @@
 		C27423E0265AED36002D304B /* meScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = meScreen.storyboard; sourceTree = "<group>"; };
 		C27423E6265AF11A002D304B /* ApplicationNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationNetworking.swift; sourceTree = "<group>"; };
 		C27423E8265AF4FE002D304B /* ShopifyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopifyAPI.swift; sourceTree = "<group>"; };
-		C2A61CE6265633200047C648 /* Shopify e-commerce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shopify e-commerce.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2A61CE6265633200047C648 /* ShopMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShopMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2A61CE9265633200047C648 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2A61CEB265633200047C648 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C2A61CF3265633200047C648 /* Shopify_e_commerce.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shopify_e_commerce.xcdatamodel; sourceTree = "<group>"; };
@@ -642,7 +642,7 @@
 		C2A61CE7265633200047C648 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C2A61CE6265633200047C648 /* Shopify e-commerce.app */,
+				C2A61CE6265633200047C648 /* ShopMe.app */,
 				C2A61CFF265633230047C648 /* Shopify e-commerceTests.xctest */,
 				C2A61D0A265633230047C648 /* Shopify e-commerceUITests.xctest */,
 			);
@@ -876,7 +876,7 @@
 			);
 			name = "Shopify e-commerce";
 			productName = "Shopify e-commerce";
-			productReference = C2A61CE6265633200047C648 /* Shopify e-commerce.app */;
+			productReference = C2A61CE6265633200047C648 /* ShopMe.app */;
 			productType = "com.apple.product-type.application";
 		};
 		C2A61CFE265633230047C648 /* Shopify e-commerceTests */ = {
@@ -1383,7 +1383,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "iti41-grad.Shopify-e-commerce";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ShopMe;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
@@ -1403,7 +1403,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "iti41-grad.Shopify-e-commerce";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ShopMe;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";

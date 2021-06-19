@@ -5,7 +5,6 @@
 //  Created by Ayman Omara on 05/06/2021.
 //  Copyright © 2021 ITI41. All rights reserved.
 //
-
 import Foundation
 import RxSwift
 
@@ -42,11 +41,9 @@ class MeViewModel : MeViewModelContract{
     
     func validateRegisterdData(email: String, password: String) {
         if(email.isEmpty || password.isEmpty){
-            errorSubject.onNext(("Please enter email and password", true))
             return
         }
         if(!emailRegexCheck(text: email)){
-            errorSubject.onNext(("Please enter valid Email", true))
             return
         }
         fetchData(email: email,password: password)
@@ -114,7 +111,7 @@ class MeViewModel : MeViewModelContract{
         signedInSubject.onNext(false)
     }
     
-    func emailRegexCheck(text:String) -> Bool{
+     func emailRegexCheck(text:String) -> Bool{
         let range = NSRange(location: 0, length: text.utf16.count)
         let regex = try! NSRegularExpression(pattern: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}")
         if(regex.firstMatch(in: text, options: [], range: range) != nil){

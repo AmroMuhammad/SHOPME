@@ -21,9 +21,11 @@ class UserData {
         userDefaults.set(customer.firstName ?? "", forKey: Constants.firstNameUserDefaults)
         userDefaults.set(customer.lastName ?? "", forKey: Constants.lastNameUserDefaults)
         if(!customer.addresses!.isEmpty){
-            userDefaults.set(customer.addresses?[0]!.city!, forKey: Constants.cityUserDefaults)
-            userDefaults.set(customer.addresses?[0]!.country!, forKey: Constants.countryUserDefaults)
-            userDefaults.set(customer.addresses?[0]!.address1!, forKey: Constants.addressUserDefaults)
+            let addressID = (customer.addresses!.count - 1)
+            print("=======================\(addressID)")
+            userDefaults.set(customer.addresses?[addressID]!.city!, forKey: Constants.cityUserDefaults)
+            userDefaults.set(customer.addresses?[addressID]!.country!, forKey: Constants.countryUserDefaults)
+            userDefaults.set(customer.addresses?[addressID]!.address1!, forKey: Constants.addressUserDefaults)
         }else{
             userDefaults.set("No Country", forKey: Constants.cityUserDefaults)
             userDefaults.set("No City", forKey: Constants.countryUserDefaults)
