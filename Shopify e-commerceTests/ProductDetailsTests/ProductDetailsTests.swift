@@ -12,15 +12,18 @@ import XCTest
 class ProductDetailsTests: XCTestCase {
 
     var realAPI: ProductDetailsAPIType!
+    var mockAPI: MockProductDetailsAPI!
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         realAPI = ShopifyAPI.shared
+        mockAPI = MockProductDetailsAPI(shouldReturnError: false)
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         realAPI = nil
+        mockAPI = nil
     }
 
     func testExample() throws {
@@ -57,6 +60,19 @@ class ProductDetailsTests: XCTestCase {
         }
         waitForExpectations(timeout: 7)
     }
+    
+    func testMockGetTeams(){
+            mockAPI.getProductDetails(productId: "") { (res) in
+                switch res {
+                case .success(let response):
+                    XCTAssertEqual(response?.product.title, "ASICS TIGER | GEL-LYTE V '30 YEARS OF GEL' PACK")
+    //                XCTAssertGreaterThan(response?.images.count, 0)
+                    XCTAssertEqual(response?.product.images?.count, 5)
+                case .failure(_):
+                    XCTFail()
+                }
+            }
+        }
     
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
