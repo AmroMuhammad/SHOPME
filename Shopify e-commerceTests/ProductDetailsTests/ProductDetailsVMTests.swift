@@ -1,18 +1,21 @@
 //
-//  Shopify_e_commerceTests.swift
+//  ProductDetailsVMTests.swift
 //  Shopify e-commerceTests
 //
-//  Created by Amr Muhammad on 5/19/21.
+//  Created by Ahmd Amr on 19/06/2021.
 //  Copyright © 2021 ITI41. All rights reserved.
 //
 
 import XCTest
 @testable import Shopify_e_commerce
 
-class Shopify_e_commerceTests: XCTestCase {
+class ProductDetailsVMTests: XCTestCase {
 
+    var productDetailsViewModel: ProductDetailsViewModelType!
+    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        productDetailsViewModel = ProductDetailsViewModel()
     }
 
     override func tearDownWithError() throws {
@@ -22,7 +25,7 @@ class Shopify_e_commerceTests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        XCTAssert(true)
+//        productDetailsViewModel.
     }
 
     func testPerformanceExample() throws {
