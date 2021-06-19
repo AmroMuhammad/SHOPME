@@ -114,7 +114,7 @@ class MeViewModel : MeViewModelContract{
         signedInSubject.onNext(false)
     }
     
-    private func emailRegexCheck(text:String) -> Bool{
+    func emailRegexCheck(text:String) -> Bool{
         let range = NSRange(location: 0, length: text.utf16.count)
         let regex = try! NSRegularExpression(pattern: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}")
         if(regex.firstMatch(in: text, options: [], range: range) != nil){

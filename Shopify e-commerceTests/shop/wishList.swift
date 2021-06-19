@@ -24,7 +24,7 @@ class wishList: XCTestCase {
                coreDataobj = nil
     }
     func testGetWishData(){
-        coreDataobj?.getAllProductsFromFavorite(userEmail: "marwash@gmail.com", completion: { (result) in
+        coreDataobj?.getAllProductsFromFavorite(userEmail: "amro@gmail.com", completion: { (result) in
             if let result = result{
                 XCTAssertEqual(result.count, 1)
             }else{

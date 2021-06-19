@@ -193,7 +193,7 @@ class AllProduct{
     ]]
     
 }
-enum ResponseError : Error {
+enum ResponseeError : Error {
     case responseWithError
 }
 
@@ -219,7 +219,7 @@ extension AllProduct{
         
         if shouldReturnError{
             
-            completion(nil , ResponseError.responseWithError)
+            completion(nil , ResponseeError.responseWithError)
             
         }else{
             

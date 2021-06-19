@@ -25,7 +25,7 @@ class cart: XCTestCase {
     }
     
     func testgetCartData(){
-        coreDataobj?.getAllCartProducts(userEmail: "marwash@gmail.com", completion: { (result) in
+        coreDataobj?.getAllCartProducts(userEmail: "amro@gmail.com", completion: { (result) in
             if let result = result{
                 XCTAssertEqual(result.count, 1)
             }else{
