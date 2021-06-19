@@ -161,7 +161,7 @@ For any information you can contact any team member from below Links</string>
                                 </wkWebViewConfiguration>
                             </wkWebView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" red="0.92928040030000003" green="0.92796784639999996" blue="0.88209182019999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="v2v-iG-qdr" firstAttribute="centerY" secondItem="LJf-20-XVl" secondAttribute="centerY" id="5M6-5L-qQX"/>
                             <constraint firstItem="ePY-fy-z7g" firstAttribute="top" secondItem="SVQ-1P-XdQ" secondAttribute="top" id="5bN-v0-Kr1"/>
@@ -346,6 +346,8 @@ For any information you can contact any team member from below Links</string>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rCD-rm-EvK">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.92928040030000003" green="0.92796784639999996" blue="0.88209182019999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.92928040030000003" green="0.92796784639999996" blue="0.88209182019999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -742,7 +744,7 @@ For any information you can contact any team member from below Links</string>
                                                 <rect key="frame" x="0.0" y="132" width="331.33333333333331" height="34"/>
                                                 <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" title="Log IN">
+                                                <state key="normal" title="Login">
                                                     <color key="titleShadowColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
@@ -886,7 +888,7 @@ For any information you can contact any team member from below Links</string>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.92928040030000003" green="0.92796784639999996" blue="0.88209182019999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.92941176470588238" green="0.92796784639999996" blue="0.88209182019999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="EMy-g7-AY1" firstAttribute="leading" secondItem="CBp-MV-Hib" secondAttribute="leading" constant="5" id="1sm-KM-Nb5"/>
                             <constraint firstItem="EMy-g7-AY1" firstAttribute="trailing" secondItem="CBp-MV-Hib" secondAttribute="trailing" id="3WF-mk-eIW"/>
