@@ -228,7 +228,7 @@
 		ED00A30F265CB5970017B055 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		ED0D2A5F266F49B5009A6026 /* EditIngViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditIngViewController.swift; sourceTree = "<group>"; };
 		ED440F7C266301A400B31D23 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
-		ED53D1CD266BC954002E6083 /* MeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MeViewModel.swift; path = "Shopify e-commerce/Models/network layer/MeViewModel.swift"; sourceTree = SOURCE_ROOT; };
+		ED53D1CD266BC954002E6083 /* MeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MeViewModel.swift; path = "Shopify e-commerce/viewmodel/meViewModel/MeViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		ED76EF7D2669C3B600F32C7B /* RegisterCustomer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterCustomer.swift; path = "Shopify e-commerce/Models/network layer/RegisterCustomer.swift"; sourceTree = SOURCE_ROOT; };
 		EDAD3090266E77F600B9D247 /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
 		EDE5840026640D1800580942 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -669,11 +669,9 @@
 		C2A61D27265638C20047C648 /* viewmodel */ = {
 			isa = PBXGroup;
 			children = (
+				ED54149C267D964300C0B023 /* meViewModel */,
 				43665B852679B8790089B556 /* addressViewModel */,
-				ED53D1CD266BC954002E6083 /* MeViewModel.swift */,
 				436A2A0226735E6E0044B5DA /* receiptViewModel */,
-				C25212FA26721A8C0028E57C /* RegisterViewModel.swift */,
-				C2E5E8F626738964005B41FD /* EditInfoViewModel.swift */,
 				43691330266ECF8300BA0632 /* cart viewModel */,
 				4369132D266ECF1800BA0632 /* wishList viewModel */,
 				C2A8A236266774FC00D9CBBA /* search viewModel */,
@@ -759,6 +757,16 @@
 				C26E7C2C26664714000CB417 /* BaseViewControllerContract.swift */,
 			);
 			path = Contracts;
+			sourceTree = "<group>";
+		};
+		ED54149C267D964300C0B023 /* meViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				ED53D1CD266BC954002E6083 /* MeViewModel.swift */,
+				C25212FA26721A8C0028E57C /* RegisterViewModel.swift */,
+				C2E5E8F626738964005B41FD /* EditInfoViewModel.swift */,
+			);
+			path = meViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

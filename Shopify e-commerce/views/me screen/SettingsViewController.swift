@@ -8,14 +8,14 @@
 import UIKit
 import RxSwift
 import RxCocoa
-
+import TKFormTextField
 class SettingsViewController: UIViewController {
     
     @IBOutlet weak var signInOutlet: UIView!
 //    @IBOutlet weak var welcome: UILabel!
-    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var emailTextField: TKFormTextField!
     @IBOutlet weak var register: UIButton!
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var passwordTextField: TKFormTextField!
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var isLoggedTableViewView: UIView!
     @IBOutlet weak var isNoItemView: UIView!
@@ -28,10 +28,30 @@ class SettingsViewController: UIViewController {
     private var meViewModel:MeViewModel!
     private var userData:UserData!
 
-  
+    @IBAction func passwordEditindChange(_ sender: Any) {
+        if(passwordTextField.text == ""){
+            passwordTextField.error = "All fields required"
+        }
+        else{
+            passwordTextField.error = nil
+        }
+    }
+    @IBAction func emailEditingChanged(_ sender: Any) {
+        if(emailTextField.text == ""){
+            emailTextField.error = "All fields required"
+        }
+        else if(!meViewModel.emailRegexCheck(text: emailTextField.text!)){
+            emailTextField.error = "inavlid email"
+        }
+        else{
+            emailTextField.error = nil
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "ME"
+        
         userData = UserData.sharedInstance
         meViewModel = MeViewModel()
         disposeBag = DisposeBag()
@@ -45,9 +65,14 @@ class SettingsViewController: UIViewController {
                     if(message.contains("noItems")){
                         self?.isNoItemView.isHidden = false
                     }else{
+                        if message == "Email or password is Wrong"{
+                            self!.emailTextField.error = message
+                            self!.passwordTextField.error = message
+                        }
+                        else{
                         Support.notifyUser(title: "Error", body: message, context: self!)
                         self?.isNoItemView.isHidden = true
-
+                        }
                     }
                 }
             }
@@ -166,6 +191,13 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func loginBtn(_ sender: Any) {
+        
+            if emailTextField.text == ""{
+                emailTextField.error = "all faild required"
+            }
+            if passwordTextField.text == ""{
+                passwordTextField.error = "all faild required"
+            }
         meViewModel.validateRegisterdData(email: emailTextField.text!, password: passwordTextField.text!)
     }
     

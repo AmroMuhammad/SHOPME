@@ -41,7 +41,6 @@ class EditIngViewController: UIViewController {
     @IBAction func phoneEnd(_ sender: Any) {
         if(phoneNumber.text == ""){
             phoneNumber.error = "all faild required"
-            //        print("======================================")
         }
         else if(!editViewModel.phoneNumRegexCheck(text: city.text!)){
             phoneNumber.error = "invalid phone number"
@@ -112,7 +111,7 @@ class EditIngViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.title = "Edit User Data"
         firstName.title = "firstName"
         secondName.title = "last name"
         email.title = "email"
@@ -146,7 +145,34 @@ class EditIngViewController: UIViewController {
     
     
     @IBAction func submit(_ sender: UIButton) {
-        
+        if(firstName.text == ""){
+            firstName.error = "all faild required"
+            
+        }
+       if(secondName.text == ""){
+        secondName.error = "all faild required"
+            
+        }
+        if(city.text == ""){
+            city.error = "all faild required"
+            
+        }
+        if(countrry.text == ""){
+            countrry.error = "all faild required"
+           
+        }
+        if(email.text == ""){
+            email.error = "all faild required"
+           
+        }
+        if(phoneNumber.text == ""){
+            phoneNumber.error = "all faild required"
+           
+        }
+        if(addressTxtField.text == ""){
+            addressTxtField.error = "all faild required"
+           
+        }
         editViewModel.validateData(firstName: firstName.text!, lastName: secondName.text!, email: email.text!, phoneNumber: phoneNumber.text!, country: countrry.text!, city: city.text!,address: addressTxtField.text!)
         
     }

@@ -22,7 +22,6 @@ class MeViewController: UIViewController {
     var meViewModel = MeViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.navigationController?.title = "ME";
         self.title = "Settings"
         
         userData = UserData.sharedInstance

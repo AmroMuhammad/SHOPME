@@ -370,44 +370,65 @@ For any information you can contact any team member from below Links</string>
                                 <rect key="frame" x="39" y="147" width="336" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="firstNameEnd:" destination="Kpi-nP-gr7" eventType="editingChanged" id="pLn-P4-1R4"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y8r-aI-Xeu" customClass="TKFormTextField" customModule="TKFormTextField">
                                 <rect key="frame" x="39" y="196" width="336" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="lastNameEnd:" destination="Kpi-nP-gr7" eventType="editingChanged" id="hQ7-N9-GAo"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MoN-kB-ST8" customClass="TKFormTextField" customModule="TKFormTextField">
                                 <rect key="frame" x="39" y="245" width="336" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="email"/>
+                                <connections>
+                                    <action selector="emailEnd:" destination="Kpi-nP-gr7" eventType="editingChanged" id="x7J-Fp-9L5"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VVC-9p-tfW" customClass="TKFormTextField" customModule="TKFormTextField">
                                 <rect key="frame" x="39" y="294" width="336" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="tel"/>
                                 <connections>
-                                    <outlet property="delegate" destination="Kpi-nP-gr7" id="2XJ-O8-fWD"/>
+                                    <action selector="phoneNumberEnd:" destination="Kpi-nP-gr7" eventType="editingChanged" id="rlo-I7-CCJ"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h6b-9K-7b5" customClass="TKFormTextField" customModule="TKFormTextField">
                                 <rect key="frame" x="39" y="343" width="336" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <connections>
+                                    <action selector="passwordEnd:" destination="Kpi-nP-gr7" eventType="editingChanged" id="UD5-qZ-gIw"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xAn-18-Q8j" customClass="TKFormTextField" customModule="TKFormTextField">
                                 <rect key="frame" x="39" y="392" width="336" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <connections>
+                                    <action selector="cofPasswordEnd:" destination="Kpi-nP-gr7" eventType="editingChanged" id="OHq-zO-Kut"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Country" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MP2-9O-N8t" customClass="TKFormTextField" customModule="TKFormTextField">
                                 <rect key="frame" x="39" y="441" width="336" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="countryEditingChange:" destination="Kpi-nP-gr7" eventType="editingChanged" id="ENE-sH-QSd"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WP9-NZ-8lr" customClass="TKFormTextField" customModule="TKFormTextField">
                                 <rect key="frame" x="39" y="490" width="336" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="cityEndChange:" destination="Kpi-nP-gr7" eventType="editingChanged" id="05g-Yo-UOC"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rvn-Y3-XMw">
                                 <rect key="frame" x="172.66666666666666" y="744" width="69" height="55"/>
@@ -422,6 +443,9 @@ For any information you can contact any team member from below Links</string>
                                 <rect key="frame" x="40" y="539" width="334" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="addressChanage:" destination="Kpi-nP-gr7" eventType="editingChanged" id="tBO-Io-bXP"/>
+                                </connections>
                             </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="yKF-ks-jMi"/>
@@ -751,15 +775,21 @@ For any information you can contact any team member from below Links</string>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dzv-s8-B18">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dzv-s8-B18" customClass="TKFormTextField" customModule="TKFormTextField">
                                                 <rect key="frame" x="0.0" y="44" width="331.33333333333331" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="emailEditingChanged:" destination="YUP-63-4Ih" eventType="editingChanged" id="DC1-Gq-kSn"/>
+                                                </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="08G-jC-dxt">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="08G-jC-dxt" customClass="TKFormTextField" customModule="TKFormTextField">
                                                 <rect key="frame" x="0.0" y="88" width="331.33333333333331" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                <connections>
+                                                    <action selector="passwordEditindChange:" destination="YUP-63-4Ih" eventType="editingChanged" id="J6O-El-BGP"/>
+                                                </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C8B-IA-gs1">
                                                 <rect key="frame" x="0.0" y="132" width="331.33333333333331" height="34"/>
