@@ -61,21 +61,27 @@ class RegisterViewModel:RegisterViewModelContract{
         
         
         if(firstName.isEmpty || lastName.isEmpty || email.isEmpty || phoneNumber.isEmpty || password.isEmpty || confirmPassword.isEmpty || country.isEmpty || city.isEmpty || address.isEmpty){
-          //  errorSubject.onNext(("Please enter all fields", true))
+            
+//            errorSubject.onNext(("Please enter all fields", true,""))
             return
         }
         if(!nameRegexCheck(text: firstName) || !nameRegexCheck(text: lastName)){
+//            errorSubject.onNext(("Please enter all fields", true,""))
             return
         }
         if(!emailRegexCheck(text: email)){
+//            errorSubject.onNext(("Please enter all fields", true,""))
             return
         }
         if(!phoneNumRegexCheck(text: phoneNumber)){
+//            errorSubject.onNext(("Please enter all fields", true,""))
             return
         }
         if(password.count <= 5){
+//            errorSubject.onNext(("Please enter all fields", true,""))
             return
         }else if(password != confirmPassword){
+            
             return
         }
         if(!nameRegexCheck(text: country) || !nameRegexCheck(text: city)){

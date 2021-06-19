@@ -125,6 +125,16 @@ class EditIngViewController: UIViewController {
 
         activityView = UIActivityIndicatorView(style: .large)
         
+        editViewModel.errorObservable.subscribe(onNext: { (message,boolResult) in
+            if(boolResult){
+                Support.notifyUser(title: "Error", body: message, context: self)
+            }
+            }).disposed(by: disposeBag)
+        
+        
+        
+        
+        
         editViewModel.loadingObservable.subscribe(onNext: {[weak self] (result) in
             switch result{
             case true:

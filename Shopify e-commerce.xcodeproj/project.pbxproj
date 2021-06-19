@@ -100,6 +100,7 @@
 		ED0D2A60266F49B5009A6026 /* EditIngViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0D2A5F266F49B5009A6026 /* EditIngViewController.swift */; };
 		ED440F7D266301A400B31D23 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED440F7C266301A400B31D23 /* UserData.swift */; };
 		ED53D1CE266BC954002E6083 /* MeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED53D1CD266BC954002E6083 /* MeViewModel.swift */; };
+		ED5414A0267DA57900C0B023 /* MEScreenTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED54149F267DA57900C0B023 /* MEScreenTest.swift */; };
 		ED76EF7E2669C3B600F32C7B /* RegisterCustomer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED76EF7D2669C3B600F32C7B /* RegisterCustomer.swift */; };
 		EDAD3091266E77F600B9D247 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAD3090266E77F600B9D247 /* AboutUsViewController.swift */; };
 		EDE5840126640D1800580942 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE5840026640D1800580942 /* RegisterViewController.swift */; };
@@ -229,6 +230,7 @@
 		ED0D2A5F266F49B5009A6026 /* EditIngViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditIngViewController.swift; sourceTree = "<group>"; };
 		ED440F7C266301A400B31D23 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		ED53D1CD266BC954002E6083 /* MeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MeViewModel.swift; path = "Shopify e-commerce/viewmodel/meViewModel/MeViewModel.swift"; sourceTree = SOURCE_ROOT; };
+		ED54149F267DA57900C0B023 /* MEScreenTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MEScreenTest.swift; sourceTree = "<group>"; };
 		ED76EF7D2669C3B600F32C7B /* RegisterCustomer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterCustomer.swift; path = "Shopify e-commerce/Models/network layer/RegisterCustomer.swift"; sourceTree = SOURCE_ROOT; };
 		EDAD3090266E77F600B9D247 /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
 		EDE5840026640D1800580942 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -620,6 +622,7 @@
 		C2A61D02265633230047C648 /* Shopify e-commerceTests */ = {
 			isa = PBXGroup;
 			children = (
+				ED54149D267D991F00C0B023 /* me screen test */,
 				C2A61D03265633230047C648 /* Shopify_e_commerceTests.swift */,
 				C2A61D05265633230047C648 /* Info.plist */,
 			);
@@ -767,6 +770,14 @@
 				C2E5E8F626738964005B41FD /* EditInfoViewModel.swift */,
 			);
 			path = meViewModel;
+			sourceTree = "<group>";
+		};
+		ED54149D267D991F00C0B023 /* me screen test */ = {
+			isa = PBXGroup;
+			children = (
+				ED54149F267DA57900C0B023 /* MEScreenTest.swift */,
+			);
+			path = "me screen test";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1112,6 +1123,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2A61D04265633230047C648 /* Shopify_e_commerceTests.swift in Sources */,
+				ED5414A0267DA57900C0B023 /* MEScreenTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

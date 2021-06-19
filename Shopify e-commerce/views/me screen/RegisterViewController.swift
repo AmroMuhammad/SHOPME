@@ -67,6 +67,8 @@ class RegisterViewController: UIViewController {
     @IBAction func passwordEnd(_ sender: Any) {
         if(password.text == ""){
             password.error = "all fields are required"
+        }else if(password.text!.count <= 5){
+            password.error = "the password should be more than 5 charcters"
         }
         else{
             password.error = nil
@@ -79,7 +81,7 @@ class RegisterViewController: UIViewController {
             confPassword.error = "all fields are required"
         }
         else if(password.text! != confPassword.text!){
-            confPassword.error = "The Two password is not identical"
+            confPassword.error = "Confirm Password doesn't match password"
         }
         else{
             confPassword.error = nil
@@ -149,11 +151,11 @@ class RegisterViewController: UIViewController {
         self.title = "Regestration"
         registerViewModel = RegisterViewModel()
 
-//        registerViewModel.errorObservable.subscribe(onNext: { (message,boolResult) in
-//            if(boolResult){
-//                Support.notifyUser(title: "Error", body: message, context: self)
-//            }
-//            }).disposed(by: disposeBag)
+        registerViewModel.errorObservable.subscribe(onNext: { (message,boolResult) in
+            if(boolResult){
+                Support.notifyUser(title: "Error", body: message, context: self)
+            }
+            }).disposed(by: disposeBag)
         
         registerViewModel.loadingObservable.subscribe(onNext: {[weak self] (result) in
             switch result{
@@ -208,6 +210,7 @@ class RegisterViewController: UIViewController {
             address.error = "all fields are required"
            
         }
+        
         registerViewModel.validateRegisterdData(firstName: firstName.text!, lastName: lastName.text!, email: email.text!, phoneNumber: phoneNumber.text!, password: password.text!, confirmPassword: confPassword.text!, country: country.text!, city: city.text!,address: address.text!)
     }
     
