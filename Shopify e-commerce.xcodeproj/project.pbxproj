@@ -27,6 +27,8 @@
 		431C85AB266AF1FE00CB6886 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C85A7266AF1FD00CB6886 /* CardViewController.swift */; };
 		431C85AD266AF1FE00CB6886 /* wishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C85A9266AF1FD00CB6886 /* wishListViewController.swift */; };
 		431C85AE266AF1FE00CB6886 /* shopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C85AA266AF1FD00CB6886 /* shopCollectionViewCell.swift */; };
+		4363D52B267D6D5E003D39C5 /* allProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4363D52A267D6D5E003D39C5 /* allProduct.swift */; };
+		4363D52D267D74ED003D39C5 /* shopProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4363D52C267D74ED003D39C5 /* shopProduct.swift */; };
 		43665B7F267998720089B556 /* addressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43665B7E267998720089B556 /* addressViewController.swift */; };
 		43665B82267998960089B556 /* addAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43665B81267998960089B556 /* addAddressViewController.swift */; };
 		43665B84267998C10089B556 /* addressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43665B83267998C10089B556 /* addressTableViewCell.swift */; };
@@ -143,6 +145,8 @@
 		431C85A7266AF1FD00CB6886 /* CardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		431C85A9266AF1FD00CB6886 /* wishListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wishListViewController.swift; sourceTree = "<group>"; };
 		431C85AA266AF1FD00CB6886 /* shopCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = shopCollectionViewCell.swift; sourceTree = "<group>"; };
+		4363D52A267D6D5E003D39C5 /* allProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = allProduct.swift; sourceTree = "<group>"; };
+		4363D52C267D74ED003D39C5 /* shopProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shopProduct.swift; sourceTree = "<group>"; };
 		43665B7E267998720089B556 /* addressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addressViewController.swift; sourceTree = "<group>"; };
 		43665B81267998960089B556 /* addAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addAddressViewController.swift; sourceTree = "<group>"; };
 		43665B83267998C10089B556 /* addressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addressTableViewCell.swift; sourceTree = "<group>"; };
@@ -331,6 +335,23 @@
 				0DF91A142674990200E7D6B7 /* RightNavBarView.xib */,
 			);
 			path = RightNavBarView;
+			sourceTree = "<group>";
+		};
+		4363D528267D6ABC003D39C5 /* shop */ = {
+			isa = PBXGroup;
+			children = (
+				4363D529267D6B10003D39C5 /* mock */,
+				4363D52C267D74ED003D39C5 /* shopProduct.swift */,
+			);
+			path = shop;
+			sourceTree = "<group>";
+		};
+		4363D529267D6B10003D39C5 /* mock */ = {
+			isa = PBXGroup;
+			children = (
+				4363D52A267D6D5E003D39C5 /* allProduct.swift */,
+			);
+			path = mock;
 			sourceTree = "<group>";
 		};
 		43665B7D267998350089B556 /* address */ = {
@@ -620,6 +641,7 @@
 		C2A61D02265633230047C648 /* Shopify e-commerceTests */ = {
 			isa = PBXGroup;
 			children = (
+				4363D528267D6ABC003D39C5 /* shop */,
 				C2A61D03265633230047C648 /* Shopify_e_commerceTests.swift */,
 				C2A61D05265633230047C648 /* Info.plist */,
 			);
@@ -1103,7 +1125,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4363D52D267D74ED003D39C5 /* shopProduct.swift in Sources */,
 				C2A61D04265633230047C648 /* Shopify_e_commerceTests.swift in Sources */,
+				4363D52B267D6D5E003D39C5 /* allProduct.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
