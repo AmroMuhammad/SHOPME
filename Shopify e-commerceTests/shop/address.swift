@@ -1,35 +1,32 @@
 //
-//  shopProduct.swift
+//  address.swift
 //  Shopify e-commerceTests
 //
-//  Created by marwa on 6/18/21.
+//  Created by marwa on 6/19/21.
 //  Copyright © 2021 ITI41. All rights reserved.
 //
 
 import XCTest
 @testable import Shopify_e_commerce
-class shopProduct: XCTestCase {
-    var allProduct : AllProduct!
+
+class address: XCTestCase {
+    var addressObj : addressViewModelType?
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        allProduct = AllProduct(shouldReturnError: false)
+        addressObj = addressViewModel()
     }
 
     override func tearDownWithError() throws {
-        allProduct = nil
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        addressObj = nil
     }
-    func testGetAllProduct(){
-        allProduct.fetchProductData { (product, error) in
-            if let error = error{
-                XCTFail()
-            }else{
-                XCTAssertEqual(product?.count, 2)
-            }
-        }
-
-        }
     
+    func testAddressDetails(){
+        let result =  addressObj?.getAddressDetails(address: "street1 , damietta , egypt ")
+        
+        XCTAssertEqual(result?.count, 3)
+        
+    }
 
     func testExample() throws {
         // This is an example of a functional test case.
