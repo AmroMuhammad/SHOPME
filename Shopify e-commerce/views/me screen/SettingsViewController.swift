@@ -69,6 +69,9 @@ class SettingsViewController: UIViewController {
             switch boolValue{
             case true:
                 self?.showWelcomeView()
+                if let tabBar = self?.tabBarController{
+                    tabBar.selectedIndex = 0
+                }
             case false:
                 self?.showLoginView()
             }
@@ -76,23 +79,25 @@ class SettingsViewController: UIViewController {
         
         let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 40)))
         button.setTitle("Load more", for: .normal)
-        button.backgroundColor = .lightGray
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = UIColor(named: "backgroundColor")
         button.addTarget(self, action: #selector(moreButtonClicked(_:)), for: .touchUpInside)
                 
         let registerGesture = UITapGestureRecognizer(target: self, action: #selector(registerTap))
         registerGesture.numberOfTapsRequired = 1
         register.addGestureRecognizer(registerGesture)
         
-        meViewModel.localObservable.bind(to: tableview.rx.items(cellIdentifier: "localCell")){[weak self] row,item,cell in
+        meViewModel.localObservable.bind(to: tableview.rx.items(cellIdentifier: "FavouriteTableViewCell")){[weak self] row,item,cell in
             self?.isNoItemView.isHidden = true
+            let castedCell = cell as! FavouriteTableViewCell
             if(row == 3){
                 self?.tableview.tableFooterView = button
-                cell.textLabel?.text = item.title
-                cell.imageView?.image = UIImage(data: item.productImageData)
+                castedCell.favLabel?.text = item.title
+                castedCell.favImage?.image = UIImage(data: item.productImageData)
             }else{
-                cell.textLabel?.text = item.title
+                castedCell.favLabel?.text = item.title
                 self?.tableview.tableFooterView = nil
-                cell.imageView?.image = UIImage(data: item.productImageData)
+                castedCell.favImage?.image = UIImage(data: item.productImageData)
             }
         }.disposed(by: disposeBag)
         
@@ -100,7 +105,7 @@ class SettingsViewController: UIViewController {
             let castedCell = cell as! OrderTableViewCell
             castedCell.orderPriceLabel.text = "Price: " + item.totalPrice
             castedCell.orderDateLabel.text = "Created At: " + item.creationDate
-            castedCell.accessoryType = .disclosureIndicator
+            //castedCell.accessoryType = .disclosureIndicator
         }.disposed(by: disposeBag)
         
 
