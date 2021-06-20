@@ -738,17 +738,17 @@ For any information you can contact any team member from below Links</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d2v-AZ-Pz4">
                                 <rect key="frame" x="41.333333333333343" y="98" width="331.33333333333326" height="268.66666666666669"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pEN-KN-MIw">
-                                        <rect key="frame" x="0.0" y="0.0" width="331.33333333333331" height="268.66666666666669"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="pEN-KN-MIw">
+                                        <rect key="frame" x="0.0" y="0.0" width="331.33333333333331" height="188"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log in" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWq-zd-yoY">
-                                                <rect key="frame" x="0.0" y="0.0" width="331.33333333333331" height="59.666666666666664"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="331.33333333333331" height="59.333333333333336"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dzv-s8-B18" customClass="TKFormTextField" customModule="TKFormTextField">
-                                                <rect key="frame" x="0.0" y="69.666666666666657" width="331.33333333333331" height="59.666666666666657"/>
+                                                <rect key="frame" x="0.0" y="64.333333333333343" width="331.33333333333331" height="59.333333333333343"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
@@ -756,37 +756,37 @@ For any information you can contact any team member from below Links</string>
                                                 </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="08G-jC-dxt" customClass="TKFormTextField" customModule="TKFormTextField">
-                                                <rect key="frame" x="0.0" y="139.33333333333334" width="331.33333333333331" height="59.666666666666657"/>
+                                                <rect key="frame" x="0.0" y="128.66666666666666" width="331.33333333333331" height="59.333333333333343"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 <connections>
                                                     <action selector="passwordEditindChange:" destination="YUP-63-4Ih" eventType="editingDidEnd" id="Tmn-IO-OLG"/>
                                                 </connections>
                                             </textField>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yw7-3s-CVT">
-                                                <rect key="frame" x="0.0" y="209" width="331.33333333333331" height="59.666666666666686"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C8B-IA-gs1">
-                                                        <rect key="frame" x="0.0" y="0.0" width="331.33333333333331" height="25"/>
-                                                        <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <state key="normal" title="Login">
-                                                            <color key="titleShadowColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="loginBtn:" destination="YUP-63-4Ih" eventType="touchUpInside" id="TxK-pM-HDt"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1dG-Gc-dDX">
-                                                        <rect key="frame" x="0.0" y="35" width="331.33333333333331" height="24.666666666666671"/>
-                                                        <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                        <state key="normal" title="Register">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <color key="titleShadowColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </state>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yw7-3s-CVT">
+                                        <rect key="frame" x="0.0" y="193" width="331.33333333333331" height="75.666666666666686"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C8B-IA-gs1">
+                                                <rect key="frame" x="0.0" y="0.0" width="331.33333333333331" height="33"/>
+                                                <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Login">
+                                                    <color key="titleShadowColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="loginBtn:" destination="YUP-63-4Ih" eventType="touchUpInside" id="TxK-pM-HDt"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1dG-Gc-dDX">
+                                                <rect key="frame" x="0.0" y="43" width="331.33333333333331" height="32.666666666666657"/>
+                                                <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <state key="normal" title="Register">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="titleShadowColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                            </button>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -795,7 +795,11 @@ For any information you can contact any team member from below Links</string>
                                     <constraint firstItem="pEN-KN-MIw" firstAttribute="leading" secondItem="d2v-AZ-Pz4" secondAttribute="leading" id="17V-Zv-C78"/>
                                     <constraint firstAttribute="trailing" secondItem="pEN-KN-MIw" secondAttribute="trailing" id="ITp-FF-aqX"/>
                                     <constraint firstItem="pEN-KN-MIw" firstAttribute="top" secondItem="d2v-AZ-Pz4" secondAttribute="top" id="KlX-Ln-JHB"/>
-                                    <constraint firstAttribute="bottom" secondItem="pEN-KN-MIw" secondAttribute="bottom" id="ObJ-Tc-QNq"/>
+                                    <constraint firstItem="yw7-3s-CVT" firstAttribute="leading" secondItem="d2v-AZ-Pz4" secondAttribute="leading" id="NwW-9c-obU"/>
+                                    <constraint firstAttribute="bottom" secondItem="yw7-3s-CVT" secondAttribute="bottom" id="PZv-0T-bue"/>
+                                    <constraint firstItem="pEN-KN-MIw" firstAttribute="height" secondItem="d2v-AZ-Pz4" secondAttribute="height" multiplier="0.7" id="Xa1-SF-9bD"/>
+                                    <constraint firstItem="yw7-3s-CVT" firstAttribute="top" secondItem="pEN-KN-MIw" secondAttribute="bottom" constant="5" id="due-qk-AQ7"/>
+                                    <constraint firstAttribute="trailing" secondItem="yw7-3s-CVT" secondAttribute="trailing" id="nVb-Q4-dg8"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EMy-g7-AY1">
