@@ -157,6 +157,8 @@ class SettingsViewController: UIViewController {
         register.alpha = 0
         emailTextField.text = ""
         passwordTextField.text = ""
+        emailTextField.error = nil
+        passwordTextField.error = nil
         meViewModel.fetchLocalData()
         isLoggedTableViewView.isHidden = true
         meViewModel.fetchOrders()
