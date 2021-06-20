@@ -766,10 +766,10 @@ For any information you can contact any team member from below Links</string>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yw7-3s-CVT">
-                                        <rect key="frame" x="0.0" y="193" width="331.33333333333331" height="75.666666666666686"/>
+                                        <rect key="frame" x="0.0" y="203" width="331.33333333333331" height="65.666666666666686"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C8B-IA-gs1">
-                                                <rect key="frame" x="0.0" y="0.0" width="331.33333333333331" height="33"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="331.33333333333331" height="28"/>
                                                 <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Login">
@@ -780,7 +780,7 @@ For any information you can contact any team member from below Links</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1dG-Gc-dDX">
-                                                <rect key="frame" x="0.0" y="43" width="331.33333333333331" height="32.666666666666657"/>
+                                                <rect key="frame" x="0.0" y="38" width="331.33333333333331" height="27.666666666666671"/>
                                                 <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <state key="normal" title="Register">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -798,7 +798,7 @@ For any information you can contact any team member from below Links</string>
                                     <constraint firstItem="yw7-3s-CVT" firstAttribute="leading" secondItem="d2v-AZ-Pz4" secondAttribute="leading" id="NwW-9c-obU"/>
                                     <constraint firstAttribute="bottom" secondItem="yw7-3s-CVT" secondAttribute="bottom" id="PZv-0T-bue"/>
                                     <constraint firstItem="pEN-KN-MIw" firstAttribute="height" secondItem="d2v-AZ-Pz4" secondAttribute="height" multiplier="0.7" id="Xa1-SF-9bD"/>
-                                    <constraint firstItem="yw7-3s-CVT" firstAttribute="top" secondItem="pEN-KN-MIw" secondAttribute="bottom" constant="5" id="due-qk-AQ7"/>
+                                    <constraint firstItem="yw7-3s-CVT" firstAttribute="top" secondItem="pEN-KN-MIw" secondAttribute="bottom" constant="15" id="due-qk-AQ7"/>
                                     <constraint firstAttribute="trailing" secondItem="yw7-3s-CVT" secondAttribute="trailing" id="nVb-Q4-dg8"/>
                                 </constraints>
                             </view>

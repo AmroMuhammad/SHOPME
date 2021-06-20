@@ -149,6 +149,12 @@ class SettingsViewController: UIViewController {
         signInOutlet.alpha = 1
         register.alpha = 1
         isLoggedTableViewView.isHidden = false
+        emailTextField.text = ""
+        passwordTextField.text = ""
+        emailTextField.error = nil
+        passwordTextField.error = nil
+        emailTextField.endEditing(true)
+        passwordTextField.endEditing(true)
     }
     
     func showWelcomeView(){
