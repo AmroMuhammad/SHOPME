@@ -82,7 +82,7 @@ class ProductDetailsTableViewController: UITableViewController {
                 let wishVC = storyboard.instantiateViewController(identifier: "cartViewController")
                 self.navigationController?.pushViewController(wishVC, animated: true)
             } else {
-                Support.notifyUser(title: "Error", body: "Kindly Login to be able to go to Cart", context: self)
+                self.showMessage(message: Constants.loginBeforeCartMsg)
             }
         }
     }
@@ -101,7 +101,12 @@ class ProductDetailsTableViewController: UITableViewController {
                     sender.tag = 0
                 }
             } else {
-                Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List", context: self)
+                if let tabBar = self.tabBarController {
+                    tabBar.selectedIndex = 2
+                    self.showToast(message: Constants.loginBeforeFavtMsg, font: UIFont(name: "HelveticaNeue-ThinItalic", size: 15) ?? UIFont())
+                } else {
+                    Support.notifyUser(title: "Error", body: Constants.loginBeforeCartMsg, context: self)
+                }
             }
         }
     }
@@ -121,7 +126,7 @@ class ProductDetailsTableViewController: UITableViewController {
                 
                 switch sender.tag {
                 case 0:
-                    print("VC - Udpate - selectedSize => \(self.selectedSize) & selectedColor => \(self.selectedColor) ")
+                    print("VC - Udpate - selectedSize => \(String(describing: self.selectedSize)) & selectedColor => \(String(describing: self.selectedColor)) ")
                     self.productDetailsViewModel.addToCart(selectedSize: self.selectedSize, selectedColor: self.selectedColor)
                     sender.setTitle("ADDED TO CART", for: .normal)
                     sender.tag = 1
@@ -134,7 +139,7 @@ class ProductDetailsTableViewController: UITableViewController {
                     sender.setTitle("ADDED TO CART", for: .normal)
                 }
             } else {
-                Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List", context: self)
+                self.showMessage(message: Constants.loginBeforeAddCartMsg)
             }
         }
     }
@@ -399,5 +404,23 @@ extension ProductDetailsTableViewController {
         img.image = UIImage(named: "1111")
         img.center = customView.center
         customView.addSubview(img)
+    }
+    
+    private func showMessage(message: String) {
+        let alertController = UIAlertController(title: "", message: message, preferredStyle: .alert)
+
+        alertController.addAction(UIAlertAction(title: "Login", style: .default)
+        { action -> Void in
+            // Put your code here
+            if let tabBar = self.tabBarController {
+                tabBar.selectedIndex = 2
+            }
+        })
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .destructive)
+        { action -> Void in
+            // Put your code here
+        })
+
+        self.present(alertController, animated: true, completion: nil)
     }
 }

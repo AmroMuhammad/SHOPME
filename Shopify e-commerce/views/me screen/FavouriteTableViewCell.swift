@@ -1,17 +1,17 @@
 //
-//  OrderTableViewCell.swift
+//  FavouriteTableViewCell.swift
 //  Shopify e-commerce
 //
-//  Created by Amr Muhammad on 6/16/21.
+//  Created by Amr Muhammad on 6/20/21.
 //  Copyright © 2021 ITI41. All rights reserved.
 //
 
 import UIKit
 
-class OrderTableViewCell: UITableViewCell {
-    @IBOutlet weak var orderPriceLabel: UILabel!
-    @IBOutlet weak var orderDateLabel: UILabel!
-    
+class FavouriteTableViewCell: UITableViewCell {
+
+    @IBOutlet weak var favImage: UIImageView!
+    @IBOutlet weak var favLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

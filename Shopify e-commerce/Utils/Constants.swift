@@ -123,6 +123,10 @@ struct Constants {
       static let deleteFromBagMsg = "Are you sure, you want to delete these items from bag?"
       static let addToBagFromWishMsg = "Are you sure you want to add these items to bag ? "
       static let deleteFromWishMsg = "Are you sure you want to delete these items from wish List ? "
+    
+    static let loginBeforeCartMsg = "Kindly Login to be able to see Cart"
+    static let loginBeforeFavtMsg = "Kindly Login to be able to see Favourite List"
+    static let loginBeforeAddCartMsg = "Kindly Login to be able to add to Cart"
     //end
     
 }

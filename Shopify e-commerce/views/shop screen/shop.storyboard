@@ -208,7 +208,7 @@
                                     <constraint firstAttribute="bottom" secondItem="vwT-3v-vWD" secondAttribute="bottom" id="Qos-EZ-Hr9"/>
                                 </constraints>
                             </view>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1111" translatesAutoresizingMaskIntoConstraints="NO" id="UKl-rF-niu">
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1111" translatesAutoresizingMaskIntoConstraints="NO" id="UKl-rF-niu">
                                 <rect key="frame" x="0.0" y="88" width="414" height="892"/>
                             </imageView>
                         </subviews>

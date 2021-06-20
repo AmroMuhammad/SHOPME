@@ -187,7 +187,7 @@ class shopViewController: UIViewController {
             let wishVC = storyboard.instantiateViewController(identifier: "wishListViewController")
             self.navigationController?.pushViewController(wishVC, animated: true)
         }else{
-            Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Favourite List", context: self)
+            showMessage(message: Constants.loginBeforeFavtMsg)
         }
     }
     
@@ -197,7 +197,7 @@ class shopViewController: UIViewController {
             let favVC = storyboard.instantiateViewController(identifier: "cartViewController")
             self.navigationController?.pushViewController(favVC, animated: true)
         }else{
-            Support.notifyUser(title: "Error", body: "Kindly Login to be able to see Cart", context: self)
+            showMessage(message: Constants.loginBeforeCartMsg)
         }
     }
        
@@ -286,6 +286,24 @@ class shopViewController: UIViewController {
         }
         selectedIndex = index
         changeIndecatorViewPosition()
+    }
+    
+    func showMessage(message: String) {
+        let alertController = UIAlertController(title: "", message: message, preferredStyle: .alert)
+
+        alertController.addAction(UIAlertAction(title: "Login", style: .default)
+        { action -> Void in
+            // Put your code here
+            if let tabBar = self.tabBarController {
+                tabBar.selectedIndex = 2
+            }
+        })
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .destructive)
+        { action -> Void in
+            // Put your code here
+        })
+
+        self.present(alertController, animated: true, completion: nil)
     }
 
 }
