@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yhx-rM-wBM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -1029,7 +1029,7 @@
                                                 <constraint firstItem="4vo-SW-gCt" firstAttribute="leading" secondItem="BtZ-a8-OP9" secondAttribute="leadingMargin" id="rND-dZ-g73"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.8351746202" green="0.83397072549999995" blue="0.79191869500000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" name="backgroundColor"/>
                                         <connections>
                                             <outlet property="addressLabel" destination="JzI-2M-3Xq" id="gt8-Gd-UsK"/>
                                             <outlet property="countryAndCity" destination="kGM-XT-0eG" id="PcR-Pj-bxq"/>
@@ -1095,13 +1095,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Xb-TB-HKc">
                                 <rect key="frame" x="0.0" y="491" width="414" height="351"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="   Country" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y8A-GH-fOH">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" Country" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y8A-GH-fOH">
                                         <rect key="frame" x="30" y="167" width="353" height="45"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="   City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qAM-W9-qo3">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qAM-W9-qo3">
                                         <rect key="frame" x="31" y="116" width="351" height="43"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -1135,7 +1135,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="   Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GfX-Ko-tqH">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GfX-Ko-tqH">
                                         <rect key="frame" x="30" y="66" width="353" height="42"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -1267,7 +1267,9 @@
                                                         <constraint firstAttribute="height" constant="22" id="8Pb-as-p6x"/>
                                                         <constraint firstAttribute="width" constant="22" id="VOn-m1-6uW"/>
                                                     </constraints>
-                                                    <state key="normal" title="Button" image="dry-clean"/>
+                                                    <state key="normal" image="dry-clean">
+                                                        <color key="titleColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    </state>
                                                     <state key="selected" image="radio-on-button"/>
                                                     <connections>
                                                         <action selector="payCash:" destination="a7l-1V-tBB" eventType="touchUpInside" id="sUD-zI-JIA"/>
@@ -1285,7 +1287,9 @@
                                                         <constraint firstAttribute="height" constant="22" id="azU-2R-7rH"/>
                                                         <constraint firstAttribute="width" constant="22" id="oCZ-Be-7bA"/>
                                                     </constraints>
-                                                    <state key="normal" title="Button" image="dry-clean"/>
+                                                    <state key="normal" image="dry-clean">
+                                                        <color key="titleColor" red="0.92941176889999999" green="0.92941176889999999" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    </state>
                                                     <state key="selected" image="radio-on-button"/>
                                                     <connections>
                                                         <action selector="payCard:" destination="a7l-1V-tBB" eventType="touchUpInside" id="hzl-Fg-8Mt"/>
